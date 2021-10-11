@@ -7,10 +7,10 @@ namespace T.Targil0
         static void Main(string[] args)
         {
             Welcome8468();
-            welcome8727();
+            Welcome8728();
             Console.ReadKey();
         }
-        static partial void welcome8727();
+        static partial void Welcome8728();
         private static void Welcome8468()
         {
             Console.WriteLine("Enter your name: ");
