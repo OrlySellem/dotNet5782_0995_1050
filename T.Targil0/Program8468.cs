@@ -9,7 +9,6 @@ namespace T.Targil0
             Welcome8468();
             Welcome8728();
             Console.ReadKey();
-
         }
         static partial void Welcome8728();
         private static void Welcome8468()
