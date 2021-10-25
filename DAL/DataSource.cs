@@ -30,7 +30,7 @@ namespace DalObject
             internal static int index_parcels = 0;
         }
 
-        static void Initialize()
+        public static void Initialize()
         {
             string[] ModelArr = { "1G", "2G", "3G", "4G", "5G" };
             for (int i = 0; i < 5; i++)
