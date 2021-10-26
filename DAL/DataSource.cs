@@ -7,7 +7,7 @@ using IDAL.DO;
 
 namespace DalObject
 {
-    class DataSource
+   static class DataSource
     {
         internal static Random rand = new Random();
 
