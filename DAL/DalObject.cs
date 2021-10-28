@@ -12,22 +12,23 @@ namespace DalObject
         internal static Random rand = new Random();
 
         public DalObject()
-        { 
+        {
             DataSource.Initialize();
         }
 
         public void addStaion()
         {
+            //Ask the user to insert the station's details
             Console.WriteLine("Please enter station's id:");
-            int id=int.Parse(Console.ReadLine());
+            int id = int.Parse(Console.ReadLine());
             Console.WriteLine("Please enter station's name:");
-            int name= int.Parse(Console.ReadLine());
+            int name = int.Parse(Console.ReadLine());
             Console.WriteLine("Please enter the station's longitude");
             double longitude = double.Parse(Console.ReadLine());
             Console.WriteLine("Please enter the station's lattitude");
-            double lattitude= double.Parse(Console.ReadLine());
+            double lattitude = double.Parse(Console.ReadLine());
             Console.WriteLine("Please enter the station's chargeSlots");
-            int chargeSlots= int.Parse(Console.ReadLine());
+            int chargeSlots = int.Parse(Console.ReadLine());
             Console.WriteLine();
 
             DataSource.stations[DataSource.Config.index_stations++] = new Station()
@@ -43,6 +44,7 @@ namespace DalObject
 
         public void addDrone()//To add drone
         {
+            //Ask the user to insert the drone's details
             Console.WriteLine("Please enter drone's id:");
             int id = int.Parse(Console.ReadLine());
             Console.WriteLine("Please enter drone's model:");
@@ -63,10 +65,12 @@ namespace DalObject
                 Status = (DroneStatuses)status,
                 Battery = battery
             };
+
         }
 
         public void addCustomer()//To add customer
         {
+            //Ask the user to insert the customer's details
             Console.WriteLine("Please enter your id:");
             int id = int.Parse(Console.ReadLine());
             Console.WriteLine("Please enter your name:");
@@ -92,8 +96,7 @@ namespace DalObject
 
         public void addParcel()
         {
-            Console.WriteLine("Please enter parcel's id:");
-            int id = int.Parse(Console.ReadLine());
+            //Ask the user to insert the parcel's details
             Console.WriteLine("Please enter sender's id:");
             int senderld = int.Parse(Console.ReadLine());
             Console.WriteLine("Please enter target's id:");
@@ -106,30 +109,34 @@ namespace DalObject
 
             DataSource.parcels[DataSource.Config.index_parcels++] = new Parcel()
             {
-                Id = id,
+                Id = DataSource.Config.idParcel,
                 Senderld = senderld,
                 Targetld = targetld,
                 Weight = (WeightCategories)maxWeight,
                 Priority = (Priorities)priority,
                 Droneld = 0,
                 Requested = DateTime.Now,
+                Scheduled = new DateTime(01, 01, 0001),
+                PickedUp = new DateTime(01, 01, 0001),
+                Delivered = new DateTime(01, 01, 0001),
             };
+            Console.WriteLine("Your parcel's id is:{0}\n", DataSource.Config.idParcel++);
         }
 
         public Parcel findParcel(int id)
         {
-            foreach (Parcel item in DataSource.parcels)
+            foreach (Parcel item in DataSource.parcels) //loop to find the parcel acordding to ID 
             {
                 if (item.Id == id)
                     return item;
             }
-            Parcel temp=new Parcel();
+            Parcel temp = new Parcel();
             return temp;
         }
 
         public Drone findDrone(int id)
         {
-            foreach (Drone item in DataSource.drones)
+            foreach (Drone item in DataSource.drones)//loop to find the drone acordding to ID 
             {
                 if (item.Id == id)
                     return item;
@@ -140,7 +147,7 @@ namespace DalObject
 
         public Station findStation(int id)
         {
-            foreach (Station item in DataSource.stations)
+            foreach (Station item in DataSource.stations)//loop to find the station acordding to ID 
             {
                 if (item.Id == id)
                     return item;
@@ -149,7 +156,7 @@ namespace DalObject
             return temp;
         }
 
-        public Customer findCustomer(int id)
+        public Customer findCustomer(int id)//loop to find the customer acordding to ID 
         {
             foreach (Customer item in DataSource.customers)
             {
@@ -163,11 +170,18 @@ namespace DalObject
 
         public void assign_parcel_drone(ref Parcel p, ref Drone d)//assign parcel to drone
         {
-            p.Droneld = d.Id;
-            p.Scheduled = DateTime.Now;
+            if (d.Status == DroneStatuses.available)
+            {
+                p.Droneld = d.Id;
+                p.Scheduled = DateTime.Now;
+            }
+            else 
+            {
+                Console.WriteLine("The drone isn't available\n");
+            }
         }
 
-        public void drone_pick_parcel(ref Parcel p, ref Drone d)//איסוף חבילה ע"י רחפן
+        public void drone_pick_parcel(ref Parcel p, ref Drone d)//pick up parcel by drone
         {
             d.Status = DroneStatuses.delivery;
             p.PickedUp = DateTime.Now;
@@ -240,7 +254,7 @@ namespace DalObject
             {
                 if (DataSource.parcels[i].Id == id)
                 {
-                    Console.WriteLine(DataSource.parcels[i].ToString()); 
+                    Console.WriteLine(DataSource.parcels[i].ToString());
                     break;
                 }
             }
@@ -250,6 +264,8 @@ namespace DalObject
         {
             foreach (Station item in DataSource.stations)
             {
+                if (item.Id == 0)
+                    break;
                 Console.WriteLine(item.ToString());
             }
 
@@ -258,6 +274,8 @@ namespace DalObject
         {
             foreach (Drone item in DataSource.drones)
             {
+                if (item.Id == 0)
+                    break;
                 Console.WriteLine(item.ToString());
             }
 
@@ -267,7 +285,9 @@ namespace DalObject
         {
             foreach (Customer item in DataSource.customers)
             {
-                Console.WriteLine(item.ToString()); 
+                if (item.Id == 0)
+                    break;
+                Console.WriteLine(item.ToString());
             }
 
         }
@@ -276,13 +296,10 @@ namespace DalObject
         {
             foreach (Parcel item in DataSource.parcels)
             {
+                if (item.Id == 0)
+                    break;
                 Console.WriteLine(item.ToString());
             }
-            /*
-            for (int i = 0; i < DataSource.parcels.Length; i++)
-            {
-                DataSource.parcels[i].ToString();
-            }*/
         }
 
         public void print_unconnected_parcels_to_Drone()

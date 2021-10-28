@@ -21,6 +21,8 @@ namespace DalObject
 
         internal class Config
         {
+            internal static int idParcel=1;
+
             internal static int index_drones = 0;
 
             internal static int index_stations = 0;
@@ -74,18 +76,21 @@ namespace DalObject
                     Lattitude=rand.Next(-90,90),
                 };
             }
-
+           
             for (int i = 0; i < 10; i++)
             {
                 parcels[Config.index_parcels++] = new Parcel()
                 {
-                    Id=rand.Next(100000,999999),
+                    Id=Config.idParcel++,
                     Senderld=rand.Next(100000000,999999999),
                     Targetld=rand.Next(100000000,999999999),
                     Weight=(WeightCategories)rand.Next(0,2),
                     Priority=(Priorities)rand.Next(0,2),
                     Droneld = rand.Next(1000, 9999),
-                    Requested= new DateTime(rand.Next(2021,2023),rand.Next(1,12),rand.Next(1,31)),
+                    Requested= new DateTime(),
+                    Scheduled = new DateTime(01, 01, 0001),
+                    PickedUp = new DateTime(01, 01, 0001),
+                    Delivered = new DateTime(01, 01, 0001),
                 };
             }
 

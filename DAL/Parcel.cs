@@ -32,9 +32,9 @@ namespace IDAL
 
             public override string ToString()
             {
-                return string.Format("Id is:{0}\t  Senderld is:{1}\t  Targetld is:{2}\t  Weight is:{3}\t Priority is:{4}\t" +
-                    "Requested is:{5}\t Droneld is:{6}\t Scheduled is:{7}\t PickedUp is:{8}\t Delivered is:{9}\t"
-                    ,Id, Senderld, Targetld, Priority, Requested, Droneld, Scheduled, PickedUp, Delivered);
+                return string.Format("\nId is:{0}\nSenderld is:{1}\nTargetld is:{2}\nWeight is:{3}\nPriority is:{4}\n" +
+                    "Requested is:{5}\nDroneld is:{6}\nScheduled is:{7}\nPickedUp is:{8}\nDelivered is:{9}\n"
+                    ,Id, Senderld, Targetld, Weight, Priority, Requested, Droneld, Scheduled, PickedUp, Delivered);
             }
         }
     }

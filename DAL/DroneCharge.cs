@@ -16,7 +16,7 @@ namespace IDAL
 
             public override string ToString()
             {
-                return string.Format("Droneld is:{0}\t  Stationld is:{1}\t", Droneld, Stationld);
+                return string.Format("\nDroneld is:{0}\nStationld is:{1}\n", Droneld, Stationld);
             }
         }
     }

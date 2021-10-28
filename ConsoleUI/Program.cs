@@ -5,9 +5,9 @@ using DalObject;
 
 namespace ConsoleUI
 {
-    enum programDelivry { addingOptions, UpdateOptions, DisplayOptions, DisplayListOptions, exit }
+    enum programDelivry { addingOptions, UpdateOptions, DisplayOptions, DisplayListOptions, /*distance,*/ exit }
     enum Add { addCustomer, addDrone, addStation, addParcel }
-    enum Update { assignParcelDrone, dronePickParcel, deliveryAriveToCustomer, chargingDrone, freeDroneCharge}
+    enum Update { assignParcelDrone, dronePickParcel, deliveryAriveToCustomer, chargingDrone, freeDroneCharge }
     enum Display { displayCustomer, displayDrone, displayStation, displayParcel }
     enum DisplayListOptions { displayCustomers, displayDrones, displayStations, displayParcels, display_parcels_without_drone, display_station_with_freeChargingStations }
 
@@ -16,46 +16,49 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             bool flag = true;
+            DalObject.DalObject mainDalObject = new DalObject.DalObject();
             while (flag)
             {
-                Console.WriteLine("To adding customer, drone, station or parcel - enter 0");
+                Console.WriteLine("To add customer, drone, station or parcel - enter 0");
                 Console.WriteLine("To update items - enter 1");
                 Console.WriteLine("To display options - enter 2");
                 Console.WriteLine("To display list's options - enter 3");
-                Console.WriteLine("To exit - enter 4\n");
+                Console.WriteLine("To exit - enter 4");
 
 
                 int n = int.Parse(Console.ReadLine());
+                Console.WriteLine();
                 programDelivry outsideChoice = (programDelivry)n;
 
                 switch (outsideChoice)
                 {
-                    //To adding customer, drone, station or parcel
+                    //To add customer, drone, station or parcel
                     case programDelivry.addingOptions:
 
-                        Console.WriteLine("To adding customer - enter 0\nTo adding drone - enter 1\nTo adding station - enter 2\nTo adding parcel - enter 3\n");
+                        Console.WriteLine("To add customer - enter 0\nTo add drone - enter 1\nTo add station - enter 2\nTo add parcel - enter 3");
                         int k = int.Parse(Console.ReadLine());
+                        Console.WriteLine();
                         Add addChoice = (Add)k;
-                        DalObject.DalObject addTemp = new DalObject.DalObject();
+
                         switch (addChoice)
                         {
                             case Add.addCustomer:
-                                addTemp.addCustomer();
+                                mainDalObject.addCustomer();
                                 break;
                             case Add.addDrone:
-                                addTemp.addDrone();
+                                mainDalObject.addDrone();
                                 break;
                             case Add.addStation:
-                                addTemp.addStaion();
+                                mainDalObject.addStaion();
                                 break;
                             case Add.addParcel:
-                                addTemp.addParcel();
+                                mainDalObject.addParcel();
                                 break;
                             default:
                                 break;
                         }
                         break;
-                
+
                     //To update item
 
                     case programDelivry.UpdateOptions:
@@ -66,26 +69,24 @@ namespace ConsoleUI
                         Drone tempDrone = new Drone();
                         Station tempStation = new Station();
 
-                        Console.WriteLine("To update Assign parcel to drone - enter 0\nTo update pick up parcel by drone - enter 1\nTo update that delivery has arrived - enter 2\nTo send drone to charge in basic station - enter 3\nTo free drone from chraging - enter 4\n");
+                        Console.WriteLine("To update assign parcel to drone - enter 0\nTo update pick up parcel by drone - enter 1\nTo update that delivery has arrived - enter 2\nTo send drone to charge in basic station - enter 3\nTo free drone from chraging - enter 4\n");
                         int m = int.Parse(Console.ReadLine());
                         Update updateChoice = (Update)m;
 
-                        DalObject.DalObject updateTemp = new DalObject.DalObject();
-                      
                         switch (updateChoice)
                         {
                             case Update.assignParcelDrone:
 
                                 Console.WriteLine("Please enter parcel's id:");
                                 idParcel = int.Parse(Console.ReadLine());
-                                
+
                                 Console.WriteLine("Please enter drone's id:");
                                 idDrone = int.Parse(Console.ReadLine());
 
-                                tempParcel = updateTemp.findParcel(idParcel);
-                                tempDrone = updateTemp.findDrone(idDrone);
+                                tempParcel = mainDalObject.findParcel(idParcel);
+                                tempDrone = mainDalObject.findDrone(idDrone);
 
-                                updateTemp.assign_parcel_drone(ref tempParcel, ref tempDrone);
+                                mainDalObject.assign_parcel_drone(ref tempParcel, ref tempDrone);
 
                                 break;
 
@@ -97,10 +98,10 @@ namespace ConsoleUI
                                 Console.WriteLine("Please enter drone's id:");
                                 idDrone = int.Parse(Console.ReadLine());
 
-                                tempParcel = updateTemp.findParcel(idParcel);
-                                tempDrone = updateTemp.findDrone(idDrone);
+                                tempParcel = mainDalObject.findParcel(idParcel);
+                                tempDrone = mainDalObject.findDrone(idDrone);
 
-                                updateTemp.drone_pick_parcel(ref tempParcel, ref tempDrone);
+                                mainDalObject.drone_pick_parcel(ref tempParcel, ref tempDrone);
 
                                 break;
 
@@ -112,10 +113,10 @@ namespace ConsoleUI
                                 Console.WriteLine("Please enter drone's id:");
                                 idDrone = int.Parse(Console.ReadLine());
 
-                                tempParcel = updateTemp.findParcel(idParcel);
-                                tempDrone = updateTemp.findDrone(idDrone);
+                                tempParcel = mainDalObject.findParcel(idParcel);
+                                tempDrone = mainDalObject.findDrone(idDrone);
 
-                                updateTemp.delivery_arrive_toCustomer(ref tempParcel, ref tempDrone);
+                                mainDalObject.delivery_arrive_toCustomer(ref tempParcel, ref tempDrone);
 
                                 break;
 
@@ -124,14 +125,16 @@ namespace ConsoleUI
                                 Console.WriteLine("Please enter drone's id:");
                                 idDrone = int.Parse(Console.ReadLine());
 
-                                Console.WriteLine("Please enter station's id:");
+                                Console.WriteLine("Choose one of the following stations with free charging staion\n");
+                                mainDalObject.print_stations_with_freeDroneCharge();
+                                Console.WriteLine("\nPlease enter station's id:");
                                 idStation = int.Parse(Console.ReadLine());
 
-                                tempDrone = updateTemp.findDrone(idDrone);
-                                tempStation = updateTemp.findStation(idStation);
+                                tempDrone = mainDalObject.findDrone(idDrone);
+                                tempStation = mainDalObject.findStation(idStation);
                                 DroneCharge tempDroneCharge = new DroneCharge();
 
-                                updateTemp.chargingDrone(ref tempDrone, ref tempStation, ref tempDroneCharge);
+                                mainDalObject.chargingDrone(ref tempDrone, ref tempStation, ref tempDroneCharge);
                                 break;
 
                             case Update.freeDroneCharge:
@@ -142,12 +145,12 @@ namespace ConsoleUI
                                 Console.WriteLine("Please enter station's id:");
                                 idStation = int.Parse(Console.ReadLine());
 
-                                tempDrone = updateTemp.findDrone(idDrone);
-                                tempStation = updateTemp.findStation(idStation);
-                                
+                                tempDrone = mainDalObject.findDrone(idDrone);
+                                tempStation = mainDalObject.findStation(idStation);
+
                                 DroneCharge temp_DroneCharge = new DroneCharge();
 
-                                updateTemp.freeDroneCharge(ref tempDrone, ref tempStation, ref temp_DroneCharge);
+                                mainDalObject.freeDroneCharge(ref tempDrone, ref tempStation, ref temp_DroneCharge);
                                 break;
 
                             default:
@@ -159,32 +162,32 @@ namespace ConsoleUI
                         Console.WriteLine("To display customer - enter 0\nTo display drone - enter 1\nTo display station - enter 2\nTo display parcel - enter 3\n");
                         int j = int.Parse(Console.ReadLine());
                         Display displayChoice = (Display)j;
-                        DalObject.DalObject displayTemp = new DalObject.DalObject();
 
                         switch (displayChoice)
                         {
                             case Display.displayCustomer:
 
                                 Console.WriteLine("please enter customer's id:");
-                                displayTemp.printCustomer(int.Parse(Console.ReadLine()));
+                                mainDalObject.printCustomer(int.Parse(Console.ReadLine()));
                                 break;
 
                             case Display.displayDrone:
 
                                 Console.WriteLine("please enter drone's id:");
-                                displayTemp.printDrone(int.Parse(Console.ReadLine()));
+                                mainDalObject.printDrone(int.Parse(Console.ReadLine()));
                                 break;
 
                             case Display.displayParcel:
 
                                 Console.WriteLine("please enter parcel's id:");
-                                displayTemp.printParcel(int.Parse(Console.ReadLine()));
+                                mainDalObject.printParcel(int.Parse(Console.ReadLine()));
                                 break;
 
                             case Display.displayStation:
 
                                 Console.WriteLine("please enter station's id:");
-                                displayTemp.printStation(int.Parse(Console.ReadLine()));
+                                int num = int.Parse(Console.ReadLine());
+                                mainDalObject.printStation(num);
                                 break;
 
                             default: break;
@@ -196,44 +199,67 @@ namespace ConsoleUI
                         Console.WriteLine("To display customers - enter 0\nTo display drones - enter 1\nTo display stations - enter 2\nTo display parcels - enter 3\nTo displays a list of parcels without assign to drones - enter 4\nTo display base stations with available charging drones - enter 5\n");
                         int t = int.Parse(Console.ReadLine());
                         DisplayListOptions Display_list_choice = (DisplayListOptions)t;
-                        DalObject.DalObject Display_List_options = new DalObject.DalObject();
 
                         switch (Display_list_choice)
                         {
                             case DisplayListOptions.displayCustomers:
 
-                                Display_List_options.printAllCustomers();
+                                mainDalObject.printAllCustomers();
                                 break;
 
                             case DisplayListOptions.displayDrones:
 
-                                Display_List_options.printAllDrones();
+                                mainDalObject.printAllDrones();
                                 break;
 
                             case DisplayListOptions.displayParcels:
 
-                                Display_List_options.printAllParcels();
+                                mainDalObject.printAllParcels();
                                 break;
 
                             case DisplayListOptions.displayStations:
-                             
-                                Display_List_options.printAllStations();
+
+                                mainDalObject.printAllStations();
                                 break;
 
                             case DisplayListOptions.display_parcels_without_drone:
 
-                                Display_List_options.print_unconnected_parcels_to_Drone();
+                                mainDalObject.print_unconnected_parcels_to_Drone();
                                 break;
 
                             case DisplayListOptions.display_station_with_freeChargingStations:
 
-                                Display_List_options.print_stations_with_freeDroneCharge();
+                                mainDalObject.print_stations_with_freeDroneCharge();
                                 break;
 
                             default: break;
                         }
                         break;
 
+                    /*case programDelivry.distance:
+                        
+                        Console.WriteLine("Please enter a coordinate:");
+                        double a = double.Parse(Console.ReadLine());
+                        double b = double.Parse(Console.ReadLine());
+                        Console.WriteLine("To check distance from customer - enter 0\nTo check distance from station - enter 1\n:");
+                        int temp = int.Parse(Console.ReadLine());
+                        if (temp == 0)
+                        {
+                            Console.WriteLine("Please enter customer's id:");
+                            int id = int.Parse(Console.ReadLine());
+                            Customer chosen = mainDalObject.findCustomer(id);
+                            Console.WriteLine(Math.Sqrt(Math.Pow(a - chosen.Lattitude, 2) + Math.Pow(b - chosen.Longitude, 2)));
+                            Console.WriteLine();
+                        }
+                        else if (temp == 1)
+                        {
+                            Console.WriteLine("Please enter station's id:");
+                            int id = int.Parse(Console.ReadLine());
+                            Station chosen = mainDalObject.findStation(id);
+                            Console.WriteLine(Math.Sqrt(Math.Pow(a - chosen.Lattitude, 2) + Math.Pow(b - chosen.Longitude, 2)));
+                            Console.WriteLine();
+                        }
+                    */
                     case programDelivry.exit:
                         flag = false;
                         break;
