@@ -16,7 +16,7 @@ namespace DalObject
         {
             DataSource.stations[DataSource.Config.index_stations++] = new Station()
             {
-                Id =  //rand.Next(10000, 99999),
+                Id = rand.Next(10000, 99999),
                 Name = rand.Next(1,1000),
                 Longitude = rand.Next(1000, 4000),
                 Lattitude = rand.Next(1000, 4000),
@@ -66,7 +66,8 @@ namespace DalObject
             };
         }
 
-        public void addParcel()
+        public void addParcel(int Id, int Senderld, int Targetld, WeightCategories Weight, Priorities Priority, DateTime Requested, int Droneld, DateTime Scheduled, DateTime PickedUp, DateTime Delivered);
+        public void addParcel(int Id, int Senderld, int Targetld, WeightCategories Weight, Priorities Priority, DateTime Requested, int Droneld, DateTime Scheduled, DateTime PickedUp, DateTime Delivered);
         {
             DataSource.parcels[DataSource.Config.index_parcels++] = new Parcel()
             {
@@ -79,7 +80,8 @@ namespace DalObject
                 Requested = new DateTime(rand.Next(2021, 2023), rand.Next(1, 12), rand.Next(1, 31)),
             };
         }
-        public void assign_parcel_drone(Parcel p, Drone d )//שיוך חבילה לרחפן
+
+        public void assign_parcel_drone()
         {
             p.Droneld = d.Id;
         }
@@ -89,6 +91,17 @@ namespace DalObject
         { }
     }
 
+        public void update_parcel_drone (string station, ref Parcel p, ref Drone d, ref Customer c)
+        {
+            p.Droneld = d.Id;
+            d.Status= DroneStatuses.delivery;
+            p.Targetld = c.Id;
+            d.Status = DroneStatuses.maintenance;
+            DroneCharge drone_charge = new DroneCharge();
+            drone_charge.Droneld = d.Id;
+            DroneCharge.
+        }
 
-}
+        public void 
+    }
 }
