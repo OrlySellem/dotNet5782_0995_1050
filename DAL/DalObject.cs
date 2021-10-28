@@ -28,6 +28,7 @@ namespace DalObject
             double lattitude= double.Parse(Console.ReadLine());
             Console.WriteLine("Please enter the station's chargeSlots");
             int chargeSlots= int.Parse(Console.ReadLine());
+            Console.WriteLine();
 
             DataSource.stations[DataSource.Config.index_stations++] = new Station()
             {
@@ -52,6 +53,7 @@ namespace DalObject
             int status = int.Parse(Console.ReadLine());
             Console.WriteLine("Please enter drone's battery:");
             int battery = int.Parse(Console.ReadLine());
+            Console.WriteLine();
 
             DataSource.drones[DataSource.Config.index_drones++] = new Drone()
             {
@@ -75,6 +77,7 @@ namespace DalObject
             double lattitude = double.Parse(Console.ReadLine());
             Console.WriteLine("Please enter longitude:");
             double longitude = double.Parse(Console.ReadLine());
+            Console.WriteLine();
 
 
             DataSource.customers[DataSource.Config.index_customers++] = new Customer()
@@ -99,6 +102,7 @@ namespace DalObject
             int maxWeight = int.Parse(Console.ReadLine());
             Console.WriteLine("Please enter the delivery's priority - 0 for normal, 1 for fast, 2 for emergency:");
             int priority = int.Parse(Console.ReadLine());
+            Console.WriteLine();
 
             DataSource.parcels[DataSource.Config.index_parcels++] = new Parcel()
             {

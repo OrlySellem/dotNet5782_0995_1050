@@ -18,11 +18,11 @@ namespace ConsoleUI
             bool flag = true;
             while (flag)
             {
-                Console.Write("To adding customer, drone, station or parcel - enter 0\nTo update items - enter 1\nTo display options - enter 2\nTo display list's options - enter 3\nTo exit - enter 4\n");
-                //Console.Write("To update items - enter 1");
-                //Console.Write("To display options - enter 2");
-                //Console.Write("To display list's options - enter 3");
-                //Console.Write("To exit - enter 4");
+                Console.WriteLine("To adding customer, drone, station or parcel - enter 0");
+                Console.WriteLine("To update items - enter 1");
+                Console.WriteLine("To display options - enter 2");
+                Console.WriteLine("To display list's options - enter 3");
+                Console.WriteLine("To exit - enter 4\n");
 
 
                 int n = int.Parse(Console.ReadLine());
@@ -200,7 +200,7 @@ namespace ConsoleUI
 
                         switch (Display_list_choice)
                         {
-                            case DisplayListOptions.displayCustomers:i
+                            case DisplayListOptions.displayCustomers:
 
                                 Display_List_options.printAllCustomers();
                                 break;
