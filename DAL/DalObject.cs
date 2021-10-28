@@ -7,7 +7,7 @@ using IDAL.DO;
 
 namespace DalObject
 {
-   public class DalObject
+   public class DalObject//מחלקה שבתוכה כל המתודות שיעסקו בהבאת נתונים
     {
         internal static Random rand = new Random();
 
@@ -16,7 +16,7 @@ namespace DalObject
         {
             DataSource.stations[DataSource.Config.index_stations++] = new Station()
             {
-                Id = rand.Next(10000, 99999),
+                Id =  //rand.Next(10000, 99999),
                 Name = rand.Next(1,1000),
                 Longitude = rand.Next(1000, 4000),
                 Lattitude = rand.Next(1000, 4000),
@@ -25,15 +25,26 @@ namespace DalObject
 
         }
 
-        public void addDrone()
+        //public void addDrone()
+        //{
+        //    DataSource.drones[DataSource.Config.index_drones++] = new Drone()
+        //    {
+        //        Id = rand.Next(1000, 9999),
+        //        Model = "5G",
+        //        MaxWeight = (WeightCategories)rand.Next(0, 2),
+        //        Status = (DroneStatuses)rand.Next(0, 2),
+        //        Battery = rand.Next(0, 100)
+        //    };
+        //}
+        public void addDrone()//דוגמא שנעתיק לכול הפונקציות
         {
             DataSource.drones[DataSource.Config.index_drones++] = new Drone()
-            {
-                Id = rand.Next(1000, 9999),
-                Model = "5G",
-                MaxWeight = (WeightCategories)rand.Next(0, 2),
-                Status = (DroneStatuses)rand.Next(0, 2),
-                Battery = rand.Next(0, 100)
+            {                                         ///הוספת הסבר מה מוסיפים///
+                Id =int.Parse(Console.ReadLine()),
+                Model = Console.ReadLine(),
+                MaxWeight = (WeightCategories)int.Parse(Console.ReadLine()),
+                Status = (DroneStatuses)int.Parse(Console.ReadLine()),
+                Battery = int.Parse(Console.ReadLine())
             };
         }
 
@@ -68,12 +79,16 @@ namespace DalObject
                 Requested = new DateTime(rand.Next(2021, 2023), rand.Next(1, 12), rand.Next(1, 31)),
             };
         }
-        public void assign_parcel_drone()
+        public void assign_parcel_drone(Parcel p, Drone d )//שיוך חבילה לרחפן
         {
-            
-
+            p.Droneld = d.Id;
         }
 
-        
+
+        public void drone_pick_package_(Drone d)//איסוף חבילה ע"י רחפן
+        { }
     }
+
+
+}
 }
