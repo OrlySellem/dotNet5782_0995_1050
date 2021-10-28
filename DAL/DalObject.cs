@@ -16,7 +16,7 @@ namespace DalObject
         {
             DataSource.stations[DataSource.Config.index_stations++] = new Station()
             {
-                Id = rand.Next(10000, 99999),
+                Id =  //rand.Next(10000, 99999),
                 Name = rand.Next(1,1000),
                 Longitude = rand.Next(1000, 4000),
                 Lattitude = rand.Next(1000, 4000),
@@ -39,7 +39,7 @@ namespace DalObject
         public void addDrone()//דוגמא שנעתיק לכול הפונקציות
         {
             DataSource.drones[DataSource.Config.index_drones++] = new Drone()
-            {                                         ///הוספת הסבר מה מוסיפים///
+            {                                         ////הוספת הסבר מה מוסיפים////
                 Id =int.Parse(Console.ReadLine()),
                 Model = Console.ReadLine(),
                 MaxWeight = (WeightCategories)int.Parse(Console.ReadLine()),
@@ -80,17 +80,21 @@ namespace DalObject
                 Requested = new DateTime(rand.Next(2021, 2023), rand.Next(1, 12), rand.Next(1, 31)),
             };
         }
+<<<<<<< HEAD
+        public void assign_parcel_drone(Parcel p, Drone d )//שיוך חבילה לרחפן
+=======
 
         public void assign_parcel_drone()
+>>>>>>> 7a243a241fff7735e5626fc5986994c5af54d068
         {
             p.Droneld = d.Id;
         }
 
+<<<<<<< HEAD
 
         public void drone_pick_package_(Drone d)//איסוף חבילה ע"י רחפן
         { }
-    }
-
+=======
         public void update_parcel_drone (string station, ref Parcel p, ref Drone d, ref Customer c)
         {
             p.Droneld = d.Id;
@@ -103,5 +107,9 @@ namespace DalObject
         }
 
         public void 
+>>>>>>> 7a243a241fff7735e5626fc5986994c5af54d068
     }
+
+
+}
 }
