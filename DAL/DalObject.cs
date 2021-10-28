@@ -111,17 +111,57 @@ namespace DalObject
                 Requested = DateTime.Now,
             };
         }
-<<<<<<< HEAD
-        public void assign_parcel_drone(Parcel p, Drone d )//שיוך חבילה לרחפן
-=======
+
+        public Parcel findParcel(int id)
+        {
+            foreach (Parcel item in DataSource.parcels)
+            {
+                if (item.Id == id)
+                    return item;
+            }
+            Parcel temp=new Parcel();
+            return temp;
+        }
+
+        public Drone findDrone(int id)
+        {
+            foreach (Drone item in DataSource.drones)
+            {
+                if (item.Id == id)
+                    return item;
+            }
+            Drone temp = new Drone();
+            return temp;
+        }
+
+        public Station findStation(int id)
+        {
+            foreach (Station item in DataSource.stations)
+            {
+                if (item.Id == id)
+                    return item;
+            }
+            Station temp = new Station();
+            return temp;
+        }
+
+        public Customer findCustomer(int id)
+        {
+            foreach (Customer item in DataSource.customers)
+            {
+                if (item.Id == id)
+                    return item;
+            }
+            Customer temp = new Customer();
+            return temp;
+        }
+
 
         public void assign_parcel_drone(ref Parcel p, ref Drone d)//assign parcel to drone
         {
             p.Droneld = d.Id;
             p.Scheduled = DateTime.Now;
         }
-
-<<<<<<< HEAD
 
         public void drone_pick_parcel(ref Parcel p, ref Drone d)//איסוף חבילה ע"י רחפן
         {
@@ -202,47 +242,34 @@ namespace DalObject
             }
         }
 
-        public void printAllStations(int id)
+        public void printAllStations()
         {
             foreach (Station item in DataSource.stations)
             {
                 item.ToString();
             }
-            /*
-            for (int i = 0; i < DataSource.stations.Length; i++)
-            {
-                DataSource.stations[i].ToString();
 
-            }*/
         }
 
-        public void printAllDrones(int id)
+        public void printAllDrones()
         {
             foreach (Drone item in DataSource.drones)
             {
                 item.ToString();
             }
 
-            /*for (int i = 0; i < DataSource.drones.Length; i++)
-            {
-                DataSource.drones[i].ToString();
-            }*/
         }
 
-        public void printAllCustomers(int id)
+        public void printAllCustomers()
         {
             foreach (Customer item in DataSource.customers)
             {
                 item.ToString(); 
             }
 
-            /*for (int i = 0; i < DataSource.customers.Length; i++)
-            {
-                DataSource.customers[i].ToString();
-            }*/
         }
 
-        public void printAllParcels(int id)
+        public void printAllParcels()
         {
             foreach (Parcel item in DataSource.parcels)
             {
@@ -254,6 +281,25 @@ namespace DalObject
                 DataSource.parcels[i].ToString();
             }*/
         }
+
+        public void print_unconnected_parcels_to_Drone()
+        {
+            foreach (Parcel item in DataSource.parcels)
+            {
+                if (item.Droneld == 0)
+                    item.ToString();
+            }
+        }
+
+        public void print_stations_with_freeDroneCharge()
+        {
+            foreach (Station item in DataSource.stations)
+            {
+                if (item.ChargeSlots > 0)
+                    item.ToString();
+            }
+        }
+
     }
 }
 

@@ -22,7 +22,7 @@ namespace IDAL
 
             public override string ToString()
             {
-                return string.Format("Id is:{0}\t  Name is:{1}\t  Longitude is:{2}\t  Lattitude is:{3}\t ChargeSlots is:{4}\t", Id, Name, Longitude, Lattitude, ChargeSlots);
+                return string.Format("Id is:{0}\t  Name is:{1}\t  Longitude is:{2}\t  Lattitude is:{3}\t ChargeSlots is:{4}\t \n", Id, Name, Longitude, Lattitude, ChargeSlots);
             }
         }
     }
