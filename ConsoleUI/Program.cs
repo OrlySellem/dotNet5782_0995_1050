@@ -5,10 +5,10 @@ using DalObject;
 
 namespace ConsoleUI
 {
-    enum programDeli { addingOptions, }
-    enum Add { addCustomer, addDrone, addStation, addParcel }; 
-    
-   
+    enum programDelivry { addingOptions, UpdateOptions, DisplayOptions, ListDisplayOptions, exit }
+    enum Add { addCustomer, addDrone, addStation, addParcel };
+
+
     class Program
     {
         static void Main(string[] args)
@@ -17,19 +17,21 @@ namespace ConsoleUI
             while (flag)
             {
                 Console.WriteLine("To adding customer, drone, station or parcel - enter 0\n");
-                Console.WriteLine("To update items");
-
+                Console.WriteLine("To update items - enter 1\n");
+                Console.WriteLine("To update items enter 1");
 
 
 
                 int n = int.Parse(Console.ReadLine());
-                switch (n)
+                programDelivry outsideChoice = (programDelivry)n;
+
+                switch (outsideChoice)
                 {
-                    case program.addingOptions:
-                     
-                        Console.WriteLine("To add customer - enter 0\nTo add drone - enter 1\nTo add station - enter 2\nTo add parcel - enter 3\n");
-                        int choiceAdd = int.Parse(Console.ReadLine());
-                        switch (choiceAdd)
+                    case programDelivry.addingOptions:
+                        int k = int.Parse(Console.ReadLine());
+                        programDelivry insideChoice = (programDelivry)k;
+
+                        switch (insideChoice)
                         {
                             case Add.addCustomer:
                                 DalObject.DalObject a = new DalObject.DalObject();
@@ -45,7 +47,24 @@ namespace ConsoleUI
                                 Console.WriteLine("Please enter again:");
                                 break;
                         }
+                        break;
+                    case programDelivry.UpdateOptions:
+                        break;
+                    case programDelivry.DisplayOptions:
+                        break;
+                    case programDelivry.ListDisplayOptions:
+                        break;
+                    case programDelivry.exit:
+                        break;
+                    default:
+                        break;
                 }
+
+
+                Console.WriteLine("To add customer - enter 0\nTo add drone - enter 1\nTo add station - enter 2\nTo add parcel - enter 3\n");
+                int choiceAdd = int.Parse(Console.ReadLine());
+
+
 
             }
 
@@ -57,4 +76,4 @@ namespace ConsoleUI
 
 
 }
-}
+
