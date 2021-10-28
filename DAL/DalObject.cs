@@ -200,7 +200,7 @@ namespace DalObject
             {
                 if (DataSource.stations[i].Id == id)
                 {
-                    DataSource.stations[i].ToString();
+                    Console.WriteLine(DataSource.stations[i].ToString());
                     break;
                 }
             }
@@ -212,7 +212,7 @@ namespace DalObject
             {
                 if (DataSource.drones[i].Id == id)
                 {
-                    DataSource.drones[i].ToString();
+                    Console.WriteLine(DataSource.drones[i].ToString());
                     break;
                 }
             }
@@ -224,7 +224,7 @@ namespace DalObject
             {
                 if (DataSource.customers[i].Id == id)
                 {
-                    DataSource.customers[i].ToString();
+                    Console.WriteLine(DataSource.customers[i].ToString());
                     break;
                 }
             }
@@ -236,7 +236,7 @@ namespace DalObject
             {
                 if (DataSource.parcels[i].Id == id)
                 {
-                    DataSource.parcels[i].ToString();
+                    Console.WriteLine(DataSource.parcels[i].ToString()); 
                     break;
                 }
             }
@@ -246,16 +246,15 @@ namespace DalObject
         {
             foreach (Station item in DataSource.stations)
             {
-                item.ToString();
+                Console.WriteLine(item.ToString());
             }
 
         }
-
         public void printAllDrones()
         {
             foreach (Drone item in DataSource.drones)
             {
-                item.ToString();
+                Console.WriteLine(item.ToString());
             }
 
         }
@@ -264,7 +263,7 @@ namespace DalObject
         {
             foreach (Customer item in DataSource.customers)
             {
-                item.ToString(); 
+                Console.WriteLine(item.ToString()); 
             }
 
         }
@@ -273,7 +272,7 @@ namespace DalObject
         {
             foreach (Parcel item in DataSource.parcels)
             {
-                item.ToString();
+                Console.WriteLine(item.ToString());
             }
             /*
             for (int i = 0; i < DataSource.parcels.Length; i++)
@@ -287,7 +286,7 @@ namespace DalObject
             foreach (Parcel item in DataSource.parcels)
             {
                 if (item.Droneld == 0)
-                    item.ToString();
+                    Console.WriteLine(item.ToString());
             }
         }
 
@@ -296,7 +295,7 @@ namespace DalObject
             foreach (Station item in DataSource.stations)
             {
                 if (item.ChargeSlots > 0)
-                    item.ToString();
+                    Console.WriteLine(item.ToString());
             }
         }
 
