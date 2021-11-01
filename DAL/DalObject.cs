@@ -123,94 +123,98 @@ namespace DalObject
             Console.WriteLine("Your parcel's id is:{0}\n", DataSource.Config.idParcel++);
         }
 
-        public Parcel findParcel(int id)
+        public int findIndexParcel(int id)
         {
-            foreach (Parcel item in DataSource.parcels) //loop to find the parcel acordding to ID 
+            for(int i=0; i<DataSource.parcels.Length; i++)
             {
-                if (item.Id == id)
-                    return item;
+                if(DataSource.parcels[i].Id==id)
+                {
+                    return i;//return the index
+                }
             }
-            Parcel temp = new Parcel();
-            return temp;
+            return -1;//if the id isn't esixt in the parcel's array
         }
 
-        public Drone findDrone(int id)
+        public int findIndexDrone(int id)
         {
-            foreach (Drone item in DataSource.drones)//loop to find the drone acordding to ID 
+            for (int i = 0; i < DataSource.drones.Length; i++)
             {
-                if (item.Id == id)
-                    return item;
+                if (DataSource.drones[i].Id == id)
+                    return i;
             }
-            Drone temp = new Drone();
-            return temp;
+
+            return -1;
         }
 
-        public Station findStation(int id)
+        public int findIndexStation(int id)
         {
-            foreach (Station item in DataSource.stations)//loop to find the station acordding to ID 
+            for (int i = 0; i < DataSource.drones.Length; i++)
             {
-                if (item.Id == id)
-                    return item;
+                if (DataSource.stations[i].Id == id)
+                    return i;
             }
-            Station temp = new Station();
-            return temp;
+            return -1;
         }
 
-        public Customer findCustomer(int id)//loop to find the customer acordding to ID 
+        public int findIndexCustomer(int id)//loop to find the customer acordding to ID 
         {
-            foreach (Customer item in DataSource.customers)
+            for (int i = 0; i < DataSource.customers.Length; i++)
             {
-                if (item.Id == id)
-                    return item;
+                if (DataSource.customers[i].Id == id)
+                {
+                    return i;
+                }
             }
-            Customer temp = new Customer();
-            return temp;
+
+            return -1;
         }
 
 
-        public void assign_parcel_drone( Parcel p, Drone d)//assign parcel to drone
+        public void assign_parcel_drone(int indexParcel, int indexDrone)//assign parcel to drone
         {
-            if (d.Status == DroneStatuses.available)
+
+            if (DataSource.drones[indexDrone].Status == DroneStatuses.available)
             {
-                p.Droneld = d.Id;
-                p.Scheduled = DateTime.Now;
-                d.Status = DroneStatuses.delivery;
+                DataSource.parcels[indexParcel].Droneld = DataSource.drones[indexDrone].Id;
+                DataSource.parcels[indexParcel].Scheduled = DateTime.Now;
+                DataSource.drones[indexParcel].Status = DroneStatuses.delivery;
             }
-            else 
+            else
             {
                 Console.WriteLine("The drone isn't available\n");
             }
         }
 
-        public void drone_pick_parcel(ref Parcel p, ref Drone d)//pick up parcel by drone
+        public void drone_pick_parcel(int indexParcel, int indexDrone)//pick up parcel by drone
         {
-            d.Status = DroneStatuses.delivery;
-            p.PickedUp = DateTime.Now;
+            DataSource.drones[indexParcel].Status = DroneStatuses.delivery;
+            DataSource.parcels[indexParcel].PickedUp = DateTime.Now;
         }
-        public void delivery_arrive_toCustomer(ref Parcel p, ref Drone d)//The delivery arrived to the customer
+        public void delivery_arrive_toCustomer(int indexParcel, int indexDrone)//The delivery arrived to the customer
         {
-            d.Status = DroneStatuses.available;
-            p.Delivered = DateTime.Now;
+
+            DataSource.drones[indexParcel].Status = DroneStatuses.available;
+            DataSource.parcels[indexParcel].Delivered = DateTime.Now;
         }
 
-        public void chargingDrone(ref Drone d, ref Station s, ref DroneCharge dc)
+        public void chargingDrone(int indexDrone, int indexStation) //int DroneCharge)
         {
-            dc = new DroneCharge()
+            /*dc = new DroneCharge()
             {
                 Droneld = d.Id,
                 Stationld = s.Id
             };
             d.Status = DroneStatuses.maintenance;
-            s.ChargeSlots--;
+            s.ChargeSlots--;*/
         }
 
-        public void freeDroneCharge(ref Drone d, ref Station s, ref DroneCharge dc)
+        public void freeDroneCharge(int indexDrone, int indexStation, ref DroneCharge dc)
         {
             dc.Droneld = 0;
             dc.Stationld = 0;
-            s.ChargeSlots++;
-            d.Status = DroneStatuses.available;
-            d.Battery = 100;
+            DataSource.stations[indexStation].ChargeSlots++;
+            DataSource.drones[indexDrone].Status = DroneStatuses.available;
+            DataSource.drones[indexDrone].Battery = 100;
         }
 
         public void printStation(int id)
