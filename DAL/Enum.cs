@@ -25,3 +25,4 @@ namespace IDAL
         public enum DisplayListOptions { displayCustomers, displayDrones, displayStations, displayParcels, display_parcels_without_drone, display_station_with_freeChargingStations }
 
     }
+}
