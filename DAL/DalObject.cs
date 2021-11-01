@@ -168,12 +168,13 @@ namespace DalObject
         }
 
 
-        public void assign_parcel_drone(ref Parcel p, ref Drone d)//assign parcel to drone
+        public void assign_parcel_drone( Parcel p, Drone d)//assign parcel to drone
         {
             if (d.Status == DroneStatuses.available)
             {
                 p.Droneld = d.Id;
                 p.Scheduled = DateTime.Now;
+                d.Status = DroneStatuses.delivery;
             }
             else 
             {

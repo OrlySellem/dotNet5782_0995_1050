@@ -5,12 +5,7 @@ using DalObject;
 
 namespace ConsoleUI
 {
-    enum programDelivry { addingOptions, UpdateOptions, DisplayOptions, DisplayListOptions, /*distance,*/ exit }
-    enum Add { addCustomer, addDrone, addStation, addParcel }
-    enum Update { assignParcelDrone, dronePickParcel, deliveryAriveToCustomer, chargingDrone, freeDroneCharge }
-    enum Display { displayCustomer, displayDrone, displayStation, displayParcel }
-    enum DisplayListOptions { displayCustomers, displayDrones, displayStations, displayParcels, display_parcels_without_drone, display_station_with_freeChargingStations }
-
+   
     class Program
     {
         static void Main(string[] args)
@@ -19,6 +14,7 @@ namespace ConsoleUI
             DalObject.DalObject mainDalObject = new DalObject.DalObject();
             while (flag)
             {
+                
                 Console.WriteLine("To add customer, drone, station or parcel - enter 0");
                 Console.WriteLine("To update items - enter 1");
                 Console.WriteLine("To display options - enter 2");
@@ -83,10 +79,7 @@ namespace ConsoleUI
                                 Console.WriteLine("Please enter drone's id:");
                                 idDrone = int.Parse(Console.ReadLine());
 
-                                tempParcel = mainDalObject.findParcel(idParcel);
-                                tempDrone = mainDalObject.findDrone(idDrone);
-
-                                mainDalObject.assign_parcel_drone(ref tempParcel, ref tempDrone);
+                                mainDalObject.assign_parcel_drone(mainDalObject.findParcel(idParcel), mainDalObject.findDrone(idDrone));
 
                                 break;
 
