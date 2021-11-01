@@ -8,11 +8,20 @@ namespace IDAL
 {
     namespace DO
     {
-            public enum WeightCategories { light, medium, heavy }
+        public enum WeightCategories { light, medium, heavy }
 
-            public enum DroneStatuses { available, maintenance, delivery }
+        public enum DroneStatuses { available, maintenance, delivery }
 
-            public enum Priorities { normal, fast, emergency }
+        public enum Priorities { normal, fast, emergency }
+
+        public enum programDelivry { addingOptions, UpdateOptions, DisplayOptions, DisplayListOptions, /*distance,*/ exit }
+
+        public enum Add { addCustomer, addDrone, addStation, addParcel }
+
+        public enum Update { assignParcelDrone, dronePickParcel, deliveryAriveToCustomer, chargingDrone, freeDroneCharge }
+
+        public enum Display { displayCustomer, displayDrone, displayStation, displayParcel }
+
+        public enum DisplayListOptions { displayCustomers, displayDrones, displayStations, displayParcels, display_parcels_without_drone, display_station_with_freeChargingStations }
+
     }
-   
-}
