@@ -56,79 +56,32 @@ namespace ConsoleUI
 
                     //To update item
 
-                    case programDelivry.UpdateOptions:
-
-                        int idParcel, idDrone, idStation;
-
+                    case programDelivry.UpdateOptions:              
                         Console.WriteLine("To assign parcel to drone - enter 0\nTo pick up parcel by drone - enter 1\nTo update that delivery has arrived - enter 2\nTo send drone to charge in base station - enter 3\nTo free drone from chraging - enter 4\n");
                         int m = int.Parse(Console.ReadLine());
                         Update updateChoice = (Update)m;
-
+                        DroneCharge tempDroneCharge = new DroneCharge();
                         switch (updateChoice)
                         {
                             case Update.assignParcelDrone:
-
-                                Console.WriteLine("Please enter parcel's id:");
-                                idParcel = int.Parse(Console.ReadLine());
-
-                                Console.WriteLine("Please enter drone's id:");
-                                idDrone = int.Parse(Console.ReadLine());
-
-                                mainDalObject.assign_parcel_drone(mainDalObject.findIndexParcel(idParcel), mainDalObject.findIndexDrone(idDrone));
-
+                                mainDalObject.assign_parcel_drone();
                                 break;
 
-                            case Update.dronePickParcel:
-
-                                Console.WriteLine("Please enter parcel's id:");
-                                idParcel = int.Parse(Console.ReadLine());
-
-                                Console.WriteLine("Please enter drone's id:");
-                                idDrone = int.Parse(Console.ReadLine());
-
-                                mainDalObject.drone_pick_parcel(mainDalObject.findIndexParcel(idParcel), mainDalObject.findIndexDrone(idDrone));
-
+                            case Update.dronePickParcel:               
+                                mainDalObject.drone_pick_parcel();
                                 break;
 
-                            case Update.deliveryAriveToCustomer:
-
-                                Console.WriteLine("Please enter parcel's id:");
-                                idParcel = int.Parse(Console.ReadLine());
-
-                                Console.WriteLine("Please enter drone's id:");
-                                idDrone = int.Parse(Console.ReadLine());
-
-                                mainDalObject.delivery_arrive_toCustomer(mainDalObject.findIndexParcel(idParcel), mainDalObject.findIndexDrone(idDrone));
-
+                            case Update.deliveryAriveToCustomer:                               
+                                mainDalObject.delivery_arrive_toCustomer();
                                 break;
 
                             case Update.chargingDrone:
-
-                                Console.WriteLine("Please enter drone's id:");
-                                idDrone = int.Parse(Console.ReadLine());
-
-                                Console.WriteLine("Choose one of the following stations with free charging staion\n");
-                                mainDalObject.print_stations_with_freeDroneCharge();
-                                Console.WriteLine("\nPlease enter station's id:");
-                                idStation = int.Parse(Console.ReadLine());
-
-                               // DroneCharge tempDroneCharge = new DroneCharge();
-
-                                mainDalObject.chargingDrone(mainDalObject.findIndexDrone(idDrone), mainDalObject.findIndexStation(idStation)/*ref tempDroneCharge*/);
+                                mainDalObject.chargingDrone(ref tempDroneCharge);
                                 break;
 
                             case Update.freeDroneCharge:
-
-                                Console.WriteLine("Please enter drone's id:");
-                                idDrone = int.Parse(Console.ReadLine());
-
-                                Console.WriteLine("Please enter station's id:");
-                                idStation = int.Parse(Console.ReadLine());
-
-
                                 DroneCharge temp_DroneCharge = new DroneCharge();
-
-                                mainDalObject.freeDroneCharge(mainDalObject.findIndexDrone(idDrone), mainDalObject.findIndexStation(idStation), ref temp_DroneCharge);
+                                mainDalObject.freeDroneCharge(ref temp_DroneCharge);
                                 break;
 
                             default:

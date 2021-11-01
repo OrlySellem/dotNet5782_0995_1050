@@ -123,6 +123,14 @@ namespace DalObject
             Console.WriteLine("Your parcel's id is:{0}\n", DataSource.Config.idParcel++);
         }
 
+        public void addDronceCharge(int id)
+        {
+            DataSource.DroneCharge[DataSource.Config.index_droneCharge++] = new DroneCharge
+            {
+                Stationld = id
+            };
+
+        }
         public int findIndexParcel(int id)
         {
             for(int i=0; i<DataSource.parcels.Length; i++)
@@ -168,11 +176,101 @@ namespace DalObject
 
             return -1;
         }
-
-
-        public void assign_parcel_drone(int indexParcel, int indexDrone)//assign parcel to drone
+        public int findFreeDroneCharge()
         {
+            int indexStation;
+            do
+            {
+                Console.WriteLine("Choose one of the following stations with free charging staion\n");
+                print_stations_with_freeDroneCharge();
+                indexStation = checkIndexStation();
+                if (DataSource.stations[indexStation].ChargeSlots <= 0)
+                {
+                    Console.WriteLine("There isn't available drone charge in this station\n");
+                }
+            }
+            while (DataSource.stations[indexStation].ChargeSlots <= 0);
+       
+            for (int i = 0; i < DataSource.DroneCharge.Length; i++)
+            {
+                if (DataSource.DroneCharge[i].Stationld == DataSource.stations[indexStation].Id)
+                {
+                    if (DataSource.DroneCharge[i].Droneld == 0)
+                    {
+                        return i;
+                    }
+                }
+            }
 
+            return -1;
+
+        }
+        public int checkIndexParcel()
+        {
+            int indexParcel, idParcel;
+            do
+            {
+                Console.WriteLine("Please enter parcel's id:");
+                idParcel = int.Parse(Console.ReadLine());
+                indexParcel = findIndexParcel(idParcel);
+                if (indexParcel == -1)
+                    Console.WriteLine("The parcel isn't exist\n");
+
+            }
+            while (indexParcel == -1);
+            return indexParcel;
+        }
+        public int checkIndexDrone()
+        {
+            int indexDrone, idDrone;
+            do
+            {
+                Console.WriteLine("Please enter drone's id:");
+                idDrone = int.Parse(Console.ReadLine());
+                indexDrone = findIndexDrone(idDrone);
+                if (indexDrone == -1)
+                    Console.WriteLine("The drone isn't exist\n");
+
+            }
+            while (indexDrone == -1);
+            return indexDrone;
+        }
+        public int checkIndexStation()
+        {
+            int indexStation, idStation;
+            do
+            {
+                Console.WriteLine("Please enter station's id:");
+                idStation = int.Parse(Console.ReadLine());
+                indexStation = findIndexStation(idStation);
+                if (indexStation == -1)
+                    Console.WriteLine("The station isn't exist\n");
+
+            }
+            while (indexStation == -1);
+            return indexStation;
+
+        }
+
+        public int checkIndexDroneCharge()
+        {
+            int indexDroneCharge;
+            do
+            {
+                Console.WriteLine("Please enter droneCharge's id:");
+                indexDroneCharge = findFreeDroneCharge();
+                if (indexDroneCharge == -1)
+                    Console.WriteLine("There isn't exist\n");
+
+            }
+            while (indexDroneCharge == -1);
+            return indexDroneCharge;
+        }
+        public void assign_parcel_drone()//assign parcel to drone
+        {
+            int indexParcel = checkIndexParcel();
+            int indexDrone = checkIndexDrone();
+           
             if (DataSource.drones[indexDrone].Status == DroneStatuses.available)
             {
                 DataSource.parcels[indexParcel].Droneld = DataSource.drones[indexDrone].Id;
@@ -185,33 +283,38 @@ namespace DalObject
             }
         }
 
-        public void drone_pick_parcel(int indexParcel, int indexDrone)//pick up parcel by drone
+        public void drone_pick_parcel()//pick up parcel by drone
         {
+            int indexParcel = checkIndexParcel();
+            int indexDrone = checkIndexDrone();
             DataSource.drones[indexDrone].Status = DroneStatuses.delivery;
             DataSource.parcels[indexParcel].PickedUp = DateTime.Now;
         }
-        public void delivery_arrive_toCustomer(int indexParcel, int indexDrone)//The delivery arrived to the customer
+        public void delivery_arrive_toCustomer()//The delivery arrived to the customer
         {
-
+            int indexParcel = checkIndexParcel();
+            int indexDrone = checkIndexDrone();
             DataSource.drones[indexDrone].Status = DroneStatuses.available;
             DataSource.parcels[indexParcel].Delivered = DateTime.Now;
         }
 
-        public void chargingDrone(int indexDrone, int indexStation) //int DroneCharge)
+        public void chargingDrone()
         {
-            /*dc = new DroneCharge()
-            {
-                Droneld = d.Id,
-                Stationld = s.Id
-            };
-            d.Status = DroneStatuses.maintenance;
-            s.ChargeSlots--;*/
+            int indexDrone = checkIndexDrone();          
+            int indexStation = checkIndexStation();
+
+            DataSource.drones[indexDrone].Status = DroneStatuses.maintenance;
+            DataSource.stations[indexStation].ChargeSlots--;
         }
 
-        public void freeDroneCharge(int indexDrone, int indexStation, ref DroneCharge dc)
+        public void freeDroneCharge()
         {
-            dc.Droneld = 0;
-            dc.Stationld = 0;
+            int indexDrone = checkIndexDrone();
+            int indexStation = checkIndexStation();
+            int indexDroneCharge = checkIndexDroneCharge();
+
+            DataSource.DroneCharge[indexDroneCharge].Droneld = 0;
+
             DataSource.stations[indexStation].ChargeSlots++;
             DataSource.drones[indexDrone].Status = DroneStatuses.available;
             DataSource.drones[indexDrone].Battery = 100;

@@ -19,6 +19,8 @@ namespace DalObject
 
         internal static Parcel[] parcels = new Parcel[1000];
 
+        internal static DroneCharge[] DroneCharge = new DroneCharge[10];
+
         internal class Config
         {
             internal static int idParcel=1;
@@ -30,6 +32,8 @@ namespace DalObject
             internal static int index_customers = 0;
 
             internal static int index_parcels = 0;
+
+            internal static int index_droneCharge = 0;
         }
 
         public static void Initialize()
