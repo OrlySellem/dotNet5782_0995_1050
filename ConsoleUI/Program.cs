@@ -69,7 +69,7 @@ namespace ConsoleUI
                         Drone tempDrone = new Drone();
                         Station tempStation = new Station();
 
-                        Console.WriteLine("To update assign parcel to drone - enter 0\nTo update pick up parcel by drone - enter 1\nTo update that delivery has arrived - enter 2\nTo send drone to charge in basic station - enter 3\nTo free drone from chraging - enter 4\n");
+                        Console.WriteLine("To assign parcel to drone - enter 0\nTo pick up parcel by drone - enter 1\nTo update that delivery has arrived - enter 2\nTo send drone to charge in base station - enter 3\nTo free drone from chraging - enter 4\n");
                         int m = int.Parse(Console.ReadLine());
                         Update updateChoice = (Update)m;
 
