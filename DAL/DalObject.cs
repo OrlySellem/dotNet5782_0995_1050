@@ -177,7 +177,7 @@ namespace DalObject
             {
                 DataSource.parcels[indexParcel].Droneld = DataSource.drones[indexDrone].Id;
                 DataSource.parcels[indexParcel].Scheduled = DateTime.Now;
-                DataSource.drones[indexParcel].Status = DroneStatuses.delivery;
+                DataSource.drones[indexDrone].Status = DroneStatuses.delivery;
             }
             else
             {
@@ -187,13 +187,13 @@ namespace DalObject
 
         public void drone_pick_parcel(int indexParcel, int indexDrone)//pick up parcel by drone
         {
-            DataSource.drones[indexParcel].Status = DroneStatuses.delivery;
+            DataSource.drones[indexDrone].Status = DroneStatuses.delivery;
             DataSource.parcels[indexParcel].PickedUp = DateTime.Now;
         }
         public void delivery_arrive_toCustomer(int indexParcel, int indexDrone)//The delivery arrived to the customer
         {
 
-            DataSource.drones[indexParcel].Status = DroneStatuses.available;
+            DataSource.drones[indexDrone].Status = DroneStatuses.available;
             DataSource.parcels[indexParcel].Delivered = DateTime.Now;
         }
 
