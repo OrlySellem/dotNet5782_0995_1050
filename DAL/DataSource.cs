@@ -9,6 +9,7 @@ namespace DalObject
 {
    static class DataSource
     {
+
         internal static Random rand = new Random();
 
         internal static Drone[] drones = new Drone[10];
@@ -95,6 +96,14 @@ namespace DalObject
                     Scheduled = new DateTime(01, 01, 0001),
                     PickedUp = new DateTime(01, 01, 0001),
                     Delivered = new DateTime(01, 01, 0001),
+                };
+            }
+
+            for(int i=0; i<100; i++)
+            {
+                DroneCharge[Config.index_droneCharge++] = new DroneCharge()
+                {
+                    flag = false
                 };
             }
 

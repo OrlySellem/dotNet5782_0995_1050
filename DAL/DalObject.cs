@@ -176,35 +176,7 @@ namespace DalObject
 
             return -1;
         }
-        //public int findFreeDroneCharge()
-        //{
-        //    int indexStation;
-        //    do
-        //    {
-        //        Console.WriteLine("Choose one of the following stations with free charging staion\n");
-        //        print_stations_with_freeDroneCharge();
-        //        indexStation = checkIndexStation();
-        //        if (DataSource.stations[indexStation].ChargeSlots <= 0)
-        //        {
-        //            Console.WriteLine("There isn't available drone charge in this station\n");
-        //        }
-        //    }
-        //    while (DataSource.stations[indexStation].ChargeSlots <= 0);
        
-        //    for (int i = 0; i < DataSource.DroneCharge.Length; i++)
-        //    {
-        //        if (DataSource.DroneCharge[i].Stationld == DataSource.stations[indexStation].Id)
-        //        {
-        //            if (DataSource.DroneCharge[i].Droneld == 0)
-        //            {
-        //                return i;
-        //            }
-        //        }
-        //    }
-
-        //    return -1;
-
-        //}
         public int checkIndexParcel()
         {
             int indexParcel, idParcel;
@@ -237,6 +209,8 @@ namespace DalObject
         }
         public int checkIndexStation()
         {
+            Console.WriteLine("Choose one of the following stations with free charging staion\n");
+            print_stations_with_freeDroneCharge();
             int indexStation, idStation;
             do
             {
@@ -286,6 +260,7 @@ namespace DalObject
 
         public void chargingDrone()
         {
+            
             int indexDrone = checkIndexDrone();// הכנסת רחפן         
             int indexStation = checkIndexStation();//הכנסת תחנת בסיס 
             while (DataSource.stations[indexStation].ChargeSlots == 0)//אם אין תחנות הטענה פנויות תבחר תחנה חדשה  
@@ -425,7 +400,7 @@ namespace DalObject
         {
             foreach (Parcel item in DataSource.parcels)
             {
-                if (item.Droneld == 0)
+                if (item.Droneld == 0 && item.Id!=0)
                     Console.WriteLine(item.ToString());
             }
         }
@@ -434,7 +409,7 @@ namespace DalObject
         {
             foreach (Station item in DataSource.stations)
             {
-                if (item.ChargeSlots > 0)
+                if (item.ChargeSlots > 0 && item.Id != 0)
                     Console.WriteLine(item.ToString());
             }
         }
