@@ -20,7 +20,7 @@ namespace IDAL
 
         public enum Priorities { normal, fast, emergency }
 
-        public enum programDelivry { addingOptions, UpdateOptions, DisplayOptions, DisplayListOptions, distance, exit }
+        public enum programDelivry { addingOptions, UpdateOptions, DisplayOptions, DisplayListOptions,  exit }
 
         public enum Add { addCustomer, addDrone, addStation, addParcel }
 
