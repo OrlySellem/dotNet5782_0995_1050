@@ -1,4 +1,10 @@
-﻿using System;
+﻿/* Ester Shmuel ID:318968468 && Orly Sellem ID:315208728
+  Lecturer: Adina Milston
+  Course: .Dot Net
+  Exercise: 2
+  The purpose of DataSource is to define and initialize the entities 
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +15,7 @@ namespace DalObject
 {
    static class DataSource
     {
-
+        //define array to all of the entities (different size's initialize) 
         internal static Random rand = new Random();
 
         internal static Drone[] drones = new Drone[10];
@@ -24,8 +30,10 @@ namespace DalObject
 
         internal class Config
         {
-            internal static int idParcel=1;
+            
+            internal static int idParcel=1;//Runner parcel's ID number 
 
+            //Save the last index in the array (the next availavle cell)
             internal static int index_drones = 0;
 
             internal static int index_stations = 0;
@@ -39,6 +47,7 @@ namespace DalObject
 
         public static void Initialize()
         {
+            //Initialize 5 drones
             string[] ModelArr = { "1G", "2G", "3G", "4G", "5G" };
             for (int i = 0; i < 5; i++)
             {
@@ -51,7 +60,7 @@ namespace DalObject
                     Battery = rand.Next(0,100)
                 };
             }
-
+            //Initialize 2 stations
             for (int i = 0; i < 2; i++)
             {
                 stations[Config.index_stations++] = new Station()
@@ -63,7 +72,7 @@ namespace DalObject
                     ChargeSlots =rand.Next(1,10), 
                 };
             }
-
+            //Initialize 10 customers
             for (int i = 0; i < 10; i++)
             {
                 string newName="";
@@ -81,7 +90,7 @@ namespace DalObject
                     Lattitude=rand.Next(-90,90),
                 };
             }
-           
+            //Initialize 10 parcels
             for (int i = 0; i < 10; i++)
             {
                 parcels[Config.index_parcels++] = new Parcel()
@@ -98,8 +107,8 @@ namespace DalObject
                     Delivered = new DateTime(01, 01, 0001),
                 };
             }
-
-            for(int i=0; i<100; i++)
+            //Initialize 100 free drones charge (flag=false mean that the drone is free to charging)
+            for (int i=0; i<100; i++)
             {
                 DroneCharge[Config.index_droneCharge++] = new DroneCharge()
                 {

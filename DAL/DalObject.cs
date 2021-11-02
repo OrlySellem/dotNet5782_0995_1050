@@ -123,14 +123,6 @@ namespace DalObject
             Console.WriteLine("Your parcel's id is:{0}\n", DataSource.Config.idParcel++);
         }
 
-        public void addDronceCharge(int id)// מה זה????
-        {
-            DataSource.DroneCharge[DataSource.Config.index_droneCharge++] = new DroneCharge
-            {
-                Stationld = id
-            };
-
-        }
         public int findIndexParcel(int id)
         {
             for(int i=0; i<DataSource.parcels.Length; i++)
