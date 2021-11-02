@@ -3,6 +3,8 @@ using IDAL.DO;
 using DAL;
 using DalObject;
 
+
+//  להמשיך כתיבה של droun charg
 namespace ConsoleUI
 {
     class Program
@@ -10,7 +12,7 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             bool flag = true;
-            DalObject.DalObject mainDalObject = new DalObject.DalObject();
+            DalObject.DalObject mainDalObject = new DalObject.DalObject();//יוצרים ארגיומנט חדש מסוג del object
             while (flag)
             {
                 
@@ -23,17 +25,17 @@ namespace ConsoleUI
 
                 int n = int.Parse(Console.ReadLine());//number for choice
                 Console.WriteLine();
-                programDelivry outsideChoice = (programDelivry)n;
+                programDelivry outsideChoice = (programDelivry)n;//programDelivryהמרה ל
 
                 switch (outsideChoice)
                 {
                     //To add customer, drone, station or parcel
-                    case programDelivry.addingOptions:
-                        
+
+                    case programDelivry.addingOptions:  
                         Console.WriteLine("To add customer - enter 0\nTo add drone - enter 1\nTo add station - enter 2\nTo add parcel - enter 3");
                         int k = int.Parse(Console.ReadLine());
                         Console.WriteLine();
-                        Add addChoice = (Add)k;
+                        Add addChoice = (Add)k;//המרה לENUM
 
                         switch (addChoice)
                         {
@@ -60,28 +62,26 @@ namespace ConsoleUI
                         Console.WriteLine("To assign parcel to drone - enter 0\nTo pick up parcel by drone - enter 1\nTo update that delivery has arrived - enter 2\nTo send drone to charge in base station - enter 3\nTo free drone from chraging - enter 4\n");
                         int m = int.Parse(Console.ReadLine());
                         Update updateChoice = (Update)m;
-                        DroneCharge tempDroneCharge = new DroneCharge();
                         switch (updateChoice)
                         {
-                            case Update.assignParcelDrone:
+                            case Update.assignParcelDrone://חבילה לרחפן
                                 mainDalObject.assign_parcel_drone();
                                 break;
 
-                            case Update.dronePickParcel:               
+                            case Update.dronePickParcel: //רחפן שאוסף חבילה              
                                 mainDalObject.drone_pick_parcel();
                                 break;
 
-                            case Update.deliveryAriveToCustomer:                               
+                            case Update.deliveryAriveToCustomer:  //הגעת החבילה ליעד                              
                                 mainDalObject.delivery_arrive_toCustomer();
                                 break;
 
-                            case Update.chargingDrone:
-                                mainDalObject.chargingDrone(ref tempDroneCharge);
+                            case Update.chargingDrone://הטענת החבילה 
+                                mainDalObject.chargingDrone();
                                 break;
 
-                            case Update.freeDroneCharge:
-                                DroneCharge temp_DroneCharge = new DroneCharge();
-                                mainDalObject.freeDroneCharge(ref temp_DroneCharge);
+                            case Update.freeDroneCharge://שחרור מהטענה 
+                                mainDalObject.freeDroneCharge();
                                 break;
 
                             default:

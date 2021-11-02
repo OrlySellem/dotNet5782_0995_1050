@@ -19,7 +19,7 @@ namespace DalObject
 
         internal static Parcel[] parcels = new Parcel[1000];
 
-        internal static DroneCharge[] DroneCharge = new DroneCharge[10];
+        internal static DroneCharge[] DroneCharge = new DroneCharge[100];
 
         internal class Config
         {

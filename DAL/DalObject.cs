@@ -123,7 +123,7 @@ namespace DalObject
             Console.WriteLine("Your parcel's id is:{0}\n", DataSource.Config.idParcel++);
         }
 
-        public void addDronceCharge(int id)
+        public void addDronceCharge(int id)// מה זה????
         {
             DataSource.DroneCharge[DataSource.Config.index_droneCharge++] = new DroneCharge
             {
@@ -176,35 +176,35 @@ namespace DalObject
 
             return -1;
         }
-        public int findFreeDroneCharge()
-        {
-            int indexStation;
-            do
-            {
-                Console.WriteLine("Choose one of the following stations with free charging staion\n");
-                print_stations_with_freeDroneCharge();
-                indexStation = checkIndexStation();
-                if (DataSource.stations[indexStation].ChargeSlots <= 0)
-                {
-                    Console.WriteLine("There isn't available drone charge in this station\n");
-                }
-            }
-            while (DataSource.stations[indexStation].ChargeSlots <= 0);
+        //public int findFreeDroneCharge()
+        //{
+        //    int indexStation;
+        //    do
+        //    {
+        //        Console.WriteLine("Choose one of the following stations with free charging staion\n");
+        //        print_stations_with_freeDroneCharge();
+        //        indexStation = checkIndexStation();
+        //        if (DataSource.stations[indexStation].ChargeSlots <= 0)
+        //        {
+        //            Console.WriteLine("There isn't available drone charge in this station\n");
+        //        }
+        //    }
+        //    while (DataSource.stations[indexStation].ChargeSlots <= 0);
        
-            for (int i = 0; i < DataSource.DroneCharge.Length; i++)
-            {
-                if (DataSource.DroneCharge[i].Stationld == DataSource.stations[indexStation].Id)
-                {
-                    if (DataSource.DroneCharge[i].Droneld == 0)
-                    {
-                        return i;
-                    }
-                }
-            }
+        //    for (int i = 0; i < DataSource.DroneCharge.Length; i++)
+        //    {
+        //        if (DataSource.DroneCharge[i].Stationld == DataSource.stations[indexStation].Id)
+        //        {
+        //            if (DataSource.DroneCharge[i].Droneld == 0)
+        //            {
+        //                return i;
+        //            }
+        //        }
+        //    }
 
-            return -1;
+        //    return -1;
 
-        }
+        //}
         public int checkIndexParcel()
         {
             int indexParcel, idParcel;
@@ -252,20 +252,6 @@ namespace DalObject
 
         }
 
-        public int checkIndexDroneCharge()
-        {
-            int indexDroneCharge;
-            do
-            {
-                Console.WriteLine("Please enter droneCharge's id:");
-                indexDroneCharge = findFreeDroneCharge();
-                if (indexDroneCharge == -1)
-                    Console.WriteLine("There isn't exist\n");
-
-            }
-            while (indexDroneCharge == -1);
-            return indexDroneCharge;
-        }
         public void assign_parcel_drone()//assign parcel to drone
         {
             int indexParcel = checkIndexParcel();
@@ -300,21 +286,46 @@ namespace DalObject
 
         public void chargingDrone()
         {
-            int indexDrone = checkIndexDrone();          
-            int indexStation = checkIndexStation();
+            int indexDrone = checkIndexDrone();// הכנסת רחפן         
+            int indexStation = checkIndexStation();//הכנסת תחנת בסיס 
+            while (DataSource.stations[indexStation].ChargeSlots == 0)//אם אין תחנות הטענה פנויות תבחר תחנה חדשה  
+            {
+                Console.WriteLine("There aren't available charge slots\n");
+                indexStation = checkIndexStation();//הכנסת תחנת בסיס 
+            }
 
-            DataSource.drones[indexDrone].Status = DroneStatuses.maintenance;
-            DataSource.stations[indexStation].ChargeSlots--;
+            DataSource.drones[indexDrone].Status = DroneStatuses.maintenance;//שינוי סטטוס הרחפן
+            DataSource.stations[indexStation].ChargeSlots--;//הקטנת מספר עמדות הטענה
+            for(int i=0; i< DataSource.DroneCharge.Length;i++)//תעבור על מערך הCD וכאשר נגיע למקום פנוי....
+            {
+                if (DataSource.DroneCharge[i].flag == false)
+                {//תיצור לתוכו DC חדש 
+                    DataSource.DroneCharge[i].Droneld = DataSource.drones[indexDrone].Id;
+                    DataSource.DroneCharge[i].Stationld = DataSource.stations[indexStation].Id;
+                    DataSource.DroneCharge[i].flag = true;
+                    break;
+                }
+
+            }
         }
 
         public void freeDroneCharge()
         {
-            int indexDrone = checkIndexDrone();
-            int indexStation = checkIndexStation();
-            int indexDroneCharge = checkIndexDroneCharge();
+            int indexDrone = checkIndexDrone();//הכנסת רחפן תקין והבאת המקום שלו
+            int indexStation = checkIndexStation();//הכנסת תחנה תקינה והבאת המקום שלו 
 
-            DataSource.DroneCharge[indexDroneCharge].Droneld = 0;
+            for(int i=0; i < DataSource.DroneCharge.Length; i++)//תעבור על מערך הCD וכאשר נגיע למקום פנוי....
+            {
+                if (DataSource.DroneCharge[i].Stationld == DataSource.stations[indexStation].Id)//אם מצאנו שמות של תחנות בסיס שוות
+                {
+                    if (DataSource.DroneCharge[i].Droneld == DataSource.drones[indexDrone].Id)
+                    {
+                        DataSource.DroneCharge[i].flag = false;
+                        break;
+                    }                                   
+                }
 
+            }
             DataSource.stations[indexStation].ChargeSlots++;
             DataSource.drones[indexDrone].Status = DroneStatuses.available;
             DataSource.drones[indexDrone].Battery = 100;
