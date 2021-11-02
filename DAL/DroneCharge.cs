@@ -1,4 +1,10 @@
-﻿using System;
+﻿/* Ester Shmuel ID:318968468 && Orly Sellem ID:315208728
+  Lecturer: Adina Milston
+  Course: .Dot Net
+  Exercise: 2
+  The purpose of this file is to droneCharge's entity
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
