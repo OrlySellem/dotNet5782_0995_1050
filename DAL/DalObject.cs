@@ -58,19 +58,12 @@ namespace DalObject
             string model = Console.ReadLine();
             Console.WriteLine("Please enter drone's weight categories - 0 for light, 1 for medium, 2 for heavy:");
             int maxWeight = int.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter drone's status - 0 for available, 1 for maintenance, 2 for delivery:");
-            int status = int.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter drone's battery:");
-            int battery = int.Parse(Console.ReadLine());
-            Console.WriteLine();
-
+        
             DataSource.drones[DataSource.Config.index_drones++] = new Drone()
             {
                 Id = id,
                 Model = model,
                 MaxWeight = (WeightCategories)maxWeight,
-                Status = (DroneStatuses)status,
-                Battery = battery
             };
 
         }
@@ -230,30 +223,30 @@ namespace DalObject
             int indexParcel = checkIndexParcel();
             int indexDrone = checkIndexDrone();
            
-            if (DataSource.drones[indexDrone].Status == DroneStatuses.available)
-            {
-                DataSource.parcels[indexParcel].Droneld = DataSource.drones[indexDrone].Id;
-                DataSource.parcels[indexParcel].Scheduled = DateTime.Now;
-                DataSource.drones[indexDrone].Status = DroneStatuses.delivery;
-            }
-            else
-            {
-                Console.WriteLine("The drone isn't available\n");
-            }
+            //if (DataSource.drones[indexDrone].Status == DroneStatuses.available)
+            //{
+            //    DataSource.parcels[indexParcel].Droneld = DataSource.drones[indexDrone].Id;
+            //    DataSource.parcels[indexParcel].Scheduled = DateTime.Now;
+            //    DataSource.drones[indexDrone].Status = DroneStatuses.delivery;
+            //}
+            //else
+            //{
+            //    Console.WriteLine("The drone isn't available\n");
+            //}
         }
 
         public void drone_pick_parcel()//pick up parcel by drone
         {
             int indexParcel = checkIndexParcel();
             int indexDrone = checkIndexDrone();
-            DataSource.drones[indexDrone].Status = DroneStatuses.delivery;
+            //DataSource.drones[indexDrone].Status = DroneStatuses.delivery;
             DataSource.parcels[indexParcel].PickedUp = DateTime.Now;
         }
         public void delivery_arrive_toCustomer()//The delivery arrived to the customer
         {
             int indexParcel = checkIndexParcel();
             int indexDrone = checkIndexDrone();
-            DataSource.drones[indexDrone].Status = DroneStatuses.available;
+            //DataSource.drones[indexDrone].Status = DroneStatuses.available;
             DataSource.parcels[indexParcel].Delivered = DateTime.Now;
         }
 
@@ -268,7 +261,7 @@ namespace DalObject
                 indexStation = checkIndexStation(); 
             }
 
-            DataSource.drones[indexDrone].Status = DroneStatuses.maintenance;//Change drone status
+           /* DataSource.drones[indexDrone].Status = DroneStatuses.maintenance;*///Change drone status
             DataSource.stations[indexStation].ChargeSlots--;//Reduce the number of claim positions
             for (int i=0; i< DataSource.DroneCharge.Length;i++)
             {
@@ -301,8 +294,8 @@ namespace DalObject
 
             }
             DataSource.stations[indexStation].ChargeSlots++;
-            DataSource.drones[indexDrone].Status = DroneStatuses.available;
-            DataSource.drones[indexDrone].Battery = 100;
+            //DataSource.drones[indexDrone].Status = DroneStatuses.available;
+            //DataSource.drones[indexDrone].Battery = 100;
         }
 
         public void printStation(int id)//print  the requested Station

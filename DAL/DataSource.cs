@@ -18,52 +18,37 @@ namespace DalObject
         //define array to all of the entities (different size's initialize) 
         internal static Random rand = new Random();
 
-        internal static Drone[] drones = new Drone[10];
+        internal static List<Drone> drones = new List<Drone>();
 
-        internal static Station[] stations = new Station[5];
+        internal static List<Station> stations = new List <Station>();
 
-        internal static Customer[] customers = new Customer[100];
+        internal static List<Customer> customers = new List<Customer>();
 
-        internal static Parcel[] parcels = new Parcel[1000];
+        internal static List<Parcel> parcels = new List<Parcel>();
 
-        internal static DroneCharge[] DroneCharge = new DroneCharge[100];
+        internal static List <DroneCharge> dronesCharge = new List<DroneCharge>();
 
-        internal class Config
-        {
-            
-            internal static int idParcel=1;//Runner parcel's ID number 
-
-            //Save the last index in the array (the next availavle cell)
-            internal static int index_drones = 0;
-
-            internal static int index_stations = 0;
-
-            internal static int index_customers = 0;
-
-            internal static int index_parcels = 0;
-
-            internal static int index_droneCharge = 0;
-        }
-
+        internal static int idParcel = 1;//Runner parcel's ID number 
+      
         public static void Initialize()
         {
             //Initialize 5 drones
             string[] ModelArr = { "1G", "2G", "3G", "4G", "5G" };
             for (int i = 0; i < 5; i++)
             {
-                drones[Config.index_drones++] = new Drone()
+                Drone temp = new Drone()
                 {
-                    Id = rand.Next(1000, 9999),
-                    Model = ModelArr[i],
-                    MaxWeight = (WeightCategories)rand.Next(0, 2),
-                    Status = (DroneStatuses)rand.Next(0, 2),
-                    Battery = rand.Next(0,100)
+                    Id= rand.Next(1000, 9999),
+                    Model= ModelArr[i], 
+                    MaxWeight= (WeightCategories)rand.Next(0, 2),
+                    Battery= rand.Next(0, 100)
                 };
+                drones.Add(temp);
             }
             //Initialize 2 stations
             for (int i = 0; i < 2; i++)
             {
-                stations[Config.index_stations++] = new Station()
+                Station temp = new Station()
                 {
                     Id = rand.Next(10000,99999),
                     Name=i,
@@ -71,6 +56,7 @@ namespace DalObject
                     Lattitude=rand.Next(1000,4000),
                     ChargeSlots =rand.Next(1,10), 
                 };
+                stations.Add(temp);
             }
             //Initialize 10 customers
             for (int i = 0; i < 10; i++)
@@ -78,10 +64,10 @@ namespace DalObject
                 string newName="";
                 for (int j = 0; j < 5; j++)
                 {
-                    int temp = rand.Next(97, 122);
-                    newName += (char)temp;
+                    int a = rand.Next(97, 122);
+                    newName += (char)a;
                 }
-                customers[Config.index_customers++] = new Customer()
+                Customer temp = new Customer()
                 {
                     Id = rand.Next(100000000, 999999999),
                     Name = newName,
@@ -89,13 +75,15 @@ namespace DalObject
                     Longitude=rand.Next(-180, 180),
                     Lattitude=rand.Next(-90,90),
                 };
+                customers.Add(temp);
+
             }
             //Initialize 10 parcels
             for (int i = 0; i < 10; i++)
             {
-                parcels[Config.index_parcels++] = new Parcel()
+                Parcel temp = new Parcel()
                 {
-                    Id=Config.idParcel++,
+                    Id=idParcel++,
                     Senderld=rand.Next(100000000,999999999),
                     Targetld=rand.Next(100000000,999999999),
                     Weight=(WeightCategories)rand.Next(0,2),
@@ -106,14 +94,18 @@ namespace DalObject
                     PickedUp = new DateTime(01, 01, 0001),
                     Delivered = new DateTime(01, 01, 0001),
                 };
+
+                parcels.Add(temp);
             }
             //Initialize 100 free drones charge (flag=false mean that the drone is free to charging)
             for (int i=0; i<100; i++)
             {
-                DroneCharge[Config.index_droneCharge++] = new DroneCharge()
+                DroneCharge temp = new DroneCharge()
                 {
                     flag = false
                 };
+
+                dronesCharge.Add(temp);
             }
 
         }
