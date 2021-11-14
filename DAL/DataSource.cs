@@ -13,23 +13,26 @@ using IDAL.DO;
 
 namespace DalObject
 {
-   static class DataSource
+    static class DataSource
     {
         //define array to all of the entities (different size's initialize) 
         internal static Random rand = new Random();
 
         internal static List<Drone> drones = new List<Drone>();
 
-        internal static List<Station> stations = new List <Station>();
+        internal static List<Station> stations = new List<Station>();
 
         internal static List<Customer> customers = new List<Customer>();
 
         internal static List<Parcel> parcels = new List<Parcel>();
 
-        internal static List <DroneCharge> dronesCharge = new List<DroneCharge>();
+        internal static List<DroneCharge> dronesCharge = new List<DroneCharge>();
 
-        internal static int idParcel = 1;//Runner parcel's ID number 
-      
+        internal class Config
+        {
+            internal static int idParcel = 1;//Runner parcel's ID number 
+        }
+          
         public static void Initialize()
         {
             //Initialize 5 drones
@@ -83,7 +86,7 @@ namespace DalObject
             {
                 Parcel temp = new Parcel()
                 {
-                    Id=idParcel++,
+                    Id=Config.idParcel++,
                     Senderld=rand.Next(100000000,999999999),
                     Targetld=rand.Next(100000000,999999999),
                     Weight=(WeightCategories)rand.Next(0,2),

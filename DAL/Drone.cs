@@ -28,8 +28,9 @@ namespace IDAL
 
             public override string ToString()
             {
-                return string.Format("\nId is:{0}\nModel is:{1}\nMaxWeight is:{2}\nStatus is:{3}\nBattery is:{4}\n", Id, Model, MaxWeight, Status, Battery);
+                return string.Format("\nId is:{0}\nModel is:{1}\nMaxWeight is:{2}\nBattery is:{3}\n", Id, Model, MaxWeight, Battery);
             }
+
         }
     }
     

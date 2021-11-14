@@ -38,7 +38,7 @@ namespace DalObject
             int chargeSlots = int.Parse(Console.ReadLine());
             Console.WriteLine();
 
-            DataSource.stations[DataSource.Config.index_stations++] = new Station()
+            Station temp = new Station()
             {
                 Id = id,
                 Name = name,
@@ -46,6 +46,8 @@ namespace DalObject
                 Lattitude = lattitude,
                 ChargeSlots = chargeSlots,
             };
+
+            DataSource.stations.Add(temp);
 
         }
 
@@ -58,13 +60,15 @@ namespace DalObject
             string model = Console.ReadLine();
             Console.WriteLine("Please enter drone's weight categories - 0 for light, 1 for medium, 2 for heavy:");
             int maxWeight = int.Parse(Console.ReadLine());
-        
-            DataSource.drones[DataSource.Config.index_drones++] = new Drone()
+
+            Drone temp = new Drone()
             {
                 Id = id,
                 Model = model,
                 MaxWeight = (WeightCategories)maxWeight,
             };
+
+            DataSource.drones.Add(temp);
 
         }
 
@@ -83,8 +87,7 @@ namespace DalObject
             double longitude = double.Parse(Console.ReadLine());
             Console.WriteLine();
 
-
-            DataSource.customers[DataSource.Config.index_customers++] = new Customer()
+            Customer temp = new Customer()
             {
                 Id = id,
                 Name = name,
@@ -92,6 +95,8 @@ namespace DalObject
                 Lattitude = lattitude,
                 Longitude = longitude
             };
+
+            DataSource.customers.Add(temp);
         }
 
         public void addParcel()//add new base percel
@@ -107,7 +112,7 @@ namespace DalObject
             int priority = int.Parse(Console.ReadLine());
             Console.WriteLine();
 
-            DataSource.parcels[DataSource.Config.index_parcels++] = new Parcel()
+            Parcel temp = new Parcel()
             {
                 Id = DataSource.Config.idParcel,
                 Senderld = senderld,
@@ -121,13 +126,14 @@ namespace DalObject
                 Delivered = new DateTime(01, 01, 0001),
             };
             Console.WriteLine("Your parcel's id is:{0}\n", DataSource.Config.idParcel++);//Printing what the Parcel number
+            DataSource.parcels.Add(temp);
         }
 
         public int findIndexParcel(int id)//Finds the requested parcel from the arr
         {
-            for(int i=0; i<DataSource.parcels.Length; i++)
+            for (int i = 0; i < DataSource.parcels.Count; i++)
             {
-                if(DataSource.parcels[i].Id==id)
+                if (DataSource.parcels[i].Id == id)
                 {
                     return i;//return the index
                 }
@@ -137,7 +143,7 @@ namespace DalObject
 
         public int findIndexDrone(int id)//Finds the requested drone from the arr
         {
-            for (int i = 0; i < DataSource.drones.Length; i++)
+            for (int i = 0; i < DataSource.drones.Count; i++)
             {
                 if (DataSource.drones[i].Id == id)
                     return i;
@@ -148,7 +154,7 @@ namespace DalObject
 
         public int findIndexStation(int id)//Finds the requested station from the arr
         {
-            for (int i = 0; i < DataSource.drones.Length; i++)
+            for (int i = 0; i < DataSource.drones.Count; i++)
             {
                 if (DataSource.stations[i].Id == id)
                     return i;
@@ -158,7 +164,7 @@ namespace DalObject
 
         public int findIndexCustomer(int id)//loop to find the customer acordding to ID 
         {
-            for (int i = 0; i < DataSource.customers.Length; i++)
+            for (int i = 0; i < DataSource.customers.Count; i++)
             {
                 if (DataSource.customers[i].Id == id)
                 {
@@ -168,7 +174,7 @@ namespace DalObject
 
             return -1;
         }
-       
+
         public int checkIndexParcel()//Receives a parcel from the user and make sure that it exists
         {
             int indexParcel, idParcel;
@@ -222,7 +228,7 @@ namespace DalObject
         {
             int indexParcel = checkIndexParcel();
             int indexDrone = checkIndexDrone();
-           
+
             //if (DataSource.drones[indexDrone].Status == DroneStatuses.available)
             //{
             //    DataSource.parcels[indexParcel].Droneld = DataSource.drones[indexDrone].Id;
@@ -239,37 +245,47 @@ namespace DalObject
         {
             int indexParcel = checkIndexParcel();
             int indexDrone = checkIndexDrone();
-            //DataSource.drones[indexDrone].Status = DroneStatuses.delivery;
-            DataSource.parcels[indexParcel].PickedUp = DateTime.Now;
+
+            Parcel p = DataSource.parcels[indexParcel];
+            p.PickedUp = DateTime.Now;
+            DataSource.parcels[indexParcel] = p;
         }
         public void delivery_arrive_toCustomer()//The delivery arrived to the customer
         {
             int indexParcel = checkIndexParcel();
             int indexDrone = checkIndexDrone();
-            //DataSource.drones[indexDrone].Status = DroneStatuses.available;
-            DataSource.parcels[indexParcel].Delivered = DateTime.Now;
+
+            Parcel pd = DataSource.parcels[indexParcel];
+            pd.Delivered = DateTime.Now;
+            DataSource.parcels[indexParcel] = pd;
         }
 
         public void chargingDrone()//Inserts a drone to charg
         {
-            
-            int indexDrone = checkIndexDrone();         
-            int indexStation = checkIndexStation(); 
+
+            int indexDrone = checkIndexDrone();
+            int indexStation = checkIndexStation();
             while (DataSource.stations[indexStation].ChargeSlots == 0)//If there are no charge slots available, choose a new station  
             {
                 Console.WriteLine("There aren't available charge slots\n");
-                indexStation = checkIndexStation(); 
+                indexStation = checkIndexStation();
             }
 
-           /* DataSource.drones[indexDrone].Status = DroneStatuses.maintenance;*///Change drone status
-            DataSource.stations[indexStation].ChargeSlots--;//Reduce the number of claim positions
-            for (int i=0; i< DataSource.DroneCharge.Length;i++)
+
+            Station s = DataSource.stations[indexStation];
+            s.ChargeSlots--;//Reduce the number of claim positions
+            DataSource.stations[indexStation] = s;
+
+            for (int i = 0; i < DataSource.dronesCharge.Count; i++)
             {
-                if (DataSource.DroneCharge[i].flag == false)//In free space inserts the data to DroneCharge
+
+                if (DataSource.dronesCharge[i].flag == false)//In free space inserts the data to DroneCharge
                 {
-                    DataSource.DroneCharge[i].Droneld = DataSource.drones[indexDrone].Id;
-                    DataSource.DroneCharge[i].Stationld = DataSource.stations[indexStation].Id;
-                    DataSource.DroneCharge[i].flag = true;
+                    DroneCharge d = DataSource.dronesCharge[i];
+                    d.Droneld = DataSource.drones[indexDrone].Id;
+                    d.Stationld = DataSource.stations[indexStation].Id;
+                    d.flag = true;
+                    DataSource.dronesCharge[i] = d;
                     break;
                 }
 
@@ -281,26 +297,29 @@ namespace DalObject
             int indexDrone = checkIndexDrone();
             int indexStation = checkIndexStation();
 
-            for(int i=0; i < DataSource.DroneCharge.Length; i++)
+            for (int i = 0; i < DataSource.dronesCharge.Count; i++)
             {
-                if (DataSource.DroneCharge[i].Stationld == DataSource.stations[indexStation].Id)//We found in charging the requested name of a base station
+                if (DataSource.dronesCharge[i].Stationld == DataSource.stations[indexStation].Id)//We found in charging the requested name of a base station
                 {
-                    if (DataSource.DroneCharge[i].Droneld == DataSource.drones[indexDrone].Id)//We found in charging the matching requested name of a drone
+                    if (DataSource.dronesCharge[i].Droneld == DataSource.drones[indexDrone].Id)//We found in charging the matching requested name of a drone
                     {
-                        DataSource.DroneCharge[i].flag = false;
+                       DroneCharge temp = DataSource.dronesCharge[i];
+                       temp.flag = false;
+                       DataSource.dronesCharge[i] = temp;
                         break;
-                    }                                   
+                    }
                 }
 
             }
-            DataSource.stations[indexStation].ChargeSlots++;
-            //DataSource.drones[indexDrone].Status = DroneStatuses.available;
-            //DataSource.drones[indexDrone].Battery = 100;
+            Station st = DataSource.stations[indexStation];
+            st.ChargeSlots++;
+            DataSource.stations[indexStation] = st;
+
         }
 
         public void printStation(int id)//print  the requested Station
         {
-            for (int i = 0; i < DataSource.stations.Length; i++)
+            for (int i = 0; i < DataSource.stations.Count; i++)
             {
                 if (DataSource.stations[i].Id == id)
                 {
@@ -312,7 +331,7 @@ namespace DalObject
 
         public void printDrone(int id)//print the requested Drone
         {
-            for (int i = 0; i < DataSource.drones.Length; i++)
+            for (int i = 0; i < DataSource.drones.Count; i++)
             {
                 if (DataSource.drones[i].Id == id)
                 {
@@ -324,7 +343,7 @@ namespace DalObject
 
         public void printCustomer(int id)//print the requested Customer
         {
-            for (int i = 0; i < DataSource.customers.Length; i++)
+            for (int i = 0; i < DataSource.customers.Count; i++)
             {
                 if (DataSource.customers[i].Id == id)
                 {
@@ -336,7 +355,7 @@ namespace DalObject
 
         public void printParcel(int id)//print the requested parcel
         {
-            for (int i = 0; i < DataSource.parcels.Length; i++)
+            for (int i = 0; i < DataSource.parcels.Count; i++)
             {
                 if (DataSource.parcels[i].Id == id)
                 {
@@ -392,7 +411,7 @@ namespace DalObject
         {
             foreach (Parcel item in DataSource.parcels)
             {
-                if (item.Droneld == 0 && item.Id!=0)
+                if (item.Droneld == 0 && item.Id != 0)
                     Console.WriteLine(item.ToString());
             }
         }
