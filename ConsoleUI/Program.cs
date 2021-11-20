@@ -15,6 +15,7 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+
             bool flag = true;
             DalObject.DalObject mainDalObject = new DalObject.DalObject();
             while (flag) 
