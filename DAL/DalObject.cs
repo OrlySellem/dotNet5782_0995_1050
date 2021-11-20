@@ -22,7 +22,7 @@ namespace DalObject
             DataSource.Initialize();
         }
 
-        public void addStaion()//add new base station
+        public void addStaion(int id, int name, double longitude, double lattitude, int chargeSlots)//add new base station
         {
             //Ask the user to insert the station's details
             Station temp = new Station()
@@ -38,15 +38,8 @@ namespace DalObject
 
         }
 
-        public void addDrone()// add drone
+        public void addDrone(int id, string model, int maxWeight)// add drone
         {
-            //Ask the user to insert the drone's details
-            Console.WriteLine("Please enter drone's id:");
-            int id = int.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter drone's model:");
-            string model = Console.ReadLine();
-            Console.WriteLine("Please enter drone's weight categories - 0 for light, 1 for medium, 2 for heavy:");
-            int maxWeight = int.Parse(Console.ReadLine());
 
             Drone temp = new Drone()
             {
@@ -59,20 +52,8 @@ namespace DalObject
 
         }
 
-        public void addCustomer()// add customer
+        public void addCustomer(int id, string name, string phone, double longitude, double lattitude)// add customer
         {
-            //Ask the user to insert the customer's details
-            Console.WriteLine("Please enter your id:");
-            int id = int.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter your name:");
-            string name = Console.ReadLine();
-            Console.WriteLine("Please enter your phone:");
-            string phone = Console.ReadLine();
-            Console.WriteLine("Please enter lattitude:");
-            double lattitude = double.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter longitude:");
-            double longitude = double.Parse(Console.ReadLine());
-            Console.WriteLine();
 
             Customer temp = new Customer()
             {
@@ -86,18 +67,8 @@ namespace DalObject
             DataSource.customers.Add(temp);
         }
 
-        public void addParcel()//add new base percel
+        public void addParcel(int senderld, int targetld, int maxWeight, int priority)//add new base percel
         {
-            //Ask the user to insert the parcel's details
-            Console.WriteLine("Please enter sender's id:");
-            int senderld = int.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter target's id:");
-            int targetld = int.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter drone's weight categories - 0 for light, 1 for medium, 2 for heavy:");
-            int maxWeight = int.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter the delivery's priority - 0 for normal, 1 for fast, 2 for emergency:");
-            int priority = int.Parse(Console.ReadLine());
-            Console.WriteLine();
 
             Parcel temp = new Parcel()
             {
@@ -290,9 +261,9 @@ namespace DalObject
                 {
                     if (DataSource.dronesCharge[i].Droneld == DataSource.drones[indexDrone].Id)//We found in charging the matching requested name of a drone
                     {
-                       DroneCharge temp = DataSource.dronesCharge[i];
-                       temp.flag = false;
-                       DataSource.dronesCharge[i] = temp;
+                        DroneCharge temp = DataSource.dronesCharge[i];
+                        temp.flag = false;
+                        DataSource.dronesCharge[i] = temp;
                         break;
                     }
                 }
@@ -318,7 +289,7 @@ namespace DalObject
         }
 
         public void printDrone(int id)//print the requested Drone
-        {         
+        {
             foreach (var item in DataSource.drones)
             {
                 if (item.Id == id)
@@ -331,7 +302,7 @@ namespace DalObject
         }
 
         public void printCustomer(int id)//print the requested Customer
-        { 
+        {
             foreach (var item in DataSource.customers)
             {
                 if (item.Id == id)
@@ -357,7 +328,7 @@ namespace DalObject
                 }
 
             }
-          
+
         }
 
         public void printAllStations()
@@ -421,7 +392,7 @@ namespace DalObject
             }
         }
 
-      //  public List<double> R_power_consumption_Drone() { }
+        //  public List<double> R_power_consumption_Drone() { }
     }
 }
 

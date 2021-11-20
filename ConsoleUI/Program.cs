@@ -18,9 +18,9 @@ namespace ConsoleUI
 
             bool flag = true;
             DalObject.DalObject mainDalObject = new DalObject.DalObject();
-            while (flag) 
+            while (flag)
             {
-                
+
                 Console.WriteLine("To add customer, drone, station or parcel - enter 0");
                 Console.WriteLine("To update items - enter 1");
                 Console.WriteLine("To display options - enter 2");
@@ -31,10 +31,10 @@ namespace ConsoleUI
                 int n = int.Parse(Console.ReadLine());//number absorption for choice
                 Console.WriteLine();
                 programDelivry outsideChoice = (programDelivry)n;//casting to programDelivry
-                
+
                 switch (outsideChoice)//the external switch (Menu of menus)
                 {
-                    
+
                     case programDelivry.addingOptions:
                         //To add customer, drone, station or parcel
                         Console.WriteLine("To add customer - enter 0\nTo add drone - enter 1\nTo add station - enter 2\nTo add parcel - enter 3");
@@ -42,48 +42,87 @@ namespace ConsoleUI
                         Console.WriteLine();
                         Add addChoice = (Add)k;//casting to Add
 
+                        int id, maxWeight;
+                        double longitude, lattitude;
+
                         switch (addChoice)
                         {
-                            case Add.addCustomer:
-                                
-                                 //add customer
-                                 Console.WriteLine("Please enter station's id:");
-                                  int id = int.Parse(Console.ReadLine());
-
-                                 Console.WriteLine("Please enter station's name:");
-                                 int name = int.Parse(Console.ReadLine());
-
-                                 Console.WriteLine("Please enter the station's longitude");   
-                                 double longitude = double.Parse(Console.ReadLine());
-
-                                 Console.WriteLine("Please enter the station's lattitude");
-                                 double lattitude = double.Parse(Console.ReadLine());
-
-                                 Console.WriteLine("Please enter the station's chargeSlots");
-                                 int chargeSlots = int.Parse(Console.ReadLine());
-
+                            case Add.addCustomer:     //add customer
+                                //Ask the user to insert the customer's details
+                                Console.WriteLine("Please enter your id:");
+                                id = int.Parse(Console.ReadLine());
+                                Console.WriteLine("Please enter your name:");
+                                string name_st = Console.ReadLine();
+                                Console.WriteLine("Please enter your phone:");
+                                string phone = Console.ReadLine();
+                                Console.WriteLine("Please enter lattitude:");
+                                lattitude = double.Parse(Console.ReadLine());
+                                Console.WriteLine("Please enter longitude:");
+                                longitude = double.Parse(Console.ReadLine());
                                 Console.WriteLine();
-                                mainDalObject.addCustomer(id, name, longitude, lattitude, chargeSlots);
-                                
+
+                                mainDalObject.addCustomer(id, name_st, phone, longitude, lattitude);
+
                                 break;
-                                
+
 
                             case Add.addDrone://add drone
-                                mainDalObject.addDrone();
+
+                                //Ask the user to insert the drone's details
+                                Console.WriteLine("Please enter drone's id:");
+                                id = int.Parse(Console.ReadLine());
+                                Console.WriteLine("Please enter drone's model:");
+                                string model = Console.ReadLine();
+                                Console.WriteLine("Please enter drone's weight categories - 0 for light, 1 for medium, 2 for heavy:");
+                                maxWeight = int.Parse(Console.ReadLine());
+
+                                mainDalObject.addDrone(id, model, maxWeight);
                                 break;
+
                             case Add.addStation://add station
-                                mainDalObject.addStaion();
+
+                   
+
+                                //Ask the user to insert the station's details
+                                Console.WriteLine("Please enter station's id:");
+                                id = int.Parse(Console.ReadLine());
+
+                                Console.WriteLine("Please enter station's name:");
+                                int name_int = int.Parse(Console.ReadLine());
+
+                                Console.WriteLine("Please enter the station's longitude");
+                                longitude = double.Parse(Console.ReadLine());
+
+                                Console.WriteLine("Please enter the station's lattitude");
+                                lattitude = double.Parse(Console.ReadLine());
+
+                                Console.WriteLine("Please enter the station's chargeSlots");
+                                int chargeSlots = int.Parse(Console.ReadLine());
+
+                                mainDalObject.addStaion(id, name_int, longitude, lattitude, chargeSlots);
                                 break;
                             case Add.addParcel://add parcel
-                                mainDalObject.addParcel();
+
+                                //Ask the user to insert the parcel's details
+                                Console.WriteLine("Please enter sender's id:");
+                                int senderld = int.Parse(Console.ReadLine());
+                                Console.WriteLine("Please enter target's id:");
+                                int targetld = int.Parse(Console.ReadLine());
+                                Console.WriteLine("Please enter drone's weight categories - 0 for light, 1 for medium, 2 for heavy:");
+                                maxWeight = int.Parse(Console.ReadLine());
+                                Console.WriteLine("Please enter the delivery's priority - 0 for normal, 1 for fast, 2 for emergency:");
+                                int priority = int.Parse(Console.ReadLine());
+                                Console.WriteLine();
+
+                                mainDalObject.addParcel(senderld, targetld, maxWeight, priority);
                                 break;
                             default:
                                 break;
                         }
                         break;
 
-                   
-                   case programDelivry.UpdateOptions:   //To update item            
+
+                    case programDelivry.UpdateOptions:   //To update item            
                         Console.WriteLine("To assign parcel to drone - enter 0\nTo pick up parcel by drone - enter 1\nTo update that delivery has arrived - enter 2\nTo send drone to charge in base station - enter 3\nTo free drone from chraging - enter 4\n");
                         int m = int.Parse(Console.ReadLine());
                         Update updateChoice = (Update)m;
@@ -192,7 +231,7 @@ namespace ConsoleUI
                         }
                         break;
 
-                    
+
                     case programDelivry.exit:
                         flag = false;
                         break;
