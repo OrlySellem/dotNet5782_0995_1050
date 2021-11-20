@@ -319,50 +319,95 @@ namespace DalObject
 
         public void printStation(int id)//print  the requested Station
         {
-            for (int i = 0; i < DataSource.stations.Count; i++)
+            /////////שינוי ל foreach////////
+
+            foreach (var item in DataSource.stations)
             {
-                if (DataSource.stations[i].Id == id)
+                if (item.Id == id)
                 {
-                    Console.WriteLine(DataSource.stations[i].ToString());
+                    Console.WriteLine(item.ToString());
                     break;
                 }
             }
+
+            //for (int i = 0; i < DataSource.stations.Count; i++)
+            //{
+            //    if (DataSource.stations[i].Id == id)
+            //    {
+            //        Console.WriteLine(DataSource.stations[i].ToString());
+            //        break;
+            //    }
+            //}
         }
 
         public void printDrone(int id)//print the requested Drone
         {
-            for (int i = 0; i < DataSource.drones.Count; i++)
+            /////////שינוי ל foreach////////
+           
+            foreach (var item in DataSource.drones)
             {
-                if (DataSource.drones[i].Id == id)
+                if (item.Id == id)
                 {
-                    Console.WriteLine(DataSource.drones[i].ToString());
+                    Console.WriteLine(item.ToString());
                     break;
                 }
             }
+            //for (int i = 0; i < DataSource.drones.Count; i++)
+            //{
+            //    if (DataSource.drones[i].Id == id)
+            //    {
+            //        Console.WriteLine(DataSource.drones[i].ToString());
+            //        break;
+            //    }
+            //}
         }
 
         public void printCustomer(int id)//print the requested Customer
         {
-            for (int i = 0; i < DataSource.customers.Count; i++)
+            /////////שינוי ל foreach////////
+
+            foreach (var item in DataSource.customers)
             {
-                if (DataSource.customers[i].Id == id)
+                if (item.Id == id)
                 {
-                    Console.WriteLine(DataSource.customers[i].ToString());
+                    Console.WriteLine(item.ToString());
                     break;
                 }
             }
+            //for (int i = 0; i < DataSource.customers.Count; i++)
+            //{
+            //    if (DataSource.customers[i].Id == id)
+            //    {
+            //        Console.WriteLine(DataSource.customers[i].ToString());
+            //        break;
+            //    }
+            //}
         }
 
         public void printParcel(int id)//print the requested parcel
         {
-            for (int i = 0; i < DataSource.parcels.Count; i++)
+
+            /////////שינוי ל foreach////////
+
+            foreach (var item in DataSource.parcels)
             {
-                if (DataSource.parcels[i].Id == id)
+                if (item.Id == id)
                 {
-                    Console.WriteLine(DataSource.parcels[i].ToString());
+                    Console.WriteLine(item.ToString());
                     break;
                 }
+
             }
+
+            
+            //for (int i = 0; i < DataSource.parcels.Count; i++)
+            //{
+            //    if (DataSource.parcels[i].Id == id)
+            //    {
+            //        Console.WriteLine(DataSource.parcels[i].ToString());
+            //        break;
+            //    }
+            //}
         }
 
         public void printAllStations()
@@ -425,6 +470,7 @@ namespace DalObject
             }
         }
 
+      //  public List<double> R_power_consumption_Drone() { }
     }
 }
 

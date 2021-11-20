@@ -31,6 +31,14 @@ namespace DalObject
         internal class Config
         {
             internal static int idParcel = 1;//Runner parcel's ID number 
+
+            //Static features for drone power consumption
+
+            static bool available;
+            static bool Lightweight;//Lightweight issue
+            static bool MediumWeight;//MediumWeight issue
+            static bool Heavyweight;//Heavyweight issue
+            double Drone_charging_speed;//Drone charging speed in percentage per hour
         }
           
         public static void Initialize()
