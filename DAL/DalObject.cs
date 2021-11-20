@@ -25,19 +25,6 @@ namespace DalObject
         public void addStaion()//add new base station
         {
             //Ask the user to insert the station's details
-
-            Console.WriteLine("Please enter station's id:");
-            int id = int.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter station's name:");
-            int name = int.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter the station's longitude");
-            double longitude = double.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter the station's lattitude");
-            double lattitude = double.Parse(Console.ReadLine());
-            Console.WriteLine("Please enter the station's chargeSlots");
-            int chargeSlots = int.Parse(Console.ReadLine());
-            Console.WriteLine();
-
             Station temp = new Station()
             {
                 Id = id,
@@ -319,8 +306,6 @@ namespace DalObject
 
         public void printStation(int id)//print  the requested Station
         {
-            /////////שינוי ל foreach////////
-
             foreach (var item in DataSource.stations)
             {
                 if (item.Id == id)
@@ -330,20 +315,10 @@ namespace DalObject
                 }
             }
 
-            //for (int i = 0; i < DataSource.stations.Count; i++)
-            //{
-            //    if (DataSource.stations[i].Id == id)
-            //    {
-            //        Console.WriteLine(DataSource.stations[i].ToString());
-            //        break;
-            //    }
-            //}
         }
 
         public void printDrone(int id)//print the requested Drone
-        {
-            /////////שינוי ל foreach////////
-           
+        {         
             foreach (var item in DataSource.drones)
             {
                 if (item.Id == id)
@@ -352,20 +327,11 @@ namespace DalObject
                     break;
                 }
             }
-            //for (int i = 0; i < DataSource.drones.Count; i++)
-            //{
-            //    if (DataSource.drones[i].Id == id)
-            //    {
-            //        Console.WriteLine(DataSource.drones[i].ToString());
-            //        break;
-            //    }
-            //}
+
         }
 
         public void printCustomer(int id)//print the requested Customer
-        {
-            /////////שינוי ל foreach////////
-
+        { 
             foreach (var item in DataSource.customers)
             {
                 if (item.Id == id)
@@ -374,14 +340,7 @@ namespace DalObject
                     break;
                 }
             }
-            //for (int i = 0; i < DataSource.customers.Count; i++)
-            //{
-            //    if (DataSource.customers[i].Id == id)
-            //    {
-            //        Console.WriteLine(DataSource.customers[i].ToString());
-            //        break;
-            //    }
-            //}
+
         }
 
         public void printParcel(int id)//print the requested parcel
@@ -398,16 +357,7 @@ namespace DalObject
                 }
 
             }
-
-            
-            //for (int i = 0; i < DataSource.parcels.Count; i++)
-            //{
-            //    if (DataSource.parcels[i].Id == id)
-            //    {
-            //        Console.WriteLine(DataSource.parcels[i].ToString());
-            //        break;
-            //    }
-            //}
+          
         }
 
         public void printAllStations()
@@ -420,6 +370,7 @@ namespace DalObject
             }
 
         }
+
         public void printAllDrones()
         {
             foreach (Drone item in DataSource.drones)

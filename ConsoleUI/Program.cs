@@ -35,7 +35,8 @@ namespace ConsoleUI
                 switch (outsideChoice)//the external switch (Menu of menus)
                 {
                     
-                    case programDelivry.addingOptions:  //To add customer, drone, station or parcel
+                    case programDelivry.addingOptions:
+                        //To add customer, drone, station or parcel
                         Console.WriteLine("To add customer - enter 0\nTo add drone - enter 1\nTo add station - enter 2\nTo add parcel - enter 3");
                         int k = int.Parse(Console.ReadLine());
                         Console.WriteLine();
@@ -43,9 +44,30 @@ namespace ConsoleUI
 
                         switch (addChoice)
                         {
-                            case Add.addCustomer://add customer
-                                mainDalObject.addCustomer();
+                            case Add.addCustomer:
+                                
+                                 //add customer
+                                 Console.WriteLine("Please enter station's id:");
+                                  int id = int.Parse(Console.ReadLine());
+
+                                 Console.WriteLine("Please enter station's name:");
+                                 int name = int.Parse(Console.ReadLine());
+
+                                 Console.WriteLine("Please enter the station's longitude");   
+                                 double longitude = double.Parse(Console.ReadLine());
+
+                                 Console.WriteLine("Please enter the station's lattitude");
+                                 double lattitude = double.Parse(Console.ReadLine());
+
+                                 Console.WriteLine("Please enter the station's chargeSlots");
+                                 int chargeSlots = int.Parse(Console.ReadLine());
+
+                                Console.WriteLine();
+                                mainDalObject.addCustomer(id, name, longitude, lattitude, chargeSlots);
+                                
                                 break;
+                                
+
                             case Add.addDrone://add drone
                                 mainDalObject.addDrone();
                                 break;
