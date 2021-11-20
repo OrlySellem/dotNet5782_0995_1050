@@ -43,8 +43,7 @@ namespace DalObject
                 {
                     Id= rand.Next(1000, 9999),
                     Model= ModelArr[i], 
-                    MaxWeight= (WeightCategories)rand.Next(0, 2),
-                    Battery= rand.Next(0, 100)
+                    MaxWeight= (WeightCategories)rand.Next(0, 2)                  
                 };
                 drones.Add(temp);
             }
