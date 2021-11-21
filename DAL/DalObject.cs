@@ -317,8 +317,6 @@ namespace DalObject
         public void printParcel(int id)//print the requested parcel
         {
 
-            /////////שינוי ל foreach////////
-
             foreach (var item in DataSource.parcels)
             {
                 if (item.Id == id)
@@ -392,7 +390,8 @@ namespace DalObject
             }
         }
 
-        //  public List<double> R_power_consumption_Drone() { }
+         // public List<double> R_power_consumption_Drone() 
+           
     }
 }
 

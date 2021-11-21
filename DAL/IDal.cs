@@ -7,7 +7,7 @@ using DalObject;
 
 namespace IDAL.DO
 {
-    interface IDal
+    public interface IDal
     {
         internal static Random rand = new Random();
 
