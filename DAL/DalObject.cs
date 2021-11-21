@@ -148,87 +148,77 @@ namespace DalObject
             while (indexParcel == -1);
             return indexParcel;
         }
-        public int checkIndexDrone()//Receives a drone from the user and make sure that it exists
+        public void assign_parcel_drone (int idDrone, int idParcel)//assign parcel to drone
         {
-            int indexDrone, idDrone;
-            do
+            int indexDrone = findIndexDrone(idDrone);
+            int indexParcel = findIndexParcel(idParcel);
+
+            if(indexDrone == -1)
+                throw "The drone isn't exist\n";
+
+            if (indexParcel == -1)
+                throw "The parcel isn't exist\n";
+
+
+           if (DataSource.drones[indexDrone].Status == DroneStatuses.available)
             {
-                Console.WriteLine("Please enter drone's id:");
-                idDrone = int.Parse(Console.ReadLine());
-                indexDrone = findIndexDrone(idDrone);
-                if (indexDrone == -1)
-                    Console.WriteLine("The drone isn't exist\n");
-
+                DataSource.parcels[indexParcel].Droneld = DataSource.drones[indexDrone].Id;
+                DataSource.parcels[indexParcel].Scheduled = DateTime.Now;
+                DataSource.drones[indexDrone].Status = DroneStatuses.delivery;
             }
-            while (indexDrone == -1);
-            return indexDrone;
-        }
-        public int checkIndexStation()//Receives a station from the user and make sure that it exists
-        {
-            Console.WriteLine("Choose one of the following stations with free charging staion\n");
-            print_stations_with_freeDroneCharge();
-            int indexStation, idStation;
-            do
+            else
             {
-                Console.WriteLine("Please enter station's id:");
-                idStation = int.Parse(Console.ReadLine());
-                indexStation = findIndexStation(idStation);
-                if (indexStation == -1)
-                    Console.WriteLine("The station isn't exist\n");
-
+                throw "The drone isn't available\n";
             }
-            while (indexStation == -1);
-            return indexStation;
-
         }
 
-        public void assign_parcel_drone()//assign parcel to drone
+        public void drone_pick_parcel(int idDrone, int idParcel)//pick up parcel by drone
         {
-            int indexParcel = checkIndexParcel();
-            int indexDrone = checkIndexDrone();
+            int indexDrone = findIndexDrone(idDrone);
+            int indexParcel = findIndexParcel(idParcel);
+         
+             if(indexDrone == -1)
+                throw "The drone isn't exist\n";
 
-            //if (DataSource.drones[indexDrone].Status == DroneStatuses.available)
-            //{
-            //    DataSource.parcels[indexParcel].Droneld = DataSource.drones[indexDrone].Id;
-            //    DataSource.parcels[indexParcel].Scheduled = DateTime.Now;
-            //    DataSource.drones[indexDrone].Status = DroneStatuses.delivery;
-            //}
-            //else
-            //{
-            //    Console.WriteLine("The drone isn't available\n");
-            //}
-        }
-
-        public void drone_pick_parcel()//pick up parcel by drone
-        {
-            int indexParcel = checkIndexParcel();
-            int indexDrone = checkIndexDrone();
+            if (indexParcel == -1)
+                throw "The parcel isn't exist\n";
 
             Parcel p = DataSource.parcels[indexParcel];
             p.PickedUp = DateTime.Now;
             DataSource.parcels[indexParcel] = p;
         }
-        public void delivery_arrive_toCustomer()//The delivery arrived to the customer
+        public void delivery_arrive_toCustomer(int idDrone, int idParcel)//The delivery arrived to the customer
         {
-            int indexParcel = checkIndexParcel();
-            int indexDrone = checkIndexDrone();
+            int indexDrone = findIndexDrone(idDrone);
+            int indexParcel = findIndexParcel(idParcel);
+         
+             if(indexDrone == -1)
+                throw "The drone isn't exist\n";
+
+            if (indexParcel == -1)
+                throw "The parcel isn't exist\n";
 
             Parcel pd = DataSource.parcels[indexParcel];
             pd.Delivered = DateTime.Now;
             DataSource.parcels[indexParcel] = pd;
         }
 
-        public void chargingDrone()//Inserts a drone to charg
+        public void chargingDrone(int idDrone, int idStation)//Inserts a drone to charg
         {
 
-            int indexDrone = checkIndexDrone();
-            int indexStation = checkIndexStation();
-            while (DataSource.stations[indexStation].ChargeSlots == 0)//If there are no charge slots available, choose a new station  
-            {
-                Console.WriteLine("There aren't available charge slots\n");
-                indexStation = checkIndexStation();
-            }
+            int indexDrone = findIndexDrone(idDrone);
+            int indexStation = findIndexStation(idStation);
 
+            if(indexDrone == -1)
+                throw "The drone isn't exist\n";
+
+            if (indexParcel == -1)
+                throw "The parcel isn't exist\n";
+
+            if (DataSource.stations[indexStation].ChargeSlots == 0)//If there are no charge slots available, choose a new station  
+            {
+                throw "There aren't available charge slots\n";
+            }
 
             Station s = DataSource.stations[indexStation];
             s.ChargeSlots--;//Reduce the number of claim positions
@@ -236,7 +226,6 @@ namespace DalObject
 
             for (int i = 0; i < DataSource.dronesCharge.Count; i++)
             {
-
                 if (DataSource.dronesCharge[i].flag == false)//In free space inserts the data to DroneCharge
                 {
                     DroneCharge d = DataSource.dronesCharge[i];
@@ -250,10 +239,16 @@ namespace DalObject
             }
         }
 
-        public void freeDroneCharge()//Drone release from charging
+        public void freeDroneCharge(int idDrone, int idStation)//Drone release from charging
         {
-            int indexDrone = checkIndexDrone();
-            int indexStation = checkIndexStation();
+            int indexDrone = findIndexDrone(idDrone);
+            int indexStation = findIndexStation(idStation);
+
+               if(indexDrone == -1)
+                throw "The drone isn't exist\n";
+
+            if (indexStation == -1)
+                throw "The station isn't exist\n";
 
             for (int i = 0; i < DataSource.dronesCharge.Count; i++)
             {

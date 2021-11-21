@@ -42,7 +42,7 @@ namespace ConsoleUI
                         Console.WriteLine();
                         Add addChoice = (Add)k;//casting to Add
 
-                        int id, maxWeight;
+                        int id, maxWeight,idDrone, idParcel, idStation;
                         double longitude, lattitude;
 
                         switch (addChoice)
@@ -81,8 +81,6 @@ namespace ConsoleUI
 
                             case Add.addStation://add station
 
-                   
-
                                 //Ask the user to insert the station's details
                                 Console.WriteLine("Please enter station's id:");
                                 id = int.Parse(Console.ReadLine());
@@ -101,6 +99,7 @@ namespace ConsoleUI
 
                                 mainDalObject.addStaion(id, name_int, longitude, lattitude, chargeSlots);
                                 break;
+
                             case Add.addParcel://add parcel
 
                                 //Ask the user to insert the parcel's details
@@ -126,26 +125,56 @@ namespace ConsoleUI
                         Console.WriteLine("To assign parcel to drone - enter 0\nTo pick up parcel by drone - enter 1\nTo update that delivery has arrived - enter 2\nTo send drone to charge in base station - enter 3\nTo free drone from chraging - enter 4\n");
                         int m = int.Parse(Console.ReadLine());
                         Update updateChoice = (Update)m;
+                        int idDrone, idParcel;
                         switch (updateChoice)
                         {
                             case Update.assignParcelDrone://To assign parcel to drone
-                                mainDalObject.assign_parcel_drone();
+
+                                Console.WriteLine("Please enter drone's id:");
+                                idDrone = int.Parse(Console.ReadLine());
+                                Console.WriteLine("Please enter parcel's id:");
+                                idParcel = int.Parse(Console.ReadLine()); 
+
+                                mainDalObject.assign_parcel_drone(idDrone, idParcel);
                                 break;
 
                             case Update.dronePickParcel: //To pick up parcel by drone              
-                                mainDalObject.drone_pick_parcel();
+                                Console.WriteLine("Please enter drone's id:");
+                                idDrone = int.Parse(Console.ReadLine());
+                                Console.WriteLine("Please enter parcel's id:");
+                                idParcel = int.Parse(Console.ReadLine()); 
+
+                                mainDalObject.drone_pick_parcel(idDrone, idParcel);
                                 break;
 
-                            case Update.deliveryAriveToCustomer:  //To update that delivery has arrived                              
-                                mainDalObject.delivery_arrive_toCustomer();
+                            case Update.deliveryAriveToCustomer:  //To update that delivery has arrived
+
+                                Console.WriteLine("Please enter drone's id:");
+                                idDrone = int.Parse(Console.ReadLine());
+                                Console.WriteLine("Please enter parcel's id:");
+                                idParcel = int.Parse(Console.ReadLine());      
+                                
+                                mainDalObject.delivery_arrive_toCustomer(idDrone, idParcel);
                                 break;
 
                             case Update.chargingDrone://To send drone to charge in base station
-                                mainDalObject.chargingDrone();
+
+                                 Console.WriteLine("Please enter drone's id:");
+                                idDrone = int.Parse(Console.ReadLine());
+                                Console.WriteLine("Please enter station's id:");
+                                idStation = int.Parse(Console.ReadLine()); 
+                                
+                                mainDalObject.chargingDrone(idDrone, idStation);
                                 break;
 
                             case Update.freeDroneCharge://To free drone from chraging
-                                mainDalObject.freeDroneCharge();
+
+                                Console.WriteLine("Please enter drone's id:");
+                                idDrone = int.Parse(Console.ReadLine());
+                                Console.WriteLine("Please enter station's id:");
+                                idStation = int.Parse(Console.ReadLine());   
+                                
+                                mainDalObject.freeDroneCharge(idDrone, idStation);
                                 break;
 
                             default:
@@ -163,6 +192,7 @@ namespace ConsoleUI
                             case Display.displayCustomer:
 
                                 Console.WriteLine("please enter customer's id:");
+           
                                 mainDalObject.printCustomer(int.Parse(Console.ReadLine()));
                                 break;
 
