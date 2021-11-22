@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace IBL
 {
-    public class Blimp : 
+    public class Blimp : IBL
     {
 
 
