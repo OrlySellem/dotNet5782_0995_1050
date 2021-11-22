@@ -27,7 +27,7 @@ namespace DalObject
             //Ask the user to insert the station's details
             int indexStation = findIndexStation(id);
             if(indexStation !=-1)
-                throw "The station already exist";
+                throw new stationException(-1);
             Station temp = new Station()
             {
                 Id = id,
@@ -45,7 +45,7 @@ namespace DalObject
         {
             int indexDrone = findIndexDrone(id);
             if(indexDrone !=-1)
-                throw "The drone already exist";
+                throw new droneException(-1);
 
             Drone temp = new Drone()
             {
@@ -62,7 +62,7 @@ namespace DalObject
         {
             int indexCustomer = findIndexCustomer(id);
             if(indexCustomer !=-1)
-                throw "The customer already exist";
+                throw new customerException(-1);
 
             Customer temp = new Customer()
             {
@@ -80,7 +80,7 @@ namespace DalObject
         {
             int indexParcel = findIndexParcel(id);
             if(indexParcel !=-1)
-                throw "The parcel already exist";
+                throw new parcelException(-1);
 
             Parcel temp = new Parcel()
             {
@@ -107,7 +107,7 @@ namespace DalObject
                     return i;//return the index
                 }
             }
-            throw "The parcel isn't exist\n";//if the id isn't esixt in the parcel's array
+            throw new parcelException(-1, "not");//if the id isn't esixt in the parcel's array
         }
 
         public int findIndexDrone(int id)//Finds the requested drone from the arr
@@ -118,7 +118,7 @@ namespace DalObject
                     return i;
             }
 
-            throw "The drone isn't exist\n";
+            throw new droneException(-1, "not");
         }
 
         public int findIndexStation(int id)//Finds the requested station from the arr
@@ -129,7 +129,7 @@ namespace DalObject
                     return i;
             }
 
-            throw "The station isn't exist\n";
+            throw new stationException(-1, "not");
         }
 
         public int findIndexCustomer(int id)//loop to find the customer acordding to ID 
@@ -142,7 +142,7 @@ namespace DalObject
                 }
             }
 
-            throw "The customer isn't exist\n";
+            throw new customerException(-1, "not");
         }
 
        public void reduceChargeSlots(int indexStation)
@@ -177,7 +177,7 @@ namespace DalObject
             }
             else
             {
-                throw "The drone isn't available\n";
+                throw new droneException(-1,a, "not");
             }
         }
 
@@ -212,7 +212,7 @@ namespace DalObject
 
             if (DataSource.stations[indexStation].ChargeSlots == 0)//If there are no charge slots available, choose a new station  
             {
-                throw "There aren't available charge slots\n";
+                throw new stationException(-1,a, "not");
             }
             else
             {
