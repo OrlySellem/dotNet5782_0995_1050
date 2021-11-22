@@ -230,7 +230,14 @@ namespace ConsoleUI
                         {
                             case DisplayListOptions.displayCustomers://to print all the customers's details
 
-                                mainDalObject.printAllCustomers();
+                                /*mainDalObject.returnArrCustomers();
+                                 foreach (Customer item in DataSource.customers)
+                                 {
+                                      if (item.Id == 0)
+                                         break;
+                                  Console.WriteLine(item.ToString());
+                                 }*/
+
                                 break;
 
                             case DisplayListOptions.displayDrones://to print all the drones's details
@@ -303,14 +310,7 @@ namespace ConsoleUI
 
         public void printCustomer(int id)//print the requested Customer
         {
-            foreach (var item in DataSource.customers)
-            {
-                if (item.Id == id)
-                {
-                    Console.WriteLine(item.ToString());
-                    break;
-                }
-            }
+            
 
         }
 
