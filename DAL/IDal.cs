@@ -63,6 +63,6 @@ namespace IDAL.DO
 
         public void print_stations_with_freeDroneCharge();
 
-        public List <double> R_power_consumption_Drone();
+        public double [] R_power_consumption_Drone();
     }
 }

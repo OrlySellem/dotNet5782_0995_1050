@@ -13,7 +13,7 @@ using IDAL.DO;
 
 namespace DalObject
 {
-    public class DalObject
+    public class DalObject :IDal
     {
         internal static Random rand = new Random();
 
@@ -25,6 +25,9 @@ namespace DalObject
         public void addStaion(int id, int name, double longitude, double lattitude, int chargeSlots)//add new base station
         {
             //Ask the user to insert the station's details
+            int indexStation = findIndexStation(id);
+            if(indexStation !=-1)
+                throw "The station already exist";
             Station temp = new Station()
             {
                 Id = id,
@@ -40,6 +43,9 @@ namespace DalObject
 
         public void addDrone(int id, string model, int maxWeight)// add drone
         {
+            int indexDrone = findIndexDrone(id);
+            if(indexDrone !=-1)
+                throw "The drone already exist";
 
             Drone temp = new Drone()
             {
@@ -54,6 +60,9 @@ namespace DalObject
 
         public void addCustomer(int id, string name, string phone, double longitude, double lattitude)// add customer
         {
+            int indexCustomer = findIndexCustomer(id);
+            if(indexCustomer !=-1)
+                throw "The customer already exist";
 
             Customer temp = new Customer()
             {
@@ -69,6 +78,9 @@ namespace DalObject
 
         public void addParcel(int senderld, int targetld, int maxWeight, int priority)//add new base percel
         {
+            int indexParcel = findIndexParcel(id);
+            if(indexParcel !=-1)
+                throw "The parcel already exist";
 
             Parcel temp = new Parcel()
             {
@@ -83,7 +95,6 @@ namespace DalObject
                 PickedUp = new DateTime(01, 01, 0001),
                 Delivered = new DateTime(01, 01, 0001),
             };
-            Console.WriteLine("Your parcel's id is:{0}\n", DataSource.Config.idParcel++);//Printing what the Parcel number
             DataSource.parcels.Add(temp);
         }
 
@@ -96,7 +107,7 @@ namespace DalObject
                     return i;//return the index
                 }
             }
-            return -1;//if the id isn't esixt in the parcel's array
+            throw "The parcel isn't exist\n";//if the id isn't esixt in the parcel's array
         }
 
         public int findIndexDrone(int id)//Finds the requested drone from the arr
@@ -107,7 +118,7 @@ namespace DalObject
                     return i;
             }
 
-            return -1;
+            throw "The drone isn't exist\n";
         }
 
         public int findIndexStation(int id)//Finds the requested station from the arr
@@ -117,7 +128,8 @@ namespace DalObject
                 if (DataSource.stations[i].Id == id)
                     return i;
             }
-            return -1;
+
+            throw "The station isn't exist\n";
         }
 
         public int findIndexCustomer(int id)//loop to find the customer acordding to ID 
@@ -130,40 +142,37 @@ namespace DalObject
                 }
             }
 
-            return -1;
+            throw "The customer isn't exist\n";
         }
 
-        public int checkIndexParcel()//Receives a parcel from the user and make sure that it exists
+       public void reduceChargeSlots(int indexStation)
         {
-            int indexParcel, idParcel;
-            do
-            {
-                Console.WriteLine("Please enter parcel's id:");
-                idParcel = int.Parse(Console.ReadLine());
-                indexParcel = findIndexParcel(idParcel);
-                if (indexParcel == -1)
-                    Console.WriteLine("The parcel isn't exist\n");
-
-            }
-            while (indexParcel == -1);
-            return indexParcel;
+            Station s = DataSource.stations[indexStation];
+            s.ChargeSlots--;//Reduce the number of claim positions
+            DataSource.stations[indexStation] = s;
         }
-        public void assign_parcel_drone (int idDrone, int idParcel)//assign parcel to drone
+
+        public void plusChargeSlots (int indexStation)
+        {
+            Station st = DataSource.stations[indexStation];
+            st.ChargeSlots++;
+            DataSource.stations[indexStation] = st;
+        }
+
+        public void assign_drone_parcel_PA (int indexDrone, int indexParcel)//assign parcel to drone
+        {
+                DataSource.parcels[indexParcel].Droneld = DataSource.drones[indexDrone].Id;
+                DataSource.parcels[indexParcel].Scheduled = DateTime.Now;      
+        }
+
+        public void assign_drone_parcel_DR (int idDrone, int idParcel)//assign parcel to drone
         {
             int indexDrone = findIndexDrone(idDrone);
             int indexParcel = findIndexParcel(idParcel);
 
-            if(indexDrone == -1)
-                throw "The drone isn't exist\n";
-
-            if (indexParcel == -1)
-                throw "The parcel isn't exist\n";
-
-
            if (DataSource.drones[indexDrone].Status == DroneStatuses.available)
             {
-                DataSource.parcels[indexParcel].Droneld = DataSource.drones[indexDrone].Id;
-                DataSource.parcels[indexParcel].Scheduled = DateTime.Now;
+                assign_drone_parcel_PA(indexDrone, indexParcel);
                 DataSource.drones[indexDrone].Status = DroneStatuses.delivery;
             }
             else
@@ -174,33 +183,25 @@ namespace DalObject
 
         public void drone_pick_parcel(int idDrone, int idParcel)//pick up parcel by drone
         {
-            int indexDrone = findIndexDrone(idDrone);
+            int indexDrone=findIndexDrone(idDrone);
             int indexParcel = findIndexParcel(idParcel);
-         
-             if(indexDrone == -1)
-                throw "The drone isn't exist\n";
-
-            if (indexParcel == -1)
-                throw "The parcel isn't exist\n";
 
             Parcel p = DataSource.parcels[indexParcel];
             p.PickedUp = DateTime.Now;
             DataSource.parcels[indexParcel] = p;
+
         }
+
+
         public void delivery_arrive_toCustomer(int idDrone, int idParcel)//The delivery arrived to the customer
         {
             int indexDrone = findIndexDrone(idDrone);
             int indexParcel = findIndexParcel(idParcel);
-         
-             if(indexDrone == -1)
-                throw "The drone isn't exist\n";
-
-            if (indexParcel == -1)
-                throw "The parcel isn't exist\n";
 
             Parcel pd = DataSource.parcels[indexParcel];
             pd.Delivered = DateTime.Now;
             DataSource.parcels[indexParcel] = pd;
+
         }
 
         public void chargingDrone(int idDrone, int idStation)//Inserts a drone to charg
@@ -209,20 +210,14 @@ namespace DalObject
             int indexDrone = findIndexDrone(idDrone);
             int indexStation = findIndexStation(idStation);
 
-            if(indexDrone == -1)
-                throw "The drone isn't exist\n";
-
-            if (indexParcel == -1)
-                throw "The parcel isn't exist\n";
-
             if (DataSource.stations[indexStation].ChargeSlots == 0)//If there are no charge slots available, choose a new station  
             {
                 throw "There aren't available charge slots\n";
             }
-
-            Station s = DataSource.stations[indexStation];
-            s.ChargeSlots--;//Reduce the number of claim positions
-            DataSource.stations[indexStation] = s;
+            else
+            {
+                 reduceChargeSlots(indexStation);
+            }
 
             for (int i = 0; i < DataSource.dronesCharge.Count; i++)
             {
@@ -237,18 +232,13 @@ namespace DalObject
                 }
 
             }
+                     
         }
-
+    
         public void freeDroneCharge(int idDrone, int idStation)//Drone release from charging
         {
             int indexDrone = findIndexDrone(idDrone);
             int indexStation = findIndexStation(idStation);
-
-               if(indexDrone == -1)
-                throw "The drone isn't exist\n";
-
-            if (indexStation == -1)
-                throw "The station isn't exist\n";
 
             for (int i = 0; i < DataSource.dronesCharge.Count; i++)
             {
@@ -264,128 +254,23 @@ namespace DalObject
                 }
 
             }
-            Station st = DataSource.stations[indexStation];
-            st.ChargeSlots++;
-            DataSource.stations[indexStation] = st;
-
+          
+            plusChargeSlots(indexStation);
         }
 
-        public void printStation(int id)//print  the requested Station
+ 
+     
+      public double [] R_power_consumption_Drone()
         {
-            foreach (var item in DataSource.stations)
-            {
-                if (item.Id == id)
-                {
-                    Console.WriteLine(item.ToString());
-                    break;
-                }
-            }
+            double [] power = new double [5];
+            power[0]=DataSource.Config.available;
+            power[1]=DataSource.Config.Lightweight;
+            power[2]=DataSource.Config.MediumWeight;
+            power[3]=DataSource.Config.Heavyweight;
+            power[4]=DataSource.Config.Drone_charging_speed;
 
+            return power;
         }
-
-        public void printDrone(int id)//print the requested Drone
-        {
-            foreach (var item in DataSource.drones)
-            {
-                if (item.Id == id)
-                {
-                    Console.WriteLine(item.ToString());
-                    break;
-                }
-            }
-
-        }
-
-        public void printCustomer(int id)//print the requested Customer
-        {
-            foreach (var item in DataSource.customers)
-            {
-                if (item.Id == id)
-                {
-                    Console.WriteLine(item.ToString());
-                    break;
-                }
-            }
-
-        }
-
-        public void printParcel(int id)//print the requested parcel
-        {
-
-            foreach (var item in DataSource.parcels)
-            {
-                if (item.Id == id)
-                {
-                    Console.WriteLine(item.ToString());
-                    break;
-                }
-
-            }
-
-        }
-
-        public void printAllStations()
-        {
-            foreach (Station item in DataSource.stations)
-            {
-                if (item.Id == 0)
-                    break;
-                Console.WriteLine(item.ToString());
-            }
-
-        }
-
-        public void printAllDrones()
-        {
-            foreach (Drone item in DataSource.drones)
-            {
-                if (item.Id == 0)
-                    break;
-                Console.WriteLine(item.ToString());
-            }
-
-        }
-
-        public void printAllCustomers()
-        {
-            foreach (Customer item in DataSource.customers)
-            {
-                if (item.Id == 0)
-                    break;
-                Console.WriteLine(item.ToString());
-            }
-
-        }
-
-        public void printAllParcels()
-        {
-            foreach (Parcel item in DataSource.parcels)
-            {
-                if (item.Id == 0)
-                    break;
-                Console.WriteLine(item.ToString());
-            }
-        }
-
-        public void print_unconnected_parcels_to_Drone()
-        {
-            foreach (Parcel item in DataSource.parcels)
-            {
-                if (item.Droneld == 0 && item.Id != 0)
-                    Console.WriteLine(item.ToString());
-            }
-        }
-
-        public void print_stations_with_freeDroneCharge()
-        {
-            foreach (Station item in DataSource.stations)
-            {
-                if (item.ChargeSlots > 0 && item.Id != 0)
-                    Console.WriteLine(item.ToString());
-            }
-        }
-
-         // public List<double> R_power_consumption_Drone() 
            
     }
 }

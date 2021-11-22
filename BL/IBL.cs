@@ -1,14 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Linq;
+using BO;
 
-namespace DAL
+namespace IBL
 {
-    class Exceptions
+   public interface IBL
     {
 
 
+
+
+
+
     }
+
 }
+
+    
+
+

@@ -114,6 +114,7 @@ namespace ConsoleUI
                                 Console.WriteLine();
 
                                 mainDalObject.addParcel(senderld, targetld, maxWeight, priority);
+                                
                                 break;
                             default:
                                 break;
@@ -274,6 +275,121 @@ namespace ConsoleUI
         }
     }
 
+      /*public void printStation(int id)//print  the requested Station
+        {
+            foreach (var item in DataSource.stations)
+            {
+                if (item.Id == id)
+                {
+                    Console.WriteLine(item.ToString());
+                    break;
+                }
+            }
+
+        }
+
+        public void printDrone(int id)//print the requested Drone
+        {
+            foreach (var item in DataSource.drones)
+            {
+                if (item.Id == id)
+                {
+                    Console.WriteLine(item.ToString());
+                    break;
+                }
+            }
+
+        }
+
+        public void printCustomer(int id)//print the requested Customer
+        {
+            foreach (var item in DataSource.customers)
+            {
+                if (item.Id == id)
+                {
+                    Console.WriteLine(item.ToString());
+                    break;
+                }
+            }
+
+        }
+
+        public void printParcel(int id)//print the requested parcel
+        {
+
+            foreach (var item in DataSource.parcels)
+            {
+                if (item.Id == id)
+                {
+                    Console.WriteLine(item.ToString());
+                    break;
+                }
+
+            }
+
+        }
+
+        public void printAllStations()
+        {
+            foreach (Station item in DataSource.stations)
+            {
+                if (item.Id == 0)
+                    break;
+                Console.WriteLine(item.ToString());
+            }
+
+        }
+
+        public void printAllDrones()
+        {
+            foreach (Drone item in DataSource.drones)
+            {
+                if (item.Id == 0)
+                    break;
+                Console.WriteLine(item.ToString());
+            }
+
+        }
+
+        public void printAllCustomers()
+        {
+            foreach (Customer item in DataSource.customers)
+            {
+                if (item.Id == 0)
+                    break;
+                Console.WriteLine(item.ToString());
+            }
+
+        }
+
+        public void printAllParcels()
+        {
+            foreach (Parcel item in DataSource.parcels)
+            {
+                if (item.Id == 0)
+                    break;
+                Console.WriteLine(item.ToString());
+            }
+        }
+
+        public void print_unconnected_parcels_to_Drone()
+        {
+            foreach (Parcel item in DataSource.parcels)
+            {
+                if (item.Droneld == 0 && item.Id != 0)
+                    Console.WriteLine(item.ToString());
+            }
+        }
+
+        public void print_stations_with_freeDroneCharge()
+        {
+            foreach (Station item in DataSource.stations)
+            {
+                if (item.ChargeSlots > 0 && item.Id != 0)
+                    Console.WriteLine(item.ToString());
+            }
+        }
+    */
 
 
 }

@@ -34,17 +34,17 @@ namespace DalObject
 
             //Static features for drone power consumption
 
-            static bool available;
-            static bool Lightweight;//Lightweight issue
-            static bool MediumWeight;//MediumWeight issue
-            static bool Heavyweight;//Heavyweight issue
-            double Drone_charging_speed;//Drone charging speed in percentage per hour
+            internal static double available;
+            internal static double Lightweight;//Lightweight issue
+            internal static double MediumWeight;//MediumWeight issue
+            internal static double Heavyweight;//Heavyweight issue
+            internal static double Drone_charging_speed;//Drone charging speed in percentage per hour
         }
           
         public static void Initialize()
         {
             //Initialize 5 drones
-            string[] ModelArr = { "1G", "2G", "3G", "4G", "5G" };
+            string [] ModelArr = { "1G", "2G", "3G", "4G", "5G" };
             for (int i = 0; i < 5; i++)
             {
                 Drone temp = new Drone()
