@@ -105,10 +105,13 @@ namespace ConsoleUI
                                 //Ask the user to insert the parcel's details
                                 Console.WriteLine("Please enter sender's id:");
                                 int senderld = int.Parse(Console.ReadLine());
+
                                 Console.WriteLine("Please enter target's id:");
                                 int targetld = int.Parse(Console.ReadLine());
+
                                 Console.WriteLine("Please enter drone's weight categories - 0 for light, 1 for medium, 2 for heavy:");
                                 maxWeight = int.Parse(Console.ReadLine());
+
                                 Console.WriteLine("Please enter the delivery's priority - 0 for normal, 1 for fast, 2 for emergency:");
                                 int priority = int.Parse(Console.ReadLine());
                                 Console.WriteLine();
@@ -116,6 +119,7 @@ namespace ConsoleUI
                                 mainDalObject.addParcel(senderld, targetld, maxWeight, priority);
                                 
                                 break;
+
                             default:
                                 break;
                         }
@@ -126,7 +130,7 @@ namespace ConsoleUI
                         Console.WriteLine("To assign parcel to drone - enter 0\nTo pick up parcel by drone - enter 1\nTo update that delivery has arrived - enter 2\nTo send drone to charge in base station - enter 3\nTo free drone from chraging - enter 4\n");
                         int m = int.Parse(Console.ReadLine());
                         Update updateChoice = (Update)m;
-                        int idDrone, idParcel;
+                        
                         switch (updateChoice)
                         {
                             case Update.assignParcelDrone://To assign parcel to drone
@@ -139,15 +143,7 @@ namespace ConsoleUI
                                 mainDalObject.assign_parcel_drone(idDrone, idParcel);
                                 break;
 
-                            case Update.dronePickParcel: //To pick up parcel by drone              
-                                Console.WriteLine("Please enter drone's id:");
-                                idDrone = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Please enter parcel's id:");
-                                idParcel = int.Parse(Console.ReadLine()); 
-
-                                mainDalObject.drone_pick_parcel(idDrone, idParcel);
-                                break;
-
+ 
                             case Update.deliveryAriveToCustomer:  //To update that delivery has arrived
 
                                 Console.WriteLine("Please enter drone's id:");

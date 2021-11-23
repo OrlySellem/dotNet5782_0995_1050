@@ -13,7 +13,7 @@ using IDAL.DO;
 
 namespace DalObject
 {
-    public class DalObject :IDal
+    public class DalObject :IDAL.DO.IDal
     {
         internal static Random rand = new Random();
 
@@ -79,10 +79,6 @@ namespace DalObject
 
         public void addParcel(int senderld, int targetld, int maxWeight, int priority)//add new base percel
         {
-            int indexParcel = findIndexParcel(id);
-            if(indexParcel !=-1)
-                throw new parcelException("already exist");
-
             Parcel temp = new Parcel()
             {
                 Id = DataSource.Config.idParcel,

@@ -4,17 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bl
+namespace IBL
 {
-    class Enum
-    {
          public enum WeightCategories { light, medium, heavy }
 
         public enum Priorities { normal, fast, emergency }
 
         public enum programDelivry { addingOptions, UpdateOptions, DisplayOptions, DisplayListOptions,  exit }
 
-        public enum Add { addCustomer, addDrone, addStation, addParcel }
+        public enum Add { addStation, addDrone, addCustomer, addParcel }
 
         public enum Update { assignParcelDrone, dronePickParcel, deliveryAriveToCustomer, chargingDrone, freeDroneCharge }
 
@@ -22,6 +20,10 @@ namespace Bl
 
         public enum DisplayListOptions { displayCustomers, displayDrones, displayStations, displayParcels, display_parcels_without_drone, display_station_with_freeChargingStations }
 
-        public enum status 
-    }
+        public enum DroneStatuses { available, maintenance, delivery }
+
+        public enum ParcelStatus { requested, scheduled, PickedUp, Delivered }
+
+    
+
 }

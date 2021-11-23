@@ -18,7 +18,7 @@ namespace DalObject
         //define array to all of the entities (different size's initialize) 
         internal static Random rand = new Random();
 
-        internal static List<Drone> drones = new List<Drone>();
+        internal static List <Drone> drones = new List <Drone>();
 
         internal static List<Station> stations = new List<Station>();
 
