@@ -13,7 +13,7 @@ using IDAL.DO;
 
 namespace DalObject
 {
-    public class DalObject :IDal
+    public class DalObject :IDAL.DO.IDal
     {
         internal static Random rand = new Random();
 
@@ -27,7 +27,8 @@ namespace DalObject
             //Ask the user to insert the station's details
             int indexStation = findIndexStation(id);
             if(indexStation !=-1)
-                throw new stationException(-1);
+                throw new stationException("already exist");
+
             Station temp = new Station()
             {
                 Id = id,
@@ -45,7 +46,7 @@ namespace DalObject
         {
             int indexDrone = findIndexDrone(id);
             if(indexDrone !=-1)
-                throw new droneException(-1);
+                throw new droneException("already exist");
 
             Drone temp = new Drone()
             {
@@ -62,7 +63,7 @@ namespace DalObject
         {
             int indexCustomer = findIndexCustomer(id);
             if(indexCustomer !=-1)
-                throw new customerException(-1);
+                throw new customerException("already exist");
 
             Customer temp = new Customer()
             {
@@ -78,10 +79,6 @@ namespace DalObject
 
         public void addParcel(int senderld, int targetld, int maxWeight, int priority)//add new base percel
         {
-            int indexParcel = findIndexParcel(id);
-            if(indexParcel !=-1)
-                throw new parcelException(-1);
-
             Parcel temp = new Parcel()
             {
                 Id = DataSource.Config.idParcel,
@@ -107,7 +104,7 @@ namespace DalObject
                     return i;//return the index
                 }
             }
-            throw new parcelException(-1, "not");//if the id isn't esixt in the parcel's array
+            throw new parcelException("isn't exist");//if the id isn't esixt in the parcel's array
         }
 
         public int findIndexDrone(int id)//Finds the requested drone from the arr
@@ -118,7 +115,7 @@ namespace DalObject
                     return i;
             }
 
-            throw new droneException(-1, "not");
+            throw new droneException("isn't exist");
         }
 
         public int findIndexStation(int id)//Finds the requested station from the arr
@@ -129,7 +126,7 @@ namespace DalObject
                     return i;
             }
 
-            throw new stationException(-1, "not");
+            throw new stationException("isn't exist");
         }
 
         public int findIndexCustomer(int id)//loop to find the customer acordding to ID 
@@ -142,7 +139,7 @@ namespace DalObject
                 }
             }
 
-            throw new customerException(-1, "not");
+            throw new customerException("isn't exist");
         }
 
        public void reduceChargeSlots(int indexStation)
@@ -177,7 +174,7 @@ namespace DalObject
             }
             else
             {
-                throw new droneException(-1,a, "not");
+                throw new droneException("isn't available");
             }
         }
 
@@ -212,7 +209,7 @@ namespace DalObject
 
             if (DataSource.stations[indexStation].ChargeSlots == 0)//If there are no charge slots available, choose a new station  
             {
-                throw new stationException(-1,a, "not");
+                throw new stationException("isn't available");
             }
             else
             {

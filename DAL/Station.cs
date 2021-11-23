@@ -30,6 +30,8 @@ namespace IDAL
             {
                 return string.Format("\nId is:{0}\nName is:{1}\nLongitude is:{2}\nLattitude is:{3}\nChargeSlots is:{4}\n", Id, Name, Longitude, Lattitude, ChargeSlots);
             }
+
+       
         }
     }
 }
