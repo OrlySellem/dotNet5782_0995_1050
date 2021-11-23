@@ -10,35 +10,21 @@ namespace IDAL
     {
         public class stationException : Exception  ///station
         {
-            public stationException(int s) : DalObject()
+
+            public stationException(string message) : base(message)
             {
-                throw "The station already exist";
+                throw "The station " + message;
             }
-            public stationException(int s, string message) : base(message)
-            {
-                throw "The station isn't exist\n";
-            }
-            public stationException(int s,int av,  string message) : base(message)
-            {
-                throw "There aren't available charge slots\n";
-            }
+
             // public override string ToString() => base.ToString() + $", miss information between stations: {FirstStation} and {SecondStation}";
         }
 
 
         public class droneException : Exception  ///drone
         {
-            public droneException(int d) : base()
+            public droneException(string message) : base(message)
             {
-                throw "The drone already exist\n";
-            }
-            public droneException(int d, string message) : base(message)
-            {
-                throw "The drone isn't exist\n";
-            }
-            public droneException(int d,char da, string message) : base(message)
-            {
-                throw "The drone isn't available\n";
+                throw "The drone " + message;
             }
             // public override string ToString() => base.ToString() + $", miss information between stations: {FirstStation} and {SecondStation}";
         }
@@ -46,26 +32,19 @@ namespace IDAL
         public class customerException : Exception   ///customer
         {
 
-            public customerException(int c) : base()
+            public customerException(string message) : base(message)
             {
-                throw "The customer already exist\n";
+                throw "The customer " + message;
             }
-            public customerException(int c, string message) : base(message)
-            {
-                throw "The customer isn't exist\n";
-            }
+
             // public override string ToString() => base.ToString() + $", miss information between stations: {FirstStation} and {SecondStation}";
         }
 
         public class parcelException : Exception   //parcel
         { 
-            public parcelException(int p) : base()
+            public parcelException(string message) : base(message)
             {
-                throw "The parcel already exist\n";
-            }
-            public parcelException(int station1, string message) : base(message)
-            {
-                throw "The parcel isn't exist\n";
+                throw "The parcel" + message;
             }
             // public override string ToString() => base.ToString() + $", miss information between stations: {FirstStation} and {SecondStation}";
         }

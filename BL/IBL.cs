@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using BO;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace IBL
+namespace IBl
 {
-   public interface IBL
+    public interface IBL
     {
 
 
     }
-
 }
-
-    
-
-
