@@ -48,6 +48,14 @@ namespace IDAL
             }
             // public override string ToString() => base.ToString() + $", miss information between stations: {FirstStation} and {SecondStation}";
         }
+
+        public class DroneChargeException : Exception
+        {
+            public DroneChargeException(string message) : base(message)
+            {
+                throw new message;
+            }
+        }
     }
 
 }

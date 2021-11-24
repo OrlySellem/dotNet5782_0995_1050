@@ -11,7 +11,7 @@ namespace IDAL.DO
     {
         internal static Random rand = new Random();
 
-        #region add_Dal
+        #region ADD
         public void addStaion(Station stationToAdd);//add new base station
 
         public void addDrone(Drone DroneToAdd);// add drone
@@ -21,24 +21,38 @@ namespace IDAL.DO
         public void addParcel(Parcel ParcelToAdd);//add new base percel
 
         #endregion
-        public int findIndexParcel(int id);//Finds the requested parcel from the arr
 
-        public int findIndexDrone(int id);//Finds the requested drone from the arr
- 
-        public int findIndexStation(int id);//Finds the requested station from the arr
+        #region GET
+        public Parcel getParcel(int id);//Finds the requested parcel from the arr
 
-        public int findIndexCustomer(int id);//loop to find the customer acordding to ID 
+        public Drone getDrone(int id);//Finds the requested drone from the arr
 
-        public void assign_parcel_drone();//assign parcel to drone
+        public Station getStation(int id);//Finds the requested station from the arr
 
-        public void drone_pick_parcel();//pick up parcel by drone
+        public Customer getCustomer(int id);//loop to find the customer acordding to ID 
 
-        public void delivery_arrive_toCustomer();//The delivery arrived to the customer
+        #endregion
 
-        public void chargingDrone();//Inserts a drone to charg
+        #region updateChargeSlots
+        public void reduceChargeSlots(ref Station s);
 
-        public void freeDroneCharge();//Drone release from charging
+        public void plusChargeSlots(ref Station s);
+        #endregion
 
+        #region update
+        public void assign_drone_parcel(Drone droneToUpdate, Parcel parcelToUpdate);//assign parcel to drone
+
+        public void drone_pick_parcel(Drone droneToUpdate, Parcel parcelToUpdate);//pick up parcel by drone
+
+        public void delivery_arrive_toCustomer(Drone droneToUpdate, Parcel parcelToUpdate);//The delivery arrived to the customer
+
+        public void chargingDrone(Drone droneToUpdate, Station stationToUpdate);//Inserts a drone to charg
+
+        public void freeDroneCharge(Drone droneToUpdate, Station stationToUpdate);//Drone release from charging
+        #endregion
+
+        #region power
         public double [] R_power_consumption_Drone();
+        #endregion
     }
 }
