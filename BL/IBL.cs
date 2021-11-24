@@ -9,9 +9,9 @@ namespace IBL
     public interface IBL
     {
         #region ADD
-        public void addStation(Station StationToAdd, int idStation);
+        public void addStation(Station StationToAdd);
 
-        public void addDrone(Drone DroneToAdd);// add drone
+        public void addDrone(Drone DroneToAdd, int idStation);// add drone
 
         public void addCustomer(Customer CustomerToAdd);// add customer
 
