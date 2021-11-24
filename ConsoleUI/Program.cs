@@ -17,7 +17,8 @@ namespace ConsoleUI
         {
 
             bool flag = true;
-            DalObject.DalObject mainDalObject = new DalObject.DalObject();
+           // DalObject.DalObject mainDalObject = new DalObject.DalObject();
+           IDAL.DO.IDal dal =  new DalObject.DalObject();
             while (flag)
             {
 

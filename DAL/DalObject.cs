@@ -13,7 +13,7 @@ using IDAL.DO;
 
 namespace DalObject
 {
-    public class DalObject :IDAL.DO.IDal
+    public class DalObject : IDAL.DO.IDal
     {
         internal static Random rand = new Random();
 
@@ -21,80 +21,41 @@ namespace DalObject
         {
             DataSource.Initialize();
         }
+        #region ADD
+        public void addStaion(Station stationToAdd) //דוגמא בויה לסידור +ה find
+        { 
 
-        public void addStaion(int id, int name, double longitude, double lattitude, int chargeSlots)//add new base station
-        {
-            //Ask the user to insert the station's details
-            int indexStation = findIndexStation(id);
-            if(indexStation !=-1)
+            int indexStation = findIndexStation(stationToAdd.Id);
+            if (indexStation == -1)
                 throw new stationException("already exist");
 
-            Station temp = new Station()
-            {
-                Id = id,
-                Name = name,
-                Longitude = longitude,
-                Lattitude = lattitude,
-                ChargeSlots = chargeSlots,
-            };
-
-            DataSource.stations.Add(temp);
-
+            DataSource.stations.Add(stationToAdd);
         }
-
-        public void addDrone(int id, string model, int maxWeight)// add drone
+        public void addDrone(Drone droneToAdd)
         {
-            int indexDrone = findIndexDrone(id);
-            if(indexDrone !=-1)
+            int indexDrone = findIndexDrone(droneToAdd.Id);
+            if (indexDrone != -1)
                 throw new droneException("already exist");
 
-            Drone temp = new Drone()
-            {
-                Id = id,
-                Model = model,
-                MaxWeight = (WeightCategories)maxWeight,
-            };
-
-            DataSource.drones.Add(temp);
-
+            DataSource.drones.Add(droneToAdd);
         }
 
-        public void addCustomer(int id, string name, string phone, double longitude, double lattitude)// add customer
+        public void addCustomer(Customer CustomerToAdd)
         {
-            int indexCustomer = findIndexCustomer(id);
-            if(indexCustomer !=-1)
+            int indexCustomer = findIndexCustomer(CustomerToAdd.Id);
+            if (indexCustomer != -1)
                 throw new customerException("already exist");
 
-            Customer temp = new Customer()
-            {
-                Id = id,
-                Name = name,
-                Phone = phone,
-                Lattitude = lattitude,
-                Longitude = longitude
-            };
-
-            DataSource.customers.Add(temp);
+            DataSource.customers.Add(CustomerToAdd);
         }
 
-        public void addParcel(int senderld, int targetld, int maxWeight, int priority)//add new base percel
+        public void addParcel(Parcel ParcelToAdd)
         {
-            Parcel temp = new Parcel()
-            {
-                Id = DataSource.Config.idParcel,
-                Senderld = senderld,
-                Targetld = targetld,
-                Weight = (WeightCategories)maxWeight,
-                Priority = (Priorities)priority,
-                Droneld = 0,
-                Requested = DateTime.Now,
-                Scheduled = new DateTime(01, 01, 0001),
-                PickedUp = new DateTime(01, 01, 0001),
-                Delivered = new DateTime(01, 01, 0001),
-            };
-            DataSource.parcels.Add(temp);
+            DataSource.parcels.Add(ParcelToAdd);
         }
+        #endregion
 
+        #region find
         public int findIndexParcel(int id)//Finds the requested parcel from the arr
         {
             for (int i = 0; i < DataSource.parcels.Count; i++)
@@ -107,7 +68,18 @@ namespace DalObject
             throw new parcelException("isn't exist");//if the id isn't esixt in the parcel's array
         }
 
-        public int findIndexDrone(int id)//Finds the requested drone from the arr
+        public IEnumerable<Drone> findIndexDrone(int id)//Finds the requested drone from the arr
+        {
+           
+            var drone = DataSource.drones.Where(d => d.Id == id);
+            if (drone == null)
+                throw new stationException("isn't exist");
+            return drone;
+
+        }
+
+        //מעודכן להראות לאורלי
+        public int findIndexStation(int id)//Finds the requested station from the arr
         {
             for (int i = 0; i < DataSource.drones.Count; i++)
             {
@@ -116,17 +88,7 @@ namespace DalObject
             }
 
             throw new droneException("isn't exist");
-        }
 
-        public int findIndexStation(int id)//Finds the requested station from the arr
-        {
-            for (int i = 0; i < DataSource.drones.Count; i++)
-            {
-                if (DataSource.stations[i].Id == id)
-                    return i;
-            }
-
-            throw new stationException("isn't exist");
         }
 
         public int findIndexCustomer(int id)//loop to find the customer acordding to ID 
@@ -141,8 +103,8 @@ namespace DalObject
 
             throw new customerException("isn't exist");
         }
-
-       public void reduceChargeSlots(int indexStation)
+        #endregion
+        public void reduceChargeSlots(int indexStation)
         {
             Station s = DataSource.stations[indexStation];
             s.ChargeSlots--;//Reduce the number of claim positions
@@ -268,7 +230,35 @@ namespace DalObject
 
             return power;
         }
-           
+
+       
+
+      
+
+        public void assign_parcel_drone()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void drone_pick_parcel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void delivery_arrive_toCustomer()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void chargingDrone()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void freeDroneCharge()
+        {
+            throw new NotImplementedException();
+        }
     }
 
 

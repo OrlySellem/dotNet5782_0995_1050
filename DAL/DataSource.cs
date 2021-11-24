@@ -20,7 +20,7 @@ namespace DalObject
 
         internal static List <Drone> drones = new List <Drone>();
 
-        internal static List<Station> stattions = new List<Station>();
+        internal static List<Station> stations = new List<Station>();
 
         internal static List<Customer> customers = new List<Customer>();
 
