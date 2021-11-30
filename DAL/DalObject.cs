@@ -68,9 +68,10 @@ namespace DalObject
             throw new parcelException("isn't exist");//if the id isn't esixt in the parcel's array
         }
 
-        public IEnumerable<Drone> findIndexDrone(int id)//Finds the requested drone from the arr
+        public Drone findIndexDrone(int id)//Finds the requested drone from the arr
         {
-           
+            IEnumerable< Drone> e = DataSource.drones;
+
             var drone = DataSource.drones.Where(d => d.Id == id);
             if (drone == null)
                 throw new stationException("isn't exist");
