@@ -50,7 +50,22 @@ namespace ConsoleUI_BL
                                     Console.WriteLine("Please enter the station's chargeSlots");
                                     chargeSlots = int.Parse(Console.ReadLine());
 
-                                    mainBl.addStation(id, name_int, longitude, lattitude, chargeSlots);
+                                    Location stationLocation = new Location()
+                                    {
+                                        Longitude = longitude,
+                                        Lattitude = lattitude
+                                    };
+
+                                    Station newStation = new Station()
+                                    {
+                                        Id = id,
+                                        Name=name_int,
+                                        Address= stationLocation, 
+                                        ChargeSlots= chargeSlots,
+                                    };
+
+
+                                    mainBl.addStation(newStation);
 
                                     mainBl.chargingDrone ={ }; //רשימת הרחפנים בטעינה תאותחל לרשימה ריקה
                                     break;
@@ -66,17 +81,24 @@ namespace ConsoleUI_BL
                                     Console.WriteLine("Please enter drone's weight categories - 0 for light, 1 for medium, 2 for heavy:");
                                     int maxWeight = int.Parse(Console.ReadLine());
 
-                                    int numStation = int.Parse(Console.ReadLine());
-
-                                    mainBl.addDrone(id, model, maxWeight);//add drone's details in dal
-
+                                    int idStation = int.Parse(Console.ReadLine());
+                                
                                     Random rand = new Random();
-                                    rand.Next(20, 40);
-                                    mainBl.addDrone_BL(rand, DroneStatuses.maintenance, numStation);//add chargingDrone's details in bl
+                                    
+                                    Drone droneToAdd = new Drone()
+                                    {
+                                        Id = id,
+                                        Model = model,
+                                        MaxWeight = (WeightCategories)maxWeight,
+                                        Battery = rand.Next(20, 40),
+                                        Status=DroneStatuses.maintenance,                        
+                                    };
+                                    mainBl.addDrone(droneToAdd, idStation);                                   
 
                                     break;
 
                                 case Add.addCustomer:
+
                                     Console.WriteLine("Please enter your id:");
                                     id = int.Parse(Console.ReadLine());
 
@@ -94,11 +116,26 @@ namespace ConsoleUI_BL
 
                                     Console.WriteLine();
 
-                                    mainBl.addCustomer(id, name_st, phone, lattitude, longitude);
+                                    Location customerLocation = new Location()
+                                    {
+                                        Longitude = longitude,
+                                        Lattitude = lattitude
+                                    };
+
+                                    Customer customerToAdd = new Customer()
+                                    {
+                                        Id = id,
+                                        Name = name_st,
+                                        Phone = phone,
+                                        Address = customerLocation
+                                    };
+                                    mainBl.addCustomer(customerToAdd);
                                     break;
+
                                 case Add.addParcel:
 
                                     //Ask the user to insert the parcel's details
+                              
                                     Console.WriteLine("Please enter sender's id:");
                                     int senderld = int.Parse(Console.ReadLine());
 
@@ -106,13 +143,21 @@ namespace ConsoleUI_BL
                                     int targetld = int.Parse(Console.ReadLine());
 
                                     Console.WriteLine("Please enter drone's weight categories - 0 for light, 1 for medium, 2 for heavy:");
-                                    maxWeight = int.Parse(Console.ReadLine());
+                                    int weight = int.Parse(Console.ReadLine());
 
                                     Console.WriteLine("Please enter the delivery's priority - 0 for normal, 1 for fast, 2 for emergency:");
                                     int priority = int.Parse(Console.ReadLine());
                                     Console.WriteLine();
 
-                                    mainBl.addParcel(senderld, targetld, maxWeight, priority);
+                                    Parcel parcelToAdd = new Parcel()
+                                    {
+                                        Senderld = senderld,
+                                        Targetld = targetld,
+                                        Weight = (WeightCategories)weight,
+                                        Priority = (Priorities)priority,                                    
+                                    };
+
+                                    mainBl.addParcel();
                                     mainBl.resetTime();//כל הזמנים יאותחלו לזמן אפס למעט תאריך יצירה שיאותחל לעכשיו
 
                                     break;
