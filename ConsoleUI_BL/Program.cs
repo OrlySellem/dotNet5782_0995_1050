@@ -25,6 +25,8 @@ namespace ConsoleUI_BL
 
                     switch (outsideChoice)
                     {
+                        #region addChoice
+
                         case programDelivry.addingOptions:
                             Console.WriteLine("To add station - enter 0\nTo add drone - enter 1\nTo add customer - enter 2\nTo add parcel - enter 3\n");
                             int k = int.Parse(Console.ReadLine());
@@ -67,7 +69,7 @@ namespace ConsoleUI_BL
 
                                     mainBl.addStation(newStation);
 
-                                    mainBl.chargingDrone ={ }; //רשימת הרחפנים בטעינה תאותחל לרשימה ריקה
+                                 //   mainBl.chargingDrone ={ }; //רשימת הרחפנים בטעינה תאותחל לרשימה ריקה
                                     break;
                                 case Add.addDrone:
 
@@ -114,8 +116,6 @@ namespace ConsoleUI_BL
                                     Console.WriteLine("Please enter longitude:");
                                     longitude = double.Parse(Console.ReadLine());
 
-                                    Console.WriteLine();
-
                                     Location customerLocation = new Location()
                                     {
                                         Longitude = longitude,
@@ -134,8 +134,7 @@ namespace ConsoleUI_BL
 
                                 case Add.addParcel:
 
-                                    //Ask the user to insert the parcel's details
-                              
+                                                               
                                     Console.WriteLine("Please enter sender's id:");
                                     int senderld = int.Parse(Console.ReadLine());
 
@@ -165,17 +164,60 @@ namespace ConsoleUI_BL
                                     break;
                             }
                             break;
+                        #endregion
+
                         case programDelivry.UpdateOptions:
 
                             Console.WriteLine("To assign parcel to drone - enter 0\nTo pick up parcel by drone - enter 1\nTo update that delivery has arrived - enter 2\nTo send drone to charge in base station - enter 3\nTo free drone from chraging - enter 4\n");
                             int m = int.Parse(Console.ReadLine());
                             Update updateChoice = (Update)m;
 
+                            string modelDrone;
+
                             switch (updateChoice)
                             {
+                                case Update.updateDrone:
+                                   
+                                    Console.WriteLine("Please enter drone's id:");
+                                    id = int.Parse(Console.ReadLine());
+
+                                    Console.WriteLine("Please enter drone's model:");
+                                    modelDrone = Console.ReadLine();
+                                  
+                                    mainBl.updateNameDrone(id, modelDrone);
+                                    break;
+
+                                case Update.updateStation:
+                                    Console.WriteLine("Please enter station's id:");
+                                    id = int.Parse(Console.ReadLine());
+
+                                    Console.WriteLine("Please enter station's name:");
+                                    name_int = int.Parse(Console.ReadLine());
+
+                                    Console.WriteLine("Please enter the station's chargeSlots");
+                                    chargeSlots = int.Parse(Console.ReadLine());
+
+                                    mainBl.updateStation(id, name_int, chargeSlots);
+
+                                    break;
+
+                                case Update.updateCustomer:
+
+                                    Console.WriteLine("Please enter your id:");
+                                    id = int.Parse(Console.ReadLine());
+
+                                    Console.WriteLine("Please enter your name:");
+                                    name_st = Console.ReadLine();
+
+                                    Console.WriteLine("Please enter your phone:");
+                                    phone = Console.ReadLine();
+
+                                    mainBl.updateCustomer(id, name_st, phone);
+                                    break;
+
                                 case Update.chargingDrone:
                                     id = int.Parse(Console.ReadLine());
-                                    mainBl.chargingDrone();
+                                    mainBl.chargingDrone(id);
                                     break; 
 
                                 case Update.assignParcelDrone:

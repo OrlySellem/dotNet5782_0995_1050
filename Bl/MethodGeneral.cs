@@ -9,9 +9,10 @@ namespace IBL
 {
     public partial class BL:IBL
     {
+        IDAL.DO.IDal dal = new DalObject.DalObject();
 
-        public static List <Drone> drones; 
-
+        //○	אובייקט BLimp יתחזק רשימת רחפנים (ע"פ הישות הלוגיות "רחפן לרשימה")
+        public static List <DroneToList> drones;
 
 
     }

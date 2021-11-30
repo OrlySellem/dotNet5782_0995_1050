@@ -10,8 +10,6 @@ namespace IBL
 {
     public partial class BL :IBL
     {
-        IDAL.DO.IDal dal = new DalObject.DalObject();
-
         public void addStation(Station stationToAdd)
         {       
             IDAL.DO.Station dalStation = new IDAL.DO.Station()
