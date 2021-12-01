@@ -1,5 +1,5 @@
 ﻿using System;
-using IBL;
+using System.Collections.Generic;
 using IBL.BO;
 
 namespace ConsoleUI_BL
@@ -8,8 +8,8 @@ namespace ConsoleUI_BL
     {
         static void Main(string[] args)
         {
-
-            IBL.BL mainBl = new IBL.BL();
+            
+             IBL.BL mainBl = new IBL.BL();
             bool flag = true;
 
             //Variable of station
@@ -234,26 +234,112 @@ namespace ConsoleUI_BL
                                     break;
                             }
                             break;
-                            #endregion updateChoice
+                        #endregion updateChoice
+                        #region displayEntity
                         case programDelivry.DisplayOptions:
-                        Console.WriteLine("To display stations - enter 0\nTo display drones - enter 1\nTo display stations - enter 2\nTo display parcels - enter 3\nTo displays a list of parcels without assign to drones - enter 4\nTo display base stations with available charging drones - enter 5\n");
+                        Console.WriteLine ("To display stations - enter 0\nTo display drones - enter 1\nTo display stations - enter 2\nTo display parcels - enter 3\nTo displays a list of parcels without assign to drones - enter 4\nTo display base stations with available charging drones - enter 5\n");
                         int t = int.Parse(Console.ReadLine());
                         Display DisplayChoice = (Display)t;
 
-                           switch (DisplayChoice)
-                           {
+                            
+                            switch(DisplayChoice)
+                            {
                                 case Display.displayStation:
 
                                     Console.WriteLine("Please enter station's id:");
-
                                     id = int.Parse(Console.ReadLine());
 
-                                    mainBl
+                                   IBL.BO.Station stationToPrint = mainBl.getStation(id);
+                                    stationToPrint.ToString();
+                                    break;
 
-                           }
+                                case Display.displayDrone:
+                                    Console.WriteLine("Please enter drone's id:");
+                                    id = int.Parse(Console.ReadLine());
+
+                                    IBL.BO.DroneToList droneToPrint = mainBl.getDrone(id);
+                                    droneToPrint.ToString();
+                                    break;
+
+                                case Display.displayCustomer:
+                                    Console.WriteLine("Please enter customer's id:");
+                                    id = int.Parse(Console.ReadLine());
+
+                                    IBL.BO.Customer customerToPrint = mainBl.getCustomer(id);
+                                    customerToPrint.ToString();
+                                    break;
+
+                                case Display.displayParcel:
+                                    Console.WriteLine("Please enter parcel's id:");
+                                    id = int.Parse(Console.ReadLine());
+
+                                    IBL.BO.Parcel parcelToPrint = mainBl.getParcel(id);
+                                    parcelToPrint.ToString();
+                                    break;
+                            }
+                                        
+                          
                             break;
+                        #endregion displayEntity
+
+
+                        #region displayListOptions
                         case programDelivry.DisplayListOptions:
+                            Console.WriteLine("To display stations - enter 0\nTo display drones - enter 1\nTo display customers - enter 2\nTo display parcels - enter 3\nTo displays a list of parcels without assign to drones - enter 4\nTo display base stations with available charging drones - enter 5\n");
+                            t = int.Parse(Console.ReadLine());
+                            DisplayListOptions Display_list_choice = (DisplayListOptions)t;
+                            switch (Display_list_choice)
+                            {
+                                case DisplayListOptions.displayStations:
+
+                                    List<StationToList> stations = mainBl.getAllStations();
+                                    foreach (StationToList item in stations)
+                                    {
+                                        item.ToString();
+                                    }
+                                    break;
+
+                                case DisplayListOptions.displayDrones:
+
+                                    List <DroneToList> drones = mainBl.getAllDronens();
+                                    foreach (DroneToList item in drones)
+                                    {
+                                        item.ToString();
+                                    }
+                                    break;
+                                  
+                                case DisplayListOptions.displayCustomers:
+
+                                    List<CustomerToList> customers = mainBl.getAllCustomers();
+                                    foreach (CustomerToList item in customers)
+                                    {
+                                        item.ToString();
+                                    }
+                                    break;
+
+                                case DisplayListOptions.displayParcels:
+
+                                    List<ParcelToList> parcels = mainBl.getAllParcels();
+                                    foreach (ParcelToList item in parcels)
+                                    {
+                                        item.ToString();
+                                    }
+                                    break;
+
+                                //לממש
+                                case DisplayListOptions.display_parcels_without_drone:
+
+                                    break;
+
+                                case DisplayListOptions.display_station_with_freeChargingStations:
+                                    break;
+
+
+                            }
                             break;
+                        #endregion displayListOptions
+
+
                         case programDelivry.exit:
                             break;
                         default:

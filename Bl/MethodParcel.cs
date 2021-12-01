@@ -27,6 +27,32 @@ namespace IBL
             dal.addParcel(dalParcel);
         }
 
+        public Parcel getParcel(int id)
+        {
+            IDAL.DO.Parcel p = dal.getParcel(id);
+
+            Location address = new Location()
+            {
+                Longitude = s.Longitude,
+                Lattitude = s.Lattitude
+            };
+
+            return new BO.Station//have to add chargingDrone list!! - לעשות
+            {
+                Id = p.Id,
+
+                Name = p.Name,
+
+                Address = address,
+
+                ChargeSlots = s.ChargeSlots,
+            };
+        }
+        public IEnumerable<StationToList> getAllParcels()
+        {
+
+
+        }
     }
 
 

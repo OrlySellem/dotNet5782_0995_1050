@@ -6,7 +6,7 @@
  */
 using System;
 using IDAL.DO;
-using DAL;
+using IDAL.DO;
 using DalObject;
 
 namespace ConsoleUI
@@ -17,8 +17,8 @@ namespace ConsoleUI
         {
 
             bool flag = true;
-           // DalObject.DalObject mainDalObject = new DalObject.DalObject();
-           IDAL.DO.IDal dal =  new DalObject.DalObject();
+            // DalObject.DalObject mainDalObject = new DalObject.DalObject();
+            DalObject.DalObject mainDalObject =  new DalObject.DalObject();
             while (flag)
             {
 

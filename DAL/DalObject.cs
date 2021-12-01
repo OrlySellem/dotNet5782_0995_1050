@@ -13,7 +13,7 @@ using IDAL.DO;
 
 namespace DalObject
 {
-    public class DalObject : IDAL.DO.IDal
+    public class DalObject : IDAL.IDal
     {
         internal static Random rand = new Random();
         #region ctor

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IBL.BO;
+
 namespace IBL
 {
     public interface IBL
@@ -18,13 +19,12 @@ namespace IBL
         public void addParcel(Parcel ParcelToAdd);//add new base percel
         #endregion
 
-
         //לממש 
         public void updateNameDrone(int idDrone, string newModel);
 
         public void  updateStation(int id, int name_int, int chargeSlots);
 
-        public void updateCustomer(int id, string newName, int newPhone);
+        public void updateCustomer(int id, string newName, string newPhone);
 
         public void chargingDrone(int droneId);
 

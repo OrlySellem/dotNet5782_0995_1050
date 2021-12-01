@@ -19,6 +19,11 @@ namespace IBL
                 return string.Format("Id is:{0}\nBattery is:{1}\n", Id, Battery);
             }
 
+            public void chargingDrone(int droneId)
+            {
+
+            }
+
         }
     }
    

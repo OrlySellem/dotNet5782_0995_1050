@@ -23,5 +23,41 @@ namespace IBL
 
             dal.addCustomer(dalCustomer);
         }
+
+        public Customer getCustomer(int id)
+        {
+      
+                IDAL.DO.Customer c = dal.getCustomer(id);
+
+                Location address = new Location()
+                {
+                    Longitude = c.Longitude,
+                    Lattitude = c.Lattitude
+                };
+
+                return new BO.Customer//have to add fromToCustomer list and ToCustomer!! - לעשות
+                {
+                    Id = c.Id,
+
+                    Name = c.Name,
+
+                    Phone = c.Phone,
+
+                    Address = address,
+                };
+           
+        }
+
+        public IEnumerable <StationToList> getAllCustomers()
+        {
+
+
+        }
+
+        public void updateCustomer(int id, string newName, string newPhone)
+        {
+
+        }
+
     }
 }
