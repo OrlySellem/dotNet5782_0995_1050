@@ -1,6 +1,6 @@
 ﻿/* Ester Shmuel ID:318968468 && Orly Sellem ID:315208728
   Lecturer: Adina Milston
-  Course: .Dot Net
+  Course: .Net
   Exercise: 2
   The purpose of this file is to menenge all the enum
  */

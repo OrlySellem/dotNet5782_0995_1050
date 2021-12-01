@@ -51,7 +51,7 @@ namespace IDAL
 
         public class DroneChargeException : Exception
         {
-            public DroneChargeException(string message) : base(message)
+            public DroneChargeException (string message) : base(message)
             {
                 throw new message;
             }

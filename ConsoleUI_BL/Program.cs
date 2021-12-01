@@ -1,6 +1,7 @@
 ﻿using System;
 using IBL;
 using IBL.BO;
+
 namespace ConsoleUI_BL
 {
     class Program
@@ -69,7 +70,7 @@ namespace ConsoleUI_BL
 
                                     mainBl.addStation(newStation);
 
-                                 //   mainBl.chargingDrone ={ }; //רשימת הרחפנים בטעינה תאותחל לרשימה ריקה
+                                 mainBl.chargingDrone ={ }; //רשימת הרחפנים בטעינה תאותחל לרשימה ריקה
                                     break;
                                 case Add.addDrone:
 
@@ -165,7 +166,7 @@ namespace ConsoleUI_BL
                             }
                             break;
                         #endregion
-
+                        #region updateChoice
                         case programDelivry.UpdateOptions:
 
                             Console.WriteLine("To assign parcel to drone - enter 0\nTo pick up parcel by drone - enter 1\nTo update that delivery has arrived - enter 2\nTo send drone to charge in base station - enter 3\nTo free drone from chraging - enter 4\n");
@@ -233,7 +234,23 @@ namespace ConsoleUI_BL
                                     break;
                             }
                             break;
+                            #endregion updateChoice
                         case programDelivry.DisplayOptions:
+                        Console.WriteLine("To display stations - enter 0\nTo display drones - enter 1\nTo display stations - enter 2\nTo display parcels - enter 3\nTo displays a list of parcels without assign to drones - enter 4\nTo display base stations with available charging drones - enter 5\n");
+                        int t = int.Parse(Console.ReadLine());
+                        Display DisplayChoice = (Display)t;
+
+                           switch (DisplayChoice)
+                           {
+                                case Display.displayStation:
+
+                                    Console.WriteLine("Please enter station's id:");
+
+                                    id = int.Parse(Console.ReadLine());
+
+                                    mainBl
+
+                           }
                             break;
                         case programDelivry.DisplayListOptions:
                             break;

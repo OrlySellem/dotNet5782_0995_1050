@@ -22,7 +22,6 @@ namespace IBL
             };
 
             dal.addCustomer(dalCustomer);
-
         }
     }
 }

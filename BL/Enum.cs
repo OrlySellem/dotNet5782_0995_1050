@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace IBL
 {
-         public enum WeightCategories { light, medium, heavy }
+    namespace BO
+    {
+        public enum WeightCategories { light, medium, heavy }
 
         public enum Priorities { normal, fast, emergency }
 
@@ -16,7 +18,7 @@ namespace IBL
 
         public enum Update { updateDrone, updateStation, updateCustomer, assignParcelDrone, dronePickParcel, deliveryAriveToCustomer, chargingDrone, freeDroneCharge }
 
-        public enum Display { displayCustomer, displayDrone, displayStation, displayParcel }
+        public enum Display { displayStation, displayDrone, displayCustomer, displayParcel }
 
         public enum DisplayListOptions { displayCustomers, displayDrones, displayStations, displayParcels, display_parcels_without_drone, display_station_with_freeChargingStations }
 
@@ -24,6 +26,6 @@ namespace IBL
 
         public enum ParcelStatus { requested, scheduled, PickedUp, Delivered }
 
-    
-
+    }
+        
 }
