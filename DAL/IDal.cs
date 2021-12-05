@@ -34,6 +34,16 @@ namespace IDAL
 
         #endregion
 
+        #region GET_LIST
+        public List<Parcel> getAllParcels();
+
+        public List<Drone> getAllDrones();
+
+        public List<Station> getAllStation();
+
+        public List<Customer> getAllCustomer();
+        #endregion 
+
         #region updateChargeSlots
         public void reduceChargeSlots(ref Station s);
 

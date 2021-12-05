@@ -96,6 +96,31 @@ namespace DalObject
         }
         #endregion
 
+        #region GET_LIST
+        public List<Parcel> getAllParcels()//Return list of parcels
+        {
+            return DataSource.parcels;
+        }
+
+        public List<Drone> getAllDrones()//Return list of drones
+        {
+            return DataSource.drones;
+        }
+
+       
+        public List<Station> getAllStation()//return list of stations
+        {
+            return DataSource.stations;
+        }
+
+        public List<Customer> getAllCustomer()//return list of customers
+        {
+            return DataSource.customers;
+        }
+
+
+        #endregion GET_LIST
+
         #region updateChargeSlots
         public void reduceChargeSlots(ref Station s)
         {
