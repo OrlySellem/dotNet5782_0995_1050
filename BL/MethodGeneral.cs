@@ -10,6 +10,7 @@ namespace IBL
 {
     public partial class BL : IBL
     {
+        internal static Random rand = new Random();
         IDAL.IDal dal;
         //○	אובייקט BLimp יתחזק רשימת רחפנים (ע"פ הישות הלוגיות "רחפן לרשימה")
         public static List <DroneToList> drones;
@@ -61,9 +62,10 @@ namespace IBL
         }
 
 
-
+        //מתי להכניס את הADD
         public BL()
         {
+
             dal = new DalObject.DalObject();
 
             drones = new List <DroneToList> ();
@@ -72,6 +74,7 @@ namespace IBL
 
             List < IDAL.DO.Drone > dronesFromDS = dal.getAllDrones();
             List <IDAL.DO.Parcel> parcelsFromDS = dal.getAllParcels();
+            List<IDAL.DO.Station> stationFromDS = dal.getAllStation();
 
             foreach (IDAL.DO.Drone itemDrone in dronesFromDS)
             {
@@ -106,20 +109,55 @@ namespace IBL
                                 Lattitude = dal.getCustomer(itemParcel.Senderld).Lattitude,
                                 Longitude = dal.getCustomer(itemParcel.Senderld).Longitude
                             };
+
+                            drones.Add(temp);
+
+                            
                         }
 
                     }    
 
                 }
 
-               
+                //	אם הרחפן לא מבצע משלוח
+                temp.Status= (DroneStatuses)rand.Next(1);
+
+                //	אם הרחפן בתחזוקה
+                if (temp.Status== DroneStatuses.maintenance)
+                {
+                    int randStation = rand.Next(stationFromDS.Count());
+                    temp.CurrentLocation = new Location()
+                    {
+                        Lattitude = stationFromDS[randStation].Lattitude,
+                        Longitude = stationFromDS[randStation].Longitude
+                    };
+
+                    temp.Battery = rand.Next(20);
+
+                    drones.Add(temp);
+
+                }
+
+                if (temp.Status == DroneStatuses.available)
+                {
+                    //עשיתי רנדום על החבילות לקחתי את הלקוח של היעד ואת המיקום שלו אני אכניס 
+                    int randParcel = rand.Next(parcelsFromDS.Count());
+                 var customerLocation=dal.getCustomer(parcelsFromDS[randParcel].Targetld);
+                    temp.CurrentLocation = new Location()
+                    {
+                        Lattitude = customerLocation.Lattitude,
+                        Longitude = customerLocation.Longitude
+                    };
+
+                    temp.Battery = rand.Next(20,100);
+                }
 
                 drones.Add(temp);
             }
 
            
                 
-            }
+        }
 
 
 
