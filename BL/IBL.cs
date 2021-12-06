@@ -19,8 +19,6 @@ namespace IBL
 
         public void addParcel(Parcel ParcelToAdd);//add new base percel
         #endregion
- 
-        public void updateNameDrone(int idDrone, string newModel);
 
         public void  updateStation(int id, int name_int, int chargeSlots);
 

@@ -11,7 +11,7 @@ namespace IBL
     public partial class BL : IBL
     {
         internal static Random rand = new Random();
-        IDAL.IDal dal;
+        IDAL.IDal dal; //object of dal
         //○	אובייקט BLimp יתחזק רשימת רחפנים (ע"פ הישות הלוגיות "רחפן לרשימה")
         public static List<DroneToList> drones;
 
@@ -107,9 +107,9 @@ namespace IBL
             heavyWeight = power[3];
             Drone_charging_speed = power[4];
 
-            List<IDAL.DO.Drone> dronesFromDS = dal.getAllDrones();
-            List<IDAL.DO.Parcel> parcelsFromDS = dal.getAllParcels();
-            List<IDAL.DO.Station> stationFromDS = dal.getAllStation();
+            IEnumerable<IDAL.DO.Drone> dronesFromDS = dal.getAllDrones();
+            IEnumerable<IDAL.DO.Parcel> parcelsFromDS = dal.getAllParcels();
+            IEnumerable<IDAL.DO.Station> stationFromDS = dal.getAllStation();
            
             foreach (IDAL.DO.Drone itemDrone in dronesFromDS)//pass over the drones's list 
             {
@@ -170,52 +170,52 @@ namespace IBL
                         drones.Add(temp);
                         break;
                     }
-                }
-                #endregion
-
-                #region case: drone ins't assign to parcel
-                if (!droneAssignToParcel)//if the drone isn't assign to parcel
-                {
-                    temp.Status = (DroneStatuses)rand.Next(1);//decide randomly between available or maintenance 
-
-                    //	אם הרחפן בתחזוקה
-                    if (temp.Status == DroneStatuses.maintenance)
+                    #endregion
+                    #region case: drone ins't assign to parcel
+                    if (!droneAssignToParcel)//if the drone isn't assign to parcel
                     {
-                        int indexStation = rand.Next(stationFromDS.Count());
-                        temp.CurrentLocation = new Location()
-                        {
-                            Lattitude = stationFromDS[indexStation].Lattitude,
-                            Longitude = stationFromDS[indexStation].Longitude
-                        };
+                        temp.Status = (DroneStatuses)rand.Next(1);//decide randomly between available or maintenance 
 
-                        temp.Battery = rand.Next(20);
+                        //	אם הרחפן בתחזוקה
+                        if (temp.Status == DroneStatuses.maintenance)
+                        {
+                            int indexStation = rand.Next(stationFromDS.Count());
+                            temp.CurrentLocation = new Location()
+                            {
+                                Lattitude = stationFromDS[indexStation].Lattitude,
+                                Longitude = stationFromDS[indexStation].Longitude
+                            };
+
+                            temp.Battery = rand.Next(20);
+
+                            drones.Add(temp);
+
+                        }
+
+                        if (temp.Status == DroneStatuses.available)
+                        {
+                            //עשיתי רנדום על החבילות לקחתי את הלקוח של היעד ואת המיקום שלו אני אכניס 
+                            int indexParcel = rand.Next(parcelsFromDS.Count());
+                            var customerLocation = dal.getCustomer(parcelsFromDS[indexParcel].Targetld);
+                            temp.CurrentLocation = new Location()
+                            {
+                                Lattitude = customerLocation.Lattitude,
+                                Longitude = customerLocation.Longitude
+                            };
+
+                            minDistance = 0;
+                            Location nearStation = nearStationToCustomer(temp.Id, ref minDistance);
+                            double powerForDistance = power[0] * minDistance;
+                            temp.Battery = rand.NextDouble() * (100 - powerForDistance) + powerForDistance;
+
+                        }
 
                         drones.Add(temp);
-
                     }
-
-                    if (temp.Status == DroneStatuses.available)
-                    {
-                        //עשיתי רנדום על החבילות לקחתי את הלקוח של היעד ואת המיקום שלו אני אכניס 
-                        int indexParcel = rand.Next(parcelsFromDS.Count());
-                        var customerLocation = dal.getCustomer(parcelsFromDS[indexParcel].Targetld);
-                        temp.CurrentLocation = new Location()
-                        {
-                            Lattitude = customerLocation.Lattitude,
-                            Longitude = customerLocation.Longitude
-                        };
-
-                        minDistance = 0;
-                        Location nearStation = nearStationToCustomer(temp.Id, ref minDistance);
-                        double powerForDistance = power[0] * minDistance;
-                        temp.Battery = rand.NextDouble() * (100 - powerForDistance) + powerForDistance;
-
-                    }
-
-                    drones.Add(temp);
                 }
                 #endregion
 
+              
             }
 
         }

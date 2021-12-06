@@ -45,15 +45,15 @@ namespace IDAL
         #endregion REMOVE
 
         #region GET_LIST
-        public List<Parcel> getAllParcels();
+        public IEnumerable<Parcel> getAllParcels();
 
-        public List<Drone> getAllDrones();
+        public IEnumerable<Drone> getAllDrones();
 
-        public List<Station> getAllStation();
+        public IEnumerable<Station> getAllStation();
 
-        public List<Customer> getAllCustomer();
+        public IEnumerable<Customer> getAllCustomer();
 
-        public List<DroneCharge> getAllDroneCharge();
+        public IEnumerable<DroneCharge> getAllDroneCharge();
         #endregion
 
         #region updateChargeSlots

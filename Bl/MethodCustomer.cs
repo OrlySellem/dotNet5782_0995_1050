@@ -12,21 +12,31 @@ namespace IBL
 
         public void addCustomer(Customer CustomerToAdd)
         {
-            IDAL.DO.Customer dalCustomer = new IDAL.DO.Customer()
+            try
             {
-             Id= CustomerToAdd.Id,
-             Name= CustomerToAdd.Name,
-             Phone= CustomerToAdd.Phone,
-             Longitude= CustomerToAdd.Address.Longitude,
-             Lattitude= CustomerToAdd.Address.Lattitude,
-            };
+                IDAL.DO.Customer dalCustomer = new IDAL.DO.Customer()
+                {
+                    Id = CustomerToAdd.Id,
+                    Name = CustomerToAdd.Name,
+                    Phone = CustomerToAdd.Phone,
+                    Longitude = CustomerToAdd.Address.Longitude,
+                    Lattitude = CustomerToAdd.Address.Lattitude,
+                };
 
-            dal.addCustomer(dalCustomer);
+                dal.addCustomer(dalCustomer);
+            }
+            catch (IDAL.DO.AlreadyExistException ex)
+            {
+                throw new AddingProblemException("The customer alradey exist in the system", ex);
+            }
+           
         }
 
         public Customer getCustomer(int id)
         {
-      
+
+            try
+            {
                 IDAL.DO.Customer c = dal.getCustomer(id);
 
                 Location address = new Location()
@@ -45,7 +55,14 @@ namespace IBL
 
                     Address = address,
                 };
-           
+
+            }
+            catch (IDAL.DO.DoesntExistException ex)
+            {
+
+                throw new GetDetailsProblemException("The customer doesn't exist in the system", ex);
+            }
+                
         }
 
         public IEnumerable <StationToList> getAllCustomers()
@@ -56,21 +73,34 @@ namespace IBL
 
         public void updateCustomer(int idCustomer, string newName, string newPhone)
         {
-            var customerToUpdate = dal.getCustomer(idCustomer);
-
-            dal.delFromCustomers(customerToUpdate);
-
-            if(newName!=null)
+            try
             {
-                customerToUpdate.Name = newName;
+                var customerToUpdate = dal.getCustomer(idCustomer);
+
+                dal.delFromCustomers(customerToUpdate);
+
+                if (newName != null)
+                {
+                    customerToUpdate.Name = newName;
+                }
+
+                if (newPhone != null)
+                {
+                    customerToUpdate.Phone = newPhone;
+                }
+
+                dal.addCustomer(customerToUpdate);
             }
 
-            if (newPhone!= null)
+            catch (IDAL.DO.DoesntExistException ex)
             {
-                customerToUpdate.Phone = newPhone;
+                throw new GetDetailsProblemException ("The customer doesn't exist in the system", ex);
+            }
+            catch (IDAL.DO.AlreadyExistException ex)
+            {
+                throw new AddingProblemException("The customer already exist in the system", ex);
             }
 
-            dal.addCustomer(customerToUpdate);
 
         }
 

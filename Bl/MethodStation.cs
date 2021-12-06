@@ -8,42 +8,59 @@ using IBL.BO;
 
 namespace IBL
 {
-    public partial class BL :IBL
+    public partial class BL : IBL
     {
         public void addStation(Station stationToAdd)
-        {       
-            IDAL.DO.Station dalStation = new IDAL.DO.Station()
+        {
+            try
             {
-                Id = stationToAdd.Id,
-                Name= stationToAdd.Name,
-                Lattitude= stationToAdd.Address.Lattitude,
-                Longitude= stationToAdd.Address.Longitude,
-                ChargeSlots= stationToAdd.ChargeSlots
-            };
+                IDAL.DO.Station dalStation = new IDAL.DO.Station()
+                {
+                    Id = stationToAdd.Id,
+                    Name = stationToAdd.Name,
+                    Lattitude = stationToAdd.Address.Lattitude,
+                    Longitude = stationToAdd.Address.Longitude,
+                    ChargeSlots = stationToAdd.ChargeSlots
+                };
 
-            dal.addStaion(dalStation);
+                dal.addStaion(dalStation);
+            }
+            catch (IDAL.DO.DoesntExistException ex)
+            {
+                throw new AddingProblemException("The station already exist", ex);
+            }
+   
         }
 
         public Station getStation (int id)
         {
-            IDAL.DO.Station s = dal.getStation(id);
-
-            Location address = new Location()
+            try
             {
-                Longitude=s.Longitude,
-                Lattitude=s.Lattitude
-            };
+                IDAL.DO.Station s = dal.getStation(id);
 
-            return new BO.Station//have to add chargingDrone list!! - לעשות
+                Location address = new Location()
+                {
+                    Longitude = s.Longitude,
+                    Lattitude = s.Lattitude
+                };
+
+                return new BO.Station//have to add chargingDrone list!! - לעשות
+                {
+                    Id = s.Id,
+
+                    Name = s.Name,
+
+                    Address = address,
+
+                    ChargeSlots = s.ChargeSlots,
+                };
+            }
+            catch (IDAL.DO.DoesntExistException ex)
             {
-                Id = s.Id,
 
-                Name = s.Name,
-
-                Address = address,
-
-                ChargeSlots = s.ChargeSlots,
-            };  
+                throw new GetDetailsProblemException("The station doesn't exist in the system", ex);
+            }
+          
         }
 
         public IEnumerable <StationToList> getAllStations()
@@ -54,25 +71,36 @@ namespace IBL
 
         public void updateStation(int idStation, int name_int, int chargeSlots)
         {
-            var updateStation = dal.getStation(idStation);
-
-            var chargeSlotsDal = dal.getAllDroneCharge();
-
-            dal.delFromStations(updateStation);
-
-            if(name_int!=0)
+            try
             {
-                updateStation.Name = name_int;
-            }
+                var updateStation = dal.getStation(idStation);
 
-            if(chargeSlots!=0)
+                var chargeSlotsDal = dal.getAllDroneCharge();
+
+                dal.delFromStations(updateStation);
+
+                if (name_int != 0)
+                {
+                    updateStation.Name = name_int;
+                }
+
+                if (chargeSlots != 0)
+                {
+                    int cs = chargeSlotsDal.Count(x => x.Stationld == idStation);
+
+                    updateStation.ChargeSlots = chargeSlots - cs;
+                }
+
+                dal.addStaion(updateStation);
+            }
+           catch (IDAL.DO.DoesntExistException ex)
             {
-                int cs = chargeSlotsDal.Count(x => x.Stationld == idStation);
-
-                updateStation.ChargeSlots = chargeSlots - cs;
+                throw new GetDetailsProblemException("The station doesn't exist in the system");
             }
-
-            dal.addStaion(updateStation);
+           catch (IDAL.DO.AlreadyExistException ex)
+            {
+                throw new AddingProblemException("The station already exist in the system");
+            }
         }
 
     }

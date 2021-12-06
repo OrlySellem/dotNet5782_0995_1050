@@ -84,17 +84,15 @@ namespace ConsoleUI_BL
                                     Console.WriteLine("Please enter drone's weight categories - 0 for light, 1 for medium, 2 for heavy:");
                                     int maxWeight = int.Parse(Console.ReadLine());
 
+                                    Console.WriteLine("Please enter station's ID to charg the drone:");
                                     int idStation = int.Parse(Console.ReadLine());
-                                
-                                   // Random rand = new Random();
-                                    
+                          
                                     Drone droneToAdd = new Drone()
                                     {
                                         Id = id,
                                         Model = model,
                                         MaxWeight = (WeightCategories)maxWeight,
-                                       // Battery = rand.Next(20, 40),
-                                        Status=DroneStatuses.maintenance,                        
+                                                               
                                     };
                                     mainBl.addDrone(droneToAdd, idStation);                                   
 
