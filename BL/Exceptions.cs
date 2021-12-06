@@ -9,7 +9,7 @@ namespace IBL
 {
     namespace BO
     {
-        class Exceptions
+        public class Exceptions
         {
             public class stationException : Exception  ///station
             {

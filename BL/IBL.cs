@@ -9,6 +9,7 @@ namespace IBL
 {
     public interface IBL
     {
+
         #region ADD
         public void addStation(Station StationToAdd);
 
@@ -18,8 +19,7 @@ namespace IBL
 
         public void addParcel(Parcel ParcelToAdd);//add new base percel
         #endregion
-
-        //לממש 
+ 
         public void updateNameDrone(int idDrone, string newModel);
 
         public void  updateStation(int id, int name_int, int chargeSlots);
@@ -29,6 +29,8 @@ namespace IBL
         public void chargingDrone(int droneId);
 
         public void updateModelDrone(int idDrone, string newModel);
+
+      
        // 
 
     }

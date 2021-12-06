@@ -54,8 +54,23 @@ namespace IBL
 
         }
 
-        public void updateCustomer(int id, string newName, string newPhone)
+        public void updateCustomer(int idCustomer, string newName, string newPhone)
         {
+            var customerToUpdate = dal.getCustomer(idCustomer);
+
+            dal.delFromCustomers(customerToUpdate);
+
+            if(newName!=null)
+            {
+                customerToUpdate.Name = newName;
+            }
+
+            if (newPhone!= null)
+            {
+                customerToUpdate.Phone = newPhone;
+            }
+
+            dal.addCustomer(customerToUpdate);
 
         }
 

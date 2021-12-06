@@ -24,10 +24,10 @@ namespace DalObject
         #endregion
 
         #region ADD
-        public void addStaion(Station stationToAdd) //דוגמא בויה לסידור +ה find
+        public void addStaion(Station stationToAdd)
         {
             Station temp = DataSource.stations.Find(x => x.Id == stationToAdd.Id);
-            if (temp.Id!=0)
+            if (temp.Id != 0)
                 throw new stationException("already exist");
 
             DataSource.stations.Add(stationToAdd);
@@ -61,10 +61,33 @@ namespace DalObject
         }
         #endregion
 
+        #region REMOVE
+        public void delFromDrones(Drone droneToDel)
+        {
+            DataSource.drones.Remove(droneToDel);
+        }
+
+        public void delFromStations(Station stationToDel)
+        {
+            DataSource.stations.Remove(stationToDel);
+        }
+
+        public void delFromParcels(Parcel parcelToDel)
+        {
+            DataSource.parcels.Remove(parcelToDel);
+        }
+
+        public void delFromCustomers(Customer customerToDel)
+        {
+            DataSource.customers.Remove(customerToDel);
+        }
+
+        #endregion
+
         #region GET 
         public Parcel getParcel(int id)//Finds the requested parcel from the arr
         {
-           Parcel parcel = DataSource.parcels.Find(p => p.Id == id);
+            Parcel parcel = DataSource.parcels.Find(p => p.Id == id);
             if (parcel.Id == 0)
                 throw new stationException("isn't exist");
             return parcel;
@@ -107,7 +130,7 @@ namespace DalObject
             return DataSource.drones;
         }
 
-       
+
         public List<Station> getAllStation()//return list of stations
         {
             return DataSource.stations;
@@ -118,6 +141,10 @@ namespace DalObject
             return DataSource.customers;
         }
 
+        public List<DroneCharge> getAllDroneCharge()
+        {
+            return DataSource.dronesCharge;
+        }
 
         #endregion GET_LIST
 
@@ -127,14 +154,14 @@ namespace DalObject
             s.ChargeSlots--;//Reduce the number of claim positions
         }
 
-        public void plusChargeSlots (ref Station s)
+        public void plusChargeSlots(ref Station s)
         {
             s.ChargeSlots++;
         }
         #endregion
 
         #region update
-        public void assign_drone_parcel (Drone droneToUpdate, Parcel parcelToUpdate)//assign drone to parcel
+        public void assign_drone_parcel(Drone droneToUpdate, Parcel parcelToUpdate)//assign drone to parcel
         {
             Drone myDrone = getDrone(droneToUpdate.Id);
             Parcel myParcel = getParcel(parcelToUpdate.Id);
@@ -147,7 +174,7 @@ namespace DalObject
 
             DataSource.parcels.Add(myParcel);
         }
-    
+
         public void drone_pick_parcel(Drone droneToUpdate, Parcel parcelToUpdate)//pick up parcel by drone
         {
             Drone myDrone = getDrone(droneToUpdate.Id);
@@ -188,20 +215,20 @@ namespace DalObject
                 return;
             }
 
-           throw new stationException("isn't available");
+            throw new stationException("isn't available");
 
             DroneCharge droneChargeToAdd = new DroneCharge() { Droneld = myDrone.Id, Stationld = myStation.Id };
-            DataSource.dronesCharge.Add(droneChargeToAdd);          
+            DataSource.dronesCharge.Add(droneChargeToAdd);
         }
-    
+
         public void freeDroneCharge(Drone droneToUpdate, Station stationToUpdate)//Drone release from charging
         {
             Drone myDrone = getDrone(droneToUpdate.Id);
             Station myStation = getStation(stationToUpdate.Id);
-        
-            DroneCharge toDelete = DataSource.dronesCharge.Find(x=> x.Droneld == myDrone.Id && x.Stationld == myStation.Id);
-            
-            if(toDelete.Droneld!=0 && toDelete.Stationld!=0)
+
+            DroneCharge toDelete = DataSource.dronesCharge.Find(x => x.Droneld == myDrone.Id && x.Stationld == myStation.Id);
+
+            if (toDelete.Droneld != 0 && toDelete.Stationld != 0)
             {
                 DataSource.dronesCharge.Remove(toDelete);
 
@@ -216,14 +243,14 @@ namespace DalObject
         #endregion
 
         #region power
-        public double [] R_power_consumption_Drone()
+        public double[] R_power_consumption_Drone()
         {
-            double [] power = new double [5];
-            power[0]=DataSource.Config.available;
-            power[1]=DataSource.Config.Lightweight;
-            power[2]=DataSource.Config.MediumWeight;
-            power[3]=DataSource.Config.Heavyweight;
-            power[4]=DataSource.Config.Drone_charging_speed;
+            double[] power = new double[5];
+            power[0] = DataSource.Config.available;
+            power[1] = DataSource.Config.lightWeight;
+            power[2] = DataSource.Config.mediumWeight;
+            power[3] = DataSource.Config.heavyWeight;
+            power[4] = DataSource.Config.Drone_charging_speed;
 
             return power;
         }

@@ -35,9 +35,9 @@ namespace DalObject
             //Static features for drone power consumption
 
             internal static double available;
-            internal static double Lightweight;//Lightweight issue
-            internal static double MediumWeight;//MediumWeight issue
-            internal static double Heavyweight;//Heavyweight issue
+            internal static double lightWeight = 20;//Lightweight issue
+            internal static double mediumWeight = 40;//MediumWeight issue
+            internal static double heavyWeight = 60;//Heavyweight issue
             internal static double Drone_charging_speed;//Drone charging speed in percentage per hour
         }
           

@@ -31,28 +31,38 @@ namespace IBL
         {
             IDAL.DO.Parcel p = dal.getParcel(id);
 
-            Location address = new Location()
-            {
-                Longitude = s.Longitude,
-                Lattitude = s.Lattitude
-            };
-
-            return new BO.Station//have to add chargingDrone list!! - לעשות
+          
+            return new BO.Parcel//have to add chargingDrone list!! - לעשות
             {
                 Id = p.Id,
 
-                Name = p.Name,
+                Senderld = p.Senderld,
 
-                Address = address,
+                Targetld=p.Targetld,
 
-                ChargeSlots = s.ChargeSlots,
+                Weight=(BO.WeightCategories)p.Weight,
+
+                Priority= (BO.Priorities)p.Priority,
+
+                Requested=p.Requested,
+
+                Droneld=p.Droneld,
+
+                Scheduled=p.Scheduled,
+
+                PickedUp=p.PickedUp,
+
+                Delivered=p.Delivered
             };
         }
+
         public IEnumerable<StationToList> getAllParcels()
         {
 
 
         }
+
+
     }
 
 

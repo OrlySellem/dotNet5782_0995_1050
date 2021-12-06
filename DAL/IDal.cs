@@ -34,6 +34,16 @@ namespace IDAL
 
         #endregion
 
+        #region REMOVE
+        public void delFromDrones(Drone droneToDel);
+
+        public void delFromStations(Station stationToDel);
+
+        public void delFromParcels(Parcel parcelToDel);
+
+        public void delFromCustomers(Customer customerToDel);
+        #endregion REMOVE
+
         #region GET_LIST
         public List<Parcel> getAllParcels();
 
@@ -42,7 +52,9 @@ namespace IDAL
         public List<Station> getAllStation();
 
         public List<Customer> getAllCustomer();
-        #endregion 
+
+        public List<DroneCharge> getAllDroneCharge();
+        #endregion
 
         #region updateChargeSlots
         public void reduceChargeSlots(ref Station s);

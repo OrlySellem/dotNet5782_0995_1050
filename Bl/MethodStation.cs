@@ -52,9 +52,27 @@ namespace IBL
             
         }
 
-        public void updateStation(int id, int name_int, int chargeSlots)
+        public void updateStation(int idStation, int name_int, int chargeSlots)
         {
+            var updateStation = dal.getStation(idStation);
 
+            var chargeSlotsDal = dal.getAllDroneCharge();
+
+            dal.delFromStations(updateStation);
+
+            if(name_int!=0)
+            {
+                updateStation.Name = name_int;
+            }
+
+            if(chargeSlots!=0)
+            {
+                int cs = chargeSlotsDal.Count(x => x.Stationld == idStation);
+
+                updateStation.ChargeSlots = chargeSlots - cs;
+            }
+
+            dal.addStaion(updateStation);
         }
 
     }

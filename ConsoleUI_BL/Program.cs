@@ -86,14 +86,14 @@ namespace ConsoleUI_BL
 
                                     int idStation = int.Parse(Console.ReadLine());
                                 
-                                    Random rand = new Random();
+                                   // Random rand = new Random();
                                     
                                     Drone droneToAdd = new Drone()
                                     {
                                         Id = id,
                                         Model = model,
                                         MaxWeight = (WeightCategories)maxWeight,
-                                        Battery = rand.Next(20, 40),
+                                       // Battery = rand.Next(20, 40),
                                         Status=DroneStatuses.maintenance,                        
                                     };
                                     mainBl.addDrone(droneToAdd, idStation);                                   
@@ -133,10 +133,7 @@ namespace ConsoleUI_BL
                                     mainBl.addCustomer(customerToAdd);
                                     break;
 
-                                case Add.addParcel:
-                                    .
-
-                                                               
+                                case Add.addParcel:                                                            
                                     Console.WriteLine("Please enter sender's id:");
                                     int senderld = int.Parse(Console.ReadLine());
 

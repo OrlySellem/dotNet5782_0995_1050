@@ -24,8 +24,6 @@ namespace IDAL
 
            public WeightCategories MaxWeight { get; set; }
 
-            public double Battery { get; set; }
-
             public override string ToString()
             {
                 return string.Format("\nId is:{0}\nModel is:{1}\nMaxWeight is:{2}\nBattery is:{3}\n", Id, Model, MaxWeight, Battery);
