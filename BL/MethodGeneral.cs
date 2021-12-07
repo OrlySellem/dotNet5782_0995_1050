@@ -173,6 +173,7 @@ namespace IBL
                             break;
                         }
                         #endregion
+
                         #region case: drone ins't assign to parcel
                         if (!droneAssignToParcel)//if the drone isn't assign to parcel
                         {
@@ -217,7 +218,7 @@ namespace IBL
                     }
                     #endregion
                 }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
