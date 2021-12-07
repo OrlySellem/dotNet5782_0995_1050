@@ -217,7 +217,7 @@ namespace IBL
                     }
                     #endregion
                 }
-            catch (Exception)
+            catch (Exception ex)
             {
 
                 throw;
