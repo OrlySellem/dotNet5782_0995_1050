@@ -7,53 +7,70 @@ using IBL.BO;
 
 namespace IBL
 {
-    public partial class BL:IBL
+    public partial class BL : IBL
     {
         public void addParcel(Parcel ParcelToAdd)
         {
-            IDAL.DO.Parcel dalParcel = new IDAL.DO.Parcel()
+            try
             {
-                Senderld = ParcelToAdd.Senderld,
-                Targetld = ParcelToAdd.Targetld,
-                Weight = (IDAL.DO.WeightCategories)ParcelToAdd.Weight,
-                Priority = (IDAL.DO.Priorities)ParcelToAdd.Priority,
-                Requested= DateTime.Now,
-                Droneld = ParcelToAdd.Droneld,
-                Scheduled = new DateTime(01/01/0001),
-                PickedUp= new DateTime(01/01/0001),
-                Delivered = new DateTime(01/01/0001)
-            };
+                IDAL.DO.Parcel dalParcel = new IDAL.DO.Parcel()
+                {
+                    Senderld = ParcelToAdd.Senderld,
+                    Targetld = ParcelToAdd.Targetld,
+                    Weight = (IDAL.DO.WeightCategories)ParcelToAdd.Weight,
+                    Priority = (IDAL.DO.Priorities)ParcelToAdd.Priority,
+                    Requested = DateTime.Now,
+                    Droneld = ParcelToAdd.Droneld,
+                    Scheduled = new DateTime(01 / 01 / 0001),
+                    PickedUp = new DateTime(01 / 01 / 0001),
+                    Delivered = new DateTime(01 / 01 / 0001)
+                };
 
-            dal.addParcel(dalParcel);
+                dal.addParcel(dalParcel);
+            }
+            catch (IDAL.DO.AlreadyExistException ex)
+            {
+
+                throw new AddingProblemException("The parcel already exist", ex);
+            }
+
         }
 
         public Parcel getParcel(int id)
         {
-            IDAL.DO.Parcel p = dal.getParcel(id);
-
-          
-            return new BO.Parcel//have to add chargingDrone list!! - לעשות
+            try
             {
-                Id = p.Id,
+                IDAL.DO.Parcel p = dal.getParcel(id);
 
-                Senderld = p.Senderld,
 
-                Targetld=p.Targetld,
+                return new BO.Parcel//have to add chargingDrone list!! - לעשות
+                {
+                    Id = p.Id,
 
-                Weight=(BO.WeightCategories)p.Weight,
+                    Senderld = p.Senderld,
 
-                Priority= (BO.Priorities)p.Priority,
+                    Targetld = p.Targetld,
 
-                Requested=p.Requested,
+                    Weight = (BO.WeightCategories)p.Weight,
 
-                Droneld=p.Droneld,
+                    Priority = (BO.Priorities)p.Priority,
 
-                Scheduled=p.Scheduled,
+                    Requested = p.Requested,
 
-                PickedUp=p.PickedUp,
+                    Droneld = p.Droneld,
 
-                Delivered=p.Delivered
-            };
+                    Scheduled = p.Scheduled,
+
+                    PickedUp = p.PickedUp,
+
+                    Delivered = p.Delivered
+                };
+            }
+            catch (IDAL.DO.DoesntExistException ex)
+            {
+                throw new GetDetailsProblemException("The parcel doesn't exist in the system", ex);
+            }
+           
         }
 
         public IEnumerable<StationToList> getAllParcels()

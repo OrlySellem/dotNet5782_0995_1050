@@ -34,11 +34,11 @@ namespace DalObject
 
             //Static features for drone power consumption
 
-            internal static double available;
-            internal static double lightWeight = 20;//Lightweight issue
-            internal static double mediumWeight = 40;//MediumWeight issue
-            internal static double heavyWeight = 60;//Heavyweight issue
-            internal static double Drone_charging_speed;//Drone charging speed in percentage per hour
+            internal static double available = 1;
+            internal static double lightWeight = 5;//Lightweight issue
+            internal static double mediumWeight = 10;//MediumWeight issue
+            internal static double heavyWeight = 15;//Heavyweight issue
+            internal static double Drone_charging_speed=40;//Drone charging speed in percentage per hour
         }
           
         public static void Initialize()
@@ -106,16 +106,6 @@ namespace DalObject
                 };
 
                 parcels.Add(temp);
-            }
-            //Initialize 100 free drones charge (flag=false mean that the drone is free to charging)
-            for (int i=0; i<100; i++)
-            {
-                DroneCharge temp = new DroneCharge()
-                {
-                    flag = false
-                };
-
-                dronesCharge.Add(temp);
             }
 
         }

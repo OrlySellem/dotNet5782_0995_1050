@@ -8,13 +8,39 @@ namespace IDAL
 {
     namespace DO
     {
+        public class DoesntExistException : Exception
+        {
+            public DoesntExistException() : base() { }
+            public DoesntExistException(string message) : base(message) { }
+        }
+
+        public class AlreadyExistException : Exception
+        {
+            public AlreadyExistException() : base() { }
+            public AlreadyExistException(string message) : base(message) { }        
+        }
+
+        public class InvalidInputException : Exception
+        {
+            public InvalidInputException() : base() { }
+            public InvalidInputException(string message) : base(message) { }
+        }
+
+        public class chargingException : Exception
+        {
+            public chargingException() : base() { }
+            public chargingException(string message) : base(message) { }
+        }
+
+    }
+}
+
+/* 
         public class stationException : Exception  ///station
         {
 
             public stationException(string message) : base(message)
-            {
-                throw "The station " + message;
-            }
+            {}
 
             // public override string ToString() => base.ToString() + $", miss information between stations: {FirstStation} and {SecondStation}";
         }
@@ -57,6 +83,11 @@ namespace IDAL
             }
         }
     }
-
-}
+ 
+ 
+ 
+ 
+ 
+ 
+ */
 

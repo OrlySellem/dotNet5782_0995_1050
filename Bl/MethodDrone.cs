@@ -11,113 +11,148 @@ namespace IBL
     {
         public void addDrone(Drone DroneToAdd, int idStation)
         {
-
-            IDAL.DO.Drone dalDrone = new IDAL.DO.Drone()
+            try
             {
-                Id = DroneToAdd.Id,
-                Model = DroneToAdd.Model,
-                MaxWeight = (IDAL.DO.WeightCategories)DroneToAdd.MaxWeight,
-            };
+                DroneToAdd.Battery = rand.Next(20, 40);
+                DroneToAdd.Status = DroneStatuses.maintenance;
+                IDAL.DO.Drone dalDrone = new IDAL.DO.Drone()
+                {
+                    Id = DroneToAdd.Id,
+                    Model = DroneToAdd.Model,
+                    MaxWeight = (IDAL.DO.WeightCategories)DroneToAdd.MaxWeight,
+                };
 
-            dal.addDrone(dalDrone);
+                dal.addDrone(dalDrone);
+                DroneToList DroneToAddBL = new DroneToList()
+                {
+                    Id = DroneToAdd.Id,
 
-            IDAL.DO.Station currentStation = dal.getStation(idStation);
-            dal.chargingDrone(dalDrone, currentStation);
+                    Model = DroneToAdd.Model,
 
+                    MaxWeight = DroneToAdd.MaxWeight,
+
+                    Battery = DroneToAdd.
+
+                  Status =
+
+                  CurrentLocation =
+
+                  numParcel =
+        };
+                IDAL.DO.Station currentStation = dal.getStation(idStation);
+                dal.chargingDrone(dalDrone, currentStation);
+
+            }
+            catch (IDAL.DO.AlreadyExistException ex)
+            {
+
+                throw new AddingProblemException("The parcel already exist", ex);
+            }
+            
 
         }
 
         public DroneToList getDrone(int id)
         {
+                foreach (BO.DroneToList item in drones)
+                {
 
-            foreach (BO.DroneToList item in drones)
-            {
+                    if (item.Id == id)
+                        return new DroneToList()
+                        {
+                            Id = item.Id,
+                            Model = item.Model,
+                            MaxWeight = item.MaxWeight,
+                            Battery = item.Battery,
+                            Status = item.Status,
+                            CurrentLocation = item.CurrentLocation,
+                            numParcel = item.numParcel,
+                        };
+                }
 
-                if (item.Id == id)
-                    return new DroneToList()
-                    {
-                        Id = item.Id,
-                        Model = item.Model,
-                        MaxWeight = item.MaxWeight,
-                        Battery = item.Battery,
-                        Status = item.Status,
-                        CurrentLocation = item.CurrentLocation,
-                        numParcel = item.numParcel,
-                    };
-            }
-
-            throw new droneException(" isn't exist");
-
+                throw new GetDetailsProblemException("The drone doesn't exist in the system");            
         }
 
         public IEnumerable<StationToList> getAllDronens()
         {
-
+            
 
         }
 
-        /*public void getDrone()
-        {
-            double[] drones = dal.R_power_consumption_Drone();
-
-        }*/
-
         public void updateModelDrone(int idDrone, string newModel)
         {
-            var droneToUpdate = dal.getDrone(idDrone);
+            try
+            {
+                var droneToUpdate = dal.getDrone(idDrone);
 
-            //Remove the drone from IDAL.DO.drones
-            dal.delFromDrones(droneToUpdate);
+                //Remove the drone from IDAL.DO.drones
+                dal.delFromDrones(droneToUpdate);
 
-            //Remove the drone from BL.drones
-            var myDrone = getDrone(idDrone);
-            drones.Remove(myDrone);
+                //Remove the drone from BL.drones
+                var myDrone = getDrone(idDrone);
+                drones.Remove(myDrone);
 
-            droneToUpdate.Model = newModel;//update IDAL.DO.drones model
-            myDrone.Model = newModel;//update BL.drones model
+                droneToUpdate.Model = newModel;//update IDAL.DO.drones model
+                myDrone.Model = newModel;//update BL.drones model
 
-            dal.addDrone(droneToUpdate);//To add the update drone to IDAL.DO.drones
+                dal.addDrone(droneToUpdate);//To add the update drone to IDAL.DO.drones
 
-            drones.Add(myDrone);//To add the update drone to IBL.BO.drones
+                drones.Add(myDrone);//To add the update drone to IBL.BO.drones
+            }
+            catch(IDAL.DO.DoesntExistException ex)
+            {
+                throw new UpdateProblemException("The drone doesn't exist in the system",ex);
+            }
+            catch (IDAL.DO.AlreadyExistException ex)
+            {
+                throw new AddingProblemException("The drone already exist",ex);
+            }
+
         }
 
         public void chargingDrone(int droneId)
         {
-            var droneToUpdate = drones.Find(x => x.Id == droneId);
-
-            // רק רחפן פנוי ישלח לטעינה
-            if (droneToUpdate.Status == DroneStatuses.available)
+            try
             {
-                double minDistance = 0; 
-                //התחנה הקרובה ביותר
-                Location nearStation = nearStationToCustomer(droneId, ref minDistance);
+                var droneToUpdate = drones.Find(x => x.Id == droneId);
 
-                double powerForDistance = available * minDistance;
-                //droneToUpdate.Status = DroneStatuses.delivery;
-                if (powerForDistance > droneToUpdate.Battery)
+                // רק רחפן פנוי ישלח לטעינה
+                if (droneToUpdate.Status == DroneStatuses.available)
                 {
-                    throw new  droneException ("not enough battery to get charged");
-                }
-                else
-                {
-                    Station closerStationBL = nearStationToDrone(droneToUpdate.Id);
-                    IDAL.DO.Station closerStationDal = dal.getStation(closerStationBL.Id);
-                    
-                    
-                    dal.reduceChargeSlots(ref closerStationDal);//הורדת מספר עמדות טעינה פנויות ב1
-                    IDAL.DO.Drone droneToUpdateDAL = dal.getDrone(droneToUpdate.Id);//המרת הרחפן לרחפן של דאל
-                    dal.chargingDrone(droneToUpdateDAL, closerStationDal);//הוספת מופע מתאים
+                    double minDistance = 0;
+                    //התחנה הקרובה ביותר
+                    Location nearStation = nearStationToCustomer(droneId, ref minDistance);
 
-                    drones.Remove(droneToUpdate);
-                    //מצב סוללה יעודכן בהתאם למרחק - לעשות
-                    droneToUpdate.CurrentLocation = closerStationBL.Address;
-                    droneToUpdate.Status = DroneStatuses.maintenance;
-                    drones.Add(droneToUpdate);
+                    double powerForDistance = available * minDistance;
+                    //droneToUpdate.Status = DroneStatuses.delivery;
+                    if (powerForDistance > droneToUpdate.Battery)
+                    {
+                        throw new UpdateProblemException("not enough battery to get charged");
+                    }
+                    else
+                    {
+                        Station closerStationBL = nearStationToDrone(droneToUpdate.Id);
+                        IDAL.DO.Station closerStationDal = dal.getStation(closerStationBL.Id);
 
-                   
+
+                        dal.reduceChargeSlots(ref closerStationDal);//הורדת מספר עמדות טעינה פנויות ב1
+                        IDAL.DO.Drone droneToUpdateDAL = dal.getDrone(droneToUpdate.Id);//המרת הרחפן לרחפן של דאל
+                        dal.chargingDrone(droneToUpdateDAL, closerStationDal);//הוספת מופע מתאים
+
+                        drones.Remove(droneToUpdate);
+                        //מצב סוללה יעודכן בהתאם למרחק - לעשות
+                        droneToUpdate.CurrentLocation = closerStationBL.Address;
+                        droneToUpdate.Status = DroneStatuses.maintenance;
+                        drones.Add(droneToUpdate);
+
+
+                    }
                 }
             }
-
+            catch (IDAL.DO.DoesntExistException ex)
+            {
+                throw new UpdateProblemException(ex);
+            }
         }
 
     }
