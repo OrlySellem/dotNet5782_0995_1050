@@ -76,7 +76,6 @@ namespace IBL
             try
             {
                 var customerToUpdate = dal.getCustomer(idCustomer);
-
                 dal.delFromCustomers(customerToUpdate);
 
                 if (newName != null)
