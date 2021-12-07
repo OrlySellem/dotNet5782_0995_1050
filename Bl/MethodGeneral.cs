@@ -91,129 +91,138 @@ namespace IBL
 
         public BL()//ctor of BL
         {
-            double minDistance = 0;
-
-            dal = new DalObject.DalObject();
-
-            drones = new List<DroneToList>();
-
-            chargingDrones = new List<ChargingDrone>();
-
-
-            double[] power = dal.R_power_consumption_Drone();
-            available = power[0];
-            lightWeight = power[1];
-            mediumWeight = power[2];
-            heavyWeight = power[3];
-            Drone_charging_speed = power[4];
-
-            IEnumerable<IDAL.DO.Drone> dronesFromDS = dal.getAllDrones();
-            IEnumerable<IDAL.DO.Parcel> parcelsFromDS = dal.getAllParcels();
-            IEnumerable<IDAL.DO.Station> stationFromDS = dal.getAllStation();
-           
-            foreach (IDAL.DO.Drone itemDrone in dronesFromDS)//pass over the drones's list 
+            try
             {
-                bool droneAssignToParcel = false;
-                DroneToList temp = new DroneToList() //copy the data of IDAL.DO.drone to IBL.BO.droneToLIst
+                double minDistance = 0;
+
+                dal = new DalObject.DalObject();
+
+                drones = new List<DroneToList>();
+
+                chargingDrones = new List<ChargingDrone>();
+
+
+                double[] power = dal.R_power_consumption_Drone();
+                available = power[0];
+                lightWeight = power[1];
+                mediumWeight = power[2];
+                heavyWeight = power[3];
+                Drone_charging_speed = power[4];
+
+                IEnumerable<IDAL.DO.Drone> dronesFromDS = dal.getAllDrones();
+                IEnumerable<IDAL.DO.Parcel> parcelsFromDS = dal.getAllParcels();
+                IEnumerable<IDAL.DO.Station> stationFromDS = dal.getAllStation();
+
+                foreach (IDAL.DO.Drone itemDrone in dronesFromDS)//pass over the drones's list 
                 {
-                    Id = itemDrone.Id,
-
-                    Model = itemDrone.Model,
-
-                    MaxWeight = (BO.WeightCategories)itemDrone.MaxWeight,
-
-                };
-                #region case: the drone is assign to parcel
-                foreach (IDAL.DO.Parcel itemParcel in parcelsFromDS)//pass over the parcels's list - לבקשת התרגיל 
-                {
-                    //אם החבילה שויכה אך לא סופקה ולא נאספה 
-                    if (itemDrone.Id == itemParcel.Droneld)//The drone is assign to parcel
+                    bool droneAssignToParcel = false;
+                    DroneToList temp = new DroneToList() //copy the data of IDAL.DO.drone to IBL.BO.droneToLIst
                     {
-                        droneAssignToParcel = true;
-                        if (itemParcel.Delivered == new DateTime(01, 01, 0001))//The parcel isn't delivered
+                        Id = itemDrone.Id,
+
+                        Model = itemDrone.Model,
+
+                        MaxWeight = (BO.WeightCategories)itemDrone.MaxWeight,
+
+                    };
+                    #region case: the drone is assign to parcel
+                    foreach (IDAL.DO.Parcel itemParcel in parcelsFromDS)//pass over the parcels's list - לבקשת התרגיל 
+                    {
+                        //אם החבילה שויכה אך לא סופקה ולא נאספה 
+                        if (itemDrone.Id == itemParcel.Droneld)//The drone is assign to parcel
                         {
-                            temp.Status = DroneStatuses.delivery;
-
-                            if (itemParcel.PickedUp == new DateTime(01, 01, 0001))//The parcel isn't pick up from the station
+                            droneAssignToParcel = true;
+                            if (itemParcel.Delivered == new DateTime(01, 01, 0001))//The parcel isn't delivered
                             {
+                                temp.Status = DroneStatuses.delivery;
 
-                                temp.CurrentLocation = nearStationToCustomer(itemParcel.Senderld, ref minDistance);//מיקום הרחפן יהיה בתחנה הקרובה לשולח 
-                            }
-                            else //If the parcel is picked up but doesn't delivered
-                            {
-                                temp.CurrentLocation = new Location()//מיקום הרחפן יהיה במיקום השולח
+                                if (itemParcel.PickedUp == new DateTime(01, 01, 0001))//The parcel isn't pick up from the station
                                 {
-                                    Lattitude = dal.getCustomer(itemParcel.Senderld).Lattitude,
-                                    Longitude = dal.getCustomer(itemParcel.Senderld).Longitude
-                                };
+
+                                    temp.CurrentLocation = nearStationToCustomer(itemParcel.Senderld, ref minDistance);//מיקום הרחפן יהיה בתחנה הקרובה לשולח 
+                                }
+                                else //If the parcel is picked up but doesn't delivered
+                                {
+                                    temp.CurrentLocation = new Location()//מיקום הרחפן יהיה במיקום השולח
+                                    {
+                                        Lattitude = dal.getCustomer(itemParcel.Senderld).Lattitude,
+                                        Longitude = dal.getCustomer(itemParcel.Senderld).Longitude
+                                    };
+                                }
+
+                                if (temp.MaxWeight == WeightCategories.light)
+                                {
+                                    double powerForDistance = power[1] * minDistance;
+                                    temp.Battery = rand.NextDouble() * (100 - powerForDistance) + powerForDistance;
+                                }
+
+                                if (temp.MaxWeight == WeightCategories.medium)
+                                {
+                                    double powerForDistance = power[2] * minDistance;
+                                    temp.Battery = rand.NextDouble() * (100 - powerForDistance) + powerForDistance;
+                                }
+
+                                if (temp.MaxWeight == WeightCategories.heavy)
+                                {
+                                    double powerForDistance = power[3] * minDistance;
+                                    temp.Battery = rand.NextDouble() * (100 - powerForDistance) + powerForDistance;
+                                }
                             }
-
-                            if (temp.MaxWeight == WeightCategories.light)
-                            {
-                                double powerForDistance = power[1]*minDistance;
-                                temp.Battery = rand.NextDouble() * (100 - powerForDistance) + powerForDistance;
-                            }
-
-                            if (temp.MaxWeight == WeightCategories.medium)
-                            {
-                                double powerForDistance = power[2]*minDistance;
-                                temp.Battery = rand.NextDouble() * (100 - powerForDistance) + powerForDistance;
-                            }
-
-                            if (temp.MaxWeight == WeightCategories.heavy)
-                            {
-                                double powerForDistance = power[3]*minDistance;
-                                temp.Battery = rand.NextDouble() * (100 - powerForDistance) + powerForDistance;
-                            }
-                        }
-
-                        drones.Add(temp);
-                        break;
-                    }
-                    #endregion
-                    #region case: drone ins't assign to parcel
-                    if (!droneAssignToParcel)//if the drone isn't assign to parcel
-                    {
-                        temp.Status = (DroneStatuses)rand.Next(1);//decide randomly between available or maintenance 
-
-                        //	אם הרחפן בתחזוקה
-                        if (temp.Status == DroneStatuses.maintenance)
-                        {
-                            int indexStation = rand.Next(stationFromDS.Count());
-                            temp.CurrentLocation = new Location()
-                            {
-                                Lattitude = stationFromDS[indexStation].Lattitude,
-                                Longitude = stationFromDS[indexStation].Longitude
-                            };
-
-                            temp.Battery = rand.Next(20);
 
                             drones.Add(temp);
-
+                            break;
                         }
-
-                        if (temp.Status == DroneStatuses.available)
+                        #endregion
+                        #region case: drone ins't assign to parcel
+                        if (!droneAssignToParcel)//if the drone isn't assign to parcel
                         {
-                            //עשיתי רנדום על החבילות לקחתי את הלקוח של היעד ואת המיקום שלו אני אכניס 
-                            int indexParcel = rand.Next(parcelsFromDS.Count());
-                            var customerLocation = dal.getCustomer(parcelsFromDS[indexParcel].Targetld);
-                            temp.CurrentLocation = new Location()
+                            temp.Status = (DroneStatuses)rand.Next(1);//decide randomly between available or maintenance 
+
+                            //	אם הרחפן בתחזוקה
+                            if (temp.Status == DroneStatuses.maintenance)
                             {
-                                Lattitude = customerLocation.Lattitude,
-                                Longitude = customerLocation.Longitude
-                            };
+                                int indexStation = rand.Next(stationFromDS.Count());
+                                temp.CurrentLocation = new Location()
+                                {
+                                    Lattitude = stationFromDS[indexStation].Lattitude,
+                                    Longitude = stationFromDS[indexStation].Longitude
+                                };
 
-                            minDistance = 0;
-                            Location nearStation = nearStationToCustomer(temp.Id, ref minDistance);
-                            double powerForDistance = power[0] * minDistance;
-                            temp.Battery = rand.NextDouble() * (100 - powerForDistance) + powerForDistance;
+                                temp.Battery = rand.Next(20);
 
+                                drones.Add(temp);
+
+                            }
+
+                            if (temp.Status == DroneStatuses.available)
+                            {
+                                //עשיתי רנדום על החבילות לקחתי את הלקוח של היעד ואת המיקום שלו אני אכניס 
+                                int indexParcel = rand.Next(parcelsFromDS.Count());
+                                var customerLocation = dal.getCustomer(parcelsFromDS[indexParcel].Targetld);
+                                temp.CurrentLocation = new Location()
+                                {
+                                    Lattitude = customerLocation.Lattitude,
+                                    Longitude = customerLocation.Longitude
+                                };
+
+                                minDistance = 0;
+                                Location nearStation = nearStationToCustomer(temp.Id, ref minDistance);
+                                double powerForDistance = power[0] * minDistance;
+                                temp.Battery = rand.NextDouble() * (100 - powerForDistance) + powerForDistance;
+
+                            }
+
+                            drones.Add(temp);
                         }
-
-                        drones.Add(temp);
                     }
+                    #endregion
                 }
-                #endregion
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+           
 
               
             }
