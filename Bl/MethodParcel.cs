@@ -20,7 +20,7 @@ namespace IBL
                     Weight = (IDAL.DO.WeightCategories)ParcelToAdd.Weight,
                     Priority = (IDAL.DO.Priorities)ParcelToAdd.Priority,
                     Requested = DateTime.Now,
-                    Droneld = ParcelToAdd.Droneld,
+                    Droneld = 0,
                     Scheduled = new DateTime(01 / 01 / 0001),
                     PickedUp = new DateTime(01 / 01 / 0001),
                     Delivered = new DateTime(01 / 01 / 0001)

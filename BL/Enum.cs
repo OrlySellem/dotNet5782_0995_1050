@@ -16,7 +16,7 @@ namespace IBL
 
         public enum Add { addStation, addDrone, addCustomer, addParcel }
 
-        public enum Update { updateDrone, updateStation, updateCustomer, assignParcelDrone, dronePickParcel, deliveryAriveToCustomer, chargingDrone, freeDroneCharge }
+        public enum Update { updateDrone, updateStation, updateCustomer, chargingDrone, freeDroneCharge, assignParcelDrone, dronePickParcel, deliveryAriveToCustomer }
 
         public enum Display { displayStation, displayDrone, displayCustomer, displayParcel }
 

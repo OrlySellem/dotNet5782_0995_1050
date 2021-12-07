@@ -65,12 +65,12 @@ namespace ConsoleUI_BL
                                         Name=name_int,
                                         Address= stationLocation, 
                                         ChargeSlots= chargeSlots,
+                                        Charging_drones=null
                                     };
 
 
                                     mainBl.addStation(newStation);
 
-                                 mainBl.chargingDrone ={ }; //רשימת הרחפנים בטעינה תאותחל לרשימה ריקה
                                     break;
                                 case Add.addDrone:
 
@@ -152,16 +152,14 @@ namespace ConsoleUI_BL
                                         Weight = (WeightCategories)weight,
                                         Priority = (Priorities)priority,                                    
                                     };
-
-                                    mainBl.addParcel();
-                                    mainBl.resetTime();//כל הזמנים יאותחלו לזמן אפס למעט תאריך יצירה שיאותחל לעכשיו
-
+                                    mainBl.addParcel(parcelToAdd);
                                     break;
                                 default:
                                     break;
                             }
                             break;
                         #endregion
+
                         #region updateChoice
                         case programDelivry.UpdateOptions:
 
@@ -181,7 +179,7 @@ namespace ConsoleUI_BL
                                     Console.WriteLine("Please enter drone's model:");
                                     modelDrone = Console.ReadLine();
                                   
-                                    mainBl.updateNameDrone(id, modelDrone);
+                                    mainBl.updateModelDrone(id, modelDrone);
                                     break;
 
                                 case Update.updateStation:
@@ -213,24 +211,29 @@ namespace ConsoleUI_BL
                                     break;
 
                                 case Update.chargingDrone:
+
+                                    Console.WriteLine("Please enter drone's id:");
                                     id = int.Parse(Console.ReadLine());
                                     mainBl.chargingDrone(id);
                                     break; 
 
-                                case Update.assignParcelDrone:
+                                case Update.freeDroneCharge:
+                                    Console.WriteLine("Please enter drone's id:");
+                                    id = int.Parse(Console.ReadLine());
                                     break;
                                 case Update.dronePickParcel:
                                     break;
                                 case Update.deliveryAriveToCustomer:
                                     break;
                                 
-                                case Update.freeDroneCharge:
+                                case Update.assignParcelDrone:
                                     break;
                                 default:
                                     break;
                             }
                             break;
                         #endregion updateChoice
+
                         #region displayEntity
                         case programDelivry.DisplayOptions:
                         Console.WriteLine ("To display stations - enter 0\nTo display drones - enter 1\nTo display stations - enter 2\nTo display parcels - enter 3\nTo displays a list of parcels without assign to drones - enter 4\nTo display base stations with available charging drones - enter 5\n");
@@ -277,7 +280,6 @@ namespace ConsoleUI_BL
                           
                             break;
                         #endregion displayEntity
-
 
                         #region displayListOptions
                         case programDelivry.DisplayListOptions:

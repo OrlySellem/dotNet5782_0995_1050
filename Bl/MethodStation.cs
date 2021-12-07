@@ -74,10 +74,9 @@ namespace IBL
             try
             {
                 var updateStation = dal.getStation(idStation);
+                dal.delFromStations(updateStation);
 
                 var chargeSlotsDal = dal.getAllDroneCharge();
-
-                dal.delFromStations(updateStation);
 
                 if (name_int != 0)
                 {
@@ -86,20 +85,20 @@ namespace IBL
 
                 if (chargeSlots != 0)
                 {
-                    int cs = chargeSlotsDal.Count(x => x.Stationld == idStation);
+                    int notAvailable_chargeSlots = chargeSlotsDal.Count(x => x.Stationld == idStation);
 
-                    updateStation.ChargeSlots = chargeSlots - cs;
+                    updateStation.ChargeSlots = chargeSlots - notAvailable_chargeSlots;
                 }
 
                 dal.addStaion(updateStation);
             }
            catch (IDAL.DO.DoesntExistException ex)
             {
-                throw new GetDetailsProblemException("The station doesn't exist in the system");
+                throw new GetDetailsProblemException("The station doesn't exist in the system",ex);
             }
            catch (IDAL.DO.AlreadyExistException ex)
             {
-                throw new AddingProblemException("The station already exist in the system");
+                throw new AddingProblemException("The station already exist in the system",ex);
             }
         }
 

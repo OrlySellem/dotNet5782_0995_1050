@@ -13,16 +13,25 @@ namespace IBL
         {
             try
             {
-                DroneToAdd.Battery = rand.Next(20, 40);
-                DroneToAdd.Status = DroneStatuses.maintenance;
                 IDAL.DO.Drone dalDrone = new IDAL.DO.Drone()
                 {
                     Id = DroneToAdd.Id,
                     Model = DroneToAdd.Model,
                     MaxWeight = (IDAL.DO.WeightCategories)DroneToAdd.MaxWeight,
                 };
-
                 dal.addDrone(dalDrone);
+
+
+                DroneToAdd.Battery = rand.Next(20, 40);
+                DroneToAdd.Status = DroneStatuses.maintenance;
+                IDAL.DO.Station currentStation = dal.getStation(idStation);
+                DroneToAdd.CurrentLocation = new Location()
+                {
+                    Lattitude = currentStation.Lattitude,
+                    Longitude = currentStation.Longitude
+                };
+                dal.chargingDrone(dalDrone, currentStation);
+
                 DroneToList DroneToAddBL = new DroneToList()
                 {
                     Id = DroneToAdd.Id,
@@ -31,16 +40,14 @@ namespace IBL
 
                     MaxWeight = DroneToAdd.MaxWeight,
 
-                    Battery = DroneToAdd.
+                    Battery = DroneToAdd.Battery,
 
-                  Status =
+                  Status = DroneToAdd.Status,
 
-                  CurrentLocation =
+                  CurrentLocation = DroneToAdd.CurrentLocation,
 
-                  numParcel =
+                  numParcel =0
         };
-                IDAL.DO.Station currentStation = dal.getStation(idStation);
-                dal.chargingDrone(dalDrone, currentStation);
 
             }
             catch (IDAL.DO.AlreadyExistException ex)
@@ -83,21 +90,20 @@ namespace IBL
         {
             try
             {
-                var droneToUpdate = dal.getDrone(idDrone);
+                var droneToUpdate_dal = dal.getDrone(idDrone);
 
                 //Remove the drone from IDAL.DO.drones
-                dal.delFromDrones(droneToUpdate);
+                dal.delFromDrones(droneToUpdate_dal);
 
                 //Remove the drone from BL.drones
-                var myDrone = getDrone(idDrone);
-                drones.Remove(myDrone);
+                var droneToUpdate_bl = getDrone(idDrone);
+                drones.Remove(droneToUpdate_bl);
 
-                droneToUpdate.Model = newModel;//update IDAL.DO.drones model
-                myDrone.Model = newModel;//update BL.drones model
+                droneToUpdate_dal.Model = newModel;//update IDAL.DO.drones model
+                droneToUpdate_bl.Model = newModel;//update BL.drones model
 
-                dal.addDrone(droneToUpdate);//To add the update drone to IDAL.DO.drones
-
-                drones.Add(myDrone);//To add the update drone to IBL.BO.drones
+                dal.addDrone(droneToUpdate_dal);//To add the update drone to IDAL.DO.drones
+                drones.Add(droneToUpdate_bl);//To add the update drone to IBL.BO.drones
             }
             catch(IDAL.DO.DoesntExistException ex)
             {
@@ -121,30 +127,30 @@ namespace IBL
                 {
                     double minDistance = 0;
                     //התחנה הקרובה ביותר
-                    Location nearStation = nearStationToCustomer(droneId, ref minDistance);
+                    Station closerStationBL = nearStationToDrone(droneToUpdate.Id, ref minDistance);
+                    Location nearStation = closerStationBL.Address;
 
                     double powerForDistance = available * minDistance;
-                    //droneToUpdate.Status = DroneStatuses.delivery;
+
                     if (powerForDistance > droneToUpdate.Battery)
                     {
                         throw new UpdateProblemException("not enough battery to get charged");
                     }
                     else
                     {
-                        Station closerStationBL = nearStationToDrone(droneToUpdate.Id);
+                        //רחפן:
+                        drones.Remove(droneToUpdate);
+                        droneToUpdate.Battery = droneToUpdate.Battery-powerForDistance;//	מצב סוללה יעודכן בהתאם למרחק בין הרחפן לתחנה
+                        droneToUpdate.CurrentLocation = nearStation;//	המיקום ישונה למיקום התחנה
+                        droneToUpdate.Status = DroneStatuses.maintenance;//	מצב הרחפן ישונה לתחזוקה
+                        drones.Add(droneToUpdate);
+                        //תחנה:
                         IDAL.DO.Station closerStationDal = dal.getStation(closerStationBL.Id);
-
-
                         dal.reduceChargeSlots(ref closerStationDal);//הורדת מספר עמדות טעינה פנויות ב1
+
+                        //טעינת רחפן
                         IDAL.DO.Drone droneToUpdateDAL = dal.getDrone(droneToUpdate.Id);//המרת הרחפן לרחפן של דאל
                         dal.chargingDrone(droneToUpdateDAL, closerStationDal);//הוספת מופע מתאים
-
-                        drones.Remove(droneToUpdate);
-                        //מצב סוללה יעודכן בהתאם למרחק - לעשות
-                        droneToUpdate.CurrentLocation = closerStationBL.Address;
-                        droneToUpdate.Status = DroneStatuses.maintenance;
-                        drones.Add(droneToUpdate);
-
 
                     }
                 }
