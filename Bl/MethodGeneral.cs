@@ -23,19 +23,55 @@ namespace IBL
         internal static double heavyWeight;//Heavyweight issue
         internal static double Drone_charging_speed;//Drone charging speed in percentage per hour
 
+        public Station nearStationToDrone(int droneId, ref double minDistance)
+        { double checkDistance;
+            IEnumerable<IDAL.DO.Station> listStation = dal.getAllStation();
+            IDAL.DO.Station minStation;
+            var droneItem = getDrone(droneId);
+
+            minDistance = Math.Sqrt(Math.Pow(droneItem.CurrentLocation.Lattitude - listStation.First().Lattitude, 2) + Math.Pow(droneItem.CurrentLocation.Longitude - listStation.First().Longitude, 2));
+            minStation = listStation.First();
+
+            foreach (var itemStation in listStation)
+            {
+                checkDistance = Math.Sqrt(Math.Pow(droneItem.CurrentLocation.Lattitude - itemStation.Lattitude, 2) + Math.Pow(droneItem.CurrentLocation.Longitude - itemStation.Longitude, 2));
+                if (minDistance > checkDistance && itemStation.ChargeSlots > 0)
+                {
+                    minDistance = checkDistance;
+                    minStation = itemStation;
+                }
+            }
+            if (minStation.ChargeSlots <= 0)
+                throw new UpdateProblemException("There isn't free charge slot in all the stations");
+
+            Location address = new Location()
+            {
+                Lattitude = minStation.Lattitude,
+                Longitude = minStation.Longitude
+            };
+
+            return new Station()
+           {
+               Id = minStation.Id,
+               Name = minStation.Name,
+               Address = address,
+               ChargeSlots = minStation.ChargeSlots,
+           };
+        }
+
         public Location nearStationToCustomer(int costumerId, ref double minDistance)
         {
             double checkDistance;
 
-            List<IDAL.DO.Station> listStation = dal.getAllStation();
+            IEnumerable<IDAL.DO.Station> listStation = dal.getAllStation();
 
             IDAL.DO.Station minStation;
 
             var costumerItem = dal.getCustomer(costumerId);
 
             //מרחק ראשון בין הלקוח המבוקש והמקום הראשון ברשימת התחנות
-            minDistance = Math.Sqrt(Math.Pow(costumerItem.Lattitude - listStation[0].Lattitude, 2) + Math.Pow(costumerItem.Longitude - listStation[0].Longitude, 2));
-            minStation = listStation[0];
+            minDistance = Math.Sqrt(Math.Pow(costumerItem.Lattitude - listStation.First().Lattitude, 2) + Math.Pow(costumerItem.Longitude - listStation.First().Longitude, 2));
+            minStation = listStation.First();
             foreach (var itemStation in listStation)
             {
                 checkDistance = Math.Sqrt(Math.Pow(costumerItem.Lattitude - itemStation.Lattitude, 2) + Math.Pow(costumerItem.Longitude - itemStation.Longitude, 2));
@@ -51,42 +87,6 @@ namespace IBL
                 Longitude = minStation.Longitude
             };
             return returnTemp;
-        }
-
-        public Station nearStationToDrone(int droneId)//יחזיר את הת"ז של התחנה הקרובה
-        {
-            double checkDistance, minDistance;
-            List <IDAL.DO.Station> listStation = dal.getAllStation();//list of station
-            var droneItem = getDrone(droneId);
-
-            minDistance = Math.Sqrt(Math.Pow(droneItem.CurrentLocation.Lattitude - listStation[0].Lattitude, 2) + Math.Pow(droneItem.CurrentLocation.Longitude - listStation[0].Longitude, 2));
-            var minStation = listStation[0];
-
-            foreach (var itemStation in listStation)
-            {
-                checkDistance = Math.Sqrt(Math.Pow(droneItem.CurrentLocation.Lattitude - itemStation.Lattitude, 2) + Math.Pow(droneItem.CurrentLocation.Longitude - itemStation.Longitude, 2));
-                if (minDistance > checkDistance && itemStation.ChargeSlots > 0)
-                {
-                    minDistance = checkDistance;
-                    minStation = itemStation;
-                }
-            }
-
-            if(minStation.ChargeSlots <= 0)
-                throw new notStationToCharging ("There isn't free charge slot in all the stations");
-
-            Location address = new Location()
-            {
-                Lattitude = minStation.Lattitude,
-                Longitude = minStation.Longitude
-            };
-            return new Station()
-            {
-                Id=minStation.Id,
-                Name=minStation.Name,
-                Address=address, 
-                ChargeSlots=minStation.ChargeSlots,
-            };
         }
 
         public BL()//ctor of BL
@@ -173,6 +173,7 @@ namespace IBL
                             break;
                         }
                         #endregion
+
                         #region case: drone ins't assign to parcel
                         if (!droneAssignToParcel)//if the drone isn't assign to parcel
                         {
@@ -222,14 +223,14 @@ namespace IBL
 
                 throw;
             }
-           
 
-              
-            }
+
 
         }
-    }
 
+    }
 }
+
+
 
 
