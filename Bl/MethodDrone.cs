@@ -52,32 +52,31 @@ namespace IBL
             }
             catch (IDAL.DO.AlreadyExistException ex)
             {
-
                 throw new AddingProblemException("The parcel already exist", ex);
             }
-            
+
 
         }
 
         public DroneToList getDrone(int id)
         {
-                foreach (BO.DroneToList item in drones)
-                {
+            foreach (BO.DroneToList item in drones)
+            {
 
-                    if (item.Id == id)
-                        return new DroneToList()
-                        {
-                            Id = item.Id,
-                            Model = item.Model,
-                            MaxWeight = item.MaxWeight,
-                            Battery = item.Battery,
-                            Status = item.Status,
-                            CurrentLocation = item.CurrentLocation,
-                            numParcel = item.numParcel,
-                        };
-                }
+                if (item.Id == id)
+                    return new DroneToList()
+                    {
+                        Id = item.Id,
+                        Model = item.Model,
+                        MaxWeight = item.MaxWeight,
+                        Battery = item.Battery,
+                        Status = item.Status,
+                        CurrentLocation = item.CurrentLocation,
+                        numParcel = item.numParcel,
+                    };
+            }
 
-                throw new GetDetailsProblemException("The drone doesn't exist in the system");            
+            throw new GetDetailsProblemException("The drone doesn't exist in the system");
         }
 
         public IEnumerable <DroneToList> getAllDronens()
@@ -104,13 +103,13 @@ namespace IBL
                 dal.addDrone(droneToUpdate_dal);//To add the update drone to IDAL.DO.drones
                 drones.Add(droneToUpdate_bl);//To add the update drone to IBL.BO.drones
             }
-            catch(IDAL.DO.DoesntExistException ex)
+            catch (IDAL.DO.DoesntExistException ex)
             {
-                throw new UpdateProblemException("The drone doesn't exist in the system",ex);
+                throw new UpdateProblemException("The drone doesn't exist in the system", ex);
             }
             catch (IDAL.DO.AlreadyExistException ex)
             {
-                throw new AddingProblemException("The drone already exist",ex);
+                throw new AddingProblemException("The drone already exist", ex);
             }
 
         }
@@ -158,6 +157,54 @@ namespace IBL
             {
                 throw new UpdateProblemException(ex);
             }
+        }
+
+
+        public void freeDroneFromCharging(int idDrone, TimeSpan time)
+        {
+            DroneToList a = drones.Find(x => x.Id == idDrone);
+
+            if (a.Status == DroneStatuses.maintenance)
+            {
+                a.Battery = time.Hours * Drone_charging_speed;
+                a.Status = DroneStatuses.available;
+
+            }
+            else
+            {
+                throw new GetDetailsProblemException("The drone doesn't in maintenance");
+            }
+
+        }
+
+        public void assignDroneToParcel(int idDrone)
+        {
+            try
+            {
+                DroneToList d = drones.Find(x => x.Id == idDrone);
+                IDAL.DO.Drone droneDAL = dal.getDrone(idDrone);
+                dal.delFromDrones(droneDAL);
+                IEnumerable<IDAL.DO.Parcel> parcels = dal.getAllParcels();
+                if (d.Status == DroneStatuses.available)
+                {
+                   if()
+
+
+
+
+
+
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
+
+
         }
 
 
