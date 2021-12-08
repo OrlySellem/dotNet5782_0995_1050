@@ -161,5 +161,59 @@ namespace IBL
             }
         }
 
+
+
+        public void freeDroneCharge(int id, float chargingTime)
+        {
+           if( drones.find
+        }
+
+
+
+        public void dronePickParcel(int droneId)
+        {
+            bool flag = true;
+            IEnumerable<IDAL.DO.Parcel> parcelsFromDS = dal.getAllParcels();
+
+            foreach (var parcelItem in parcelsFromDS)
+            {
+                if (parcelItem.Droneld== droneId)
+                {
+                    if( parcelItem.PickedUp== new DateTime(01, 01, 0001))
+                    {
+                        flag = false;
+                        var droneToUpdate = drones.Find(x => x.Id == droneId);
+                        drones.Remove(droneToUpdate);
+
+                       var SenderForLocation=  dal.getCustomer(parcelItem.Senderld);
+
+                        //	עדכון מצב סוללה לפי המרחק בין מיקום מקורי לבין מיקום השולח
+                        double distance = Math.Sqrt(Math.Pow(droneToUpdate.CurrentLocation.Lattitude - SenderForLocation.Lattitude, 2) + Math.Pow(droneToUpdate.CurrentLocation.Longitude - SenderForLocation.Longitude, 2));
+                        droneToUpdate.Battery = droneToUpdate.Battery -( distance * available);//אולי אין מספיק בטריה
+
+                        //	עדכון מיקום למיקום השולח
+                        droneToUpdate.CurrentLocation = new Location()
+                        {
+                            Lattitude = SenderForLocation.Lattitude,
+                            Longitude = SenderForLocation.Longitude
+                        };
+                        drones.Add(droneToUpdate);
+
+
+
+                    }
+                   
+                    throw new UpdateProblemException("The drone has already picked up the parcel.");
+
+                }
+            }
+            if (flag)
+                throw new UpdateProblemException("The drone doesn't make a delivery");
+
+
+
+
+        }
+
     }
 }

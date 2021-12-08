@@ -220,13 +220,22 @@ namespace ConsoleUI_BL
                                 case Update.freeDroneCharge:
                                     Console.WriteLine("Please enter drone's id:");
                                     id = int.Parse(Console.ReadLine());
+
+                                    Console.WriteLine("How long has the drone been charging"); 
+                                   float chargingTime= float.Parse(Console.ReadLine());
+
+                                    mainBl.freeDroneCharge(id, chargingTime);
+                                    break;
+                                case Update.assignParcelDrone:
                                     break;
                                 case Update.dronePickParcel:
-                                    break;
-                                case Update.deliveryAriveToCustomer:
+                                    Console.WriteLine("Please enter drone's id:");
+                                    id = int.Parse(Console.ReadLine());
+
+                                    mainBl.dronePickParcel(id);
                                     break;
                                 
-                                case Update.assignParcelDrone:
+                                case Update.deliveryAriveToCustomer:
                                     break;
                                 default:
                                     break;
