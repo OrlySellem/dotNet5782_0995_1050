@@ -80,16 +80,6 @@ namespace IBL
        
             foreach (var parcelItem in ParcelList_dal)
             {
-                ParcelStatus Status;
-                if (parcelItem.Requested != new DateTime(01, 01, 0001) && parcelItem.Scheduled == new DateTime(01, 01, 0001))
-                    Status = ParcelStatus.requested;
-                if (parcelItem.Scheduled != new DateTime(01, 01, 0001) && parcelItem.PickedUp == new DateTime(01, 01, 0001))
-                    Status = ParcelStatus.scheduled;
-                if (parcelItem.PickedUp != new DateTime(01, 01, 0001) && parcelItem.Delivered == new DateTime(01, 01, 0001))
-                    Status = ParcelStatus.PickedUp;
-                if (parcelItem.Delivered == new DateTime(01, 01, 0001))
-                    Status = ParcelStatus.Delivered;
-
                 ParcelToList addParcel = new ParcelToList()
                 {
                     Id = parcelItem.Id,
@@ -97,8 +87,19 @@ namespace IBL
                     Targetld = parcelItem.Targetld,
                     Weight = (WeightCategories)parcelItem.Weight,
                     Priority = (Priorities)parcelItem.Priority,
-                    ParcelStatus = Status
                 };
+             
+                if (parcelItem.Requested != new DateTime(01, 01, 0001) && parcelItem.Scheduled == new DateTime(01, 01, 0001))
+                    addParcel.ParcelStatus = ParcelStatus.requested;
+                if (parcelItem.Scheduled != new DateTime(01, 01, 0001) && parcelItem.PickedUp == new DateTime(01, 01, 0001))
+                    addParcel.ParcelStatus = ParcelStatus.scheduled;
+                if (parcelItem.PickedUp != new DateTime(01, 01, 0001) && parcelItem.Delivered == new DateTime(01, 01, 0001))
+                    addParcel.ParcelStatus = ParcelStatus.PickedUp;
+                if (parcelItem.Delivered == new DateTime(01, 01, 0001))
+                    addParcel.ParcelStatus = ParcelStatus.Delivered;
+                
+
+
                 ParcelList_bl.Add(addParcel);
 
             }

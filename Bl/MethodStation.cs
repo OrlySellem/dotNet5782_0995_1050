@@ -29,10 +29,10 @@ namespace IBL
             {
                 throw new AddingProblemException("The station already exist", ex);
             }
-   
+
         }
 
-        public Station getStation (int id)
+        public Station getStation(int id)
         {
             try
             {
@@ -60,27 +60,40 @@ namespace IBL
 
                 throw new GetDetailsProblemException("The station doesn't exist in the system", ex);
             }
-          
+
         }
 
-        public IEnumerable <StationToList> getAllStations()
+        public IEnumerable<StationToList> getAllStations()
         {
-            List<Station> stations;
-            foreach (var item in dal.getAllStation())
-            {
-                station temp = new StationToList()
-                {
+            IEnumerable<IDAL.DO.Station> StationsList_dal = dal.getAllStation();
+            List<StationToList> StationList_bl = new List<StationToList>();
+            IEnumerable<IDAL.DO.DroneCharge> droneChargeList = dal.getAllDroneCharge();
 
+
+            foreach (var stationItem in StationsList_dal)
+            {
+                int ChargeSlotsFull_conster = 0;
+
+                foreach (var droneChargeItem in droneChargeList)
+                {
+                    if (droneChargeItem.Stationld == stationItem.Id)
+                        ChargeSlotsFull_conster++;
+                }
+
+                StationToList addStation = new StationToList()
+                {
+                    Id = stationItem.Id,
+                    Name = stationItem.Name,
+                    ChargeSlotsFree = stationItem.ChargeSlots,
+                    ChargeSlotsFull = ChargeSlotsFull_conster
 
 
 
                 };
-
-                stations = 
-
-
+                StationList_bl.Add(addStation);
             }
-            
+
+            return StationList_bl;
         }
 
         public void updateStation(int idStation, int name_int, int chargeSlots)
@@ -106,13 +119,13 @@ namespace IBL
 
                 dal.addStaion(updateStation);
             }
-           catch (IDAL.DO.DoesntExistException ex)
+            catch (IDAL.DO.DoesntExistException ex)
             {
-                throw new GetDetailsProblemException("The station doesn't exist in the system",ex);
+                throw new GetDetailsProblemException("The station doesn't exist in the system", ex);
             }
-           catch (IDAL.DO.AlreadyExistException ex)
+            catch (IDAL.DO.AlreadyExistException ex)
             {
-                throw new AddingProblemException("The station already exist in the system",ex);
+                throw new AddingProblemException("The station already exist in the system", ex);
             }
         }
 
