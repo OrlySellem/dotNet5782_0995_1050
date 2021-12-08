@@ -211,7 +211,6 @@ namespace ConsoleUI_BL
                                     break;
 
                                 case Update.chargingDrone:
-
                                     Console.WriteLine("Please enter drone's id:");
                                     id = int.Parse(Console.ReadLine());
                                     mainBl.chargingDrone(id);
@@ -221,12 +220,18 @@ namespace ConsoleUI_BL
                                     Console.WriteLine("Please enter drone's id:");
                                     id = int.Parse(Console.ReadLine());
 
-                                    Console.WriteLine("How long has the drone been charging"); 
-                                   float chargingTime= float.Parse(Console.ReadLine());
+                                    Console.WriteLine("How long has the drone been charging");
+                                    TimeSpan chargingTime = TimeSpan.Parse(Console.ReadLine());
 
-                                    mainBl.freeDroneCharge(id, chargingTime);
+                                    mainBl.freeDroneFromCharging(id, chargingTime);
                                     break;
+
                                 case Update.assignParcelDrone:
+                                    Console.WriteLine("Please enter drone's id:");
+                                    id = int.Parse(Console.ReadLine());
+
+                                    mainBl.assignDroneToParcel(id);
+
                                     break;
                                 case Update.dronePickParcel:
                                     Console.WriteLine("Please enter drone's id:");
@@ -236,12 +241,17 @@ namespace ConsoleUI_BL
                                     break;
                                 
                                 case Update.deliveryAriveToCustomer:
+
+                                    Console.WriteLine("Please enter drone's id:");
+                                    id = int.Parse(Console.ReadLine());
+
+                                    mainBl.deliveryAriveToCustomer(id);
                                     break;
                                 default:
                                     break;
                             }
                             break;
-                        #endregion updateChoice
+                        #endregion 
 
                         #region displayEntity
                         case programDelivry.DisplayOptions:

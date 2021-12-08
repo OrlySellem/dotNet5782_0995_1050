@@ -207,58 +207,99 @@ namespace IBL
 
         }
 
-
-
-        public void freeDroneCharge(int id, float chargingTime)
-        {
-           if (drones.find
-        }
-
-
-
         public void dronePickParcel(int droneId)
         {
-            bool flag = true;
-            IEnumerable<IDAL.DO.Parcel> parcelsFromDS = dal.getAllParcels();
-
-            foreach (var parcelItem in parcelsFromDS)
+            try
             {
-                if (parcelItem.Droneld== droneId)
+                bool flag = true;
+                IEnumerable<IDAL.DO.Parcel> parcelsFromDS = dal.getAllParcels();
+
+                foreach (var parcelItem in parcelsFromDS)
                 {
-                    if( parcelItem.PickedUp== new DateTime(01, 01, 0001))
+                    if (parcelItem.Droneld == droneId)
                     {
-                        flag = false;
-                        var droneToUpdate = drones.Find(x => x.Id == droneId);
-                        drones.Remove(droneToUpdate);
-
-                       var SenderForLocation=  dal.getCustomer(parcelItem.Senderld);
-
-                        //	עדכון מצב סוללה לפי המרחק בין מיקום מקורי לבין מיקום השולח
-                        double distance = Math.Sqrt(Math.Pow(droneToUpdate.CurrentLocation.Lattitude - SenderForLocation.Lattitude, 2) + Math.Pow(droneToUpdate.CurrentLocation.Longitude - SenderForLocation.Longitude, 2));
-                        droneToUpdate.Battery = droneToUpdate.Battery -( distance * available);//אולי אין מספיק בטריה
-
-                        //	עדכון מיקום למיקום השולח
-                        droneToUpdate.CurrentLocation = new Location()
+                        if (parcelItem.PickedUp == new DateTime(01, 01, 0001) && parcelItem.Scheduled != new DateTime(01, 01, 0001))
                         {
-                            Lattitude = SenderForLocation.Lattitude,
-                            Longitude = SenderForLocation.Longitude
-                        };
-                        drones.Add(droneToUpdate);
+                            flag = false;
+                            var droneToUpdate = drones.Find(x => x.Id == droneId);
+                            drones.Remove(droneToUpdate);
+
+                            var SenderForLocation = dal.getCustomer(parcelItem.Senderld);
+
+                            //	עדכון מצב סוללה לפי המרחק בין מיקום מקורי לבין מיקום השולח
+                            double distance = Math.Sqrt(Math.Pow(droneToUpdate.CurrentLocation.Lattitude - SenderForLocation.Lattitude, 2) + Math.Pow(droneToUpdate.CurrentLocation.Longitude - SenderForLocation.Longitude, 2));
+                            droneToUpdate.Battery = droneToUpdate.Battery - (distance * available);//אולי אין מספיק בטריה
+
+                            //	עדכון מיקום למיקום השולח
+                            droneToUpdate.CurrentLocation = new Location()
+                            {
+                                Lattitude = SenderForLocation.Lattitude,
+                                Longitude = SenderForLocation.Longitude
+                            };
+
+                            droneToUpdate.numParcel = parcelItem.Id;
+                            droneToUpdate.MaxWeight = (WeightCategories)parcelItem.Weight;
+                            drones.Add(droneToUpdate);
 
 
+                            //	 עדכון זמן איסוף חבילה
+                            var parcelToUpdate = dal.getParcel(parcelItem.Id);
+                            dal.delFromParcels(parcelToUpdate);
+
+                            parcelToUpdate.PickedUp = DateTime.Now;
+                            dal.addParcel(parcelToUpdate);
+                        }
+
+                        throw new UpdateProblemException("The drone has already picked up the parcel.");
 
                     }
-                   
-                    throw new UpdateProblemException("The drone has already picked up the parcel.");
-
                 }
+                if (flag)
+                    throw new UpdateProblemException("The drone doesn't make a delivery");
+
             }
-            if (flag)
-                throw new UpdateProblemException("The drone doesn't make a delivery");
+            catch (IDAL.DO.DoesntExistException ex)
+            {
+                throw new UpdateProblemException("The customer doesn't exist in the system",ex);
 
+            }
+        }
+           
 
+        public void deliveryAriveToCustomer(int droneId)
+        {
+            var droneToUpdate = drones.Find(x => x.Id == droneId);
+            var parcel_Ascribed_drone = dal.getParcel(droneToUpdate.numParcel);
 
+            if (parcel_Ascribed_drone.PickedUp != new DateTime(01, 01, 0001) && parcel_Ascribed_drone.Delivered == new DateTime(01, 01, 0001))
+            {
+                //רחפן
+                //	עדכון מצב סוללה לפי המרחק בין מיקום מקורי לבין מיקום יעד המשלוח
+                var TargetldForLocation = dal.getCustomer(parcel_Ascribed_drone.Targetld);
+                double distance = Math.Sqrt(Math.Pow(droneToUpdate.CurrentLocation.Lattitude - TargetldForLocation.Lattitude, 2) + Math.Pow(droneToUpdate.CurrentLocation.Longitude - TargetldForLocation.Longitude, 2));
+              
+                if(droneToUpdate.MaxWeight== WeightCategories.light)
+                droneToUpdate.Battery = droneToUpdate.Battery - (distance * lightWeight);//אולי אין מספיק בטריה
+                if (droneToUpdate.MaxWeight == WeightCategories.medium)
+                    droneToUpdate.Battery = droneToUpdate.Battery - (distance * mediumWeight);//אולי אין מספיק בטריה
+                if (droneToUpdate.MaxWeight == WeightCategories.heavy)
+                    droneToUpdate.Battery = droneToUpdate.Battery - (distance * available);//אולי אין מספיק בטריה
 
+                //	עדכון מיקום למיקום יעד המשלוח
+                droneToUpdate.CurrentLocation = new Location()
+                {
+                    Lattitude = TargetldForLocation.Lattitude,
+                    Longitude = TargetldForLocation.Longitude
+                };
+
+                //	שינוי מצב רחפן לפנוי
+                droneToUpdate.Status = DroneStatuses.available;
+
+                //	עדכון זמן אספקה
+                parcel_Ascribed_drone.Delivered= DateTime.Now;
+            }
+            else
+             throw new UpdateProblemException("");
         }
 
     }

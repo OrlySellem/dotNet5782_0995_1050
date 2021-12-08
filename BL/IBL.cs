@@ -28,10 +28,13 @@ namespace IBL
 
         public void updateModelDrone(int idDrone, string newModel);
 
-        public void freeDroneCharge(int id, float chargingTime);
+        public void freeDroneFromCharging(int idDrone, TimeSpan time);
 
-        public void dronePickParcel(int id);
+        public void assignDroneToParcel(int idDrone);
 
+        public void dronePickParcel(int idDrone);
+
+        public void deliveryAriveToCustomer(int idDrone);
 
         // 
 
