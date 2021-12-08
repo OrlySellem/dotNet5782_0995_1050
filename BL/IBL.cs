@@ -28,8 +28,12 @@ namespace IBL
 
         public void updateModelDrone(int idDrone, string newModel);
 
-      
-       // 
+        public void freeDroneCharge(int id, float chargingTime);
+
+        public void dronePickParcel(int id);
+
+
+        // 
 
     }
 }
