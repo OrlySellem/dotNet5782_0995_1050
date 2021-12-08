@@ -186,9 +186,40 @@ namespace IBL
                 IDAL.DO.Drone droneDAL = dal.getDrone(idDrone);
                 dal.delFromDrones(droneDAL);
                 IEnumerable<IDAL.DO.Parcel> parcels = dal.getAllParcels();
+                IDAL.DO.Parcel parcelToAssign = parcels.First();
+                DroneToList droneBL = getDrone(droneDAL.Id);
+                double minDistance = 0, distanceItem;
+                minDistance = Math.Sqrt(Math.Pow(dal.getCustomer(parcelToAssign.Targetld).Lattitude - droneBL.CurrentLocation.Lattitude, 2) + Math.Pow(dal.getCustomer(parcelToAssign.Targetld).Longitude - droneBL.CurrentLocation.Longitude, 2));
                 if (d.Status == DroneStatuses.available)
                 {
-                   if()
+                    foreach (var item in parcels)
+                    {
+                        if (parcelToAssign.Priority < item.Priority)
+                        {
+                            parcelToAssign = item;
+                            continue;
+                        }
+                        //צריך לבנות מערך חדש שהוא יהיה של הבאבל סורט ועליו נכניס 
+                        else if (parcelToAssign.Priority == item.Priority)
+                        {
+                            if (parcelToAssign.Weight < item.Weight)//לטפל במשקל
+                            {
+                                parcelToAssign = item;
+                                continue;
+                            }
+                        }
+
+                        if (parcelToAssign.Weight < item.Weight)
+                        {
+                            distanceItem = Math.Sqrt(Math.Pow(dal.getCustomer(item.Targetld).Lattitude - droneBL.CurrentLocation.Lattitude, 2) + Math.Pow(dal.getCustomer(item.Targetld).Longitude - droneBL.CurrentLocation.Longitude, 2));
+
+                            if (minDistance < distanceItem)
+                            {
+                                parcelToAssign = item;
+                            }
+                        }
+
+                    }
 
 
 
@@ -208,15 +239,6 @@ namespace IBL
 
         }
 
-
-
-        public void freeDroneCharge(int id, float chargingTime)
-        {
-           if( drones.find
-        }
-
-
-
         public void dronePickParcel(int droneId)
         {
             bool flag = true;
@@ -232,7 +254,7 @@ namespace IBL
                         var droneToUpdate = drones.Find(x => x.Id == droneId);
                         drones.Remove(droneToUpdate);
 
-                       var SenderForLocation=  dal.getCustomer(parcelItem.Senderld);
+                       var SenderForLocation =  dal.getCustomer(parcelItem.Senderld);
 
                         //	עדכון מצב סוללה לפי המרחק בין מיקום מקורי לבין מיקום השולח
                         double distance = Math.Sqrt(Math.Pow(droneToUpdate.CurrentLocation.Lattitude - SenderForLocation.Lattitude, 2) + Math.Pow(droneToUpdate.CurrentLocation.Longitude - SenderForLocation.Longitude, 2));
