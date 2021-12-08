@@ -73,10 +73,37 @@ namespace IBL
            
         }
 
-        public IEnumerable<StationToList> getAllParcels()
+        public IEnumerable<ParcelToList> getAllParcels()
         {
+              IEnumerable<IDAL.DO.Parcel> ParcelList_dal = dal.getAllParcels();
+              List<ParcelToList> ParcelList_bl = new List<ParcelToList>();
+       
+            foreach (var parcelItem in ParcelList_dal)
+            {
+                ParcelStatus Status;
+                if (parcelItem.Requested != new DateTime(01, 01, 0001) && parcelItem.Scheduled == new DateTime(01, 01, 0001))
+                    Status = ParcelStatus.requested;
+                if (parcelItem.Scheduled != new DateTime(01, 01, 0001) && parcelItem.PickedUp == new DateTime(01, 01, 0001))
+                    Status = ParcelStatus.scheduled;
+                if (parcelItem.PickedUp != new DateTime(01, 01, 0001) && parcelItem.Delivered == new DateTime(01, 01, 0001))
+                    Status = ParcelStatus.PickedUp;
+                if (parcelItem.Delivered == new DateTime(01, 01, 0001))
+                    Status = ParcelStatus.Delivered;
 
+                ParcelToList addParcel = new ParcelToList()
+                {
+                    Id = parcelItem.Id,
+                    Senderld = parcelItem.Senderld,
+                    Targetld = parcelItem.Targetld,
+                    Weight = (WeightCategories)parcelItem.Weight,
+                    Priority = (Priorities)parcelItem.Priority,
+                    ParcelStatus = Status
+                };
+                ParcelList_bl.Add(addParcel);
 
+            }
+
+            return ParcelList_bl;
         }
 
 
