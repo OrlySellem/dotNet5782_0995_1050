@@ -65,7 +65,21 @@ namespace IBL
 
         public IEnumerable <StationToList> getAllStations()
         {
+            List<Station> stations;
+            foreach (var item in dal.getAllStation())
+            {
+                station temp = new StationToList()
+                {
 
+
+
+
+                };
+
+                stations = 
+
+
+            }
             
         }
 

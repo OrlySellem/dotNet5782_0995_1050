@@ -80,10 +80,9 @@ namespace IBL
                 throw new GetDetailsProblemException("The drone doesn't exist in the system");            
         }
 
-        public IEnumerable<StationToList> getAllDronens()
+        public IEnumerable <DroneToList> getAllDronens()
         {
-            
-
+            return drones;      
         }
 
         public void updateModelDrone(int idDrone, string newModel)
@@ -165,7 +164,7 @@ namespace IBL
 
         public void freeDroneCharge(int id, float chargingTime)
         {
-           if( drones.find
+           if (drones.find
         }
 
 
