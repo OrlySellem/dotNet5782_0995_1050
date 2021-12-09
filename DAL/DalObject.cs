@@ -150,7 +150,7 @@ namespace DalObject
          List<Parcel> parcelsList = new List<Parcel>();
             foreach (Parcel item in DataSource.parcels)
             {
-                if (item.Droneld == 0)
+                if (item.Droneld == 0 && item.Scheduled == new DateTime(01, 01, 0001))
                     parcelsList.Add(item);
             }
             return parcelsList;

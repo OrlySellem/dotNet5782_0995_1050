@@ -149,10 +149,5 @@ namespace IBL
 
 
         }
-
-        public IEnumerable<DroneToList> display_station_with_freeChargingStations()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

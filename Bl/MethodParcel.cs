@@ -70,14 +70,14 @@ namespace IBL
             {
                 throw new GetDetailsProblemException("The parcel doesn't exist in the system", ex);
             }
-           
+
         }
 
         public IEnumerable<ParcelToList> getAllParcels()
         {
-              IEnumerable<IDAL.DO.Parcel> ParcelList_dal = dal.getAllParcels();
-              List<ParcelToList> ParcelList_bl = new List<ParcelToList>();
-       
+            IEnumerable<IDAL.DO.Parcel> ParcelList_dal = dal.getAllParcels();
+            List<ParcelToList> ParcelList_bl = new List<ParcelToList>();
+
             foreach (var parcelItem in ParcelList_dal)
             {
                 ParcelToList addParcel = new ParcelToList()
@@ -88,7 +88,7 @@ namespace IBL
                     Weight = (WeightCategories)parcelItem.Weight,
                     Priority = (Priorities)parcelItem.Priority,
                 };
-             
+
                 if (parcelItem.Requested != new DateTime(01, 01, 0001) && parcelItem.Scheduled == new DateTime(01, 01, 0001))
                     addParcel.ParcelStatus = ParcelStatus.requested;
                 if (parcelItem.Scheduled != new DateTime(01, 01, 0001) && parcelItem.PickedUp == new DateTime(01, 01, 0001))
@@ -97,7 +97,7 @@ namespace IBL
                     addParcel.ParcelStatus = ParcelStatus.PickedUp;
                 if (parcelItem.Delivered == new DateTime(01, 01, 0001))
                     addParcel.ParcelStatus = ParcelStatus.Delivered;
-                
+
 
 
                 ParcelList_bl.Add(addParcel);
@@ -109,44 +109,25 @@ namespace IBL
 
         public IEnumerable<ParcelToList> ParcelDoesntAssignToDrone()
         {
-            var parcelList_dal = dal.getAllParcels();
+            var parcelList_dal = dal.print_unconnected_parcels_to_Drone();
             List<ParcelToList> ParcelList_bl = new List<ParcelToList>();
 
             foreach (var parcelItem in parcelList_dal)
             {
-                if (parcelItem.Scheduled== new DateTime(01, 01, 0001))
-
+                ParcelToList addParcel = new ParcelToList()
                 {
-                    ParcelToList addParcel = new ParcelToList()
-                    {
-                        Id = parcelItem.Id,
-                        Senderld = parcelItem.Senderld,
-                        Targetld = parcelItem.Targetld,
-                        Weight = (WeightCategories)parcelItem.Weight,
-                        Priority = (Priorities)parcelItem.Priority,
-                    };
+                    Id = parcelItem.Id,
+                    Senderld = parcelItem.Senderld,
+                    Targetld = parcelItem.Targetld,
+                    Weight = (WeightCategories)parcelItem.Weight,
+                    Priority = (Priorities)parcelItem.Priority,
+                    ParcelStatus = ParcelStatus.requested
+                };
 
-                    if (parcelItem.Requested != new DateTime(01, 01, 0001) && parcelItem.Scheduled == new DateTime(01, 01, 0001))
-                        addParcel.ParcelStatus = ParcelStatus.requested;
-                    if (parcelItem.Scheduled != new DateTime(01, 01, 0001) && parcelItem.PickedUp == new DateTime(01, 01, 0001))
-                        addParcel.ParcelStatus = ParcelStatus.scheduled;
-                    if (parcelItem.PickedUp != new DateTime(01, 01, 0001) && parcelItem.Delivered == new DateTime(01, 01, 0001))
-                        addParcel.ParcelStatus = ParcelStatus.PickedUp;
-                    if (parcelItem.Delivered == new DateTime(01, 01, 0001))
-                        addParcel.ParcelStatus = ParcelStatus.Delivered;
-
-
-                    ParcelList_bl.Add(addParcel);
-                }
-            
+                ParcelList_bl.Add(addParcel);
             }
 
             return ParcelList_bl;
-
         }
-
-
     }
-
-
 }
