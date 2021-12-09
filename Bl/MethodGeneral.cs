@@ -23,8 +23,9 @@ namespace IBL
         internal static double heavyWeight;//Heavyweight issue
         internal static double Drone_charging_speed;//Drone charging speed in percentage per hour
 
-        public Station nearStationToDrone(int droneId, ref double minDistance)
-        { double checkDistance;
+         Station nearStationToDrone(int droneId, ref double minDistance)
+        {
+            double checkDistance;
             IEnumerable<IDAL.DO.Station> listStation = dal.getAllStation();
             IDAL.DO.Station minStation;
             var droneItem = getDrone(droneId);
@@ -51,15 +52,15 @@ namespace IBL
             };
 
             return new Station()
-           {
-               Id = minStation.Id,
-               Name = minStation.Name,
-               Address = address,
-               ChargeSlots = minStation.ChargeSlots,
-           };
+            {
+                Id = minStation.Id,
+                Name = minStation.Name,
+                Address = address,
+                ChargeSlots = minStation.ChargeSlots,
+            };
         }
 
-        public Location nearStationToCustomer(int costumerId, ref double minDistance)
+         Location nearStationToCustomer(int costumerId, ref double minDistance)
         {
             double checkDistance;
 
