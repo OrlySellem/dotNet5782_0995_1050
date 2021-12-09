@@ -64,12 +64,32 @@ namespace DalObject
         #region REMOVE
         public void delFromDrones(Drone droneToDel)
         {
+            Parcel parcelToUpdate = DataSource.parcels.Find(x => x.Droneld == droneToDel.Id);
+            if (parcelToUpdate.Delivered == new DateTime(01, 01, 0001))
+            {
+                delFromParcels(parcelToUpdate);
+                parcelToUpdate.Scheduled = new DateTime(01, 01, 0001);
+                parcelToUpdate.PickedUp = new DateTime(01, 01, 0001);
+                parcelToUpdate.Droneld = 0;
+                addParcel(parcelToUpdate);
+            }
+        
             
             DataSource.drones.Remove(droneToDel);
         }
 
         public void delFromStations(Station stationToDel)
         {
+
+            foreach (var item in DataSource.dronesCharge)
+            {
+                if (item.Stationld == stationToDel.Id)
+                {
+                    Drone droneToUpdate = getDrone(item.Droneld);
+
+                    freeDroneCharge(droneToUpdate);
+                }
+            }
             DataSource.stations.Remove(stationToDel);
         }
 
@@ -256,20 +276,18 @@ namespace DalObject
           
         }
 
-        public void freeDroneCharge(Drone droneToUpdate, Station stationToUpdate)//Drone release from charging
+        public void freeDroneCharge(Drone droneToUpdate)//Drone release from charging
         {
-            Drone myDrone = getDrone(droneToUpdate.Id);
-            Station myStation = getStation(stationToUpdate.Id);
+            DroneCharge droneChargeToDel = DataSource.dronesCharge.Find(x => x.Droneld == droneToUpdate.Id);
 
-            DroneCharge toDelete = DataSource.dronesCharge.Find(x => x.Droneld == myDrone.Id && x.Stationld == myStation.Id);
+            Station myStation = getStation(droneChargeToDel.Stationld);
 
-            if (toDelete.Droneld != 0 && toDelete.Stationld != 0)
+            if (droneChargeToDel.Droneld != 0 && droneChargeToDel.Stationld != 0)
             {
-                DataSource.dronesCharge.Remove(toDelete);
-
-                DataSource.stations.Remove(stationToUpdate);
+                delFromChargingDrone(droneChargeToDel);
+                delFromStations(myStation);
                 plusChargeSlots(ref myStation);
-                DataSource.stations.Add(myStation);
+                addStaion(myStation);
                 return;
             }
 

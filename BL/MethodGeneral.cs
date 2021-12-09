@@ -110,8 +110,8 @@ namespace IBL
                 heavyWeight = power[3];
                 Drone_charging_speed = power[4];
 
-                IEnumerable<IDAL.DO.Drone> dronesFromDS = dal.getAllDrones();
-                IEnumerable<IDAL.DO.Parcel> parcelsFromDS = dal.getAllParcels();
+                List<IDAL.DO.Drone> dronesFromDS = (List<IDAL.DO.Drone>)dal.getAllDrones();
+                List<IDAL.DO.Parcel> parcelsFromDS = (List<IDAL.DO.Parcel>)dal.getAllParcels();
                 List<IDAL.DO.Station> stationFromDS = (List<IDAL.DO.Station>)dal.getAllStation();
 
                 foreach (IDAL.DO.Drone itemDrone in dronesFromDS)//pass over the drones's list 
@@ -221,10 +221,10 @@ namespace IBL
                     #endregion
                 }
             }
-            catch (Exception ex)
+            catch (String )
             {
-
-                throw;
+                throw new 
+                
             }
 
 
