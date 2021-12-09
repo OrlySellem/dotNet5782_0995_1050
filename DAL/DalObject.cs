@@ -278,6 +278,11 @@ namespace DalObject
 
             return power;
         }
+
+        public void getParcel(Parcel parcelItem)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
     }
