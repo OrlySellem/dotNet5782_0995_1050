@@ -224,6 +224,11 @@ namespace IBL
             return parcels;
         }
 
+        double distance(IDAL.DO.Parcel parcelToAssign, DroneToList droneBL)
+        {
+            double minDistance = Math.Sqrt(Math.Pow(dal.getCustomer(parcelToAssign.Targetld).Lattitude - droneBL.CurrentLocation.Lattitude, 2) + Math.Pow(dal.getCustomer(parcelToAssign.Targetld).Longitude - droneBL.CurrentLocation.Longitude, 2));
+            return minDistance;
+        }
         public void assignDroneToParcel(int idDrone)
         {
             try
@@ -242,8 +247,6 @@ namespace IBL
 
                 double minDistance = 0, distanceItem;
 
-                minDistance = Math.Sqrt(Math.Pow(dal.getCustomer(parcelToAssign.Targetld).Lattitude - droneBL.CurrentLocation.Lattitude, 2) + Math.Pow(dal.getCustomer(parcelToAssign.Targetld).Longitude - droneBL.CurrentLocation.Longitude, 2));
-
                 if (droneBL.Status == DroneStatuses.available)
                 {
                     foreach (var item in parcels)
@@ -256,47 +259,89 @@ namespace IBL
                         if (parcelToAssign.Priority < item.Priority)
                         {
                             parcelToAssign = item;
+                            minDistance = distance(item, droneBL);
                             continue;
                         }
-                        else
-                        {
-
-                        };
-                     
                         else if (parcelToAssign.Priority == item.Priority)
                         {
-                            if (parcelToAssign.Weight < item.Weight)//לטפל במשקל
+                            if (parcelToAssign.Weight < item.Weight)
                             {
-                                parcelToAssign = item;
+                                if (item.Weight <= droneDAL.MaxWeight)
+                                {
+                                    parcelToAssign = item;
+                                    minDistance = distance(item, droneBL);
+                                    continue;
+                                }
+                                else
+                                {
+                                    continue;
+                                }
+                            }
+                            else if (parcelToAssign.Weight == item.Weight)
+                            {
+                                distanceItem = distance(item, droneBL);
+                                if (minDistance > distanceItem)
+                                {
+                                    parcelToAssign = item;
+                                    minDistance = distance(item, droneBL);
+                                    continue;
+                                }
+                                else if (minDistance == distanceItem)
+                                {
+                                    if (parcelToAssign.Requested > item.Requested)
+                                    {
+                                        parcelToAssign = item;
+                                        minDistance = distance(item, droneBL);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+                                }
+                                else
+                                {
+                                    continue;
+                                }
+                            }
+                            else
+                            {
                                 continue;
                             }
                         }
-
-                        if (parcelToAssign.Weight < item.Weight)
+                        else
                         {
-                            distanceItem = Math.Sqrt(Math.Pow(dal.getCustomer(item.Targetld).Lattitude - droneBL.CurrentLocation.Lattitude, 2) + Math.Pow(dal.getCustomer(item.Targetld).Longitude - droneBL.CurrentLocation.Longitude, 2));
-
-                            if (minDistance < distanceItem)
-                            {
-                                parcelToAssign = item;
-                            }
+                            continue;
                         }
 
                     }
 
-
-
-
-
+                    if (parcelToAssign.Weight <= droneDAL.MaxWeight)
+                    {
+                        dal.assign_drone_parcel(droneDAL, parcelToAssign);
+                    }
+                    else
+                    {
+                        throw new UpdateProblemException("There isn't parcel suitable for delivery by the current drone");
+                    }
 
                 }
 
             }
-            catch (Exception)
+            catch (IDAL.DO.DoesntExistException ex)
             {
 
-                throw;
+                throw new GetDetailsProblemException("The drone doesn't exist in the system", ex);
             }
+            catch(IDAL.DO.AlreadyExistException ex)
+            {
+                throw new AddingProblemException("The parcel already exist in the system", ex);
+            }
+            catch (UpdateProblemException ex)
+            {
+                throw new UpdateProblemException(ex);
+            };
+
 
 
 
