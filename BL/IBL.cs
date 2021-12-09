@@ -45,7 +45,7 @@ namespace IBL
         public IEnumerable<CustomerToList> getAllCustomers();
         public IEnumerable<ParcelToList> getAllParcels();
         public IEnumerable<ParcelToList> ParcelDoesntAssignToDrone();
-        public IEnumerable<DroneToList> display_station_with_freeChargingStations();
+        public IEnumerable<StationToList> display_station_with_freeChargingStations();
 
         #endregion
         // 

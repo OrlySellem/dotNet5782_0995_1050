@@ -12,7 +12,7 @@ namespace IBL
     {
         internal static Random rand = new Random();
         IDAL.IDal dal; //object of dal
-        //○	אובייקט BLimp יתחזק רשימת רחפנים (ע"פ הישות הלוגיות "רחפן לרשימה")
+        //יתחזק רשימת רחפנים
         public static List<DroneToList> drones;
 
         public static List<ChargingDrone> chargingDrones;

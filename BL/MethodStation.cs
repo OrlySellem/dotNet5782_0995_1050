@@ -152,7 +152,7 @@ namespace IBL
                     Id = stationItem.Id,
                     Name = stationItem.Name,
                     ChargeSlotsFree = stationItem.ChargeSlots,
-                    ChargeSlotsFull= ChargeSlotsFull_conster
+                    ChargeSlotsFull = ChargeSlotsFull_conster
                 };
 
                 StationList_bl.Add(addStation);
@@ -167,5 +167,5 @@ namespace IBL
 }
 
 
-}
+
 
