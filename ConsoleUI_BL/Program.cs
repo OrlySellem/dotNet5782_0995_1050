@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using IBL.BO;
+using IBL;
 
 namespace ConsoleUI_BL
 {
@@ -21,7 +22,11 @@ namespace ConsoleUI_BL
 
                 while (flag)
                 {
-
+                    Console.WriteLine("To add customer, drone, station or parcel - enter 0");
+                    Console.WriteLine("To update items - enter 1");
+                    Console.WriteLine("To display options - enter 2");
+                    Console.WriteLine("To display list's options - enter 3");
+                    Console.WriteLine("To exit - enter 4");
                     int n = int.Parse(Console.ReadLine());
                     programDelivry outsideChoice = (programDelivry)n;
 
@@ -378,16 +383,47 @@ namespace ConsoleUI_BL
 
             catch (IBL.BO.AlreadyExistException ex)
             {
-                Console.WriteLine(ex.ToString()); 
+                Console.WriteLine(ex.ToString());
             }
-            catch (IBL.BO.UpdateProblemException ex)
+            catch (IBL.BO.DoesntExistentObjectException ex)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(ex.ToString());
             }
-            catch (IBL.BO.GetDetailsProblemException ex)
+            catch (IBL.BO.chargingException ex)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine(ex.ToString());
             }
+            catch (IBL.BO.NoFreeChargingStations ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            catch (IBL.BO.MoreDroneInChargingThanTheProposedChargingStations ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            catch (IBL.BO.TheDroneCanNotBeSentForCharging ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            catch (IBL.BO.OnlyMaintenanceDroneWillBeAbleToBeReleasedFromCharging ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            catch (IBL.BO.NoSuitablePsrcelWasFoundToBelongToTheDrone ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            catch (IBL.BO.DroneCantBeAssigend ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            catch (IBL.BO.DelivereyAlreadyArrive ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            catch (IBL.BO.DeliveryCannotBeMade ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
 
         }

@@ -25,9 +25,9 @@ namespace IBL
 
                 dal.addStaion(dalStation);
             }
-            catch (IDAL.DO.DoesntExistException ex)
+            catch (IDAL.DO.DoesntExistentObjectException ex)
             {
-                throw new AddingProblemException("The station already exist", ex);
+                throw new DoesntExistentObjectException("", ex);
             }
 
         }
@@ -55,10 +55,10 @@ namespace IBL
                     ChargeSlots = s.ChargeSlots,
                 };
             }
-            catch (IDAL.DO.DoesntExistException ex)
+            catch (IDAL.DO.DoesntExistentObjectException ex)
             {
 
-                throw new GetDetailsProblemException("The station doesn't exist in the system", ex);
+                throw new DoesntExistentObjectException("", ex);
             }
 
         }
@@ -119,13 +119,13 @@ namespace IBL
 
                 dal.addStaion(updateStation);
             }
-            catch (IDAL.DO.DoesntExistException ex)
+            catch (IDAL.DO.DoesntExistentObjectException ex)
             {
-                throw new GetDetailsProblemException("The station doesn't exist in the system", ex);
+                throw new DoesntExistentObjectException("", ex);
             }
             catch (IDAL.DO.AlreadyExistException ex)
             {
-                throw new AddingProblemException("The station already exist in the system", ex);
+                throw new AlreadyExistException("", ex);
             }
         }
 
@@ -164,9 +164,9 @@ namespace IBL
 
     }
 
-    }
-
 }
+
+
 
 
 

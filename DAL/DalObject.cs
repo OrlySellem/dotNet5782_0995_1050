@@ -255,18 +255,19 @@ namespace DalObject
                 DataSource.drones.Add(myDrone);
                 DataSource.parcels.Add(myParcel);
             }
-            catch (DoesntExistException ex)
+            catch (DoesntExistentObjectException ex)
             {
-
-                throw new DoesntExistException("", ex);
-            }          
+                throw new DoesntExistentObjectException("", ex);
+            }
+            
+                  
         }
 
         public void delivery_arrive_toCustomer(Drone droneToUpdate, Parcel parcelToUpdate)//The delivery arrived to the customer
         {
             try
             {
-                getDrone(droneToUpdate.Id);
+                //getDrone(droneToUpdate.Id);
                 Parcel myParcel = getParcel(parcelToUpdate.Id);
 
                 DataSource.parcels.Remove(parcelToUpdate);
@@ -274,13 +275,13 @@ namespace DalObject
                 myParcel.Delivered = DateTime.Now;
 
                 DataSource.parcels.Add(myParcel);
-            }
-            catch (DoesntExistException ex)
-            {
 
-                throw new DoesntExistException("", ex);
             }
-         
+            catch (DoesntExistentObjectException ex)
+            {
+                throw new DoesntExistentObjectException("", ex);
+            }
+            
         }
 
         public void chargingDrone(Drone droneToUpdate, Station stationToUpdate)//Inserts a drone to charg
@@ -303,13 +304,12 @@ namespace DalObject
 
                 throw new chargingException("The station doesn't have available charging slot");
             }
-            catch (DoesntExistException ex)
+            catch (DoesntExistentObjectException ex)
             {
-                throw new DoesntExistException("", ex);
-            }
-            
 
-          
+                throw new DoesntExistentObjectException("", ex);
+            }
+                    
         }
 
         public void freeDroneCharge(Drone droneToUpdate)//Drone release from charging
@@ -329,13 +329,15 @@ namespace DalObject
                     return;
                 }
 
-                throw new chargingException("The drone doesn't charge in this station");
+                throw new chargingException("The drone doesn't charging in this station");
             }
-            catch (DoesntExistException ex)
+            catch (DoesntExistentObjectException ex)
             {
-                throw new DoesntExistException("", ex);
+
+                throw new DoesntExistentObjectException("", ex);
             }
-          
+            
+            
         }
         #endregion
 

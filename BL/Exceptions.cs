@@ -64,7 +64,6 @@ namespace IBL
             }
         }
 
-
         /// <summary>
         /// No Free Charging Stations
         /// </summary>
@@ -79,7 +78,7 @@ namespace IBL
 
             public override string ToString()
             {
-                return "Error There are no free charging stations in this basestation";
+                return "Error! There are no free charging stations in this basestation";
             }
         }
         /// <summary>
@@ -147,7 +146,7 @@ namespace IBL
 
             public override string ToString()
             {
-                return "Error No suitable package was found to belong to the drone";
+                return "Error! No suitable package was found to belong to the drone";
             }
         }
 
@@ -169,15 +168,15 @@ namespace IBL
             }
         }
         /// <summary>
-        ///  Unable To Collect Parcel
+        ///  Deliverey already arrive
         /// </summary>
         [Serializable]
-        public class UnableToCollectParcel : Exception
+        public class DelivereyAlreadyArrive : Exception
         {
-            public UnableToCollectParcel() : base() { }
-            public UnableToCollectParcel(string message) : base(message) { }
-            public UnableToCollectParcel(string message, Exception inner) : base(message, inner) { }
-            protected UnableToCollectParcel(SerializationInfo info, StreamingContext context)
+            public DelivereyAlreadyArrive() : base() { }
+            public DelivereyAlreadyArrive(string message) : base(message) { }
+            public DelivereyAlreadyArrive(string message, Exception inner) : base(message, inner) { }
+            protected DelivereyAlreadyArrive(SerializationInfo info, StreamingContext context)
             : base(info, context) { }
 
             public override string ToString()

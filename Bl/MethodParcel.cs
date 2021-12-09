@@ -31,7 +31,7 @@ namespace IBL
             catch (IDAL.DO.AlreadyExistException ex)
             {
 
-                throw new AddingProblemException("The parcel already exist", ex);
+                throw new AlreadyExistException("", ex);
             }
 
         }
@@ -66,9 +66,9 @@ namespace IBL
                     Delivered = p.Delivered
                 };
             }
-            catch (IDAL.DO.DoesntExistException ex)
+            catch (IDAL.DO.DoesntExistentObjectException ex)
             {
-                throw new GetDetailsProblemException("The parcel doesn't exist in the system", ex);
+                throw new DoesntExistentObjectException("", ex);
             }
 
         }
