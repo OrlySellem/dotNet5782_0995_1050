@@ -8,19 +8,20 @@ namespace ConsoleUI_BL
     {
         static void Main(string[] args)
         {
-            
-             IBL.BL mainBl = new IBL.BL();
-            bool flag = true;
 
-            //Variable of station
-            int id, name_int, chargeSlots;
-            double longitude, lattitude;
-            string name_st, phone;
-
-            while (flag)
+            try
             {
-                try
+                IBL.BL mainBl = new IBL.BL();
+                bool flag = true;
+
+                //Variable of station
+                int id, name_int, chargeSlots;
+                double longitude, lattitude;
+                string name_st, phone;
+
+                while (flag)
                 {
+
                     int n = int.Parse(Console.ReadLine());
                     programDelivry outsideChoice = (programDelivry)n;
 
@@ -62,10 +63,10 @@ namespace ConsoleUI_BL
                                     Station newStation = new Station()
                                     {
                                         Id = id,
-                                        Name=name_int,
-                                        Address= stationLocation, 
-                                        ChargeSlots= chargeSlots,
-                                        Charging_drones=null
+                                        Name = name_int,
+                                        Address = stationLocation,
+                                        ChargeSlots = chargeSlots,
+                                        Charging_drones = null
                                     };
 
 
@@ -86,15 +87,15 @@ namespace ConsoleUI_BL
 
                                     Console.WriteLine("Please enter station's ID to charg the drone:");
                                     int idStation = int.Parse(Console.ReadLine());
-                          
+
                                     Drone droneToAdd = new Drone()
                                     {
                                         Id = id,
                                         Model = model,
                                         MaxWeight = (WeightCategories)maxWeight,
-                                                               
+
                                     };
-                                    mainBl.addDrone(droneToAdd, idStation);                                   
+                                    mainBl.addDrone(droneToAdd, idStation);
 
                                     break;
 
@@ -131,7 +132,7 @@ namespace ConsoleUI_BL
                                     mainBl.addCustomer(customerToAdd);
                                     break;
 
-                                case Add.addParcel:                                                            
+                                case Add.addParcel:
                                     Console.WriteLine("Please enter sender's id:");
                                     int senderld = int.Parse(Console.ReadLine());
 
@@ -150,7 +151,7 @@ namespace ConsoleUI_BL
                                         Senderld = senderld,
                                         Targetld = targetld,
                                         Weight = (WeightCategories)weight,
-                                        Priority = (Priorities)priority,                                    
+                                        Priority = (Priorities)priority,
                                     };
                                     mainBl.addParcel(parcelToAdd);
                                     break;
@@ -172,13 +173,13 @@ namespace ConsoleUI_BL
                             switch (updateChoice)
                             {
                                 case Update.updateDrone:
-                                   
+
                                     Console.WriteLine("Please enter drone's id:");
                                     id = int.Parse(Console.ReadLine());
 
                                     Console.WriteLine("Please enter drone's model:");
                                     modelDrone = Console.ReadLine();
-                                  
+
                                     mainBl.updateModelDrone(id, modelDrone);
                                     break;
 
@@ -214,7 +215,7 @@ namespace ConsoleUI_BL
                                     Console.WriteLine("Please enter drone's id:");
                                     id = int.Parse(Console.ReadLine());
                                     mainBl.chargingDrone(id);
-                                    break; 
+                                    break;
 
                                 case Update.freeDroneCharge:
                                     Console.WriteLine("Please enter drone's id:");
@@ -239,7 +240,7 @@ namespace ConsoleUI_BL
 
                                     mainBl.dronePickParcel(id);
                                     break;
-                                
+
                                 case Update.deliveryAriveToCustomer:
 
                                     Console.WriteLine("Please enter drone's id:");
@@ -255,19 +256,19 @@ namespace ConsoleUI_BL
 
                         #region displayEntity
                         case programDelivry.DisplayOptions:
-                        Console.WriteLine ("To display stations - enter 0\nTo display drones - enter 1\nTo display stations - enter 2\nTo display parcels - enter 3\nTo displays a list of parcels without assign to drones - enter 4\nTo display base stations with available charging drones - enter 5\n");
-                        int t = int.Parse(Console.ReadLine());
-                        Display DisplayChoice = (Display)t;
+                            Console.WriteLine("To display stations - enter 0\nTo display drones - enter 1\nTo display stations - enter 2\nTo display parcels - enter 3\nTo displays a list of parcels without assign to drones - enter 4\nTo display base stations with available charging drones - enter 5\n");
+                            int t = int.Parse(Console.ReadLine());
+                            Display DisplayChoice = (Display)t;
 
-                            
-                            switch(DisplayChoice)
+
+                            switch (DisplayChoice)
                             {
                                 case Display.displayStation:
 
                                     Console.WriteLine("Please enter station's id:");
                                     id = int.Parse(Console.ReadLine());
 
-                                   IBL.BO.Station stationToPrint = mainBl.getStation(id);
+                                    IBL.BO.Station stationToPrint = mainBl.getStation(id);
                                     stationToPrint.ToString();
                                     break;
 
@@ -295,8 +296,8 @@ namespace ConsoleUI_BL
                                     parcelToPrint.ToString();
                                     break;
                             }
-                                        
-                          
+
+
                             break;
                         #endregion displayEntity
 
@@ -318,13 +319,13 @@ namespace ConsoleUI_BL
 
                                 case DisplayListOptions.displayDrones:
 
-                                    List <DroneToList> drones = (List<DroneToList>)mainBl.getAllDronens();
+                                    List<DroneToList> drones = (List<DroneToList>)mainBl.getAllDronens();
                                     foreach (DroneToList item in drones)
                                     {
                                         item.ToString();
                                     }
                                     break;
-                                  
+
                                 case DisplayListOptions.displayCustomers:
 
                                     List<CustomerToList> customers = (List<CustomerToList>)mainBl.getAllCustomers();
@@ -373,11 +374,20 @@ namespace ConsoleUI_BL
                             break;
                     }
                 }
+            }
 
-                catch
-                {
-
-                }
+            catch (IBL.BO.AlreadyExistException ex)
+            {
+                Console.WriteLine(ex.ToString()); 
+            }
+            catch (IBL.BO.UpdateProblemException ex)
+            {
+                Console.WriteLine(e);
+            }
+            catch (IBL.BO.GetDetailsProblemException ex)
+            {
+                Console.WriteLine(ex);
+            }
             }
 
         }

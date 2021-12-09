@@ -4,96 +4,59 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Runtime.Serialization;
+
+
 namespace IDAL
 {
     namespace DO
     {
-       
-        public class DoesntExistException : Exception
-        {
-            public DoesntExistException() : base() { }
-            public DoesntExistException(string message) : base(message) { }
-            public DoesntExistException(string message, Exception inner) : base(message, inner) { }
-        }
-
-        public class AlreadyExistException : Exception
+        [Serializable]
+        public class AlreadyExistException : Exception //Add An Existing Object Exception
         {
             public AlreadyExistException() : base() { }
             public AlreadyExistException(string message) : base(message) { }
             public AlreadyExistException(string message, Exception inner) : base(message, inner) { }
+            protected AlreadyExistException(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
+
+            public override string ToString()
+            {
+                return string.Format("The {0} already exist in the system", Message);
+            }
         }
 
-        public class InvalidInputException : Exception
+
+        [Serializable]
+
+        public class DoesntExistentObjectException : Exception   //class Update of an non Existing Object Exception 
         {
-            public InvalidInputException() : base() { }
-            public InvalidInputException(string message) : base(message) { }
-            public InvalidInputException(string message, Exception inner) : base(message, inner) { }
+            public DoesntExistentObjectException() : base() { }
+            public DoesntExistentObjectException(string message) : base(message) { }
+            public DoesntExistentObjectException(string message, Exception inner) : base(message, inner) { }
+            protected DoesntExistentObjectException(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
 
+            public override string ToString()
+            {
+                return string.Format("The {0} doesn't exist in the system", Message);
+            }
         }
 
-        public class chargingException : Exception
+        [Serializable]
+
+        public class chargingException : Exception 
         {
             public chargingException() : base() { }
             public chargingException(string message) : base(message) { }
             public chargingException(string message, Exception inner) : base(message, inner) { }
-        }
+            protected chargingException(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
 
+            public override string ToString()
+            {
+                return string.Format("{0}", Message);
+            }
+        }
     }
 }
-
-/* 
-        public class stationException : Exception  ///station
-        {
-
-            public stationException(string message) : base(message)
-            {}
-
-            // public override string ToString() => base.ToString() + $", miss information between stations: {FirstStation} and {SecondStation}";
-        }
-
-
-        public class droneException : Exception  ///drone
-        {
-            public droneException(string message) : base(message)
-            {
-                throw "The drone " + message;
-            }
-            // public override string ToString() => base.ToString() + $", miss information between stations: {FirstStation} and {SecondStation}";
-        }
-
-        public class customerException : Exception   ///customer
-        {
-
-            public customerException(string message) : base(message)
-            {
-                throw "The customer " + message;
-            }
-
-            // public override string ToString() => base.ToString() + $", miss information between stations: {FirstStation} and {SecondStation}";
-        }
-
-        public class parcelException : Exception   //parcel
-        { 
-            public parcelException(string message) : base(message)
-            {
-                throw "The parcel" + message;
-            }
-            // public override string ToString() => base.ToString() + $", miss information between stations: {FirstStation} and {SecondStation}";
-        }
-
-        public class DroneChargeException : Exception
-        {
-            public DroneChargeException (string message) : base(message)
-            {
-                throw new message;
-            }
-        }
-    }
- 
- 
- 
- 
- 
- 
- */
-

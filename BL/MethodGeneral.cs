@@ -221,12 +221,14 @@ namespace IBL
                     #endregion
                 }
             }
-            catch (String )
+            catch (IDAL.DO.DoesntExistException ex)
             {
-                throw new 
-                
+                throw new GetDetailsProblemException("The customer doesn't exist", ex);          
             }
-
+            catch (IDAL.DO.AlreadyExistException ex)
+            {
+                throw new AddingProblemException("The drone already exist", ex);
+            }
 
 
         }

@@ -215,6 +215,7 @@ namespace IBL
 
                             }
 
+                throw new AddingProblemE
                             drones.Add(temp);
                         }
                     }
@@ -226,7 +227,6 @@ namespace IBL
                 throw new 
                 
             }
-
 
 
         }
