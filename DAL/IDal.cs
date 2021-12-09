@@ -42,6 +42,8 @@ namespace IDAL
         public void delFromParcels(Parcel parcelToDel);
 
         public void delFromCustomers(Customer customerToDel);
+
+        public void delFromChargingDrone(DroneCharge droneCharge);
         #endregion REMOVE
 
         #region GET_LIST

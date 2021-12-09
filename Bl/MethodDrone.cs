@@ -165,11 +165,16 @@ namespace IBL
         {
             DroneToList a = drones.Find(x => x.Id == idDrone);
 
+            List <IDAL.DO.DroneCharge> drones_charge = (List<IDAL.DO.DroneCharge>) dal.getAllDroneCharge();
+
+            IDAL.DO.DroneCharge droneCharge = drones_charge.Find(x=>x.Droneld == idDrone);
+           
             if (a.Status == DroneStatuses.maintenance)
             {
                 a.Battery = time.Hours * Drone_charging_speed;
                 a.Status = DroneStatuses.available;
 
+                dal.delFromChargingDrone(droneCharge);
             }
             else
             {
@@ -341,8 +346,6 @@ namespace IBL
             {
                 throw new UpdateProblemException(ex);
             };
-
-
 
 
         }
