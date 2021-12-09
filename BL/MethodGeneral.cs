@@ -112,7 +112,7 @@ namespace IBL
 
                 IEnumerable<IDAL.DO.Drone> dronesFromDS = dal.getAllDrones();
                 IEnumerable<IDAL.DO.Parcel> parcelsFromDS = dal.getAllParcels();
-                IEnumerable<IDAL.DO.Station> stationFromDS = dal.getAllStation();
+                List<IDAL.DO.Station> stationFromDS = (List<IDAL.DO.Station>)dal.getAllStation();
 
                 foreach (IDAL.DO.Drone itemDrone in dronesFromDS)//pass over the drones's list 
                 {
@@ -184,6 +184,7 @@ namespace IBL
                             if (temp.Status == DroneStatuses.maintenance)
                             {
                                 int indexStation = rand.Next(stationFromDS.Count());
+
                                 temp.CurrentLocation = new Location()
                                 {
                                     Lattitude = stationFromDS[indexStation].Lattitude,
