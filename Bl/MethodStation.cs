@@ -129,12 +129,43 @@ namespace IBL
             }
         }
 
-        public IEnumerable<DroneToList> display_station_with_freeChargingStations();
+
+
+
+        public IEnumerable<StationToList> display_station_with_freeChargingStations()
         {
-            List<StationToList> StationList = new List<StationToList>();
-        StationList=getAllStations();
+            var stationList_dal = dal.print_stations_with_freeDroneCharge();
+            List<StationToList> StationList_bl = new List<StationToList>();
+            IEnumerable<IDAL.DO.DroneCharge> droneChargeList = dal.getAllDroneCharge();
+
+            foreach (var stationItem in stationList_dal)
+            {
+                int ChargeSlotsFull_conster = 0;
+                foreach (var droneChargeItem in droneChargeList)
+                {
+                    if (droneChargeItem.Stationld == stationItem.Id)
+                        ChargeSlotsFull_conster++;
+                }
+
+                StationToList addStation = new StationToList()
+                {
+                    Id = stationItem.Id,
+                    Name = stationItem.Name,
+                    ChargeSlotsFree = stationItem.ChargeSlots,
+                    ChargeSlotsFull = ChargeSlotsFull_conster
+                };
+
+                StationList_bl.Add(addStation);
+            }
+
+            return StationList_bl;
+        }
+
+
     }
 
+}
 
-}
-}
+
+
+
