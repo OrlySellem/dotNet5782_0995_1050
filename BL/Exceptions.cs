@@ -3,120 +3,218 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using System.Runtime.Serialization;
 
 namespace IBL
 {
     namespace BO
     {
+        /// <summary>
+        /// Add An Existing Object Exception
+        /// </summary>
         [Serializable]
-        public class UpdateProblemException : Exception
+        public class AlreadyExistException : Exception
         {
-            public UpdateProblemException() : base() { }
-            public UpdateProblemException(Exception ex) : base() {}
-            public UpdateProblemException(string message) : base(message) { }
-            public UpdateProblemException(string message, Exception inner) : base(message, inner) { }
-            protected UpdateProblemException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+            public AlreadyExistException() : base() { }
+            public AlreadyExistException(string message) : base(message) { }
+            public AlreadyExistException(string message, Exception inner) : base(message, inner) { }
+            protected AlreadyExistException(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
 
             public override string ToString()
             {
-                return "Error update ";
+                return string.Format("The {0} already exist in the system", Message);
             }
         }
 
+        /// <summary>
+        /// Non Existent Object Exception
+        /// </summary>
         [Serializable]
-        public class GetDetailsProblemException : Exception
+        public class DoesntExistentObjectException : Exception
         {
-            public GetDetailsProblemException() : base() { }
-            public GetDetailsProblemException(string message) : base(message) { }
-            public GetDetailsProblemException(string message, Exception inner) : base(message, inner) { }
-            protected GetDetailsProblemException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+            public DoesntExistentObjectException() : base() { }
+            public DoesntExistentObjectException(string message) : base(message) { }
+            public DoesntExistentObjectException(string message, Exception inner) : base(message, inner) { }
+            protected DoesntExistentObjectException(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
+
+            public override string ToString()
+            {
+                return string.Format("The {0} doesn't exist in the system", Message);
+            }
         }
 
+        /// <summary>
+        /// charging Exception
+        /// </summary>
         [Serializable]
-        public class DeletedProblemException : Exception
+        public class chargingException : Exception
         {
-            public DeletedProblemException() : base() { }
-            public DeletedProblemException(string message) : base(message) { }
-            public DeletedProblemException(string message, Exception inner) : base(message, inner) { }
-            protected DeletedProblemException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+            public chargingException() : base() { }
+            public chargingException(string message) : base(message) { }
+            public chargingException(string message, Exception inner) : base(message, inner) { }
+            protected chargingException(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
+
+            public override string ToString()
+            {
+                return string.Format("{0}",Message);
+            }
         }
 
+
+        /// <summary>
+        /// No Free Charging Stations
+        /// </summary>
         [Serializable]
-        public class AddingProblemException : Exception
+        public class NoFreeChargingStations : Exception
         {
-            public AddingProblemException() : base() { }
-            public AddingProblemException(string message) : base(message) { }
-            public AddingProblemException(string message, Exception inner) : base(message, inner) { }
-            protected AddingProblemException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+            public NoFreeChargingStations() : base() { }
+            public NoFreeChargingStations(string message) : base(message) { }
+            public NoFreeChargingStations(string message, Exception inner) : base(message, inner) { }
+            protected NoFreeChargingStations(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
+
+            public override string ToString()
+            {
+                return "Error There are no free charging stations in this basestation";
+            }
+        }
+        /// <summary>
+        /// More Drone In Charging Than The Proposed ChargingStations
+        /// </summary>
+        [Serializable]
+        public class MoreDroneInChargingThanTheProposedChargingStations : Exception
+        {
+            public MoreDroneInChargingThanTheProposedChargingStations() : base() { }
+            public MoreDroneInChargingThanTheProposedChargingStations(string message) : base(message) { }
+            public MoreDroneInChargingThanTheProposedChargingStations(string message, Exception inner) : base(message, inner) { }
+            protected MoreDroneInChargingThanTheProposedChargingStations(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
+
+            public override string ToString()
+            {
+                return "Error More drone in charging than the proposed charging stations";
+            }
+        }
+        /// <summary>
+        /// The Drone Can Not Be Sent For Charging
+        /// </summary>
+        [Serializable]
+        public class TheDroneCanNotBeSentForCharging : Exception
+        {
+            public TheDroneCanNotBeSentForCharging() : base() { }
+            public TheDroneCanNotBeSentForCharging(string message) : base(message) { }
+            public TheDroneCanNotBeSentForCharging(string message, Exception inner) : base(message, inner) { }
+            protected TheDroneCanNotBeSentForCharging(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
+
+            public override string ToString()
+            {
+                return Message;
+            }
+        }
+        /// <summary>
+        /// Only Maintenance Drone Will Be Able To Be Released From Charging
+        /// </summary>
+        [Serializable]
+        public class OnlyMaintenanceDroneWillBeAbleToBeReleasedFromCharging : Exception
+        {
+            public OnlyMaintenanceDroneWillBeAbleToBeReleasedFromCharging() : base() { }
+            public OnlyMaintenanceDroneWillBeAbleToBeReleasedFromCharging(string message) : base(message) { }
+            public OnlyMaintenanceDroneWillBeAbleToBeReleasedFromCharging(string message, Exception inner) : base(message, inner) { }
+            protected OnlyMaintenanceDroneWillBeAbleToBeReleasedFromCharging(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
+
+            public override string ToString()
+            {
+                return "Error Only a maintenance drone will be able to be released from charging";
+            }
+        }
+        /// <summary>
+        /// No Suitable Psrcel Was Found To Belong To The Drone
+        /// </summary>
+        [Serializable]
+        public class NoSuitablePsrcelWasFoundToBelongToTheDrone : Exception
+        {
+            public NoSuitablePsrcelWasFoundToBelongToTheDrone() : base() { }
+            public NoSuitablePsrcelWasFoundToBelongToTheDrone(string message) : base(message) { }
+            public NoSuitablePsrcelWasFoundToBelongToTheDrone(string message, Exception inner) : base(message, inner) { }
+            protected NoSuitablePsrcelWasFoundToBelongToTheDrone(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
+
+            public override string ToString()
+            {
+                return "Error No suitable package was found to belong to the drone";
+            }
         }
 
+        /// <summary>
+        /// Drone Cant Be Assigend
+        /// </summary>
         [Serializable]
-        public class InvalidValueException : Exception
+        public class DroneCantBeAssigend : Exception
         {
-            public InvalidValueException() : base() { }
-            public InvalidValueException(string message) : base(message) { }
-            public InvalidValueException(string message, Exception inner) : base(message, inner) { }
-            protected InvalidValueException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+            public DroneCantBeAssigend() : base() { }
+            public DroneCantBeAssigend(string message) : base(message) { }
+            public DroneCantBeAssigend(string message, Exception inner) : base(message, inner) { }
+            protected DroneCantBeAssigend(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
+
+            public override string ToString()
+            {
+                return "Error the drone is not free";
+            }
+        }
+        /// <summary>
+        ///  Unable To Collect Parcel
+        /// </summary>
+        [Serializable]
+        public class UnableToCollectParcel : Exception
+        {
+            public UnableToCollectParcel() : base() { }
+            public UnableToCollectParcel(string message) : base(message) { }
+            public UnableToCollectParcel(string message, Exception inner) : base(message, inner) { }
+            protected UnableToCollectParcel(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
+
+            public override string ToString()
+            {
+                return Message;
+            }
+        }
+        /// <summary>
+        /// Delivery Cannot Be Made
+        /// </summary>
+        [Serializable]
+        public class DeliveryCannotBeMade : Exception
+        {
+            public DeliveryCannotBeMade() : base() { }
+            public DeliveryCannotBeMade(string message) : base(message) { }
+            public DeliveryCannotBeMade(string message, Exception inner) : base(message, inner) { }
+            protected DeliveryCannotBeMade(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
+
+            public override string ToString()
+            {
+                return Message;
+            }
         }
 
+        public class ERRORINPUT_YouDidntInputANumber : Exception
+        {
+            public ERRORINPUT_YouDidntInputANumber() : base() { }
+            public ERRORINPUT_YouDidntInputANumber(string message) : base(message) { }
+            public ERRORINPUT_YouDidntInputANumber(string message, Exception inner) : base(message, inner) { }
+            protected ERRORINPUT_YouDidntInputANumber(SerializationInfo info, StreamingContext context)
+            : base(info, context) { }
+
+            public override string ToString()
+            {
+                return Message;
+            }
+        }
     }
 }
-
-    /* 
-
-            public class stationException : Exception  ///station
-            {
-
-                public stationException(string message) : base(message)
-                {
-                    throw "The station " + message;
-                }
-
-                // public override string ToString() => base.ToString() + $", miss information between stations: {FirstStation} and {SecondStation}";
-            }
-
-
-            public class droneException : Exception  ///drone
-            {
-                public droneException(string message) : base(message)
-                {
-                    throw "The drone " + message;
-                }
-                // public override string ToString() => base.ToString() + $", miss information between stations: {FirstStation} and {SecondStation}";
-            }
-
-            public class customerException : Exception   ///customer
-            {
-
-                public customerException(string message) : base(message)
-                {
-                    throw "The customer " + message;
-                }
-
-                // public override string ToString() => base.ToString() + $", miss information between stations: {FirstStation} and {SecondStation}";
-            }
-
-            public class parcelException : Exception   //parcel
-            {
-                public parcelException(string message) : base(message)
-                {
-                    throw "The parcel" + message;
-                }
-                // public override string ToString() => base.ToString() + $", miss information between stations: {FirstStation} and {SecondStation}";
-            }
-
-            public class DroneChargeException : Exception
-            {
-                public DroneChargeException(string message) : base(message)
-                {
-                    throw new message;
-                }
-            }
-        }
-
-    }
-    } 
-    
-     */
-

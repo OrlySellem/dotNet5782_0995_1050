@@ -28,7 +28,7 @@ namespace DalObject
         {
             Station temp = DataSource.stations.Find(x => x.Id == stationToAdd.Id);
             if (temp.Id != 0)
-                throw new AlreadyExistException("The station already exist");
+                throw new AlreadyExistException("station"); 
 
             DataSource.stations.Add(stationToAdd);
         }
@@ -37,7 +37,7 @@ namespace DalObject
         {
             Drone temp = DataSource.drones.Find(x => x.Id == droneToAdd.Id);
             if (temp.Id != 0)
-                throw new AlreadyExistException("The drone already exist");
+                throw new AlreadyExistException("drone");
 
             DataSource.drones.Add(droneToAdd);
         }
@@ -46,7 +46,7 @@ namespace DalObject
         {
             Customer temp = DataSource.customers.Find(x => x.Id == CustomerToAdd.Id);
             if (temp.Id != 0)
-                throw new AlreadyExistException("The customer already exist");
+                throw new AlreadyExistException("customer");
 
             DataSource.customers.Add(CustomerToAdd);
         }
@@ -55,7 +55,8 @@ namespace DalObject
         {
             Parcel temp = DataSource.parcels.Find(x => x.Id == ParcelToAdd.Id);
             if (temp.Id != 0)
-                throw new AlreadyExistException("The parcel already exist");
+                throw new AlreadyExistException("parcel");
+
             temp.Id = DataSource.Config.idParcel++;
             DataSource.parcels.Add(ParcelToAdd);
         }
@@ -120,7 +121,7 @@ namespace DalObject
         {
             Parcel parcel = DataSource.parcels.Find(p => p.Id == id);
             if (parcel.Id == 0)
-                throw new DoesntExistException("The parcel doesn't exist in the system");
+                throw new DoesntExistentObjectException("parcel");
             return parcel;
         }
 
@@ -128,7 +129,7 @@ namespace DalObject
         {
             Drone drone = DataSource.drones.Find(d => d.Id == id);
             if (drone.Id == 0)
-                throw new DoesntExistException("The drone doesn't exist in the system");
+                throw new DoesntExistentObjectException("drone");
             return drone;
         }
 
@@ -136,7 +137,7 @@ namespace DalObject
         {
             Station station = DataSource.stations.Find(s => s.Id == id);
             if (station.Id == 0)
-                throw new DoesntExistException("The station doesn't exist in the system");
+                throw new DoesntExistentObjectException("station");
             return station;
         }
 
@@ -144,7 +145,7 @@ namespace DalObject
         {
             Customer customer = DataSource.customers.Find(c => c.Id == id);
             if (customer.Id == 0)
-                throw new DoesntExistException("The customer doesn't exist in the system");
+                throw new DoesntExistentObjectException("customer");
             return customer;
         }
         #endregion
@@ -204,6 +205,8 @@ namespace DalObject
         #region updateChargeSlots
         public void reduceChargeSlots(ref Station s)
         {
+            if (s.ChargeSlots == 0)
+                throw new chargingException("There isn't any available charging slots in this station");
             s.ChargeSlots--;//Reduce the number of claim positions
         }
 
@@ -216,16 +219,25 @@ namespace DalObject
         #region update
         public void assign_drone_parcel(Drone droneToUpdate, Parcel parcelToUpdate)//assign drone to parcel
         {
-            Drone myDrone = getDrone(droneToUpdate.Id);
-            Parcel myParcel = getParcel(parcelToUpdate.Id);
+            try
+            {
+                Drone myDrone = getDrone(droneToUpdate.Id);
+                Parcel myParcel = getParcel(parcelToUpdate.Id);
 
-            DataSource.drones.Remove(droneToUpdate);
-            DataSource.parcels.Remove(parcelToUpdate);
+                DataSource.drones.Remove(droneToUpdate);
+                DataSource.parcels.Remove(parcelToUpdate);
 
-            myParcel.Droneld = myDrone.Id;
-            myParcel.Scheduled = DateTime.Now;
+                myParcel.Droneld = myDrone.Id;
+                myParcel.Scheduled = DateTime.Now;
 
-            DataSource.parcels.Add(myParcel);
+                DataSource.parcels.Add(myParcel);
+            }
+            catch (DoesntExistentObjectException ex)
+            {
+
+                throw new DoesntExistentObjectException("",ex);
+            }
+           
         }
 
         public void drone_pick_parcel(Drone droneToUpdate, Parcel parcelToUpdate)//pick up parcel by drone
@@ -290,8 +302,9 @@ namespace DalObject
                 addStaion(myStation);
                 return;
             }
-
-            throw new chargingException("The drone doesn't charge in this station");
+           
+            throw new chargingException("The drone doesn't charging in this station");
+            
         }
         #endregion
 

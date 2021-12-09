@@ -27,7 +27,7 @@ namespace IBL
             }
             catch (IDAL.DO.AlreadyExistException ex)
             {
-                throw new AddingProblemException("The customer alradey exist in the system", ex);
+                throw new AlreadyExistException("costumer", ex);
             }
            
         }
@@ -57,10 +57,10 @@ namespace IBL
                 };
 
             }
-            catch (IDAL.DO.DoesntExistException ex)
+            catch (IDAL.DO.DoesntExistentObjectException ex)
             {
 
-                throw new GetDetailsProblemException("The customer doesn't exist in the system", ex);
+                throw new DoesntExistentObjectException("customer",ex);
             }
                 
         }
@@ -138,13 +138,13 @@ namespace IBL
                 dal.addCustomer(customerToUpdate);
             }
 
-            catch (IDAL.DO.DoesntExistException ex)
+            catch (IDAL.DO.DoesntExistentObjectException ex)
             {
-                throw new GetDetailsProblemException ("The customer doesn't exist in the system", ex);
+                throw new DoesntExistentObjectException("customer",ex);
             }
             catch (IDAL.DO.AlreadyExistException ex)
             {
-                throw new AddingProblemException("The customer already exist in the system", ex);
+                throw new AlreadyExistException("customer", ex);
             }
 
 
