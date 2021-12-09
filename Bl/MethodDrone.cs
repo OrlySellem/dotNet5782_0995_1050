@@ -84,6 +84,7 @@ namespace IBL
             return drones;      
         }
 
+
         public void updateModelDrone(int idDrone, string newModel)
         {
             try

@@ -20,6 +20,7 @@ namespace IBL
         public void addParcel(Parcel ParcelToAdd);//add new base percel
         #endregion
 
+        #region update
         public void  updateStation(int id, int name_int, int chargeSlots);
 
         public void updateCustomer(int id, string newName, string newPhone);
@@ -36,6 +37,17 @@ namespace IBL
 
         public void deliveryAriveToCustomer(int idDrone);
 
+        #endregion
+
+        #region getAll
+        public IEnumerable<StationToList> getAllStations();
+        public IEnumerable<DroneToList> getAllDronens();
+        public IEnumerable<CustomerToList> getAllCustomers();
+        public IEnumerable<ParcelToList> getAllParcels();
+        public IEnumerable<ParcelToList> ParcelDoesntAssignToDrone();
+        public IEnumerable<DroneToList> display_station_with_freeChargingStations();
+
+        #endregion
         // 
 
     }

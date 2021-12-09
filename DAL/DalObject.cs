@@ -145,6 +145,29 @@ namespace DalObject
             return DataSource.dronesCharge;
         }
 
+        public IEnumerable<Parcel> print_unconnected_parcels_to_Drone()
+        {
+         List<Parcel> parcelsList = new List<Parcel>();
+            foreach (Parcel item in DataSource.parcels)
+            {
+                if (item.Droneld == 0)
+                    parcelsList.Add(item);
+            }
+            return parcelsList;
+        }
+        public IEnumerable<Station> print_stations_with_freeDroneCharge()
+        {
+           List<Station> stationList = new List<Station>();
+
+            foreach (Station item in DataSource.stations)
+            {
+                if (item.ChargeSlots > 0)
+                    stationList.Add(item);
+            }
+
+            return stationList;
+        }
+
         #endregion GET_LIST
 
         #region updateChargeSlots

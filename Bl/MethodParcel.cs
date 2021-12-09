@@ -107,6 +107,44 @@ namespace IBL
             return ParcelList_bl;
         }
 
+        public IEnumerable<ParcelToList> ParcelDoesntAssignToDrone()
+        {
+            var parcelList_dal = dal.getAllParcels();
+            List<ParcelToList> ParcelList_bl = new List<ParcelToList>();
+
+            foreach (var parcelItem in parcelList_dal)
+            {
+                if (parcelItem.Scheduled== new DateTime(01, 01, 0001))
+
+                {
+                    ParcelToList addParcel = new ParcelToList()
+                    {
+                        Id = parcelItem.Id,
+                        Senderld = parcelItem.Senderld,
+                        Targetld = parcelItem.Targetld,
+                        Weight = (WeightCategories)parcelItem.Weight,
+                        Priority = (Priorities)parcelItem.Priority,
+                    };
+
+                    if (parcelItem.Requested != new DateTime(01, 01, 0001) && parcelItem.Scheduled == new DateTime(01, 01, 0001))
+                        addParcel.ParcelStatus = ParcelStatus.requested;
+                    if (parcelItem.Scheduled != new DateTime(01, 01, 0001) && parcelItem.PickedUp == new DateTime(01, 01, 0001))
+                        addParcel.ParcelStatus = ParcelStatus.scheduled;
+                    if (parcelItem.PickedUp != new DateTime(01, 01, 0001) && parcelItem.Delivered == new DateTime(01, 01, 0001))
+                        addParcel.ParcelStatus = ParcelStatus.PickedUp;
+                    if (parcelItem.Delivered == new DateTime(01, 01, 0001))
+                        addParcel.ParcelStatus = ParcelStatus.Delivered;
+
+
+                    ParcelList_bl.Add(addParcel);
+                }
+            
+            }
+
+            return ParcelList_bl;
+
+        }
+
 
     }
 

@@ -309,7 +309,7 @@ namespace ConsoleUI_BL
                             {
                                 case DisplayListOptions.displayStations:
 
-                                    List<StationToList> stations = mainBl.getAllStations();
+                                    List<StationToList> stations = (List<StationToList>)mainBl.getAllStations();
                                     foreach (StationToList item in stations)
                                     {
                                         item.ToString();
@@ -318,7 +318,7 @@ namespace ConsoleUI_BL
 
                                 case DisplayListOptions.displayDrones:
 
-                                    List <DroneToList> drones = mainBl.getAllDronens();
+                                    List <DroneToList> drones = (List<DroneToList>)mainBl.getAllDronens();
                                     foreach (DroneToList item in drones)
                                     {
                                         item.ToString();
@@ -327,7 +327,7 @@ namespace ConsoleUI_BL
                                   
                                 case DisplayListOptions.displayCustomers:
 
-                                    List<CustomerToList> customers = mainBl.getAllCustomers();
+                                    List<CustomerToList> customers = (List<CustomerToList>)mainBl.getAllCustomers();
                                     foreach (CustomerToList item in customers)
                                     {
                                         item.ToString();
@@ -336,7 +336,7 @@ namespace ConsoleUI_BL
 
                                 case DisplayListOptions.displayParcels:
 
-                                    List<ParcelToList> parcels = mainBl.getAllParcels();
+                                    List<ParcelToList> parcels = (List<ParcelToList>)mainBl.getAllParcels();
                                     foreach (ParcelToList item in parcels)
                                     {
                                         item.ToString();
@@ -345,10 +345,20 @@ namespace ConsoleUI_BL
 
                                 //לממש
                                 case DisplayListOptions.display_parcels_without_drone:
-
+                                    List<ParcelToList> parcels_without_drone = (List<ParcelToList>)mainBl.ParcelDoesntAssignToDrone();
+                                    foreach (ParcelToList item in parcels_without_drone)
+                                    {
+                                        item.ToString();
+                                    }
                                     break;
 
                                 case DisplayListOptions.display_station_with_freeChargingStations:
+                                    List<StationToList> stations_with_freeChargingStation = (List<StationToList>)mainBl.display_station_with_freeChargingStations();
+                                    foreach (StationToList item in stations_with_freeChargingStation)
+                                    {
+                                        item.ToString();
+                                    }
+
                                     break;
 
 

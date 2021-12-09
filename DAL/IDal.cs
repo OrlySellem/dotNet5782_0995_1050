@@ -54,6 +54,11 @@ namespace IDAL
         public IEnumerable<Customer> getAllCustomer();
 
         public IEnumerable<DroneCharge> getAllDroneCharge();
+
+        public IEnumerable<Parcel> print_unconnected_parcels_to_Drone();
+
+        public IEnumerable<Station> print_stations_with_freeDroneCharge();
+
         #endregion
 
         #region updateChargeSlots
