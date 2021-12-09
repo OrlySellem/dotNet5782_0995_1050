@@ -129,12 +129,5 @@ namespace IBL
             }
         }
 
-        public IEnumerable<DroneToList> display_station_with_freeChargingStations();
-        {
-            List<StationToList> StationList = new List<StationToList>();
-        StationList=getAllStations();
     }
-
-
-}
 }
