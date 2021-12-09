@@ -78,7 +78,7 @@ namespace IDAL
 
         public void chargingDrone(Drone droneToUpdate, Station stationToUpdate);//Inserts a drone to charg
 
-        public void freeDroneCharge(Drone droneToUpdate, Station stationToUpdate);//Drone release from charging
+        public void freeDroneCharge(Drone droneToUpdate);//Drone release from charging
         #endregion
 
         #region power

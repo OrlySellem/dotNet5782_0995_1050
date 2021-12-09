@@ -163,18 +163,19 @@ namespace IBL
 
         public void freeDroneFromCharging(int idDrone, TimeSpan time)
         {
-            DroneToList a = drones.Find(x => x.Id == idDrone);
+            DroneToList droneBL = drones.Find(x => x.Id == idDrone);
+            IDAL.DO.Drone droneDal = dal.getDrone(droneBL.Id);
 
-            List <IDAL.DO.DroneCharge> drones_charge = (List<IDAL.DO.DroneCharge>) dal.getAllDroneCharge();
-
-            IDAL.DO.DroneCharge droneCharge = drones_charge.Find(x=>x.Droneld == idDrone);
+            //List <IDAL.DO.DroneCharge> drones_charge = (List<IDAL.DO.DroneCharge>) dal.getAllDroneCharge();
+            
+            //IDAL.DO.DroneCharge droneCharge = drones_charge.Find (x => x.Droneld == idDrone);
            
-            if (a.Status == DroneStatuses.maintenance)
+            if (droneBL.Status == DroneStatuses.maintenance)
             {
-                a.Battery = time.Hours * Drone_charging_speed;
-                a.Status = DroneStatuses.available;
+                droneBL.Battery = time.Hours * Drone_charging_speed;
+                droneBL.Status = DroneStatuses.available;
 
-                dal.delFromChargingDrone(droneCharge);
+                dal.freeDroneCharge(droneDal);
             }
             else
             {

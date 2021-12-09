@@ -17,6 +17,11 @@ namespace IBL
             public UpdateProblemException(string message) : base(message) { }
             public UpdateProblemException(string message, Exception inner) : base(message, inner) { }
             protected UpdateProblemException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+
+            public override string ToString()
+            {
+                return "Error update ";
+            }
         }
 
         [Serializable]

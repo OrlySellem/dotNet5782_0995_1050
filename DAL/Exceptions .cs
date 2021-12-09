@@ -8,28 +8,34 @@ namespace IDAL
 {
     namespace DO
     {
+       
         public class DoesntExistException : Exception
         {
             public DoesntExistException() : base() { }
             public DoesntExistException(string message) : base(message) { }
+            public DoesntExistException(string message, Exception inner) : base(message, inner) { }
         }
 
         public class AlreadyExistException : Exception
         {
             public AlreadyExistException() : base() { }
-            public AlreadyExistException(string message) : base(message) { }        
+            public AlreadyExistException(string message) : base(message) { }
+            public AlreadyExistException(string message, Exception inner) : base(message, inner) { }
         }
 
         public class InvalidInputException : Exception
         {
             public InvalidInputException() : base() { }
             public InvalidInputException(string message) : base(message) { }
+            public InvalidInputException(string message, Exception inner) : base(message, inner) { }
+
         }
 
         public class chargingException : Exception
         {
             public chargingException() : base() { }
             public chargingException(string message) : base(message) { }
+            public chargingException(string message, Exception inner) : base(message, inner) { }
         }
 
     }
