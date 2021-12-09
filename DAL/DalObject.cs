@@ -64,6 +64,7 @@ namespace DalObject
         #region REMOVE
         public void delFromDrones(Drone droneToDel)
         {
+            
             DataSource.drones.Remove(droneToDel);
         }
 
@@ -72,14 +73,24 @@ namespace DalObject
             DataSource.stations.Remove(stationToDel);
         }
 
-        public void delFromParcels(Parcel parcelToDel)
+        public void delFromParcels (Parcel parcelToDel)
         {
             DataSource.parcels.Remove(parcelToDel);
         }
 
-        public void delFromCustomers(Customer customerToDel)
+        public void delFromCustomers (Customer customerToDel)
         {
             DataSource.customers.Remove(customerToDel);
+        }
+
+        public void delFromChargingDrone (DroneCharge droneCharge)
+        {
+            Station stationToUpdate = DataSource.stations.Find (x => x.Id == droneCharge.Stationld);
+            delFromStations(stationToUpdate);
+            plusChargeSlots(ref stationToUpdate);
+            addStaion(stationToUpdate);
+
+            DataSource.dronesCharge.Remove(droneCharge);
         }
 
         #endregion
