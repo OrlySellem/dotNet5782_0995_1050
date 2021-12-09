@@ -260,9 +260,7 @@ namespace DalObject
                 throw new DoesntExistentObjectException("", ex);
             }
             
-
-                throw new DoesntExistException("", ex);
-            }          
+                  
         }
 
         public void delivery_arrive_toCustomer(Drone droneToUpdate, Parcel parcelToUpdate)//The delivery arrived to the customer
