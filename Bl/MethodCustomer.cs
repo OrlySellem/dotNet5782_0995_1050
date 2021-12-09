@@ -27,7 +27,7 @@ namespace IBL
             }
             catch (IDAL.DO.AlreadyExistException ex)
             {
-                throw new AlreadyExistException("costumer", ex);
+                throw new AlreadyExistException("", ex);
             }
            
         }
@@ -60,7 +60,7 @@ namespace IBL
             catch (IDAL.DO.DoesntExistentObjectException ex)
             {
 
-                throw new DoesntExistentObjectException("customer",ex);
+                throw new DoesntExistentObjectException("",ex);
             }
                 
         }
@@ -140,11 +140,11 @@ namespace IBL
 
             catch (IDAL.DO.DoesntExistentObjectException ex)
             {
-                throw new DoesntExistentObjectException("customer",ex);
+                throw new DoesntExistentObjectException("",ex);
             }
             catch (IDAL.DO.AlreadyExistException ex)
             {
-                throw new AlreadyExistException("customer", ex);
+                throw new AlreadyExistException("", ex);
             }
 
 

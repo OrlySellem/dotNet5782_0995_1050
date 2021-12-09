@@ -242,68 +242,101 @@ namespace DalObject
 
         public void drone_pick_parcel(Drone droneToUpdate, Parcel parcelToUpdate)//pick up parcel by drone
         {
-            Drone myDrone = getDrone(droneToUpdate.Id);
-            Parcel myParcel = getParcel(parcelToUpdate.Id);
+            try
+            {
+                Drone myDrone = getDrone(droneToUpdate.Id);
+                Parcel myParcel = getParcel(parcelToUpdate.Id);
 
-            DataSource.drones.Remove(droneToUpdate);
-            DataSource.parcels.Remove(parcelToUpdate);
+                DataSource.drones.Remove(droneToUpdate);
+                DataSource.parcels.Remove(parcelToUpdate);
 
-            myParcel.PickedUp = DateTime.Now;
+                myParcel.PickedUp = DateTime.Now;
 
-            DataSource.drones.Add(myDrone);
-            DataSource.parcels.Add(myParcel);
+                DataSource.drones.Add(myDrone);
+                DataSource.parcels.Add(myParcel);
+            }
+            catch (DoesntExistentObjectException ex)
+            {
+                throw new DoesntExistentObjectException("", ex);
+            }
+            
 
         }
 
         public void delivery_arrive_toCustomer(Drone droneToUpdate, Parcel parcelToUpdate)//The delivery arrived to the customer
         {
-            getDrone(droneToUpdate.Id);
-            Parcel myParcel = getParcel(parcelToUpdate.Id);
+            try
+            {
+                //getDrone(droneToUpdate.Id);
+                Parcel myParcel = getParcel(parcelToUpdate.Id);
 
-            DataSource.parcels.Remove(parcelToUpdate);
+                DataSource.parcels.Remove(parcelToUpdate);
 
-            myParcel.Delivered = DateTime.Now;
+                myParcel.Delivered = DateTime.Now;
 
-            DataSource.parcels.Add(myParcel);
+                DataSource.parcels.Add(myParcel);
+
+            }
+            catch (DoesntExistentObjectException ex)
+            {
+                throw new DoesntExistentObjectException("", ex);
+            }
+            
         }
 
         public void chargingDrone(Drone droneToUpdate, Station stationToUpdate)//Inserts a drone to charg
         {
-            Drone myDrone = getDrone(droneToUpdate.Id);
-            Station myStation = getStation(stationToUpdate.Id);
-
-            if (myStation.ChargeSlots != 0)//If there are no charge slots available, choose a new station  
+            try
             {
-                DataSource.stations.Remove(stationToUpdate);
-                reduceChargeSlots(ref myStation);
-                DataSource.stations.Add(myStation);
+                Drone myDrone = getDrone(droneToUpdate.Id);
+                Station myStation = getStation(stationToUpdate.Id);
 
-                DroneCharge droneChargeToAdd = new DroneCharge() { Droneld = myDrone.Id, Stationld = myStation.Id };
-                DataSource.dronesCharge.Add(droneChargeToAdd);
-                return;
+                if (myStation.ChargeSlots != 0)//If there are no charge slots available, choose a new station  
+                {
+                    DataSource.stations.Remove(stationToUpdate);
+                    reduceChargeSlots(ref myStation);
+                    DataSource.stations.Add(myStation);
+
+                    DroneCharge droneChargeToAdd = new DroneCharge() { Droneld = myDrone.Id, Stationld = myStation.Id };
+                    DataSource.dronesCharge.Add(droneChargeToAdd);
+                    return;
+                }
+
+                throw new chargingException("The station doesn't have available charging slot");
             }
+            catch (DoesntExistentObjectException ex)
+            {
 
-            throw new chargingException("The station doesn't have available charging slot");
-
-          
+                throw new DoesntExistentObjectException("", ex);
+            }
+                    
         }
 
         public void freeDroneCharge(Drone droneToUpdate)//Drone release from charging
         {
-            DroneCharge droneChargeToDel = DataSource.dronesCharge.Find(x => x.Droneld == droneToUpdate.Id);
-
-            Station myStation = getStation(droneChargeToDel.Stationld);
-
-            if (droneChargeToDel.Droneld != 0 && droneChargeToDel.Stationld != 0)
+            try
             {
-                delFromChargingDrone(droneChargeToDel);
-                delFromStations(myStation);
-                plusChargeSlots(ref myStation);
-                addStaion(myStation);
-                return;
+                DroneCharge droneChargeToDel = DataSource.dronesCharge.Find(x => x.Droneld == droneToUpdate.Id);
+
+                Station myStation = getStation(droneChargeToDel.Stationld);
+
+                if (droneChargeToDel.Droneld != 0 && droneChargeToDel.Stationld != 0)
+                {
+                    delFromChargingDrone(droneChargeToDel);
+                    delFromStations(myStation);
+                    plusChargeSlots(ref myStation);
+                    addStaion(myStation);
+                    return;
+                }
+
+                throw new chargingException("The drone doesn't charging in this station");
             }
-           
-            throw new chargingException("The drone doesn't charging in this station");
+            catch (DoesntExistentObjectException ex)
+            {
+
+                throw new DoesntExistentObjectException("", ex);
+            }
+            
             
         }
         #endregion

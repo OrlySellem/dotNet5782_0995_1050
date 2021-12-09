@@ -91,15 +91,23 @@ namespace DalObject
             //Initialize 10 parcels
             for (int i = 0; i < 10; i++)
             {
+                int Senderld = customers[rand.Next(9)].Id;
+                int Targetld;
+                do
+                {
+                    Targetld = customers[rand.Next(9)].Id;
+                }
+                while (Targetld == Senderld);
+                
                 Parcel temp = new Parcel()
                 {
-                    Id=Config.idParcel++,
-                    Senderld=rand.Next(100000000,999999999),
-                    Targetld=rand.Next(100000000,999999999),
-                    Weight=(WeightCategories)rand.Next(0,2),
+                    Id = Config.idParcel++,
+                    Senderld = Senderld,
+                    Targetld = Targetld,
+                    Weight =(WeightCategories)rand.Next(0,2),
                     Priority=(Priorities)rand.Next(0,2),
-                    Droneld = rand.Next(1000, 9999),
-                    Requested= new DateTime(),
+                    Droneld = 0,
+                    Requested = new DateTime(),
                     Scheduled = new DateTime(01, 01, 0001),
                     PickedUp = new DateTime(01, 01, 0001),
                     Delivered = new DateTime(01, 01, 0001),
