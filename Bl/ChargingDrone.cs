@@ -16,14 +16,10 @@ namespace IBL
 
             public override string ToString()
             {
-                return string.Format("Id is:{0}\nBattery is:{1}\n", Id, Battery);
+                return string.Format("\nId is:{0}\nBattery is:{1}\n", Id, Battery);
             }
 
-            public void chargingDrone(int droneId)
-            {
-
-            }
-
+      
         }
     }
    

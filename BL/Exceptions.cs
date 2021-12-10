@@ -202,12 +202,12 @@ namespace IBL
             }
         }
 
-        public class ERRORINPUT_YouDidntInputANumber : Exception
+        public class enoughBattery : Exception
         {
-            public ERRORINPUT_YouDidntInputANumber() : base() { }
-            public ERRORINPUT_YouDidntInputANumber(string message) : base(message) { }
-            public ERRORINPUT_YouDidntInputANumber(string message, Exception inner) : base(message, inner) { }
-            protected ERRORINPUT_YouDidntInputANumber(SerializationInfo info, StreamingContext context)
+            public enoughBattery() : base() { }
+            public enoughBattery(string message) : base(message) { }
+            public enoughBattery(string message, Exception inner) : base(message, inner) { }
+            protected enoughBattery(SerializationInfo info, StreamingContext context)
             : base(info, context) { }
 
             public override string ToString()

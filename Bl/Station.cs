@@ -18,11 +18,11 @@ namespace IBL
 
             public int ChargeSlots { get; set; }
 
-            public List<ChargingDrone> Charging_drones { get; set; }
+            public List <ChargingDrone> Charging_drones { get; set; }
 
             public override string ToString()
             {
-                return string.Format("\nId is:{0}\nName is:{1}\nAddress is:{2}\nThe number of charge slots is:{3}\nThe number of Charging drones is:{4}\n", Id, Name, Address, ChargeSlots, Charging_drones);
+                return string.Format("\nId is:{0}\nName is:{1}\nAddress is:{2}\nThe number of charge slots is:{3}\nThe list of the charging drones is:{4}\n", Id, Name, Address, ChargeSlots, String.Join("\t", Charging_drones));
             }
 
         }

@@ -140,17 +140,17 @@ namespace ConsoleUI_BL
                                 case Add.addParcel:
                                     Console.WriteLine("Please enter sender's id:");
                                     int senderld = int.Parse(Console.ReadLine());
-
+                                    Customer customer1 = mainBl.getCustomer(senderld);
                                     Console.WriteLine("Please enter target's id:");
                                     int targetld = int.Parse(Console.ReadLine());
-
+                                    Customer customer2 = mainBl.getCustomer(targetld);
                                     Console.WriteLine("Please enter drone's weight categories - 0 for light, 1 for medium, 2 for heavy:");
                                     int weight = int.Parse(Console.ReadLine());
 
                                     Console.WriteLine("Please enter the delivery's priority - 0 for normal, 1 for fast, 2 for emergency:");
                                     int priority = int.Parse(Console.ReadLine());
                                     Console.WriteLine();
-
+                                                        
                                     Parcel parcelToAdd = new Parcel()
                                     {
                                         Senderld = senderld,
@@ -169,7 +169,7 @@ namespace ConsoleUI_BL
                         #region updateChoice
                         case programDelivry.UpdateOptions:
 
-                            Console.WriteLine("To assign parcel to drone - enter 0\nTo pick up parcel by drone - enter 1\nTo update that delivery has arrived - enter 2\nTo send drone to charge in base station - enter 3\nTo free drone from chraging - enter 4\n");
+                            Console.WriteLine("To update drone's model - enter 0\nTo update station's details - enter 1\nTo update customer's details - enter 2\nTo send drone to charge in base station - enter 3\nTo free drone from chraging - enter 4\nTo assign parcel to drone - enter 5\nTo pick up parcel by drone - enter 6\nTo update that the parcel has reached its destination - enter 7");
                             int m = int.Parse(Console.ReadLine());
                             Update updateChoice = (Update)m;
 
@@ -261,7 +261,7 @@ namespace ConsoleUI_BL
 
                         #region displayEntity
                         case programDelivry.DisplayOptions:
-                            Console.WriteLine("To display stations - enter 0\nTo display drones - enter 1\nTo display stations - enter 2\nTo display parcels - enter 3\nTo displays a list of parcels without assign to drones - enter 4\nTo display base stations with available charging drones - enter 5\n");
+                            Console.WriteLine("To display station - enter 0\nTo display drone - enter 1\nTo display customer - enter 2\nTo display parcels - enter 3\n");
                             int t = int.Parse(Console.ReadLine());
                             Display DisplayChoice = (Display)t;
 
@@ -274,7 +274,7 @@ namespace ConsoleUI_BL
                                     id = int.Parse(Console.ReadLine());
 
                                     IBL.BO.Station stationToPrint = mainBl.getStation(id);
-                                    stationToPrint.ToString();
+                                    Console.WriteLine(stationToPrint.ToString());
                                     break;
 
                                 case Display.displayDrone:
@@ -282,7 +282,7 @@ namespace ConsoleUI_BL
                                     id = int.Parse(Console.ReadLine());
 
                                     IBL.BO.DroneToList droneToPrint = mainBl.getDrone(id);
-                                    droneToPrint.ToString();
+                                    Console.WriteLine(droneToPrint.ToString());
                                     break;
 
                                 case Display.displayCustomer:
@@ -290,7 +290,7 @@ namespace ConsoleUI_BL
                                     id = int.Parse(Console.ReadLine());
 
                                     IBL.BO.Customer customerToPrint = mainBl.getCustomer(id);
-                                    customerToPrint.ToString();
+                                    Console.WriteLine(customerToPrint.ToString());
                                     break;
 
                                 case Display.displayParcel:
@@ -298,7 +298,7 @@ namespace ConsoleUI_BL
                                     id = int.Parse(Console.ReadLine());
 
                                     IBL.BO.Parcel parcelToPrint = mainBl.getParcel(id);
-                                    parcelToPrint.ToString();
+                                    Console.WriteLine(parcelToPrint.ToString());
                                     break;
                             }
 
@@ -318,7 +318,7 @@ namespace ConsoleUI_BL
                                     List<StationToList> stations = (List<StationToList>)mainBl.getAllStations();
                                     foreach (StationToList item in stations)
                                     {
-                                        item.ToString();
+                                        Console.WriteLine(item.ToString());
                                     }
                                     break;
 
@@ -327,7 +327,7 @@ namespace ConsoleUI_BL
                                     List<DroneToList> drones = (List<DroneToList>)mainBl.getAllDronens();
                                     foreach (DroneToList item in drones)
                                     {
-                                        item.ToString();
+                                        Console.WriteLine(item.ToString());
                                     }
                                     break;
 
@@ -336,7 +336,7 @@ namespace ConsoleUI_BL
                                     List<CustomerToList> customers = (List<CustomerToList>)mainBl.getAllCustomers();
                                     foreach (CustomerToList item in customers)
                                     {
-                                        item.ToString();
+                                        Console.WriteLine(item.ToString());
                                     }
                                     break;
 
@@ -345,7 +345,7 @@ namespace ConsoleUI_BL
                                     List<ParcelToList> parcels = (List<ParcelToList>)mainBl.getAllParcels();
                                     foreach (ParcelToList item in parcels)
                                     {
-                                        item.ToString();
+                                        Console.WriteLine(item.ToString());
                                     }
                                     break;
 
@@ -354,7 +354,7 @@ namespace ConsoleUI_BL
                                     List<ParcelToList> parcels_without_drone = (List<ParcelToList>)mainBl.ParcelDoesntAssignToDrone();
                                     foreach (ParcelToList item in parcels_without_drone)
                                     {
-                                        item.ToString();
+                                        Console.WriteLine(item.ToString());
                                     }
                                     break;
 
@@ -362,7 +362,7 @@ namespace ConsoleUI_BL
                                     List<StationToList> stations_with_freeChargingStation = (List<StationToList>)mainBl.display_station_with_freeChargingStations();
                                     foreach (StationToList item in stations_with_freeChargingStation)
                                     {
-                                        item.ToString();
+                                        Console.WriteLine(item.ToString());
                                     }
 
                                     break;
@@ -422,6 +422,10 @@ namespace ConsoleUI_BL
                 Console.WriteLine(ex.ToString());
             }
             catch (IBL.BO.DeliveryCannotBeMade ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            catch (IBL.BO.enoughBattery ex)
             {
                 Console.WriteLine(ex.ToString());
             }

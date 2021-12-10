@@ -37,7 +37,7 @@ namespace IDAL
         #region REMOVE
         public void delFromDrones(Drone droneToDel);
 
-        public void delFromStations(Station stationToDel);
+        public void delFromStations(Station stationToDel, bool free);
 
         public void delFromParcels(Parcel parcelToDel);
 

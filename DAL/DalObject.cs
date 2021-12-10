@@ -66,31 +66,35 @@ namespace DalObject
         public void delFromDrones(Drone droneToDel)
         {
             Parcel parcelToUpdate = DataSource.parcels.Find(x => x.Droneld == droneToDel.Id);
-            if (parcelToUpdate.Delivered == new DateTime(01, 01, 0001))
+            if (parcelToUpdate.Id!=0)
             {
-                delFromParcels(parcelToUpdate);
-                parcelToUpdate.Scheduled = new DateTime(01, 01, 0001);
-                parcelToUpdate.PickedUp = new DateTime(01, 01, 0001);
-                parcelToUpdate.Droneld = 0;
-                addParcel(parcelToUpdate);
+                if (parcelToUpdate.Delivered == new DateTime(01, 01, 0001))
+                {
+                    delFromParcels(parcelToUpdate);
+                    parcelToUpdate.Scheduled = new DateTime(01, 01, 0001);
+                    parcelToUpdate.PickedUp = new DateTime(01, 01, 0001);
+                    parcelToUpdate.Droneld = 0;
+                    addParcel(parcelToUpdate);
+                }
             }
-        
-            
+             
             DataSource.drones.Remove(droneToDel);
         }
 
-        public void delFromStations(Station stationToDel)
+        public void delFromStations(Station stationToDel, bool freeDrone=true)
         {
-
-            foreach (var item in DataSource.dronesCharge)
+            if (freeDrone)
             {
-                if (item.Stationld == stationToDel.Id)
+                foreach (var item in DataSource.dronesCharge)
                 {
-                    Drone droneToUpdate = getDrone(item.Droneld);
-
-                    freeDroneCharge(droneToUpdate);
+                    if (item.Stationld == stationToDel.Id)
+                    {
+                        Drone droneToUpdate = getDrone(item.Droneld);
+                        freeDroneCharge(droneToUpdate);
+                    }
                 }
             }
+           
             DataSource.stations.Remove(stationToDel);
         }
 
@@ -107,7 +111,7 @@ namespace DalObject
         public void delFromChargingDrone (DroneCharge droneCharge)
         {
             Station stationToUpdate = DataSource.stations.Find (x => x.Id == droneCharge.Stationld);
-            delFromStations(stationToUpdate);
+            DataSource.stations.Remove(stationToUpdate);
             plusChargeSlots(ref stationToUpdate);
             addStaion(stationToUpdate);
 
@@ -323,9 +327,7 @@ namespace DalObject
                 if (droneChargeToDel.Droneld != 0 && droneChargeToDel.Stationld != 0)
                 {
                     delFromChargingDrone(droneChargeToDel);
-                    delFromStations(myStation);
-                    plusChargeSlots(ref myStation);
-                    addStaion(myStation);
+                    
                     return;
                 }
 

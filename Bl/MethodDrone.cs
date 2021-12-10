@@ -48,15 +48,15 @@ namespace IBL
 
                     numParcel = 0
                 };
-
+                drones.Add(DroneToAddBL);
             }
             catch (IDAL.DO.AlreadyExistException ex)
             {
-                throw new AlreadyExistException("",ex);
+                throw new AlreadyExistException(ex.Message);
             }
             catch (IDAL.DO.chargingException ex)
             {
-                throw new NoFreeChargingStations("",ex);
+                throw new NoFreeChargingStations(ex.Message);
             }
 
 
@@ -93,14 +93,13 @@ namespace IBL
         {
             try
             {
+                DroneToList droneToUpdate_bl = drones.Find(X => X.Id == idDrone);
+                drones.Remove(droneToUpdate_bl);
+                
                 var droneToUpdate_dal = dal.getDrone(idDrone);
 
                 //Remove the drone from IDAL.DO.drones
                 dal.delFromDrones(droneToUpdate_dal);
-
-                //Remove the drone from BL.drones
-                var droneToUpdate_bl = getDrone(idDrone);
-                drones.Remove(droneToUpdate_bl);
 
                 droneToUpdate_dal.Model = newModel;//update IDAL.DO.drones model
                 droneToUpdate_bl.Model = newModel;//update BL.drones model
@@ -110,11 +109,11 @@ namespace IBL
             }
             catch (IDAL.DO.DoesntExistentObjectException ex)
             {
-                throw new DoesntExistentObjectException("", ex);
+                throw new DoesntExistentObjectException(ex.Message);
             }
             catch (IDAL.DO.AlreadyExistException ex)
             {
-                throw new AlreadyExistException("", ex);
+                throw new AlreadyExistException(ex.Message);
             }
 
         }
@@ -160,12 +159,12 @@ namespace IBL
             }
             catch (IDAL.DO.DoesntExistentObjectException ex)
             {
-                throw new DoesntExistentObjectException("",ex);
+                throw new DoesntExistentObjectException(ex.Message);
             }
 
             catch (IDAL.DO.chargingException ex)
             {
-                throw new NoFreeChargingStations("", ex);
+                throw new NoFreeChargingStations(ex.Message);
             }
         }
 
@@ -176,11 +175,7 @@ namespace IBL
             {
                 DroneToList droneBL = drones.Find(x => x.Id == idDrone);
                 IDAL.DO.Drone droneDal = dal.getDrone(droneBL.Id);
-
-                //List <IDAL.DO.DroneCharge> drones_charge = (List<IDAL.DO.DroneCharge>) dal.getAllDroneCharge();
-
-                //IDAL.DO.DroneCharge droneCharge = drones_charge.Find (x => x.Droneld == idDrone);
-
+             
                 if (droneBL.Status == DroneStatuses.maintenance)
                 {
                     droneBL.Battery = time.Hours * Drone_charging_speed;
@@ -195,7 +190,7 @@ namespace IBL
             }
             catch (IDAL.DO.DoesntExistentObjectException ex)
             {
-                throw new DoesntExistentObjectException("", ex);
+                throw new DoesntExistentObjectException(ex.Message);
             }
 
 
@@ -251,7 +246,7 @@ namespace IBL
             catch (IDAL.DO.DoesntExistentObjectException ex)
             {
 
-                throw new DoesntExistentObjectException("", ex);
+                throw new DoesntExistentObjectException(ex.Message);
             }
            
         }
@@ -274,7 +269,10 @@ namespace IBL
                 IEnumerable<IDAL.DO.Parcel> parcelsDal = dal.getAllParcels();
 
                 IEnumerable<IDAL.DO.Parcel> parcels = enoughBattary(droneBL, parcelsDal);
-
+                if(parcels == null)
+                {
+                    throw new DroneCantBeAssigend("The drone can't be assigen to parcel, he doesn't have enough battary to make the delivery");
+                }
                 IDAL.DO.Parcel parcelToAssign = parcels.First();
 
                 double minDistance = 0, distanceItem;
@@ -362,15 +360,15 @@ namespace IBL
             }
             catch (IDAL.DO.DoesntExistentObjectException ex)
             {
-                throw new DoesntExistentObjectException("", ex);
+                throw new DoesntExistentObjectException(ex.Message, ex);
             }
             catch(IDAL.DO.AlreadyExistException ex)
             {
-                throw new AlreadyExistException("", ex);
+                throw new AlreadyExistException(ex.Message, ex);
             }
             catch (NoSuitablePsrcelWasFoundToBelongToTheDrone ex)
             {
-                throw new NoSuitablePsrcelWasFoundToBelongToTheDrone("", ex);
+                throw new NoSuitablePsrcelWasFoundToBelongToTheDrone(ex.Message, ex);
             };
 
 
@@ -429,11 +427,11 @@ namespace IBL
             }
             catch (IDAL.DO.DoesntExistentObjectException ex)
             {
-                throw new DoesntExistentObjectException("", ex);
+                throw new DoesntExistentObjectException(ex.Message);
             }
             catch(IDAL.DO.AlreadyExistException ex)
             {
-                throw new AlreadyExistException("", ex);
+                throw new AlreadyExistException(ex.Message);
             }
         }
 
@@ -478,7 +476,7 @@ namespace IBL
 
             catch (IDAL.DO.DoesntExistentObjectException ex)
             {
-                throw new DoesntExistentObjectException("", ex);
+                throw new DoesntExistentObjectException(ex.Message);
             }
           
         }
