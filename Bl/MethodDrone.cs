@@ -46,7 +46,7 @@ namespace IBL
 
                     CurrentLocation = DroneToAdd.CurrentLocation,
 
-                    numParcel = 0
+                    idParcel = 0
                 };
                 drones.Add(DroneToAddBL);
             }
@@ -76,7 +76,7 @@ namespace IBL
                         Battery = item.Battery,
                         Status = item.Status,
                         CurrentLocation = item.CurrentLocation,
-                        numParcel = item.numParcel,
+                        idParcel = item.idParcel,
                     };
             }
 
@@ -178,7 +178,13 @@ namespace IBL
              
                 if (droneBL.Status == DroneStatuses.maintenance)
                 {
-                    droneBL.Battery = time.Hours * Drone_charging_speed;
+
+                    double hoursnInCahrge = time.Hours + (((double)(time.Minutes)) / 60) + (((double)(time.Seconds) / 3600));
+                    double batrryCharge = hoursnInCahrge * Drone_charging_speed + droneBL.Battery;
+                    if (batrryCharge > 100) //maximun 100%
+                        batrryCharge = 100;
+
+                    droneBL.Battery = batrryCharge;
                     droneBL.Status = DroneStatuses.available;
 
                     dal.freeDroneCharge(droneDal);
@@ -349,6 +355,11 @@ namespace IBL
                     if (parcelToAssign.Weight <= droneDAL.MaxWeight)
                     {
                         dal.assign_drone_parcel(droneDAL, parcelToAssign);
+                        //עדכון תז החבילה שבהעברה
+                        DroneToList droneToUpdate = drones.Find(x=> x.Id==idDrone);
+                        drones.Remove(droneToUpdate);
+                        droneToUpdate.idParcel = parcelToAssign.Id;
+                        drones.Add(droneToUpdate);
                     }
                     else
                     {
@@ -404,7 +415,7 @@ namespace IBL
                                 Longitude = SenderForLocation.Longitude
                             };
 
-                            droneToUpdate.numParcel = parcelItem.Id;
+                            //droneToUpdate.idParcel = parcelItem.Id;
                             droneToUpdate.MaxWeight = (WeightCategories)parcelItem.Weight;
                             drones.Add(droneToUpdate);
 
@@ -441,7 +452,7 @@ namespace IBL
             try
             {
                 var droneToUpdate = drones.Find(x => x.Id == droneId);
-                var parcel_Ascribed_drone = dal.getParcel(droneToUpdate.numParcel);
+                var parcel_Ascribed_drone = dal.getParcel(droneToUpdate.idParcel);
 
                 if (parcel_Ascribed_drone.PickedUp != new DateTime(01, 01, 0001) && parcel_Ascribed_drone.Delivered == new DateTime(01, 01, 0001))
                 {

@@ -151,20 +151,21 @@ namespace IBL
                                 if (temp.MaxWeight == WeightCategories.light)
                                 {
                                     double powerForDistance = power[1] * minDistance/Math.Pow(10,3);
-                                    temp.Battery = rand.NextDouble() * (100 - powerForDistance) + powerForDistance;                     
+                                    temp.Battery = (int)(rand.NextDouble() * (100 - powerForDistance) + powerForDistance);                  
                                 }
 
                                 if (temp.MaxWeight == WeightCategories.medium)
                                 {
                                     double powerForDistance = power[2] * minDistance / Math.Pow(10, 3);
-                                    temp.Battery = rand.NextDouble() * (100 - powerForDistance) + powerForDistance;
+                                    temp.Battery = (int)(rand.NextDouble() * (100 - powerForDistance) + powerForDistance);
                                 }
 
                                 if (temp.MaxWeight == WeightCategories.heavy)
                                 {
                                     double powerForDistance = power[3] * minDistance / Math.Pow(10, 3);
-                                    temp.Battery = rand.NextDouble() * (100 - powerForDistance) + powerForDistance;
+                                    temp.Battery = (int)(rand.NextDouble() * (100 - powerForDistance) + powerForDistance);
                                 }
+                      
                                 drones.Add(temp);
                                 break;
                             }
