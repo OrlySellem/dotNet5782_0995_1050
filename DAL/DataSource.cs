@@ -62,8 +62,8 @@ namespace DalObject
                 {
                     Id = rand.Next(10000, 99999),
                     Name = i,
-                    Longitude = rand.Next(1000, 4000),
-                    Lattitude = rand.Next(1000, 4000),
+                    Longitude = rand.Next(-180, 180),
+                    Lattitude = rand.Next(-90, 90),
                     ChargeSlots = rand.Next(1, 10),
                 };
                 stations.Add(temp);

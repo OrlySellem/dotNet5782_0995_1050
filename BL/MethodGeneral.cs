@@ -133,7 +133,7 @@ namespace IBL
                             if (itemParcel.Delivered == new DateTime(01, 01, 0001))//The parcel isn't delivered
                             {
                                 temp.Status = DroneStatuses.delivery;
-
+                                temp.idParcel = itemParcel.Id;
                                 if (itemParcel.PickedUp == new DateTime(01, 01, 0001))//The parcel isn't pick up from the station
                                 {
 
@@ -148,19 +148,19 @@ namespace IBL
                                     };
                                 }
 
-                                if (temp.MaxWeight == WeightCategories.light)
+                                if ((WeightCategories)itemParcel.Weight == WeightCategories.light)
                                 {
                                     double powerForDistance = power[1] * minDistance/Math.Pow(10,3);
                                     temp.Battery = (int)(rand.NextDouble() * (100 - powerForDistance) + powerForDistance);                  
                                 }
 
-                                if (temp.MaxWeight == WeightCategories.medium)
+                                if ((WeightCategories)itemParcel.Weight == WeightCategories.medium)
                                 {
                                     double powerForDistance = power[2] * minDistance / Math.Pow(10, 3);
                                     temp.Battery = (int)(rand.NextDouble() * (100 - powerForDistance) + powerForDistance);
                                 }
 
-                                if (temp.MaxWeight == WeightCategories.heavy)
+                                if ((WeightCategories)itemParcel.Weight == WeightCategories.heavy)
                                 {
                                     double powerForDistance = power[3] * minDistance / Math.Pow(10, 3);
                                     temp.Battery = (int)(rand.NextDouble() * (100 - powerForDistance) + powerForDistance);

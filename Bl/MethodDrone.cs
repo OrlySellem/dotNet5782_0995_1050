@@ -169,7 +169,7 @@ namespace IBL
         }
 
 
-        public void freeDroneFromCharging(int idDrone, TimeSpan time)
+        public void freeDroneFromCharging(int idDrone, DateTime time)
         {
             try
             {
@@ -179,9 +179,9 @@ namespace IBL
                 if (droneBL.Status == DroneStatuses.maintenance)
                 {
 
-                    double hoursnInCahrge = time.Hours + (((double)(time.Minutes)) / 60) + (((double)(time.Seconds) / 3600));
+                    double hoursnInCahrge = time.Hour + (((double)(time.Minute)) / 60) + (((double)(time.Second) / 3600));
                     double batrryCharge = hoursnInCahrge * Drone_charging_speed + droneBL.Battery;
-                    if (batrryCharge > 100) //maximun 100%
+                    if (batrryCharge > 100)
                         batrryCharge = 100;
 
                     droneBL.Battery = batrryCharge;

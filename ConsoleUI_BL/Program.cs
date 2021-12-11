@@ -226,10 +226,15 @@ namespace ConsoleUI_BL
                                     Console.WriteLine("Please enter drone's id:");
                                     id = int.Parse(Console.ReadLine());
 
-                                    Console.WriteLine("How long has the drone been charging?");
-                                    TimeSpan chargingTime = new TimeSpan(TimeSpan.Parse(Console.ReadLine()));
-                                    chargingTime = TimeSpan.Parse(Console.ReadLine());
-
+                                    Console.WriteLine("How long has the drone been charging");
+                         
+                                    DateTime chargingTime = new DateTime();
+                                    chargingTime.AddHours(Console.Read());
+                                    Console.ReadKey();
+                                    chargingTime.AddMinutes(Console.Read());
+                                    Console.ReadKey();
+                                    chargingTime.AddSeconds(Console.Read());
+                                 //   DateTime.TryParse(Console.ReadLine(), out chargingTime);
                                     mainBl.freeDroneFromCharging(id, chargingTime);
                                     break;
 

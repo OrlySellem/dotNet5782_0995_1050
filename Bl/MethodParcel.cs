@@ -95,7 +95,7 @@ namespace IBL
                     addParcel.ParcelStatus = ParcelStatus.scheduled;
                 if (parcelItem.PickedUp != new DateTime(01, 01, 0001) && parcelItem.Delivered == new DateTime(01, 01, 0001))
                     addParcel.ParcelStatus = ParcelStatus.PickedUp;
-                if (parcelItem.Delivered == new DateTime(01, 01, 0001))
+                if (parcelItem.Delivered != new DateTime(01, 01, 0001))
                     addParcel.ParcelStatus = ParcelStatus.Delivered;
 
 
