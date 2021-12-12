@@ -95,7 +95,7 @@ namespace IBL
             {
                 DroneToList droneToUpdate_bl = drones.Find(X => X.Id == idDrone);
                 drones.Remove(droneToUpdate_bl);
-                
+
                 var droneToUpdate_dal = dal.getDrone(idDrone);
 
                 //Remove the drone from IDAL.DO.drones
@@ -175,7 +175,7 @@ namespace IBL
             {
                 DroneToList droneBL = drones.Find(x => x.Id == idDrone);
                 IDAL.DO.Drone droneDal = dal.getDrone(droneBL.Id);
-             
+
                 if (droneBL.Status == DroneStatuses.maintenance)
                 {
                     //double hoursnInCahrge = time.Hour + (((double)(time.Minute)) / 60) + (((double)(time.Second) / 3600
@@ -206,7 +206,7 @@ namespace IBL
 
         }
 
-        IEnumerable<IDAL.DO.Parcel> enoughBattary(DroneToList drone, IEnumerable<IDAL.DO.Parcel> parcelsDal)
+        IEnumerable<IDAL.DO.Parcel> relevantParcel_enoughBattary(DroneToList drone, IEnumerable<IDAL.DO.Parcel> parcelsDal)
         {
             try
             {
@@ -216,39 +216,48 @@ namespace IBL
                 List<IDAL.DO.Parcel> parcels = new List<IDAL.DO.Parcel>();
                 foreach (var item in parcelsDal)
                 {
-                    IDAL.DO.Customer sender = dal.getCustomer(item.Senderld);
-                    IDAL.DO.Customer target = dal.getCustomer(item.Targetld);
-                    double minDistance = 0;
-                    Location nearStation = nearStationToCustomer(target.Id, ref minDistance);
-
-                    distance_DroneToSender = Math.Sqrt(Math.Pow(drone.CurrentLocation.Lattitude - sender.Lattitude, 2) + Math.Pow(drone.CurrentLocation.Longitude - sender.Longitude, 2));
-
-                    distance_SenderToTarge = Math.Sqrt(Math.Pow(sender.Lattitude - target.Lattitude, 2) + Math.Pow(sender.Longitude - target.Longitude, 2));
-
-                    distance_TargetToStationt = Math.Sqrt(Math.Pow(target.Lattitude - nearStation.Lattitude, 2) + Math.Pow(target.Longitude - nearStation.Longitude, 2));
-
-                    totalDistance =( distance_DroneToSender + distance_SenderToTarge + distance_TargetToStationt)/Math.Pow(10,3);
-
-
-                    if (drone.MaxWeight == WeightCategories.light)
+                    if (item.Delivered == null)
                     {
-                        powerForDistance = lightWeight * totalDistance;
-                    }
+                        IDAL.DO.Customer sender = dal.getCustomer(item.Senderld);
+                        IDAL.DO.Customer target = dal.getCustomer(item.Targetld);
+                        double minDistance = 0;
+                        Location nearStation = nearStationToCustomer(target.Id, ref minDistance);
 
-                    if (drone.MaxWeight == WeightCategories.medium)
-                    {
-                        powerForDistance = mediumWeight * totalDistance;
-                    }
+                        distance_DroneToSender = Math.Sqrt(Math.Pow(drone.CurrentLocation.Lattitude - sender.Lattitude, 2) + Math.Pow(drone.CurrentLocation.Longitude - sender.Longitude, 2));
 
-                    if (drone.MaxWeight == WeightCategories.heavy)
-                    {
-                        powerForDistance = heavyWeight * minDistance;
-                    }
+                        distance_SenderToTarge = Math.Sqrt(Math.Pow(sender.Lattitude - target.Lattitude, 2) + Math.Pow(sender.Longitude - target.Longitude, 2));
 
-                    if (powerForDistance <= drone.Battery)
-                    {
-                        parcels.Add(item);
+                        distance_TargetToStationt = Math.Sqrt(Math.Pow(target.Lattitude - nearStation.Lattitude, 2) + Math.Pow(target.Longitude - nearStation.Longitude, 2));
+
+                        totalDistance = (distance_DroneToSender + distance_SenderToTarge + distance_TargetToStationt) / Math.Pow(10, 3);
+
+
+                        if (drone.MaxWeight == WeightCategories.light)
+                        {
+                            powerForDistance = lightWeight * totalDistance;
+                        }
+
+                        if (drone.MaxWeight == WeightCategories.medium)
+                        {
+                            powerForDistance = mediumWeight * totalDistance;
+                        }
+
+                        if (drone.MaxWeight == WeightCategories.heavy)
+                        {
+                            powerForDistance = heavyWeight * minDistance;
+                        }
+
+                        if (powerForDistance <= drone.Battery)
+                        {
+                            if ((WeightCategories)item.Weight <= drone.MaxWeight)
+                                parcels.Add(item);
+
+                        }
                     }
+                }
+                if (parcels == null)
+                {
+                    throw new NoSuitablePsrcelWasFoundToBelongToTheDrone("There isn't parcel suitable for delivery by the current drone");
                 }
 
                 return parcels;
@@ -258,36 +267,31 @@ namespace IBL
 
                 throw new DoesntExistentObjectException(ex.Message);
             }
-           
+
         }
 
         double distance(IDAL.DO.Parcel parcelToAssign, DroneToList droneBL)
         {
             double minDistance = Math.Sqrt(Math.Pow(dal.getCustomer(parcelToAssign.Targetld).Lattitude - droneBL.CurrentLocation.Lattitude, 2) + Math.Pow(dal.getCustomer(parcelToAssign.Targetld).Longitude - droneBL.CurrentLocation.Longitude, 2));
-            return minDistance/Math.Pow(10,3);
+            return minDistance / Math.Pow(10, 3);
         }
         public void assignDroneToParcel(int idDrone)
         {
             try
             {
-                DroneToList droneBL = drones.Find(x => x.Id == idDrone);
+                DroneToList droneToUpdate = drones.Find(x => x.Id == idDrone);
 
                 IDAL.DO.Drone droneDAL = dal.getDrone(idDrone);
 
-                dal.delFromDrones(droneDAL);
-
                 IEnumerable<IDAL.DO.Parcel> parcelsDal = dal.getAllParcels();
 
-                IEnumerable<IDAL.DO.Parcel> parcels = enoughBattary(droneBL, parcelsDal);
-                if(parcels == null)
-                {
-                    throw new DroneCantBeAssigend("The drone can't be assigen to parcel, he doesn't have enough battary to make the delivery");
-                }
+                IEnumerable<IDAL.DO.Parcel> parcels = relevantParcel_enoughBattary(droneToUpdate, parcelsDal);
+
                 IDAL.DO.Parcel parcelToAssign = parcels.First();
 
                 double minDistance = 0, distanceItem;
 
-                if (droneBL.Status == DroneStatuses.available)
+                if (droneToUpdate.Status == DroneStatuses.available)
                 {
                     foreach (var item in parcels)
                     {
@@ -299,7 +303,7 @@ namespace IBL
                         if (parcelToAssign.Priority < item.Priority)
                         {
                             parcelToAssign = item;
-                            minDistance = distance(item, droneBL);
+                            minDistance = distance(item, droneToUpdate);
                             continue;
                         }
                         else if (parcelToAssign.Priority == item.Priority)
@@ -309,7 +313,7 @@ namespace IBL
                                 if (item.Weight <= droneDAL.MaxWeight)
                                 {
                                     parcelToAssign = item;
-                                    minDistance = distance(item, droneBL);
+                                    minDistance = distance(item, droneToUpdate);
                                     continue;
                                 }
                                 else
@@ -319,11 +323,11 @@ namespace IBL
                             }
                             else if (parcelToAssign.Weight == item.Weight)
                             {
-                                distanceItem = distance(item, droneBL);
+                                distanceItem = distance(item, droneToUpdate);
                                 if (minDistance > distanceItem)
                                 {
                                     parcelToAssign = item;
-                                    minDistance = distance(item, droneBL);
+                                    minDistance = distance(item, droneToUpdate);
                                     continue;
                                 }
                                 else if (minDistance == distanceItem)
@@ -331,7 +335,7 @@ namespace IBL
                                     if (parcelToAssign.Requested > item.Requested)
                                     {
                                         parcelToAssign = item;
-                                        minDistance = distance(item, droneBL);
+                                        minDistance = distance(item, droneToUpdate);
                                         continue;
                                     }
                                     else
@@ -355,20 +359,15 @@ namespace IBL
                         }
 
                     }
+                    dal.assign_drone_parcel(droneDAL, parcelToAssign);
+                    //עדכון תז החבילה שבהעברה
+                    drones.Remove(droneToUpdate);
+                    droneToUpdate.Status = DroneStatuses.delivery;
+                    droneToUpdate.idParcel = parcelToAssign.Id;
 
-                    if (parcelToAssign.Weight <= droneDAL.MaxWeight)
-                    {
-                        dal.assign_drone_parcel(droneDAL, parcelToAssign);
-                        //עדכון תז החבילה שבהעברה
-                        DroneToList droneToUpdate = drones.Find(x=> x.Id==idDrone);
-                        drones.Remove(droneToUpdate);
-                        droneToUpdate.idParcel = parcelToAssign.Id;
-                        drones.Add(droneToUpdate);
-                    }
-                    else
-                    {
-                        throw new NoSuitablePsrcelWasFoundToBelongToTheDrone("There isn't parcel suitable for delivery by the current drone");
-                    }
+                    drones.Add(droneToUpdate);
+
+
 
                 }
 
@@ -377,7 +376,7 @@ namespace IBL
             {
                 throw new DoesntExistentObjectException(ex.Message, ex);
             }
-            catch(IDAL.DO.AlreadyExistException ex)
+            catch (IDAL.DO.AlreadyExistException ex)
             {
                 throw new AlreadyExistException(ex.Message, ex);
             }
@@ -394,48 +393,42 @@ namespace IBL
             try
             {
                 bool flag = true;
-                IEnumerable<IDAL.DO.Parcel> parcelsFromDS = dal.getAllParcels();
+                var droneToUpdate = drones.Find(x => x.Id == droneId);
+                IDAL.DO.Parcel parcelItem = dal.getParcel(droneToUpdate.idParcel);
 
-                foreach (var parcelItem in parcelsFromDS)
+                if (parcelItem.PickedUp ==null && parcelItem.Scheduled != null)
                 {
-                    if (parcelItem.Droneld == droneId)
+                    flag = false;
+                    drones.Remove(droneToUpdate);
+
+                    var SenderForLocation = dal.getCustomer(parcelItem.Senderld);
+
+                    //	עדכון מצב סוללה לפי המרחק בין מיקום מקורי לבין מיקום השולח
+                    double distance = Math.Sqrt(Math.Pow(droneToUpdate.CurrentLocation.Lattitude - SenderForLocation.Lattitude, 2) + Math.Pow(droneToUpdate.CurrentLocation.Longitude - SenderForLocation.Longitude, 2));
+                    droneToUpdate.Battery = droneToUpdate.Battery - ((distance / Math.Pow(10, 3)) * available);//אולי אין מספיק בטריה
+
+                    //	עדכון מיקום למיקום השולח
+                    droneToUpdate.CurrentLocation = new Location()
                     {
-                        if (parcelItem.PickedUp == new DateTime(01, 01, 0001) && parcelItem.Scheduled != new DateTime(01, 01, 0001))
-                        {
-                            flag = false;
-                            var droneToUpdate = drones.Find(x => x.Id == droneId);
-                            drones.Remove(droneToUpdate);
+                        Lattitude = SenderForLocation.Lattitude,
+                        Longitude = SenderForLocation.Longitude
+                    };
 
-                            var SenderForLocation = dal.getCustomer(parcelItem.Senderld);
-
-                            //	עדכון מצב סוללה לפי המרחק בין מיקום מקורי לבין מיקום השולח
-                            double distance = Math.Sqrt(Math.Pow(droneToUpdate.CurrentLocation.Lattitude - SenderForLocation.Lattitude, 2) + Math.Pow(droneToUpdate.CurrentLocation.Longitude - SenderForLocation.Longitude, 2));
-                            droneToUpdate.Battery = droneToUpdate.Battery - (distance * available);//אולי אין מספיק בטריה
-
-                            //	עדכון מיקום למיקום השולח
-                            droneToUpdate.CurrentLocation = new Location()
-                            {
-                                Lattitude = SenderForLocation.Lattitude,
-                                Longitude = SenderForLocation.Longitude
-                            };
-
-                            //droneToUpdate.idParcel = parcelItem.Id;
-                            droneToUpdate.MaxWeight = (WeightCategories)parcelItem.Weight;
-                            drones.Add(droneToUpdate);
+                    drones.Add(droneToUpdate);
 
 
-                            //	 עדכון זמן איסוף חבילה
-                            var parcelToUpdate = dal.getParcel(parcelItem.Id);
-                            dal.delFromParcels(parcelToUpdate);
+                    //	 עדכון זמן איסוף חבילה
+                    var parcelToUpdate = dal.getParcel(parcelItem.Id);
+                    dal.delFromParcels(parcelToUpdate);
 
-                            parcelToUpdate.PickedUp = DateTime.Now;
-                            dal.addParcel(parcelToUpdate);
-                        }
-
-                        throw new DelivereyAlreadyArrive("The drone has already picked up the parcel");
-
-                    }
+                    parcelToUpdate.PickedUp = DateTime.Now;
+                    dal.addParcel(parcelToUpdate);
                 }
+                else
+                    throw new DelivereyAlreadyArrive("The drone has already picked up the parcel");
+
+
+
                 if (flag)
                     throw new DeliveryCannotBeMade("The delivery Cannot Be Made");
 
@@ -444,7 +437,7 @@ namespace IBL
             {
                 throw new DoesntExistentObjectException(ex.Message);
             }
-            catch(IDAL.DO.AlreadyExistException ex)
+            catch (IDAL.DO.AlreadyExistException ex)
             {
                 throw new AlreadyExistException(ex.Message);
             }
@@ -458,7 +451,7 @@ namespace IBL
                 var droneToUpdate = drones.Find(x => x.Id == droneId);
                 var parcel_Ascribed_drone = dal.getParcel(droneToUpdate.idParcel);
 
-                if (parcel_Ascribed_drone.PickedUp != new DateTime(01, 01, 0001) && parcel_Ascribed_drone.Delivered == new DateTime(01, 01, 0001))
+                if (parcel_Ascribed_drone.PickedUp != null && parcel_Ascribed_drone.Delivered ==null)
                 {
                     //רחפן
                     //	עדכון מצב סוללה לפי המרחק בין מיקום מקורי לבין מיקום יעד המשלוח
@@ -466,11 +459,11 @@ namespace IBL
                     double distance = Math.Sqrt(Math.Pow(droneToUpdate.CurrentLocation.Lattitude - TargetldForLocation.Lattitude, 2) + Math.Pow(droneToUpdate.CurrentLocation.Longitude - TargetldForLocation.Longitude, 2));
 
                     if (droneToUpdate.MaxWeight == WeightCategories.light)
-                        droneToUpdate.Battery = droneToUpdate.Battery - (distance * lightWeight);//אולי אין מספיק בטריה
+                        droneToUpdate.Battery = droneToUpdate.Battery - (distance/Math.Pow(10,3) * lightWeight);//אולי אין מספיק בטריה
                     if (droneToUpdate.MaxWeight == WeightCategories.medium)
-                        droneToUpdate.Battery = droneToUpdate.Battery - (distance * mediumWeight);//אולי אין מספיק בטריה
+                        droneToUpdate.Battery = droneToUpdate.Battery - (distance/Math.Pow(10, 3) * mediumWeight);//אולי אין מספיק בטריה
                     if (droneToUpdate.MaxWeight == WeightCategories.heavy)
-                        droneToUpdate.Battery = droneToUpdate.Battery - (distance * available);//אולי אין מספיק בטריה
+                        droneToUpdate.Battery = droneToUpdate.Battery - (distance/Math.Pow(10, 3) * available);//אולי אין מספיק בטריה
 
                     //	עדכון מיקום למיקום יעד המשלוח
                     droneToUpdate.CurrentLocation = new Location()
@@ -483,7 +476,7 @@ namespace IBL
                     droneToUpdate.Status = DroneStatuses.available;
 
                     //	עדכון זמן אספקה
-                    parcel_Ascribed_drone.Delivered = DateTime.Now;
+                    dal.delivery_arrive_toCustomer(parcel_Ascribed_drone);
                 }
                 else
                     throw new DroneCantBeAssigend("The drone can't be assign");
@@ -493,10 +486,10 @@ namespace IBL
             {
                 throw new DoesntExistentObjectException(ex.Message);
             }
-          
+
         }
 
     }
-    
-           
+
+
 }
