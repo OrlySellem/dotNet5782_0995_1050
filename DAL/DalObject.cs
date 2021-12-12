@@ -322,8 +322,6 @@ namespace DalObject
             {
                 DroneCharge droneChargeToDel = DataSource.dronesCharge.Find(x => x.Droneld == droneToUpdate.Id);
 
-                Station myStation = getStation(droneChargeToDel.Stationld);
-
                 if (droneChargeToDel.Droneld != 0 && droneChargeToDel.Stationld != 0)
                 {
                     delFromChargingDrone(droneChargeToDel);

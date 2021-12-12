@@ -169,7 +169,7 @@ namespace IBL
         }
 
 
-        public void freeDroneFromCharging(int idDrone, DateTime time)
+        public void freeDroneFromCharging(int idDrone, double time)
         {
             try
             {
@@ -178,14 +178,18 @@ namespace IBL
              
                 if (droneBL.Status == DroneStatuses.maintenance)
                 {
+                    //double hoursnInCahrge = time.Hour + (((double)(time.Minute)) / 60) + (((double)(time.Second) / 3600
+                    //double batrryCharge = hoursnInCahrge * Drone_charging_speed + droneBL.Battery;
+                    drones.Remove(droneBL);
 
-                    double hoursnInCahrge = time.Hour + (((double)(time.Minute)) / 60) + (((double)(time.Second) / 3600));
-                    double batrryCharge = hoursnInCahrge * Drone_charging_speed + droneBL.Battery;
+                    double batrryCharge = time * Drone_charging_speed + droneBL.Battery;
                     if (batrryCharge > 100)
                         batrryCharge = 100;
 
                     droneBL.Battery = batrryCharge;
                     droneBL.Status = DroneStatuses.available;
+
+                    drones.Add(droneBL);
 
                     dal.freeDroneCharge(droneDal);
                 }
@@ -223,7 +227,7 @@ namespace IBL
 
                     distance_TargetToStationt = Math.Sqrt(Math.Pow(target.Lattitude - nearStation.Lattitude, 2) + Math.Pow(target.Longitude - nearStation.Longitude, 2));
 
-                    totalDistance = distance_DroneToSender + distance_SenderToTarge + distance_TargetToStationt;
+                    totalDistance =( distance_DroneToSender + distance_SenderToTarge + distance_TargetToStationt)/Math.Pow(10,3);
 
 
                     if (drone.MaxWeight == WeightCategories.light)
@@ -260,7 +264,7 @@ namespace IBL
         double distance(IDAL.DO.Parcel parcelToAssign, DroneToList droneBL)
         {
             double minDistance = Math.Sqrt(Math.Pow(dal.getCustomer(parcelToAssign.Targetld).Lattitude - droneBL.CurrentLocation.Lattitude, 2) + Math.Pow(dal.getCustomer(parcelToAssign.Targetld).Longitude - droneBL.CurrentLocation.Longitude, 2));
-            return minDistance;
+            return minDistance/Math.Pow(10,3);
         }
         public void assignDroneToParcel(int idDrone)
         {

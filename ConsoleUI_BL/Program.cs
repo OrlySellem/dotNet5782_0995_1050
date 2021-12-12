@@ -227,14 +227,15 @@ namespace ConsoleUI_BL
                                     id = int.Parse(Console.ReadLine());
 
                                     Console.WriteLine("How long has the drone been charging");
-                         
-                                    DateTime chargingTime = new DateTime();
-                                    chargingTime.AddHours(Console.Read());
-                                    Console.ReadKey();
-                                    chargingTime.AddMinutes(Console.Read());
-                                    Console.ReadKey();
-                                    chargingTime.AddSeconds(Console.Read());
-                                 //   DateTime.TryParse(Console.ReadLine(), out chargingTime);
+
+                                    double chargingTime = double.Parse(Console.ReadLine());
+                                 //   DateTime chargingTime = new DateTime();
+                                 //   chargingTime.AddHours(Console.Read());
+                                 //   Console.ReadKey();
+                                 //   chargingTime.AddMinutes(Console.Read());
+                                 //   Console.ReadKey();
+                                 //   chargingTime.AddSeconds(Console.Read());
+                                 ////   DateTime.TryParse(Console.ReadLine(), out chargingTime);
                                     mainBl.freeDroneFromCharging(id, chargingTime);
                                     break;
 
