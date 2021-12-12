@@ -130,11 +130,11 @@ namespace IBL
                         if (itemDrone.Id == itemParcel.Droneld)//The drone is assign to parcel
                         {
                             droneAssignToParcel = true;
-                            if (itemParcel.Delivered == new DateTime(01, 01, 0001))//The parcel isn't delivered
+                            if (itemParcel.Delivered == null)//The parcel isn't delivered
                             {
                                 temp.Status = DroneStatuses.delivery;
                                 temp.idParcel = itemParcel.Id;
-                                if (itemParcel.PickedUp == new DateTime(01, 01, 0001))//The parcel isn't pick up from the station
+                                if (itemParcel.PickedUp == null)//The parcel isn't pick up from the station
                                 {
 
                                     temp.CurrentLocation = nearStationToCustomer(itemParcel.Senderld, ref minDistance);//מיקום הרחפן יהיה בתחנה הקרובה לשולח 
