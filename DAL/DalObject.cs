@@ -242,7 +242,7 @@ namespace DalObject
             catch (DoesntExistentObjectException ex)
             {
 
-                throw new DoesntExistentObjectException("",ex);
+                throw new DoesntExistentObjectException(ex.Message);
             }
            
         }
@@ -264,7 +264,7 @@ namespace DalObject
             }
             catch (DoesntExistentObjectException ex)
             {
-                throw new DoesntExistentObjectException("", ex);
+                throw new DoesntExistentObjectException(ex.Message);
             }
             
                   
@@ -286,7 +286,7 @@ namespace DalObject
             }
             catch (DoesntExistentObjectException ex)
             {
-                throw new DoesntExistentObjectException("", ex);
+                throw new DoesntExistentObjectException(ex.Message);
             }
             
         }
@@ -314,7 +314,7 @@ namespace DalObject
             catch (DoesntExistentObjectException ex)
             {
 
-                throw new DoesntExistentObjectException("", ex);
+                throw new DoesntExistentObjectException(ex.Message);
             }
                     
         }
@@ -337,7 +337,7 @@ namespace DalObject
             catch (DoesntExistentObjectException ex)
             {
 
-                throw new DoesntExistentObjectException("", ex);
+                throw new DoesntExistentObjectException(ex.Message);
             }
             
             
