@@ -50,14 +50,20 @@ namespace DalObject
 
             DataSource.customers.Add(CustomerToAdd);
         }
-
+        //צריך שהתוכנית תגדיר לו ת"ז
         public void addParcel(Parcel ParcelToAdd)
         {
             Parcel temp = DataSource.parcels.Find(x => x.Id == ParcelToAdd.Id);
             if (temp.Id != 0)
                 throw new AlreadyExistException("parcel");
+            if (ParcelToAdd.Id != 0)
+                ParcelToAdd.Id = ParcelToAdd.Id;
+            else
+            {
+                ParcelToAdd.Id = DataSource.Config.idParcel++;
+            }
 
-            temp.Id = DataSource.Config.idParcel++;
+
             DataSource.parcels.Add(ParcelToAdd);
         }
         #endregion
@@ -68,11 +74,11 @@ namespace DalObject
             Parcel parcelToUpdate = DataSource.parcels.Find(x => x.Droneld == droneToDel.Id);
             if (parcelToUpdate.Id!=0)
             {
-                if (parcelToUpdate.Delivered == new DateTime(01, 01, 0001))
+                if (parcelToUpdate.Delivered == null)
                 {
                     delFromParcels(parcelToUpdate);
-                    parcelToUpdate.Scheduled = new DateTime(01, 01, 0001);
-                    parcelToUpdate.PickedUp = new DateTime(01, 01, 0001);
+                    parcelToUpdate.Scheduled =null;
+                    parcelToUpdate.PickedUp =null;
                     parcelToUpdate.Droneld = 0;
                     addParcel(parcelToUpdate);
                 }
@@ -186,7 +192,7 @@ namespace DalObject
          List<Parcel> parcelsList = new List<Parcel>();
             foreach (Parcel item in DataSource.parcels)
             {
-                if (item.Droneld == 0 && item.Scheduled == new DateTime(01, 01, 0001))
+                if (item.Droneld == 0 && item.Scheduled ==null)
                     parcelsList.Add(item);
             }
             return parcelsList;
@@ -225,13 +231,10 @@ namespace DalObject
         {
             try
             {
-                Drone myDrone = getDrone(droneToUpdate.Id);
                 Parcel myParcel = getParcel(parcelToUpdate.Id);
-
-                DataSource.drones.Remove(droneToUpdate);
                 DataSource.parcels.Remove(parcelToUpdate);
 
-                myParcel.Droneld = myDrone.Id;
+                myParcel.Droneld = droneToUpdate.Id;
                 myParcel.Scheduled = DateTime.Now;
 
                 DataSource.parcels.Add(myParcel);
@@ -267,7 +270,7 @@ namespace DalObject
                   
         }
 
-        public void delivery_arrive_toCustomer(Drone droneToUpdate, Parcel parcelToUpdate)//The delivery arrived to the customer
+        public void delivery_arrive_toCustomer( Parcel parcelToUpdate)//The delivery arrived to the customer
         {
             try
             {
@@ -321,8 +324,6 @@ namespace DalObject
             try
             {
                 DroneCharge droneChargeToDel = DataSource.dronesCharge.Find(x => x.Droneld == droneToUpdate.Id);
-
-                Station myStation = getStation(droneChargeToDel.Stationld);
 
                 if (droneChargeToDel.Droneld != 0 && droneChargeToDel.Stationld != 0)
                 {

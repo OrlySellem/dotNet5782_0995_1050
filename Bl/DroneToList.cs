@@ -16,11 +16,11 @@
 
             public Location CurrentLocation { get; set; }
 
-            public int numParcel { get; set; }
+            public int idParcel { get; set; }
 
             public override string ToString()
             {
-                return string.Format("\nId is:{0}\nModel is:{1}\nMaxWeight is:{2}\nBattery is:{3}\nStatus is:{4}\nThe current location is:{5}\nParcel in transfer is:{6}", Id, Model, MaxWeight, Battery, Status, CurrentLocation, numParcel);
+                return string.Format("\nId is:{0}\nModel is:{1}\nMaxWeight is:{2}\nBattery is:{3}\nStatus is:{4}\nThe current location is:{5}Parcel in transfer is:{6}\n", Id, Model, MaxWeight, Battery, Status, CurrentLocation, idParcel);
             }
 
         }

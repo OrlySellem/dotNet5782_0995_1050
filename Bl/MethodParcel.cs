@@ -15,15 +15,16 @@ namespace IBL
             {
                 IDAL.DO.Parcel dalParcel = new IDAL.DO.Parcel()
                 {
+                    Id=0,
                     Senderld = ParcelToAdd.Senderld,
                     Targetld = ParcelToAdd.Targetld,
                     Weight = (IDAL.DO.WeightCategories)ParcelToAdd.Weight,
                     Priority = (IDAL.DO.Priorities)ParcelToAdd.Priority,
                     Requested = DateTime.Now,
                     Droneld = 0,
-                    Scheduled = new DateTime(01 / 01 / 0001),
-                    PickedUp = new DateTime(01 / 01 / 0001),
-                    Delivered = new DateTime(01 / 01 / 0001)
+                    Scheduled =null,
+                    PickedUp =null,
+                    Delivered = null
                 };
 
                 dal.addParcel(dalParcel);
@@ -89,13 +90,13 @@ namespace IBL
                     Priority = (Priorities)parcelItem.Priority,
                 };
 
-                if (parcelItem.Requested != new DateTime(01, 01, 0001) && parcelItem.Scheduled == new DateTime(01, 01, 0001))
+                if (parcelItem.Requested != null && parcelItem.Scheduled ==null)
                     addParcel.ParcelStatus = ParcelStatus.requested;
-                if (parcelItem.Scheduled != new DateTime(01, 01, 0001) && parcelItem.PickedUp == new DateTime(01, 01, 0001))
+                if (parcelItem.Scheduled != null && parcelItem.PickedUp == null)
                     addParcel.ParcelStatus = ParcelStatus.scheduled;
-                if (parcelItem.PickedUp != new DateTime(01, 01, 0001) && parcelItem.Delivered == new DateTime(01, 01, 0001))
+                if (parcelItem.PickedUp != null && parcelItem.Delivered == null)
                     addParcel.ParcelStatus = ParcelStatus.PickedUp;
-                if (parcelItem.Delivered == new DateTime(01, 01, 0001))
+                if (parcelItem.Delivered !=null)
                     addParcel.ParcelStatus = ParcelStatus.Delivered;
 
 

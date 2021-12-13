@@ -20,7 +20,7 @@ namespace IBL
 
         public enum Display { displayStation, displayDrone, displayCustomer, displayParcel }
 
-        public enum DisplayListOptions { displayCustomers, displayDrones, displayStations, displayParcels, display_parcels_without_drone, display_station_with_freeChargingStations }
+        public enum DisplayListOptions { displayStations, displayDrones, displayCustomers, displayParcels, display_parcels_without_drone, display_station_with_freeChargingStations }
 
         public enum DroneStatuses { available, maintenance, delivery }
 

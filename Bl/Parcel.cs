@@ -20,15 +20,15 @@ namespace IBL
 
             public Priorities Priority { get; set; }
 
-            public DateTime Requested { get; set; }
+            public DateTime? Requested { get; set; }
 
             public int Droneld { get; set; }
 
-            public DateTime Scheduled { get; set; }
+            public DateTime? Scheduled { get; set; }
 
-            public DateTime PickedUp { get; set; }
+            public DateTime? PickedUp { get; set; }
 
-            public DateTime Delivered { get; set; }
+            public DateTime? Delivered { get; set; }
 
             public override string ToString()
             {
