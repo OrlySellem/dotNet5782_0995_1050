@@ -44,6 +44,26 @@ namespace IBL
                     Lattitude = s.Lattitude
                 };
 
+                List<IDAL.DO.DroneCharge> chargingDronesDAL = (List<IDAL.DO.DroneCharge>)dal.getAllDroneCharge();
+
+                List<ChargingDrone> chargingDronesBL = new List<ChargingDrone>();
+
+                foreach (var item in chargingDronesDAL)
+                {
+                    if (item.Stationld == s.Id)
+                    {
+
+                        var itemBL = new ChargingDrone()
+                        {
+                            Id = item.Droneld,
+                            Battery = getDrone(item.Droneld).Battery
+                        };
+
+                        chargingDronesBL.Add(itemBL);
+                    }
+
+                }
+
                 return new BO.Station//have to add chargingDrone list!! - לעשות
                 {
                     Id = s.Id,
@@ -53,6 +73,8 @@ namespace IBL
                     Address = address,
 
                     ChargeSlots = s.ChargeSlots,
+
+                    Charging_drones = chargingDronesBL
                 };
             }
             catch (IDAL.DO.DoesntExistentObjectException ex)
@@ -87,8 +109,6 @@ namespace IBL
                     ChargeSlotsFree = stationItem.ChargeSlots,
                     ChargeSlotsFull = ChargeSlotsFull_conster
 
-
-
                 };
                 StationList_bl.Add(addStation);
             }
@@ -101,7 +121,9 @@ namespace IBL
             try
             {
                 var updateStation = dal.getStation(idStation);
-                dal.delFromStations(updateStation);
+                List<IDAL.DO.DroneCharge> chargingDrones = (List<IDAL.DO.DroneCharge>)dal.getAllDroneCharge();
+     
+                dal.delFromStations(updateStation, false);
 
                 var chargeSlotsDal = dal.getAllDroneCharge();
 
