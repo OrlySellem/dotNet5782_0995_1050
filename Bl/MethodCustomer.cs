@@ -140,11 +140,11 @@ namespace IBL
 
             catch (IDAL.DO.DoesntExistentObjectException ex)
             {
-                throw new DoesntExistentObjectException("",ex);
+                throw new DoesntExistentObjectException(ex.Message);
             }
             catch (IDAL.DO.AlreadyExistException ex)
             {
-                throw new AlreadyExistException("", ex);
+                throw new AlreadyExistException(ex.Message);
             }
 
 
