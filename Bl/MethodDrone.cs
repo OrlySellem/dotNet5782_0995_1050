@@ -366,9 +366,10 @@ namespace IBL
                     droneToUpdate.idParcel = parcelToAssign.Id;
 
                     drones.Add(droneToUpdate);
-
-
-
+                }
+                else
+                {
+                    throw new TheDroneCanNotBeSentForCharging("The drone isn't available");
                 }
 
             }
