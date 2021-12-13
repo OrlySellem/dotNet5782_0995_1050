@@ -27,7 +27,7 @@ namespace IBL
             }
             catch (IDAL.DO.AlreadyExistException ex)
             {
-                throw new AlreadyExistException("", ex);
+                throw new AlreadyExistException(ex.Message);
             }
            
         }
@@ -60,7 +60,7 @@ namespace IBL
             catch (IDAL.DO.DoesntExistentObjectException ex)
             {
 
-                throw new DoesntExistentObjectException("",ex);
+                throw new DoesntExistentObjectException(ex.Message);
             }
                 
         }
@@ -85,18 +85,18 @@ namespace IBL
                 {
                     if (parcelItem.Senderld == itemCustomer.Id)
                     {
-                        if(parcelItem.Delivered != new DateTime(01, 01, 0001))
+                        if(parcelItem.Delivered != null)
                             send_and_Deliver_conster++;
 
-                        if (parcelItem.Delivered == new DateTime(01, 01, 0001) && parcelItem.PickedUp != new DateTime(01, 01, 0001))
+                        if (parcelItem.Delivered ==null && parcelItem.PickedUp != null)
                             send_and_not_provided_conster++;
                     }
                     if (parcelItem.Targetld == itemCustomer.Id)
                     {
-                        if (parcelItem.Delivered != new DateTime(01, 01, 0001))
+                        if (parcelItem.Delivered !=null)
                             target_and_Deliver_conster++;
 
-                        if (parcelItem.Delivered == new DateTime(01, 01, 0001) && parcelItem.PickedUp != new DateTime(01, 01, 0001))
+                        if (parcelItem.Delivered == null && parcelItem.PickedUp != null)
                             target_and_not_provided_conster++;
                     }
                 }
