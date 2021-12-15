@@ -126,6 +126,13 @@ namespace DalObject
 
         #endregion
 
+
+
+
+        //public IEnumerable <Parcel> 
+
+
+
         #region GET 
         public Parcel getParcel(int id)//Finds the requested parcel from the arr
         {

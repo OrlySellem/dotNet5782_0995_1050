@@ -49,6 +49,9 @@ namespace IBL
 
         #endregion
         // 
+        #region gat single
+        public DroneToList getDrone(int id);
+        #endregion
 
     }
 }
