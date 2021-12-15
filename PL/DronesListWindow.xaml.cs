@@ -11,7 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using IBL;
+using IBL.BO;
 namespace PL
 {
     /// <summary>
@@ -25,14 +26,23 @@ namespace PL
             InitializeComponent();
             dronesBL = bl;
 
-            DronesView.ItemsSource = dronesBL.getAllDronens();
-            //MaxWeight.ItemsSource = 
+            DronesListView.ItemsSource = dronesBL.getAllDronens();
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
         }
 
         private void ChooseDroneToShow_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            DroneWindow win = new DroneWindow();
-            win.ShowDialog();
+            
+        }
+
+        private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e) {}
+
+        private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e) {}
+
+        private void addDroneToList_Click(object sender, RoutedEventArgs e)
+        {       
+            new DroneWindow().ShowDialog();
         }
     }
 }

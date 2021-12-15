@@ -20,6 +20,8 @@ namespace PL
 
     public partial class MainWindow : Window
     {
+        IBL.IBL mainBl = new IBL.BL();
+
         //Button insertToDroneList;
         public MainWindow()
         {
@@ -32,13 +34,9 @@ namespace PL
             //new DronesListWindow(b1).Show();
         }
 
-        IBL.IBL mainBl = new IBL.BL();
-
         private void insertToDroneList_Click(object sender, RoutedEventArgs e)
         {
-            DronesListWindow window = new DronesListWindow(mainBl);
-
-            window.ShowDialog();
+            new DronesListWindow(mainBl).ShowDialog();
         }
 
         //private void insertToDroneList_Click(object sender, RoutedEventArgs e)

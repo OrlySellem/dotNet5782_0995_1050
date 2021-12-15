@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using IBL;
+using IBL.BO;
 
 namespace PL
 {
@@ -19,9 +21,16 @@ namespace PL
     /// </summary>
     public partial class DroneWindow : Window
     {
-        public DroneWindow()
+        IBL.IBL droneBL;
+        public DroneWindow(IBL.IBL bl)
         {
+            droneBL = bl;
             InitializeComponent();
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

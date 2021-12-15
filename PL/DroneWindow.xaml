@@ -5,13 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="DroneWindow" Height="640" Width="800">
-    <Grid>
-        
-       
-        
-        
-        
-
+        Title="DroneWindow" Height="600" Width="450">
+    <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+VerticalAlignment="Stretch" Width="auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="47*"/>
+            <ColumnDefinition Width="103*"/>
+        </Grid.ColumnDefinitions >
+        <Label Content="Label" HorizontalAlignment="Left" Height="29" Margin="28,21,0,0" VerticalAlignment="Top" Width="82"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Margin="111,21,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
     </Grid>
+
+
 </Window>

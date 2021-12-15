@@ -11,22 +11,25 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+        <ListView x:Name="DronesListView" Grid.Row="1" MouseDoubleClick="ChooseDroneToShow_DoubleClick"/>
+        <Grid/>
+        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
+         VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200*"/>
-                <ColumnDefinition Width="200*"/>
-                <ColumnDefinition Width="200*"/>
-                <ColumnDefinition Width="13*"/>
-            </Grid.ColumnDefinitions >
-            <ComboBox x:Name="MaxWeight"
-                      Grid.Column="1"
-                      HorizontalAlignment="Left" 
-                      Margin="20, 20, 20, 20" 
-                      VerticalAlignment="Top" 
-                      Width="120" Height="26"/>
-            <ComboBox Grid.Column="3" HorizontalAlignment="Left" Margin="57,26,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ComboBox x:Name="StatusSelector" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="StatusSelector_SelectionChanged"/>
+            <ComboBox x:Name="WeightSelector" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelector_SelectionChanged"/>
+            <Label Content=":משקל הרחפן" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="-0.145,0.86"/>
+            <Label Content=":סטטוס הרחפן" HorizontalAlignment="Left" Margin="48,20,0,0" VerticalAlignment="Top" RenderTransformOrigin="-9.916,0.488" Width="152"/>
+            <Grid Grid.Column="3"/>
+            <Button x:Name="addDroneToList" Content="הוספת רחפן" Grid.Column="4" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Center" Height="49" Width="85" Click="addDroneToList_Click"/>
         </Grid>
-        <ListView x:Name="DronesView" Grid.Row="1" MouseDoubleClick="ChooseDroneToShow_DoubleClick"/>
+
     </Grid>
 
 </Window>
