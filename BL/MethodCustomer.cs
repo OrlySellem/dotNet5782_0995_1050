@@ -66,12 +66,12 @@ namespace IBL
         }
 
 
-        public IEnumerable<CustomerToList> getAllCustomers()
+        public IEnumerable<CustomerToList> getAllCustomers(Predicate <CustomerToList> predicate = null)
         {
-            IEnumerable<IDAL.DO.Customer> CustomerList_dal = dal.getAllCustomer();
+            IEnumerable<IDAL.DO.Customer> CustomerList_dal = dal.getCustomers().ToList();
             List<CustomerToList> CustomerList_bl = new List<CustomerToList>();
 
-            IEnumerable<IDAL.DO.Parcel> ParcelsList_dal = dal.getAllParcels();
+            IEnumerable<IDAL.DO.Parcel> ParcelsList_dal = dal.getParcels().ToList();
 
 
             foreach (var itemCustomer in CustomerList_dal)
@@ -115,7 +115,7 @@ namespace IBL
                 CustomerList_bl.Add(addCustomer);
             }
 
-            return CustomerList_bl;
+            return CustomerList_bl.FindAll(x => predicate == null ? true : predicate(x));
         }
 
         public void updateCustomer(int idCustomer, string newName, string newPhone)
