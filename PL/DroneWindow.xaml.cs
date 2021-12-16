@@ -50,9 +50,9 @@ namespace PL
                     MaxWeight = (WeightCategories)WeightSelector.SelectedItem
 
                 };
-                int station = int.Parse((string)idStation.SelectedItem);
+            //    int station = int.Parse(idStation.SelectedItem.ToString());
 
-                droneBL.addDrone(newDrone, station);
+                droneBL.addDrone(newDrone,(int) idStation.SelectedItem);
 
             }
             catch (AlreadyExistException ex)

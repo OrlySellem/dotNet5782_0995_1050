@@ -40,7 +40,7 @@ namespace PL
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-          //  StatusSelector. = StatusSelector.get;
+          StatusSelector.ItemsSource = (DroneStatuses)DronesListView.SelectedItems;
 
         }
 
