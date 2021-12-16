@@ -25,7 +25,7 @@ namespace IBL
         Station nearStationToDrone(DroneToList droneItem, ref double minDistance)
         {
             double checkDistance;
-            IEnumerable<IDAL.DO.Station> listStation = dal.getAllStation();
+            IEnumerable<IDAL.DO.Station> listStation = dal.getStations().ToList();
             IDAL.DO.Station minStation;
 
             minDistance = Math.Sqrt(Math.Pow(droneItem.CurrentLocation.Lattitude - listStation.First().Lattitude, 2) + Math.Pow(droneItem.CurrentLocation.Longitude - listStation.First().Longitude, 2));
@@ -62,7 +62,7 @@ namespace IBL
         {
             double checkDistance;
 
-            IEnumerable<IDAL.DO.Station> listStation = dal.getAllStation();
+            IEnumerable<IDAL.DO.Station> listStation = dal.getStations().ToList();
 
             IDAL.DO.Station minStation;
 
@@ -107,9 +107,9 @@ namespace IBL
                 heavyWeight = power[3];
                 Drone_charging_speed = power[4];
 
-                List<IDAL.DO.Drone> dronesFromDS = (List<IDAL.DO.Drone>)dal.getAllDrones();
-                List<IDAL.DO.Parcel> parcelsFromDS = (List<IDAL.DO.Parcel>)dal.getAllParcels();
-                List<IDAL.DO.Station> stationFromDS = (List<IDAL.DO.Station>)dal.getAllStation();
+                List<IDAL.DO.Drone> dronesFromDS = dal.getDrones().ToList();
+                List<IDAL.DO.Parcel> parcelsFromDS = dal.getParcels().ToList();
+                List<IDAL.DO.Station> stationFromDS = dal.getStations().ToList();
 
                 foreach (IDAL.DO.Drone itemDrone in dronesFromDS)//pass over the drones's list 
                 {
