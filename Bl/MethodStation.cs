@@ -44,7 +44,7 @@ namespace IBL
                     Lattitude = s.Lattitude
                 };
 
-                List<IDAL.DO.DroneCharge> chargingDronesDAL = (List<IDAL.DO.DroneCharge>)dal.getAllDroneCharge();
+                List<IDAL.DO.DroneCharge> chargingDronesDAL = (List<IDAL.DO.DroneCharge>)dal.getDronesCharge().ToList();
 
                 List<ChargingDrone> chargingDronesBL = new List<ChargingDrone>();
 
@@ -85,11 +85,11 @@ namespace IBL
 
         }
 
-        public IEnumerable<StationToList> getAllStations()
+        public IEnumerable<StationToList> getAllStations(Predicate<StationToList> predicate = null)
         {
-            IEnumerable<IDAL.DO.Station> StationsList_dal = dal.getAllStation();
+            IEnumerable<IDAL.DO.Station> StationsList_dal = dal.getStations().ToList();
             List<StationToList> StationList_bl = new List<StationToList>();
-            IEnumerable<IDAL.DO.DroneCharge> droneChargeList = dal.getAllDroneCharge();
+            IEnumerable<IDAL.DO.DroneCharge> droneChargeList = dal.getDronesCharge().ToList();
 
 
             foreach (var stationItem in StationsList_dal)
@@ -121,11 +121,11 @@ namespace IBL
             try
             {
                 var updateStation = dal.getStation(idStation);
-                List<IDAL.DO.DroneCharge> chargingDrones = (List<IDAL.DO.DroneCharge>)dal.getAllDroneCharge();
+                List<IDAL.DO.DroneCharge> chargingDrones = (List<IDAL.DO.DroneCharge>)dal.getDronesCharge().ToList();
      
                 dal.delFromStations(updateStation, false);
 
-                var chargeSlotsDal = dal.getAllDroneCharge();
+                var chargeSlotsDal = dal.getDronesCharge().ToList();
 
                 if (name_int != 0)
                 {
@@ -158,7 +158,7 @@ namespace IBL
         {
             var stationList_dal = dal.print_stations_with_freeDroneCharge();
             List<StationToList> StationList_bl = new List<StationToList>();
-            IEnumerable<IDAL.DO.DroneCharge> droneChargeList = dal.getAllDroneCharge();
+            IEnumerable<IDAL.DO.DroneCharge> droneChargeList = dal.getDronesCharge().ToList();
 
             foreach (var stationItem in stationList_dal)
             {

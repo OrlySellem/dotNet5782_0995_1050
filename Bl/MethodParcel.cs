@@ -74,9 +74,9 @@ namespace IBL
 
         }
 
-        public IEnumerable<ParcelToList> getAllParcels()
+        public IEnumerable<ParcelToList> getAllParcels(Predicate<ParcelToList> predicate = null)
         {
-            IEnumerable<IDAL.DO.Parcel> ParcelList_dal = dal.getAllParcels();
+            IEnumerable<IDAL.DO.Parcel> ParcelList_dal = dal.getParcels().ToList();
             List<ParcelToList> ParcelList_bl = new List<ParcelToList>();
 
             foreach (var parcelItem in ParcelList_dal)
@@ -105,7 +105,9 @@ namespace IBL
 
             }
 
-            return ParcelList_bl;
+            return ParcelList_bl.FindAll(x => predicate == null ? true : predicate(x));
+
+         
         }
 
         public IEnumerable<ParcelToList> ParcelDoesntAssignToDrone()
