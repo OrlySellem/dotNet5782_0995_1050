@@ -26,7 +26,6 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
-            //insertToDroneList.Click += new EventHandler(ShowDronesButton_Click);
         }
 
         private void ShowDronesButton_Click(object sender, RoutedEventArgs e)

@@ -28,8 +28,15 @@ namespace PL
             InitializeComponent();
             droneBL = bl;
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            idStation.ItemsSource = droneBL.display_station_with_freeChargingStations();
 
+            List <StationToList> stationFreeCharging = droneBL.display_station_with_freeChargingStations().ToList();
+
+            for (int i = 0; i < stationFreeCharging.Count(); i++)
+            {
+                ComboBoxItem newItem = new ComboBoxItem();
+                newItem.Content = stationFreeCharging[i].Id;
+                idStation.Items.Add(newItem);
+            }
 
         }
 
@@ -40,24 +47,27 @@ namespace PL
 
         private void addDrone_Click(object sender, RoutedEventArgs e)
         {
-
             try
             {
                 Drone newDrone = new Drone()
                 {
+                    
                     Id = int.Parse(TextBoxId.Text),
                     Model = TextBoxModel.Text,
                     MaxWeight = (WeightCategories)WeightSelector.SelectedItem
-
                 };
-            //    int station = int.Parse(idStation.SelectedItem.ToString());
 
-                droneBL.addDrone(newDrone,(int) idStation.SelectedItem);
+                int idSt = Convert.ToInt32(idStation.SelectionBoxItemStringFormat);
+
+                droneBL.addDrone(newDrone, idSt);
 
             }
             catch (AlreadyExistException ex)
             {
-
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch(DoesntExistentObjectException ex)
+            {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
@@ -70,7 +80,6 @@ namespace PL
                 addDrone.IsEnabled = true;
             else
                 addDrone.IsEnabled = false;
-
         }
 
         private void idStation_SelectionChanged(object sender, SelectionChangedEventArgs e)

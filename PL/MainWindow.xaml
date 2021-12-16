@@ -6,8 +6,12 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="640" Width="800">
+    <Window.Background>
+        <ImageBrush ImageSource="droneSky.jpg">
+        </ImageBrush>
+    </Window.Background>
 
-    <Grid Name="MainGrid">
+    <Grid Name="MainGrid" Margin="0,0,0,-6">
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
@@ -21,7 +25,7 @@
                 Grid.Row="1" 
                 VerticalAlignment="Top"
                 Height="79" Width="166" 
-                Click="insertToDroneList_Click"/>
+                Click="insertToDroneList_Click" BorderBrush="#FF22445D" FontFamily="Kristen ITC" Background="#FF9CC3FD"/>
 
 
     </Grid>

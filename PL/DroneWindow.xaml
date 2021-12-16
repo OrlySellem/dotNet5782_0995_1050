@@ -5,8 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="DroneWindow" Height="430" Width="350
-">
+        Title="DroneWindow" Height="450" Width="380">
     <Grid Name="UpGrid" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
         <Grid.RowDefinitions>
             <RowDefinition Height="35*"/>
