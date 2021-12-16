@@ -27,6 +27,8 @@ namespace PL
         {          
             InitializeComponent();
             droneBL = bl;
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -53,7 +55,16 @@ namespace PL
         {
             try
             {
-                droneBL.addDrone();
+                Drone newDrone = new Drone()
+                {
+                    Id = TextBoxId.Text,
+                    Model = TextBoxModel.Text,
+
+
+                };
+
+                droneBL.addDrone(newDrone, (int)idStation.Text);
+                
             }
             catch (AlreadyExistException ex)
             {
@@ -66,6 +77,11 @@ namespace PL
         private void cancelAddDrone_Click(object sender, RoutedEventArgs e)
         {
             cancelAddDrone.IsEnabled
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
