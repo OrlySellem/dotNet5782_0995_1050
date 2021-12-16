@@ -83,11 +83,6 @@ namespace IBL
             throw new DoesntExistentObjectException("drone");
         }
 
-        public IEnumerable<DroneToList> getAllDronens()
-        {
-            return drones;
-        }
-
 
         public void updateModelDrone(int idDrone, string newModel)
         {
@@ -283,8 +278,7 @@ namespace IBL
 
                 IDAL.DO.Drone droneDAL = dal.getDrone(idDrone);
 
-                IEnumerable<IDAL.DO.Parcel> parcelsDal = dal.getAllParcels();
-
+                IEnumerable<IDAL.DO.Parcel> parcelsDal = dal.getParcels().ToList();
                 IEnumerable<IDAL.DO.Parcel> parcels = relevantParcel_enoughBattary(droneToUpdate, parcelsDal);
 
                 IDAL.DO.Parcel parcelToAssign = parcels.First();
@@ -488,6 +482,10 @@ namespace IBL
                 throw new DoesntExistentObjectException(ex.Message);
             }
 
+        }
+        public IEnumerable<DroneToList> GetDrones(Predicate<DroneToList> predicate = null)
+        {
+            return drones.FindAll(x => predicate == null ? true : predicate(x));
         }
 
     }

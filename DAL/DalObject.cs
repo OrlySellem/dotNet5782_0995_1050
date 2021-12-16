@@ -168,30 +168,36 @@ namespace DalObject
         #endregion
 
         #region GET_LIST
-        public IEnumerable<Parcel> getAllParcels()//Return list of parcels
+
+
+        public IEnumerable<Parcel> getParcels(Predicate<Parcel> prdicat = null)
         {
-            return DataSource.parcels;
+            return DataSource.parcels.FindAll(x => prdicat == null ? true : prdicat(x));
         }
 
-        public IEnumerable<Drone> getAllDrones()//Return list of drones
+        public IEnumerable <Drone> getDrones(Predicate <Drone> prdicat = null)
         {
-            return DataSource.drones;
+            return DataSource.drones.FindAll(x => prdicat == null ? true : prdicat(x));
         }
 
-
-        public IEnumerable<Station> getAllStation()//return list of stations
+        public IEnumerable<Station> getStations(Predicate <Station> prdicat = null)//return list of stations
         {
-            return DataSource.stations;
+            return DataSource.stations.FindAll(x => prdicat == null ? true : prdicat(x));
         }
 
-        public IEnumerable<Customer> getAllCustomer()//return list of customers
+        public IEnumerable<Customer> getCustomers(Predicate <Customer> prdicat = null)//return list of stations
         {
-            return DataSource.customers;
+            return DataSource.customers.FindAll(x => prdicat == null ? true : prdicat(x));
         }
 
-        public IEnumerable<DroneCharge> getAllDroneCharge()
+        //public IEnumerable<Customer> getAllCustomer()//return list of customers
+        //{
+        //    return DataSource.customers;
+        //}
+
+        public IEnumerable<DroneCharge> getDronesCharge(Predicate <DroneCharge> prdicat = null)
         {
-            return DataSource.dronesCharge;
+            return DataSource.dronesCharge.FindAll(x => prdicat == null ? true : prdicat(x));
         }
 
         public IEnumerable<Parcel> print_unconnected_parcels_to_Drone()

@@ -24,6 +24,7 @@ namespace IDAL
         #endregion
 
         #region GET
+
         public Parcel getParcel(int id);//Finds the requested parcel from the arr
 
         public Drone getDrone(int id);//Finds the requested drone from the arr
@@ -47,15 +48,15 @@ namespace IDAL
         #endregion REMOVE
 
         #region GET_LIST
-        public IEnumerable<Parcel> getAllParcels();
+        public IEnumerable<Parcel> getParcels(Predicate<Parcel> prdicat = null);
 
-        public IEnumerable<Drone> getAllDrones();
+        public IEnumerable<DroneCharge> getDronesCharge(Predicate<DroneCharge> prdicat = null);
 
-        public IEnumerable<Station> getAllStation();
+        public IEnumerable<Drone> getDrones(Predicate<Drone> prdicat = null);
 
-        public IEnumerable<Customer> getAllCustomer();
+        public IEnumerable<Station> getStations(Predicate<Station> prdicat = null);//return list of stations
 
-        public IEnumerable<DroneCharge> getAllDroneCharge();
+        public IEnumerable<Customer> getCustomers(Predicate<Customer> prdicat = null);
 
         public IEnumerable<Parcel> print_unconnected_parcels_to_Drone();
 

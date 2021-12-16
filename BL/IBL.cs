@@ -39,19 +39,31 @@ namespace IBL
 
         #endregion
 
+        #region gat single
+
+        public Station getStation(int id);
+
+        public Parcel getParcel(int id);
+
+        public DroneToList getDrone(int id);
+
+        public Customer getCustomer(int id);
+
+        #endregion
+
         #region getAll
-        public IEnumerable<StationToList> getAllStations();
-        public IEnumerable<DroneToList> getAllDronens();
-        public IEnumerable<CustomerToList> getAllCustomers();
-        public IEnumerable<ParcelToList> getAllParcels();
+        public IEnumerable<StationToList> getAllStations(Predicate<StationToList> predicate = null);
+        public IEnumerable<DroneToList> GetDrones(Predicate<DroneToList> predicate = null);
+        public IEnumerable<CustomerToList> getAllCustomers(Predicate<CustomerToList> predicate = null);
+        public IEnumerable<ParcelToList> getAllParcels(Predicate<ParcelToList> predicate = null);
         public IEnumerable<ParcelToList> ParcelDoesntAssignToDrone();
         public IEnumerable<StationToList> display_station_with_freeChargingStations();
 
         #endregion
         // 
-        #region gat single
-        public DroneToList getDrone(int id);
-        #endregion
 
+
+       
+      
     }
 }
