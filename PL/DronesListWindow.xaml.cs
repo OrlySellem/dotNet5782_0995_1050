@@ -42,7 +42,7 @@ namespace PL
 
         private void addDroneToList_Click(object sender, RoutedEventArgs e)
         {       
-            new DroneWindow().ShowDialog();
+            new DroneWindow(dronesBL).ShowDialog();
         }
     }
 }

@@ -13,14 +13,15 @@
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
         <Button x:Name="insertToDroneList" 
-                Content="רשימת רחפנים" 
+                Content="Drones List"
+                FontWeight="Bold"
+                FontSize="25"
                 HorizontalAlignment="Left" 
                 Margin="330,178,0,0" 
                 Grid.Row="1" 
                 VerticalAlignment="Top"
                 Height="79" Width="166" 
                 Click="insertToDroneList_Click"/>
-        <Label Content="ברוכים הבאים" HorizontalAlignment="Left" Margin="413,34,0,0" Grid.Row="1" VerticalAlignment="Top" Width="83"/>
 
 
     </Grid>

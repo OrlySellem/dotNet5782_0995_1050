@@ -22,15 +22,50 @@ namespace PL
     public partial class DroneWindow : Window
     {
         IBL.IBL droneBL;
+
         public DroneWindow(IBL.IBL bl)
-        {
-            droneBL = bl;
+        {          
             InitializeComponent();
+            droneBL = bl;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_TextChanged_2(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            MessageBox.Show(e.NewValue.ToString());
+        }
+
+        private void addDrone_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                droneBL.addDrone();
+            }
+            catch (AlreadyExistException ex)
+            {
+
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+        }
+
+        private void cancelAddDrone_Click(object sender, RoutedEventArgs e)
+        {
+            cancelAddDrone.IsEnabled
         }
     }
 }
