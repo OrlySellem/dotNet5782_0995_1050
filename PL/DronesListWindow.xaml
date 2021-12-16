@@ -22,8 +22,20 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ComboBox x:Name="StatusSelector" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="StatusSelector_SelectionChanged"/>
-            <ComboBox x:Name="WeightSelector" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelector_SelectionChanged"/>
+            <ComboBox x:Name="StatusSelector" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="StatusSelector_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding DroneStatuses}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <ComboBox x:Name="WeightSelector" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" SelectionChanged="WeightSelector_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding WeightCategories}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
             <Label Content=":משקל הרחפן" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="-0.145,0.86"/>
             <Label Content=":סטטוס הרחפן" HorizontalAlignment="Left" Margin="48,20,0,0" VerticalAlignment="Top" RenderTransformOrigin="-9.916,0.488" Width="152"/>
             <Grid Grid.Column="3"/>

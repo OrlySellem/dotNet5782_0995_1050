@@ -38,7 +38,11 @@ namespace PL
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e) {}
 
-        private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e) {}
+        private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+          //  StatusSelector. = StatusSelector.get;
+
+        }
 
         private void addDroneToList_Click(object sender, RoutedEventArgs e)
         {       
