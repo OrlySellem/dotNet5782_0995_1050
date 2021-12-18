@@ -98,7 +98,7 @@ namespace IBL
 
                 drones = new List<DroneToList>();
 
-                chargingDrones = new List<ChargingDrone>();
+               // chargingDrones = new List<ChargingDrone>();
 
                 double[] power = dal.R_power_consumption_Drone();
                 available = power[0];
@@ -193,6 +193,8 @@ namespace IBL
                             temp.Battery = rand.Next(20);
 
                             drones.Add(temp);
+
+                            dal.chargingDrone(itemDrone, stationFromDS[indexStation]);
                             break;
 
                         }

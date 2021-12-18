@@ -116,6 +116,7 @@ namespace PL
 
         //פעולות
         //סגירת חלון
+        //לא סיימתי להחביא את  הכפתורים הניצרכים
 
         static DroneToList TheChosenDrone;
         public DroneWindow(IBL.IBL bl, IBL.BO.DroneToList drone)
@@ -134,6 +135,29 @@ namespace PL
             Status.Text = drone.Status.ToString();
             Lattitude.Text = drone.CurrentLocation.Lattitude.ToString();
             Longitude.Text = drone.CurrentLocation.Longitude.ToString();
+
+
+            if (drone.Status == DroneStatuses.available)
+            {
+                ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
+                ParcelCollection.Visibility = Visibility.Hidden;
+                ParcelArriveToDestination.Visibility = Visibility.Hidden;
+            }
+
+            if (drone.Status == DroneStatuses.maintenance)
+            {
+                SendingDroneForCharging.Visibility = Visibility.Hidden;
+                SendDroneForDelivery.Visibility = Visibility.Hidden;
+                ParcelCollection.Visibility = Visibility.Hidden;
+                ParcelArriveToDestination.Visibility = Visibility.Hidden;
+            }
+
+            if (drone.Status == DroneStatuses.delivery)
+            {
+                SendingDroneForCharging.Visibility = Visibility.Hidden;
+                ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
+                SendDroneForDelivery.Visibility = Visibility.Hidden;
+            }
         }
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
@@ -145,12 +169,27 @@ namespace PL
         {
             if(TheChosenDrone.Status== DroneStatuses.available)
             droneBL.chargingDrone(TheChosenDrone.Id);
+
+        
+            
+            ReleaseDroneFromCharging.Visibility = Visibility.Visible;
+
+            SendingDroneForCharging.Visibility = Visibility.Hidden;
+            SendDroneForDelivery.Visibility = Visibility.Hidden;
+            ParcelCollection.Visibility = Visibility.Hidden;
+            ParcelArriveToDestination.Visibility = Visibility.Hidden;
+
         }
 
         private void ReleaseDroneFromCharging_Click(object sender, RoutedEventArgs e)
         {
             if (TheChosenDrone.Status == DroneStatuses.maintenance)
                 droneBL.freeDroneFromCharging(TheChosenDrone.Id,DateTime.Now);
+
+
+
+            SendingDroneForCharging.Visibility = Visibility.Visible;
+            SendDroneForDelivery.Visibility = Visibility.Visible;
         }
 
         private void SendDroneForDelivery_Click(object sender, RoutedEventArgs e)
