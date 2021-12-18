@@ -23,9 +23,13 @@ namespace PL
     {
         IBL.IBL droneBL;
 
+     
         public DroneWindow(IBL.IBL bl)
         {
             InitializeComponent();
+            updataGrid.Visibility = Visibility.Hidden;
+            UpGrid.Visibility = Visibility.Visible;
+      
             droneBL = bl;
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
 
@@ -57,9 +61,12 @@ namespace PL
                     MaxWeight = (WeightCategories)WeightSelector.SelectedItem
                 };
 
-                int idSt = Convert.ToInt32(idStation.SelectionBoxItemStringFormat);
+                List<StationToList> stationFreeCharging = droneBL.display_station_with_freeChargingStations().ToList();
+                int idSt = stationFreeCharging[idStation.SelectedIndex].Id;
 
                 droneBL.addDrone(newDrone, idSt);
+
+                this.Close();
 
             }
             catch (AlreadyExistException ex)
@@ -102,6 +109,74 @@ namespace PL
             else
                 addDrone.IsEnabled = false;
 
+        }
+
+
+
+
+        //פעולות
+        //סגירת חלון
+
+        static DroneToList TheChosenDrone;
+        public DroneWindow(IBL.IBL bl, IBL.BO.DroneToList drone)
+        {
+            InitializeComponent();
+            droneBL = bl;
+            UpGrid.Visibility = Visibility.Hidden;
+            updataGrid.Visibility = Visibility.Visible;
+            TheChosenDrone = drone;
+
+
+            id.Text = drone.Id.ToString();
+            Model.Text = drone.Model.ToString();
+            MaxWeight.Text = drone.Model.ToString();
+            Battery.Text = drone.Battery.ToString();
+            Status.Text = drone.Status.ToString();
+            Lattitude.Text = drone.CurrentLocation.Lattitude.ToString();
+            Longitude.Text = drone.CurrentLocation.Longitude.ToString();
+        }
+
+        private void CloseWindow_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void SendingDroneForCharging_Click(object sender, RoutedEventArgs e)
+        {
+            if(TheChosenDrone.Status== DroneStatuses.available)
+            droneBL.chargingDrone(TheChosenDrone.Id);
+        }
+
+        private void ReleaseDroneFromCharging_Click(object sender, RoutedEventArgs e)
+        {
+            if (TheChosenDrone.Status == DroneStatuses.maintenance)
+                droneBL.freeDroneFromCharging(TheChosenDrone.Id,DateTime.Now);
+        }
+
+        private void SendDroneForDelivery_Click(object sender, RoutedEventArgs e)
+        {
+            if (TheChosenDrone.Status == DroneStatuses.available)
+                droneBL.assignDroneToParcel(TheChosenDrone.Id);
+        }
+
+        private void ParcelCollection_Click(object sender, RoutedEventArgs e)
+        {
+            droneBL.dronePickParcel(TheChosenDrone.Id);
+        }
+
+        private void ParcelArriveToDestination_Click(object sender, RoutedEventArgs e)
+        {
+            droneBL.deliveryAriveToCustomer(TheChosenDrone.Id);
+        }
+
+        private void UpdateData_Click(object sender, RoutedEventArgs e)
+        {
+            if (Model.Text != ""&& TheChosenDrone.Model!= Model.Text)
+            {
+                string t = Model.Text;
+                droneBL.updateModelDrone(TheChosenDrone.Id, t);
+            }
+        
         }
 
         //private void cancelAddDrone_Click(object sender, RoutedEventArgs e)

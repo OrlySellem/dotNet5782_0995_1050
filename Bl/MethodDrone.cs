@@ -164,20 +164,22 @@ namespace IBL
         }
 
 
-        public void freeDroneFromCharging(int idDrone, double time)
+        public void freeDroneFromCharging(int idDrone, DateTime newtime)
         {
             try
             {
                 DroneToList droneBL = drones.Find(x => x.Id == idDrone);
                 IDAL.DO.Drone droneDal = dal.getDrone(droneBL.Id);
+                IDAL.DO.DroneCharge droneChargeDal = dal.getDroneCharge(droneBL.Id);
 
                 if (droneBL.Status == DroneStatuses.maintenance)
                 {
-                    //double hoursnInCahrge = time.Hour + (((double)(time.Minute)) / 60) + (((double)(time.Second) / 3600
-                    //double batrryCharge = hoursnInCahrge * Drone_charging_speed + droneBL.Battery;
-                    drones.Remove(droneBL);
+                     drones.Remove(droneBL);
 
-                    double batrryCharge = time * Drone_charging_speed + droneBL.Battery;
+                    TimeSpan incharging= droneChargeDal.StartedRecharged- newtime;
+                    double hoursnInCahrge = incharging.Hours + (((double)(incharging.Minutes)) / 60) + (((double)(incharging.Seconds) / 3600));
+                    double batrryCharge = hoursnInCahrge * Drone_charging_speed + droneBL.Battery;
+        
                     if (batrryCharge > 100)
                         batrryCharge = 100;
 

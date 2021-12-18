@@ -33,6 +33,7 @@ namespace IDAL
 
         public Customer getCustomer(int id);//loop to find the customer acordding to ID 
 
+        public DroneCharge getDroneCharge(int id);
         #endregion
 
         #region REMOVE

@@ -165,6 +165,13 @@ namespace DalObject
                 throw new DoesntExistentObjectException("customer");
             return customer;
         }
+
+        public DroneCharge getDroneCharge(int id)//loop to find the customer acordding to ID 
+        {
+            DroneCharge droneCharge = DataSource.dronesCharge.Find(c => c.Droneld == id);
+
+            return droneCharge;
+        }
         #endregion
 
         #region GET_LIST
@@ -189,7 +196,7 @@ namespace DalObject
         {
             return DataSource.customers.FindAll(x => prdicat == null ? true : prdicat(x));
         }
-
+    
         //public IEnumerable<Customer> getAllCustomer()//return list of customers
         //{
         //    return DataSource.customers;
@@ -317,7 +324,7 @@ namespace DalObject
                     reduceChargeSlots(ref myStation);
                     DataSource.stations.Add(myStation);
 
-                    DroneCharge droneChargeToAdd = new DroneCharge() { Droneld = myDrone.Id, Stationld = myStation.Id };
+                    DroneCharge droneChargeToAdd = new DroneCharge() { Droneld = myDrone.Id, Stationld = myStation.Id, StartedRecharged = DateTime.Now };
                     DataSource.dronesCharge.Add(droneChargeToAdd);
                     return;
                 }

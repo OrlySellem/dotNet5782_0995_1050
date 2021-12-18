@@ -63,5 +63,11 @@ namespace PL
                 DronesListView.ItemsSource = dronesBL.GetDrones(x => x.MaxWeight == (WeightCategories)WeightSelector.SelectedItem);
             }
         }
+
+        private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+           new DroneWindow(dronesBL, (DroneToList) DronesListView.SelectedItem).ShowDialog();
+        }
     }
 }

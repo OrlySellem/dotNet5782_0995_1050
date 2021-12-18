@@ -11,7 +11,7 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="DronesListView" Grid.Row="1" MouseDoubleClick="ChooseDroneToShow_DoubleClick"/>
+        <ListView x:Name="DronesListView" Grid.Row="1" MouseDoubleClick="ChooseDroneToShow_DoubleClick" SelectionChanged="DronesListView_SelectionChanged"/>
         <Grid/>
         <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
          VerticalAlignment="Stretch" Width="auto">
