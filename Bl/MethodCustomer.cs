@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
-namespace IBL
+namespace BlApi
 {
     public partial class BL: IBL
     {
@@ -14,7 +14,7 @@ namespace IBL
         {
             try
             {
-                IDAL.DO.Customer dalCustomer = new IDAL.DO.Customer()
+                DO.Customer dalCustomer = new DO.Customer()
                 {
                     Id = CustomerToAdd.Id,
                     Name = CustomerToAdd.Name,
@@ -25,7 +25,7 @@ namespace IBL
 
                 dal.addCustomer(dalCustomer);
             }
-            catch (IDAL.DO.AlreadyExistException ex)
+            catch (DO.AlreadyExistException ex)
             {
                 throw new AlreadyExistException(ex.Message);
             }
@@ -37,7 +37,7 @@ namespace IBL
 
             try
             {
-                IDAL.DO.Customer c = dal.getCustomer(id);
+                DO.Customer c = dal.getCustomer(id);
 
                 Location address = new Location()
                 {
@@ -57,7 +57,7 @@ namespace IBL
                 };
 
             }
-            catch (IDAL.DO.DoesntExistentObjectException ex)
+            catch (DO.DoesntExistentObjectException ex)
             {
 
                 throw new DoesntExistentObjectException(ex.Message);
@@ -68,10 +68,10 @@ namespace IBL
 
         public IEnumerable<CustomerToList> getAllCustomers(Predicate <CustomerToList> predicate = null)
         {
-            IEnumerable<IDAL.DO.Customer> CustomerList_dal = dal.getCustomers().ToList();
+            IEnumerable<DO.Customer> CustomerList_dal = dal.getCustomers().ToList();
             List<CustomerToList> CustomerList_bl = new List<CustomerToList>();
 
-            IEnumerable<IDAL.DO.Parcel> ParcelsList_dal = dal.getParcels().ToList();
+            IEnumerable<DO.Parcel> ParcelsList_dal = dal.getParcels().ToList();
 
 
             foreach (var itemCustomer in CustomerList_dal)
@@ -138,11 +138,11 @@ namespace IBL
                 dal.addCustomer(customerToUpdate);
             }
 
-            catch (IDAL.DO.DoesntExistentObjectException ex)
+            catch (DO.DoesntExistentObjectException ex)
             {
                 throw new DoesntExistentObjectException(ex.Message);
             }
-            catch (IDAL.DO.AlreadyExistException ex)
+            catch (DO.AlreadyExistException ex)
             {
                 throw new AlreadyExistException(ex.Message);
             }
