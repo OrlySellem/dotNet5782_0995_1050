@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BlApi;
+using BO;
 
-namespace IBL
+namespace BlApi
 {
     public interface IBL
     {
-
+       
         #region ADD
         public void addStation(Station StationToAdd);
 

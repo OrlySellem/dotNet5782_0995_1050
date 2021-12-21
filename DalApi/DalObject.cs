@@ -1,23 +1,22 @@
-﻿/* Ester Shmuel ID:318968468 && Orly Sellem ID:315208728
-  Lecturer: Adina Milston
-  Course: .Dot Net
-  Exercise: 2
-  The purpose of DalObject's file is to manages all add / bring / update methods
- */
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IDAL.DO;
+using DO;
 
 namespace DalObject
 {
-    public class DalObject : IDAL.IDal
+    public sealed class DalObject : DalApi.IDal
     {
+        static readonly DalObject instance = new DalObject();
+        internal static DalObject Instance { get { return instance; } }
+        static DalObject() { }
         internal static Random rand = new Random();
+
         #region ctor
-        public DalObject()
+        DalObject()
         {
             DataSource.Initialize();
         }
@@ -28,7 +27,7 @@ namespace DalObject
         {
             Station temp = DataSource.stations.Find(x => x.Id == stationToAdd.Id);
             if (temp.Id != 0)
-                throw new AlreadyExistException("station"); 
+                throw new AlreadyExistException("station");
 
             DataSource.stations.Add(stationToAdd);
         }
@@ -72,22 +71,22 @@ namespace DalObject
         public void delFromDrones(Drone droneToDel)
         {
             Parcel parcelToUpdate = DataSource.parcels.Find(x => x.Droneld == droneToDel.Id);
-            if (parcelToUpdate.Id!=0)
+            if (parcelToUpdate.Id != 0)
             {
                 if (parcelToUpdate.Delivered == null)
                 {
                     delFromParcels(parcelToUpdate);
-                    parcelToUpdate.Scheduled =null;
-                    parcelToUpdate.PickedUp =null;
+                    parcelToUpdate.Scheduled = null;
+                    parcelToUpdate.PickedUp = null;
                     parcelToUpdate.Droneld = 0;
                     addParcel(parcelToUpdate);
                 }
             }
-             
+
             DataSource.drones.Remove(droneToDel);
         }
 
-        public void delFromStations(Station stationToDel, bool freeDrone=true)
+        public void delFromStations(Station stationToDel, bool freeDrone = true)
         {
             if (freeDrone)
             {
@@ -100,23 +99,23 @@ namespace DalObject
                     }
                 }
             }
-           
+
             DataSource.stations.Remove(stationToDel);
         }
 
-        public void delFromParcels (Parcel parcelToDel)
+        public void delFromParcels(Parcel parcelToDel)
         {
             DataSource.parcels.Remove(parcelToDel);
         }
 
-        public void delFromCustomers (Customer customerToDel)
+        public void delFromCustomers(Customer customerToDel)
         {
             DataSource.customers.Remove(customerToDel);
         }
 
-        public void delFromChargingDrone (DroneCharge droneCharge)
+        public void delFromChargingDrone(DroneCharge droneCharge)
         {
-            Station stationToUpdate = DataSource.stations.Find (x => x.Id == droneCharge.Stationld);
+            Station stationToUpdate = DataSource.stations.Find(x => x.Id == droneCharge.Stationld);
             DataSource.stations.Remove(stationToUpdate);
             plusChargeSlots(ref stationToUpdate);
             addStaion(stationToUpdate);
@@ -125,7 +124,6 @@ namespace DalObject
         }
 
         #endregion
-
 
         #region GET 
         public Parcel getParcel(int id)//Finds the requested parcel from the arr
@@ -176,44 +174,44 @@ namespace DalObject
             return DataSource.parcels.FindAll(x => prdicat == null ? true : prdicat(x));
         }
 
-        public IEnumerable <Drone> getDrones(Predicate <Drone> prdicat = null)
+        public IEnumerable<Drone> getDrones(Predicate<Drone> prdicat = null)
         {
             return DataSource.drones.FindAll(x => prdicat == null ? true : prdicat(x));
         }
 
-        public IEnumerable<Station> getStations(Predicate <Station> prdicat = null)//return list of stations
+        public IEnumerable<Station> getStations(Predicate<Station> prdicat = null)//return list of stations
         {
             return DataSource.stations.FindAll(x => prdicat == null ? true : prdicat(x));
         }
 
-        public IEnumerable<Customer> getCustomers(Predicate <Customer> prdicat = null)//return list of stations
+        public IEnumerable<Customer> getCustomers(Predicate<Customer> prdicat = null)//return list of stations
         {
             return DataSource.customers.FindAll(x => prdicat == null ? true : prdicat(x));
         }
-    
+
         //public IEnumerable<Customer> getAllCustomer()//return list of customers
         //{
         //    return DataSource.customers;
         //}
 
-        public IEnumerable<DroneCharge> getDronesCharge(Predicate <DroneCharge> prdicat = null)
+        public IEnumerable<DroneCharge> getDronesCharge(Predicate<DroneCharge> prdicat = null)
         {
             return DataSource.dronesCharge.FindAll(x => prdicat == null ? true : prdicat(x));
         }
 
         public IEnumerable<Parcel> print_unconnected_parcels_to_Drone()
         {
-         List<Parcel> parcelsList = new List<Parcel>();
+            List<Parcel> parcelsList = new List<Parcel>();
             foreach (Parcel item in DataSource.parcels)
             {
-                if (item.Droneld == 0 && item.Scheduled ==null)
+                if (item.Droneld == 0 && item.Scheduled == null)
                     parcelsList.Add(item);
             }
             return parcelsList;
         }
         public IEnumerable<Station> print_stations_with_freeDroneCharge()
         {
-           List<Station> stationList = new List<Station>();
+            List<Station> stationList = new List<Station>();
 
             foreach (Station item in DataSource.stations)
             {
@@ -258,7 +256,7 @@ namespace DalObject
 
                 throw new DoesntExistentObjectException(ex.Message);
             }
-           
+
         }
 
         public void drone_pick_parcel(Drone droneToUpdate, Parcel parcelToUpdate)//pick up parcel by drone
@@ -280,11 +278,11 @@ namespace DalObject
             {
                 throw new DoesntExistentObjectException(ex.Message);
             }
-            
-                  
+
+
         }
 
-        public void delivery_arrive_toCustomer( Parcel parcelToUpdate)//The delivery arrived to the customer
+        public void delivery_arrive_toCustomer(Parcel parcelToUpdate)//The delivery arrived to the customer
         {
             try
             {
@@ -302,7 +300,7 @@ namespace DalObject
             {
                 throw new DoesntExistentObjectException(ex.Message);
             }
-            
+
         }
 
         public void chargingDrone(Drone droneToUpdate, Station stationToUpdate)//Inserts a drone to charg
@@ -330,7 +328,7 @@ namespace DalObject
 
                 throw new DoesntExistentObjectException(ex.Message);
             }
-                    
+
         }
 
         public void freeDroneCharge(Drone droneToUpdate)//Drone release from charging
@@ -342,7 +340,7 @@ namespace DalObject
                 if (droneChargeToDel.Droneld != 0 && droneChargeToDel.Stationld != 0)
                 {
                     delFromChargingDrone(droneChargeToDel);
-                    
+
                     return;
                 }
 
@@ -353,8 +351,8 @@ namespace DalObject
 
                 throw new DoesntExistentObjectException(ex.Message);
             }
-            
-            
+
+
         }
         #endregion
 

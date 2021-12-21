@@ -12,15 +12,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using IBL.BO;
-using IBL;
+
+using BlApi;
 
 namespace PL
 {
 
     public partial class MainWindow : Window
     {
-        IBL.IBL mainBl = new IBL.BL();
+        public BlApi.IBL mainBl =  BlApi.BlFactory.GetBl();
 
         //Button insertToDroneList;
         public MainWindow()
@@ -38,22 +38,6 @@ namespace PL
             new DronesListWindow(mainBl).ShowDialog();
         }
 
-        //private void insertToDroneList_Click(object sender, RoutedEventArgs e)
-        //{
-        //    insertToDroneList.Content = "thank you";
-        //    foo();
-        //}
-
-        //void foo()
-        //{ //Drone d;
-        //    try
-        //    {
-        //        mainBl.getDrone(200);
-        //    }
-        //    catch (Exception x)
-        //    {
-        //        MessageBox.Show(x.Message , "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-        //    } 
-        //}
+       
     }
 }

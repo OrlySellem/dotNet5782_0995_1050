@@ -4,23 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IBL
+
+namespace BO
 {
-    namespace BO
+    public class ChargingDrone
     {
-        public class ChargingDrone
+        public int Id { get; set; }
+
+        public double Battery { get; set; }
+
+        public override string ToString()
         {
-            public int Id { get; set; }
-
-            public double Battery { get; set; }
-
-            public override string ToString()
-            {
-                return string.Format("\nId is:{0}\nBattery is:{1}\n", Id, Battery);
-            }
-
-      
+            return string.Format("\nId is:{0}\nBattery is:{1}\n", Id, Battery);
         }
+
+
     }
-   
 }

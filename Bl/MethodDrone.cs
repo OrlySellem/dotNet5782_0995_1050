@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
-namespace IBL
+namespace BlApi
 {
     public partial class BL : IBL
     {
@@ -13,18 +13,18 @@ namespace IBL
         {
             try
             {
-                IDAL.DO.Drone dalDrone = new IDAL.DO.Drone()
+                DO.Drone dalDrone = new DO.Drone()
                 {
                     Id = DroneToAdd.Id,
                     Model = DroneToAdd.Model,
-                    MaxWeight = (IDAL.DO.WeightCategories)DroneToAdd.MaxWeight,
+                    MaxWeight = (DO.WeightCategories)DroneToAdd.MaxWeight,
                 };
                 dal.addDrone(dalDrone);
 
 
                 DroneToAdd.Battery = rand.Next(20, 40);
                 DroneToAdd.Status = DroneStatuses.maintenance;
-                IDAL.DO.Station currentStation = dal.getStation(idStation);
+                DO.Station currentStation = dal.getStation(idStation);
                 DroneToAdd.CurrentLocation = new Location()
                 {
                     Lattitude = currentStation.Lattitude,
@@ -50,11 +50,11 @@ namespace IBL
                 };
                 drones.Add(DroneToAddBL);
             }
-            catch (IDAL.DO.AlreadyExistException ex)
+            catch (DO.AlreadyExistException ex)
             {
                 throw new AlreadyExistException(ex.Message);
             }
-            catch (IDAL.DO.chargingException ex)
+            catch (DO.chargingException ex)
             {
                 throw new NoFreeChargingStations(ex.Message);
             }
@@ -97,16 +97,16 @@ namespace IBL
                 dal.delFromDrones(droneToUpdate_dal);
 
                 droneToUpdate_dal.Model = newModel;//update IDAL.DO.drones model
-                droneToUpdate_bl.Model = newModel;//update BL.drones model
+                droneToUpdate_bl.Model = newModel;//update BlApi.drones model
 
                 dal.addDrone(droneToUpdate_dal);//To add the update drone to IDAL.DO.drones
-                drones.Add(droneToUpdate_bl);//To add the update drone to IBL.BO.drones
+                drones.Add(droneToUpdate_bl);//To add the update drone to BlApi.BO.drones
             }
-            catch (IDAL.DO.DoesntExistentObjectException ex)
+            catch (DO.DoesntExistentObjectException ex)
             {
                 throw new DoesntExistentObjectException(ex.Message);
             }
-            catch (IDAL.DO.AlreadyExistException ex)
+            catch (DO.AlreadyExistException ex)
             {
                 throw new AlreadyExistException(ex.Message);
             }
@@ -142,22 +142,22 @@ namespace IBL
                         droneToUpdate.Status = DroneStatuses.maintenance;//	מצב הרחפן ישונה לתחזוקה
                         drones.Add(droneToUpdate);
                         //תחנה:
-                        IDAL.DO.Station closerStationDal = dal.getStation(closerStationBL.Id);
+                        DO.Station closerStationDal = dal.getStation(closerStationBL.Id);
                         dal.reduceChargeSlots(ref closerStationDal);//הורדת מספר עמדות טעינה פנויות ב1
 
                         //טעינת רחפן
-                        IDAL.DO.Drone droneToUpdateDAL = dal.getDrone(droneToUpdate.Id);//המרת הרחפן לרחפן של דאל
+                        DO.Drone droneToUpdateDAL = dal.getDrone(droneToUpdate.Id);//המרת הרחפן לרחפן של דאל
                         dal.chargingDrone(droneToUpdateDAL, closerStationDal);//הוספת מופע מתאים
 
                     }
                 }
             }
-            catch (IDAL.DO.DoesntExistentObjectException ex)
+            catch (DO.DoesntExistentObjectException ex)
             {
                 throw new DoesntExistentObjectException(ex.Message);
             }
 
-            catch (IDAL.DO.chargingException ex)
+            catch (DO.chargingException ex)
             {
                 throw new NoFreeChargingStations(ex.Message);
             }
@@ -169,8 +169,8 @@ namespace IBL
             try
             {
                 DroneToList droneBL = drones.Find(x => x.Id == idDrone);
-                IDAL.DO.Drone droneDal = dal.getDrone(droneBL.Id);
-                IDAL.DO.DroneCharge droneChargeDal = dal.getDroneCharge(droneBL.Id);
+                DO.Drone droneDal = dal.getDrone(droneBL.Id);
+                DO.DroneCharge droneChargeDal = dal.getDroneCharge(droneBL.Id);
 
                 if (droneBL.Status == DroneStatuses.maintenance)
                 {
@@ -195,7 +195,7 @@ namespace IBL
                     throw new OnlyMaintenanceDroneWillBeAbleToBeReleasedFromCharging();
                 }
             }
-            catch (IDAL.DO.DoesntExistentObjectException ex)
+            catch (DO.DoesntExistentObjectException ex)
             {
                 throw new DoesntExistentObjectException(ex.Message);
             }
@@ -203,20 +203,20 @@ namespace IBL
 
         }
 
-        IEnumerable<IDAL.DO.Parcel> relevantParcel_enoughBattary(DroneToList drone, IEnumerable<IDAL.DO.Parcel> parcelsDal)
+        IEnumerable<DO.Parcel> relevantParcel_enoughBattary(DroneToList drone, IEnumerable<DO.Parcel> parcelsDal)
         {
             try
             {
                 double powerForDistance = 0;
                 double distance_DroneToSender, distance_SenderToTarge, distance_TargetToStationt;
                 double totalDistance;
-                List<IDAL.DO.Parcel> parcels = new List<IDAL.DO.Parcel>();
+                List<DO.Parcel> parcels = new List<DO.Parcel>();
                 foreach (var item in parcelsDal)
                 {
                     if (item.Delivered == null)
                     {
-                        IDAL.DO.Customer sender = dal.getCustomer(item.Senderld);
-                        IDAL.DO.Customer target = dal.getCustomer(item.Targetld);
+                        DO.Customer sender = dal.getCustomer(item.Senderld);
+                        DO.Customer target = dal.getCustomer(item.Targetld);
                         double minDistance = 0;
                         Location nearStation = nearStationToCustomer(target.Id, ref minDistance);
 
@@ -259,7 +259,7 @@ namespace IBL
 
                 return parcels;
             }
-            catch (IDAL.DO.DoesntExistentObjectException ex)
+            catch (DO.DoesntExistentObjectException ex)
             {
 
                 throw new DoesntExistentObjectException(ex.Message);
@@ -267,7 +267,7 @@ namespace IBL
 
         }
 
-        double distance(IDAL.DO.Parcel parcelToAssign, DroneToList droneBL)
+        double distance(DO.Parcel parcelToAssign, DroneToList droneBL)
         {
             double minDistance = Math.Sqrt(Math.Pow(dal.getCustomer(parcelToAssign.Targetld).Lattitude - droneBL.CurrentLocation.Lattitude, 2) + Math.Pow(dal.getCustomer(parcelToAssign.Targetld).Longitude - droneBL.CurrentLocation.Longitude, 2));
             return minDistance / Math.Pow(10, 3);
@@ -278,12 +278,12 @@ namespace IBL
             {
                 DroneToList droneToUpdate = drones.Find(x => x.Id == idDrone);
 
-                IDAL.DO.Drone droneDAL = dal.getDrone(idDrone);
+                DO.Drone droneDAL = dal.getDrone(idDrone);
 
-                IEnumerable<IDAL.DO.Parcel> parcelsDal = dal.getParcels().ToList();
-                IEnumerable<IDAL.DO.Parcel> parcels = relevantParcel_enoughBattary(droneToUpdate, parcelsDal);
+                IEnumerable<DO.Parcel> parcelsDal = dal.getParcels().ToList();
+                IEnumerable<DO.Parcel> parcels = relevantParcel_enoughBattary(droneToUpdate, parcelsDal);
 
-                IDAL.DO.Parcel parcelToAssign = parcels.First();
+                DO.Parcel parcelToAssign = parcels.First();
 
                 double minDistance = 0, distanceItem;
 
@@ -369,11 +369,11 @@ namespace IBL
                 }
 
             }
-            catch (IDAL.DO.DoesntExistentObjectException ex)
+            catch (DO.DoesntExistentObjectException ex)
             {
                 throw new DoesntExistentObjectException(ex.Message, ex);
             }
-            catch (IDAL.DO.AlreadyExistException ex)
+            catch (DO.AlreadyExistException ex)
             {
                 throw new AlreadyExistException(ex.Message, ex);
             }
@@ -391,7 +391,7 @@ namespace IBL
             {
                 bool flag = true;
                 var droneToUpdate = drones.Find(x => x.Id == droneId);
-                IDAL.DO.Parcel parcelItem = dal.getParcel(droneToUpdate.idParcel);
+                DO.Parcel parcelItem = dal.getParcel(droneToUpdate.idParcel);
 
                 if (parcelItem.PickedUp ==null && parcelItem.Scheduled != null)
                 {
@@ -430,11 +430,11 @@ namespace IBL
                     throw new DeliveryCannotBeMade("The delivery Cannot Be Made");
 
             }
-            catch (IDAL.DO.DoesntExistentObjectException ex)
+            catch (DO.DoesntExistentObjectException ex)
             {
                 throw new DoesntExistentObjectException(ex.Message);
             }
-            catch (IDAL.DO.AlreadyExistException ex)
+            catch (DO.AlreadyExistException ex)
             {
                 throw new AlreadyExistException(ex.Message);
             }
@@ -479,7 +479,7 @@ namespace IBL
                     throw new DroneCantBeAssigend("The drone can't be assign");
             }
 
-            catch (IDAL.DO.DoesntExistentObjectException ex)
+            catch (DO.DoesntExistentObjectException ex)
             {
                 throw new DoesntExistentObjectException(ex.Message);
             }

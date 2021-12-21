@@ -11,8 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using IBL;
-using IBL.BO;
+using BlApi;
+using BlApi.BO;
 
 namespace PL
 {
@@ -21,10 +21,10 @@ namespace PL
     /// </summary>
     public partial class DroneWindow : Window
     {
-        IBL.IBL droneBL;
+        BlApi.IBL droneBL;
 
      
-        public DroneWindow(IBL.IBL bl)
+        public DroneWindow(BlApi.IBL bl)
         {
             InitializeComponent();
             updataGrid.Visibility = Visibility.Hidden;
@@ -119,7 +119,7 @@ namespace PL
         //לא סיימתי להחביא את  הכפתורים הניצרכים
 
         static DroneToList TheChosenDrone;
-        public DroneWindow(IBL.IBL bl, IBL.BO.DroneToList drone)
+        public DroneWindow(BlApi.IBL bl, BlApi.BO.DroneToList drone)
         {
             InitializeComponent();
             droneBL = bl;

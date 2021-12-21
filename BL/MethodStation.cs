@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IBL.BO;
+using BO;
 
 
-namespace IBL
+namespace BlApi
 {
     public partial class BL : IBL
     {
@@ -14,7 +14,7 @@ namespace IBL
         {
             try
             {
-                IDAL.DO.Station dalStation = new IDAL.DO.Station()
+                DO.Station dalStation = new DO.Station()
                 {
                     Id = stationToAdd.Id,
                     Name = stationToAdd.Name,
@@ -25,7 +25,7 @@ namespace IBL
 
                 dal.addStaion(dalStation);
             }
-            catch (IDAL.DO.DoesntExistentObjectException ex)
+            catch (DO.DoesntExistentObjectException ex)
             {
                 throw new DoesntExistentObjectException(ex.Message);
             }
@@ -36,7 +36,7 @@ namespace IBL
         {
             try
             {
-                IDAL.DO.Station s = dal.getStation(id);
+                DO.Station s = dal.getStation(id);
 
                 Location address = new Location()
                 {
@@ -44,7 +44,7 @@ namespace IBL
                     Lattitude = s.Lattitude
                 };
 
-                List<IDAL.DO.DroneCharge> chargingDronesDAL = (List<IDAL.DO.DroneCharge>)dal.getDronesCharge().ToList();
+                List<DO.DroneCharge> chargingDronesDAL = (List<DO.DroneCharge>)dal.getDronesCharge().ToList();
 
                 List<ChargingDrone> chargingDronesBL = new List<ChargingDrone>();
 
@@ -77,7 +77,7 @@ namespace IBL
                     Charging_drones = chargingDronesBL
                 };
             }
-            catch (IDAL.DO.DoesntExistentObjectException ex)
+            catch (DO.DoesntExistentObjectException ex)
             {
 
                 throw new DoesntExistentObjectException(ex.Message);
@@ -87,9 +87,9 @@ namespace IBL
 
         public IEnumerable<StationToList> getAllStations(Predicate<StationToList> predicate = null)
         {
-            IEnumerable<IDAL.DO.Station> StationsList_dal = dal.getStations().ToList();
+            IEnumerable<DO.Station> StationsList_dal = dal.getStations().ToList();
             List<StationToList> StationList_bl = new List<StationToList>();
-            IEnumerable<IDAL.DO.DroneCharge> droneChargeList = dal.getDronesCharge().ToList();
+            IEnumerable<DO.DroneCharge> droneChargeList = dal.getDronesCharge().ToList();
 
 
             foreach (var stationItem in StationsList_dal)
@@ -121,7 +121,7 @@ namespace IBL
             try
             {
                 var updateStation = dal.getStation(idStation);
-                List<IDAL.DO.DroneCharge> chargingDrones = (List<IDAL.DO.DroneCharge>)dal.getDronesCharge().ToList();
+                List<DO.DroneCharge> chargingDrones = (List<DO.DroneCharge>)dal.getDronesCharge().ToList();
      
                 dal.delFromStations(updateStation, false);
 
@@ -141,11 +141,11 @@ namespace IBL
 
                 dal.addStaion(updateStation);
             }
-            catch (IDAL.DO.DoesntExistentObjectException ex)
+            catch (DO.DoesntExistentObjectException ex)
             {
                 throw new DoesntExistentObjectException(ex.Message);
             }
-            catch (IDAL.DO.AlreadyExistException ex)
+            catch (DO.AlreadyExistException ex)
             {
                 throw new AlreadyExistException(ex.Message);
             }
@@ -158,7 +158,7 @@ namespace IBL
         {
             var stationList_dal = dal.print_stations_with_freeDroneCharge();
             List<StationToList> StationList_bl = new List<StationToList>();
-            IEnumerable<IDAL.DO.DroneCharge> droneChargeList = dal.getDronesCharge().ToList();
+            IEnumerable<DO.DroneCharge> droneChargeList = dal.getDronesCharge().ToList();
 
             foreach (var stationItem in stationList_dal)
             {
