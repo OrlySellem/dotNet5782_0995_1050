@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BlApi;
-using BlApi.BO;
+using BO;
 
 namespace PL
 {
@@ -119,7 +119,7 @@ namespace PL
         //לא סיימתי להחביא את  הכפתורים הניצרכים
 
         static DroneToList TheChosenDrone;
-        public DroneWindow(BlApi.IBL bl, BlApi.BO.DroneToList drone)
+        public DroneWindow(BlApi.IBL bl, BO.DroneToList drone)
         {
             InitializeComponent();
             droneBL = bl;
