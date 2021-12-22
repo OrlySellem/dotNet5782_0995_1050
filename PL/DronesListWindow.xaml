@@ -14,14 +14,14 @@
         <ListView x:Name="DronesListView" Grid.Row="1" MouseDoubleClick="ChooseDroneToShow_DoubleClick" SelectionChanged="DronesListView_SelectionChanged">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="ID " Width="100"></GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Model}" Header="MODEL" Width="100"></GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding MaxWeight}" Header="WEIGHT" Width="100"></GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Battery}" Header="BATTERY" Width="100"></GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Status}" Header="STATUS" Width="100"></GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding CurrentLocation.Longitude}" Header="LOCATION LONGITUDE" Width="100"></GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding CurrentLocation.Latitude}" Header="LOCATION LATITUDE" Width="100"></GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding idParcel}" Header="ASSIGNED PARCEL" Width="100"></GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="ID " Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Model}" Header="MODEL" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding MaxWeight}" Header="WEIGHT" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Battery}" Header="BATTERY" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Status}" Header="STATUS" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding CurrentLocation.Longitude}" Header="LOCATION LONGITUDE" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding CurrentLocation.Latitude}" Header="LOCATION LATITUDE" Width="100"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding idParcel}" Header="ASSIGNED PARCEL" Width="100"/>
                 </GridView>
             </ListView.View>
 
