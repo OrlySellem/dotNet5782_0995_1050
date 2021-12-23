@@ -10,6 +10,8 @@ namespace BlApi
     public partial class BL: IBL
     {
 
+        #region CRUD
+        //Create
         public void addCustomer(Customer CustomerToAdd)
         {
             try
@@ -32,6 +34,7 @@ namespace BlApi
            
         }
 
+        // Read
         public Customer getCustomer(int id)
         {
 
@@ -118,6 +121,8 @@ namespace BlApi
             return CustomerList_bl.FindAll(x => predicate == null ? true : predicate(x));
         }
 
+
+        //Update
         public void updateCustomer(int idCustomer, string newName, string newPhone)
         {
             try
@@ -149,5 +154,14 @@ namespace BlApi
 
 
         }
+
+        //Delete
+        public void deleteFromCustomers(int IDcustomerToDel)
+        {
+            DO.Customer customer = dal.getCustomer(IDcustomerToDel);
+            dal.delFromCustomers(customer);
+        }
+
+        #endregion CRUD
     }
 }

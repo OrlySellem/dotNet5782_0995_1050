@@ -41,17 +41,10 @@
             </ListView.View>
 
         </ListView>
-        <Button Content="סינון לתחנות טעינה פנויות " HorizontalAlignment="Left" Margin="56,21,0,0" Grid.Row="1" VerticalAlignment="Top" Width="161" Grid.ColumnSpan="2"/>
+        <Button x:Name="FreeChargeSlots" Content="סינון לתחנות טעינה פנויות " HorizontalAlignment="Left" Margin="56,21,0,0" Grid.Row="1" VerticalAlignment="Top" Width="161" Grid.ColumnSpan="2" Click="FreeChargeSlots_Click"/>
 
         <Label Content="תצוגה של תחנות לפי מס' עמדות טעינה פנויות" Grid.Column="1" HorizontalAlignment="Left" Margin="104,18,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="272" Height="26"/>
-        <ComboBox x:Name="amountOfFreeChargingStations" Grid.Column="2" HorizontalAlignment="Left" Margin="25,3,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="2">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding ChargeSlotsFree}"/>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
-     
-
+        <ComboBox x:Name="AmountOfFreeChargingStations" Grid.Column="2" HorizontalAlignment="Left" Margin="25,3,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" SelectionChanged="AmountOfFreeChargingStations_SelectionChanged" Grid.ColumnSpan="2"/>
+        <Button x:Name="addBaseStationsToList" Content="Add BaseStations" Grid.Column="4" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Center" Height="49" Width="85" Click="addBaseStationsToList_Click"/>
     </Grid>
 </Window>

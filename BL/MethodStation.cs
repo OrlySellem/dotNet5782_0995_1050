@@ -10,6 +10,9 @@ namespace BlApi
 {
     public partial class BL : IBL
     {
+        #region CRUD
+
+        //Create
         public void addStation(Station stationToAdd)
         {
             try
@@ -32,6 +35,7 @@ namespace BlApi
 
         }
 
+       // Read
         public Station getStation(int id)
         {
             try
@@ -116,6 +120,7 @@ namespace BlApi
             return StationList_bl;
         }
 
+        //Update
         public void updateStation(int idStation, int name_int, int chargeSlots)
         {
             try
@@ -151,8 +156,16 @@ namespace BlApi
             }
         }
 
+        //Delete
+        public void deleteFromStations(int  IDstationToDel)
+        {
+            DO.Station station = dal.getStation(IDstationToDel);
+            dal.delFromStations(station, true);
+        }
 
 
+
+        #endregion CRUD
 
         public IEnumerable<StationToList> display_station_with_freeChargingStations()
         {

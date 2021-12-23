@@ -7,8 +7,11 @@ using BO;
 
 namespace BlApi
 {
+   
     public partial class BL : IBL
     {
+        #region CRUD
+        //Create
         public void addDrone(Drone DroneToAdd, int idStation)
         {
             try
@@ -62,6 +65,8 @@ namespace BlApi
 
         }
 
+
+        // Read
         public DroneToList getDrone(int id)
         {
             foreach (BO.DroneToList item in drones)
@@ -84,6 +89,7 @@ namespace BlApi
         }
 
 
+        //Update
         public void updateModelDrone(int idDrone, string newModel)
         {
             try
@@ -113,6 +119,15 @@ namespace BlApi
 
         }
 
+        //Delete
+        public void deleteFromDrones(int IDdroneToDel)
+        {
+            DO.Drone drone = dal.getDrone(IDdroneToDel);
+            dal.delFromDrones(drone);
+
+        }
+
+        #endregion CRUD
         public void chargingDrone(int droneId)
         {
             try

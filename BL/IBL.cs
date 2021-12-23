@@ -61,10 +61,24 @@ namespace BlApi
         public IEnumerable<StationToList> display_station_with_freeChargingStations();
 
         #endregion
+
+
+        #region DELETE
+
+        public void deleteFromDrones(int IDdroneToDel);
+
+        public void deleteFromStations(int IDstationToDel);
+
+        public void deleteFromParcels(int IDparcelToDel);
+
+        public void deleteFromCustomers(int IDcustomerToDel);
+
+      
+        #endregion DELETE
         // 
 
 
-       
-      
+
+
     }
 }
