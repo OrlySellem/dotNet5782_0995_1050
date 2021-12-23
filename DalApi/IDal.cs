@@ -83,7 +83,6 @@ namespace DalApi
 
         #region power
         public double[] R_power_consumption_Drone();
-        void getParcel(Parcel parcelItem);
         #endregion
     }
 }

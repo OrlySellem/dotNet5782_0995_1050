@@ -16,16 +16,49 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="insertToDroneList" 
+
+        <Button x:Name="ViewDroneList" 
                 Content="Drones List"
                 FontWeight="Bold"
                 FontSize="25"
                 HorizontalAlignment="Left" 
-                Margin="330,178,0,0" 
+                Margin="598,70,0,0" 
+                VerticalAlignment="Top"
+                Height="79" Width="166" 
+                Click="ViewDroneList_Click" BorderBrush="#FF22445D" FontFamily="Kristen ITC" Background="#FF9CC3FD" Grid.RowSpan="2"/>
+
+        <Button x:Name="ViewBaseStationList" 
+                Content="Base Stations"
+                FontWeight="Bold"
+                FontSize="25"
+                HorizontalAlignment="Left" 
+                Margin="400,94,0,0" 
+                Grid.Row="1" 
+                VerticalAlignment="Top"
+                Height="79" Width="218" 
+                 BorderBrush="#FF22445D" FontFamily="Kristen ITC" Background="#FF9CC3FD" Click="insertToBaseStations_Click"/>
+
+        <Button x:Name="ViewCustomerList" 
+                Content="Customer View"
+                FontWeight="Bold"
+                FontSize="25"
+                HorizontalAlignment="Left" 
+                Margin="199,70,0,0" 
+                VerticalAlignment="Top"
+                Height="79" Width="226" 
+                 BorderBrush="#FF22445D" FontFamily="Kristen ITC" Background="#FF9CC3FD" Grid.RowSpan="2"/>
+
+        <Button x:Name="ViewParcelList" 
+                Content="Parcel View"
+                FontWeight="Bold"
+                FontSize="25"
+                HorizontalAlignment="Left" 
+                Margin="59,94,0,0" 
                 Grid.Row="1" 
                 VerticalAlignment="Top"
                 Height="79" Width="166" 
-                Click="insertToDroneList_Click" BorderBrush="#FF22445D" FontFamily="Kristen ITC" Background="#FF9CC3FD"/>
+                 BorderBrush="#FF22445D" FontFamily="Kristen ITC" Background="#FF9CC3FD"/>
+
 
 
     </Grid>

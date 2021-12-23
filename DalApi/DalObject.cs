@@ -128,7 +128,12 @@ namespace DalObject
         #region GET 
         public Parcel getParcel(int id)//Finds the requested parcel from the arr
         {
-            Parcel parcel = DataSource.parcels.Find(p => p.Id == id);
+            //Parcel parcel = DataSource.parcels.Find(p => p.Id == id);
+            //דוצמא לשאילתה LINQ של קבלת הרחפן
+
+            Parcel parcel = (from findparcel in DataSource.parcels
+                             where findparcel.Id == id
+                             select findparcel).FirstOrDefault();
             if (parcel.Id == 0)
                 throw new DoesntExistentObjectException("parcel");
             return parcel;
@@ -171,7 +176,12 @@ namespace DalObject
 
         public IEnumerable<Parcel> getParcels(Predicate<Parcel> prdicat = null)
         {
+            //return (from parcel in DataSource.parcels
+            //        where prdicat(parcel)
+            //        select parcel).ToList();
             return DataSource.parcels.FindAll(x => prdicat == null ? true : prdicat(x));
+
+
         }
 
         public IEnumerable<Drone> getDrones(Predicate<Drone> prdicat = null)
@@ -369,10 +379,6 @@ namespace DalObject
             return power;
         }
 
-        public void getParcel(Parcel parcelItem)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
 
     }

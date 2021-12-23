@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="DroneWindow" Height="450" Width="380">
     <Grid>
-        <Grid Name="UpGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
+        <Grid Name="UpGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="35*"/>
@@ -77,7 +77,7 @@
 
         </Grid>
 
-        <Grid Name="updataGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
+        <Grid Name="updataGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>

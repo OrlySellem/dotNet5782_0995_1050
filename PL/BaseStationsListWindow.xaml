@@ -1,0 +1,57 @@
+﻿<Window x:Class="PL.BaseStationsListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="BaseStationsListWindow" Height="450" Width="800">
+    <Grid x:Name="MainBaseStationsGrid">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions >
+
+        <ListView x:Name="BaseStationsListView" Grid.Row="3" Grid.ColumnSpan="6" SelectionChanged="BaseStationsListView_SelectionChanged" Margin="0,46,0,0" Grid.RowSpan="7">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="ID " Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="NAME" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ChargeSlotsFree}" Header="FREE CHARGE SIOTS" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ChargeSlotsFull}" Header="FULL CHARGE SIOTS" Width="auto"/>
+
+                </GridView>
+            </ListView.View>
+
+        </ListView>
+        <Button Content="סינון לתחנות טעינה פנויות " HorizontalAlignment="Left" Margin="56,21,0,0" Grid.Row="1" VerticalAlignment="Top" Width="161" Grid.ColumnSpan="2"/>
+
+        <Label Content="תצוגה של תחנות לפי מס' עמדות טעינה פנויות" Grid.Column="1" HorizontalAlignment="Left" Margin="104,18,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="272" Height="26"/>
+        <ComboBox x:Name="amountOfFreeChargingStations" Grid.Column="2" HorizontalAlignment="Left" Margin="25,3,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="2">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding ChargeSlotsFree}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+     
+
+    </Grid>
+</Window>

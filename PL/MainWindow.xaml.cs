@@ -33,11 +33,14 @@ namespace PL
             //new DronesListWindow(b1).Show();
         }
 
-        private void insertToDroneList_Click(object sender, RoutedEventArgs e)
+        private void ViewDroneList_Click(object sender, RoutedEventArgs e)
         {
             new DronesListWindow(mainBl).ShowDialog();
         }
 
-       
+        private void insertToBaseStations_Click(object sender, RoutedEventArgs e)
+        {
+            new BaseStationsListWindow(mainBl).ShowDialog();
+        }
     }
 }
