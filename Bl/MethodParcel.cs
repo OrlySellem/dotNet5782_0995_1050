@@ -9,6 +9,8 @@ namespace BlApi
 {
     public partial class BL : IBL
     {
+        #region CRUD
+        //Create
         public void addParcel(Parcel ParcelToAdd)
         {
             try
@@ -37,6 +39,7 @@ namespace BlApi
 
         }
 
+        // Read
         public Parcel getParcel(int id)
         {
             try
@@ -110,6 +113,7 @@ namespace BlApi
          
         }
 
+        //Update
         public IEnumerable<ParcelToList> ParcelDoesntAssignToDrone()
         {
             var parcelList_dal = dal.print_unconnected_parcels_to_Drone();
@@ -132,5 +136,14 @@ namespace BlApi
 
             return ParcelList_bl;
         }
+
+        //Delete
+        public void deleteFromParcels(int IDparcelToDel)
+        {
+            DO.Parcel parcel = dal.getParcel(IDparcelToDel);
+            dal.delFromParcels(parcel);
+        }
+
+        #endregion CRUD
     }
 }
