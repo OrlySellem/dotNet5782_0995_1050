@@ -7,6 +7,41 @@
         mc:Ignorable="d"
         Title="ParcelListWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions >
+
+        <ListView x:Name="ParcelListView" Grid.Row="3" Grid.ColumnSpan="6" SelectionChanged="ParcelListView_SelectionChanged" Margin="0,46,0,0" Grid.RowSpan="7">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="ID " Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Senderld}" Header="Senderld" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Targetld}" Header="Targetld" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Weight}" Header="Weight" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Priority}" Header="Priority" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ParcelStatus}" Header="ParcelStatus" Width="auto"/>
+                </GridView>
+            </ListView.View>
+
+        </ListView>
+        <Button x:Name="addParcelToList" Content="Add Parcel" Grid.Column="4" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Center" Height="49" Width="85" Click="addParcelToList_Click"/>
+
     </Grid>
 </Window>

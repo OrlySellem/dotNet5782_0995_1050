@@ -28,11 +28,6 @@ namespace PL
             InitializeComponent();
         }
 
-        private void ShowDronesButton_Click(object sender, RoutedEventArgs e)
-        {
-            //new DronesListWindow(b1).Show();
-        }
-
         private void ViewDroneList_Click(object sender, RoutedEventArgs e)
         {
             new DronesListWindow(mainBl).ShowDialog();
@@ -41,6 +36,16 @@ namespace PL
         private void insertToBaseStations_Click(object sender, RoutedEventArgs e)
         {
             new BaseStationsListWindow(mainBl).ShowDialog();
+        }
+
+        private void ViewCustomerList_Click(object sender, RoutedEventArgs e)
+        {
+            new CustomerListWindow(mainBl).ShowDialog();
+        }
+
+        private void ViewParcelList_Click(object sender, RoutedEventArgs e)
+        {
+            new ParcelListWindow(mainBl).ShowDialog();
         }
     }
 }

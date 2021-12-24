@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BlApi;
+using BO;
 
 namespace PL
 {
@@ -19,9 +21,25 @@ namespace PL
     /// </summary>
     public partial class CustomerListWindow : Window
     {
-        public CustomerListWindow()
+        BlApi.IBL approachBL;
+        public CustomerListWindow(BlApi.IBL bl)
         {
             InitializeComponent();
+            approachBL = bl;
+            CustomerListView.ItemsSource = approachBL.getAllCustomers();
+
+        }
+
+      
+
+        private void addCustomerToList_Click(object sender, RoutedEventArgs e)
+        {
+            new CustomerWindow(approachBL).ShowDialog();
+        }
+
+        private void CustomerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            new CustomerWindow(approachBL, (CustomerToList)CustomerListView.SelectedItem).ShowDialog();
         }
     }
 }

@@ -19,8 +19,12 @@ namespace PL
     /// <summary>
     /// Interaction logic for BaseStationsWindow.xaml
     /// </summary>
+    /// 
+
+
     public partial class BaseStationsWindow : Window
     {
+        #region ADD BaseStations
         BlApi.IBL approachBL;
         public BaseStationsWindow(BlApi.IBL bl)
         {
@@ -31,48 +35,10 @@ namespace PL
 
         }
 
-        static StationToList TheChosenBaseStation;
-        public BaseStationsWindow(IBL bl, StationToList BaseStation)
-        {
-            InitializeComponent();
-            approachBL = bl;
-            TheChosenBaseStation = BaseStation;
-            updataGrid.Visibility = Visibility.Visible;
-            addGrid.Visibility = Visibility.Hidden;
-
-            id.Text = BaseStation.Id.ToString();
-            Name.Text = BaseStation.Name.ToString();
-            FreeChargeSlots.Text = BaseStation.ChargeSlotsFree.ToString();
-            FullChargeSlots.Text = BaseStation.ChargeSlotsFull.ToString();
-
-
-
-        }
-
-        private void UpdateData_Click(object sender, RoutedEventArgs e)
-        {
-
-
-            if ((Name.Text != "" && TheChosenBaseStation.Name != int.Parse(Name.Text)))
-            {
-                approachBL.updateStation(TheChosenBaseStation.Id, int.Parse(Name.Text), int.Parse(AddChargeSlots.Text));
-            }
-        }
 
         private void cancelAddBaseStation_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        private void CloseWindow_Click(object sender, RoutedEventArgs e)
-        {
-
-            this.Close();
-        }
-
-        private void BaseStationToDelete_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            approachBL.deleteFromStations(TheChosenBaseStation.Id);
         }
 
         private void addBaseStation_Click(object sender, RoutedEventArgs e)
@@ -95,5 +61,87 @@ namespace PL
 
             this.Close();
         }
+
+
+
+
+        private void TextBoxId_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (TextBoxId.Text != "" && TextBoxName.Text != "" && TextBoxChargeSlots.Text != "")
+                addBaseStation.IsEnabled = true;
+            else
+                addBaseStation.IsEnabled = false;
+        }
+
+        private void TextBoxName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (TextBoxId.Text != "" && TextBoxName.Text != "" && TextBoxChargeSlots.Text != "")
+                addBaseStation.IsEnabled = true;
+            else
+                addBaseStation.IsEnabled = false;
+        }
+
+        private void TextBoxChargeSlots_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (TextBoxId.Text != "" && TextBoxName.Text != "" && TextBoxChargeSlots.Text != "")
+                addBaseStation.IsEnabled = true;
+            else
+                addBaseStation.IsEnabled = false;
+        }
+
+
+        #endregion ADD BaseStations
+
+
+        #region UPDATA BaseStations
+        static StationToList TheChosenBaseStation;
+        public BaseStationsWindow(IBL bl, StationToList BaseStation)
+        {
+            InitializeComponent();
+            approachBL = bl;
+            TheChosenBaseStation = BaseStation;
+            updataGrid.Visibility = Visibility.Visible;
+            addGrid.Visibility = Visibility.Hidden;
+
+            id.Text = BaseStation.Id.ToString();
+            Name.Text = BaseStation.Name.ToString();
+            FreeChargeSlots.Text = BaseStation.ChargeSlotsFree.ToString();
+            FullChargeSlots.Text = BaseStation.ChargeSlotsFull.ToString();
+
+
+
+        }
+
+
+        private void UpdateData_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            if ((Name.Text != "" && TheChosenBaseStation.Name != int.Parse(Name.Text)))
+            {
+                approachBL.updateStation(TheChosenBaseStation.Id, int.Parse(Name.Text), int.Parse(AddChargeSlots.Text));
+            }
+        }
+
+
+        private void CloseWindow_Click(object sender, RoutedEventArgs e)
+        {
+
+            this.Close();
+        }
+
+        private void BaseStationToDelete_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            approachBL.deleteFromStations(TheChosenBaseStation.Id);
+        }
+
+
+
+
+
+
+        #endregion UPDATA BaseStations
+
+
     }
 }

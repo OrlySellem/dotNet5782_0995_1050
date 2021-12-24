@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BlApi;
+using BO;
 
 namespace PL
 {
@@ -19,9 +21,19 @@ namespace PL
     /// </summary>
     public partial class ParcelListWindow : Window
     {
-        public ParcelListWindow()
+
+        BlApi.IBL approachBL;
+        public ParcelListWindow(BlApi.IBL bl)
         {
             InitializeComponent();
+            approachBL = bl;
+            //BaseStationsListView.ItemsSource = approachBL.getAllStations();
+
+        }
+
+        private void ParcelListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            new ParcelWindow(approachBL, (ParcelToList)ParcelListView.SelectedItem).ShowDialog();
         }
     }
 }
