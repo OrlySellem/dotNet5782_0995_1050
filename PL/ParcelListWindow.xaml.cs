@@ -29,11 +29,60 @@ namespace PL
             approachBL = bl;
             //BaseStationsListView.ItemsSource = approachBL.getAllStations();
 
+            senderOrTargetID.ItemsSource = approachBL.getAllParcels();
+
         }
 
         private void ParcelListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             new ParcelWindow(approachBL, (ParcelToList)ParcelListView.SelectedItem).ShowDialog();
+        }
+
+        private void senderCheckBox_check(object sender, RoutedEventArgs e)
+        {
+            if(senderCheckBox.IsChecked!=null && targetCheckBox==null)
+            {
+                senderOrTargetID.ItemsSource = (from parcel in approachBL.getAllParcels()
+                                                where parcel.Senderld!=0
+                                                select parcel.Senderld).ToList();
+
+                senderOrTargetID.IsEnabled = true;
+            }
+            else if (senderCheckBox.IsChecked != null && targetCheckBox != null)
+            {
+                MessageBox.Show("Please check one option");
+            }
+
+        }
+
+        private void targetCheckBox_check(object sender, RoutedEventArgs e)
+        {
+            if (senderCheckBox.IsChecked == null && targetCheckBox != null)
+            {
+                senderOrTargetID.ItemsSource = (from parcel in approachBL.getAllParcels()
+                                                where parcel.Targetld != 0
+                                                select parcel.Senderld).ToList();
+                senderOrTargetID.IsEnabled = true;
+            }
+            else if (senderCheckBox.IsChecked != null && targetCheckBox != null)
+            {
+                MessageBox.Show("Please check one option");
+            }
+        }
+
+
+        private void senderOrTargetID_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (senderCheckBox.IsChecked!=null)
+            {
+              
+            }
+            else 
+            {
+
+            }
+
+
         }
     }
 }
