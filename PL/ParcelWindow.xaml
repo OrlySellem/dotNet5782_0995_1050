@@ -28,27 +28,31 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
 
-            <Label Content="senderld:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="13,16,0,0" VerticalAlignment="Top" Width="82" Grid.Row="1"/>
-            <TextBox x:Name="TextBoxSenderld" HorizontalAlignment="Left" Margin="0,31,0,0" TextWrapping="Wrap" Width="120" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="1" TextChanged="TextBoxId_TextChanged"/>
+            <Label Content="senderld:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="27,18,0,0" VerticalAlignment="Top" Width="82" Grid.Row="1" Grid.ColumnSpan="2"/>
 
-            <Label Content="targetld:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="10,13,0,0" VerticalAlignment="Top" Width="82" Grid.Row="2"/>
-            <TextBox x:Name="TextBoxName" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="2" Margin="0,22,0,0" TextChanged="TextBoxName_TextChanged"/>
+            <ComboBox x:Name="senderSelector" Grid.Column="2" HorizontalAlignment="Center" Margin="0,25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="95" Height="24" SelectionChanged="senderSelector_SelectionChanged"/>
 
-            <Label Content="weight:" FontWeight="Bold" HorizontalAlignment="Center" Height="29" VerticalAlignment="Center" Width="82" Grid.Row="5"/>
-            <TextBox x:Name="TextBoxChargeSlots" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="5" TextChanged="TextBoxChargeSlots_TextChanged"/>
+            <Label Content="targetld:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="28,17,0,0" VerticalAlignment="Top" Width="82" Grid.Row="2" Grid.ColumnSpan="2"/>
+            <ComboBox x:Name="targetSelector" Grid.Column="2" HorizontalAlignment="Center" Margin="0,27,0,0" Grid.Row="2" VerticalAlignment="Top" Width="95" SelectionChanged="targetSelector_SelectionChanged"/>
 
-            <Label Content="priority:" FontWeight="Bold" HorizontalAlignment="Center" Height="29" VerticalAlignment="Center" Width="82" Grid.Row="3"/>
+            <Label Content="Weight:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="82" Grid.Row="3" Margin="28,16,0,0" Grid.ColumnSpan="2"/>
+            <ComboBox x:Name="weightSelector" Grid.Column="2" HorizontalAlignment="Center" Margin="0,24,0,0" Grid.Row="3" VerticalAlignment="Top" Width="95" SelectionChanged="WeightSelector_SelectionChanged_1"/>
 
-           
-            <Button x:Name="addBaseStation" Content="Add" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="37,0,0,0" VerticalAlignment="Center" Height="40" Width="90" Click="addBaseStation_Click" 
-             IsEnabled="False" Grid.ColumnSpan="2" Grid.Row="7"/>
 
-            <Button x:Name="cancelAddBaseStation" Content="Cancel" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Top" Height="40" Width="90" Click="cancelAddBaseStation_Click" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="7"/>
+            <Label Content="Priority:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="82" Grid.Row="4" Margin="28,18,0,0" Grid.ColumnSpan="2"/>
+            <ComboBox x:Name="prioritySelector" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="4" Width="95" SelectionChanged="prioritySelector_SelectionChanged" Margin="0,23,0,4"/>
+
+
+
+            <Button x:Name="addParcel" Content="Add" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="75,3,0,0" VerticalAlignment="Top" Height="40" Width="90" 
+             IsEnabled="False" Grid.Row="6" Grid.ColumnSpan="2" Click="addParcel_Click"/>
+
+            <Button x:Name="cancelParcel" Content="Cancel" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="25,3,0,0" VerticalAlignment="Top" Height="40" Width="90"  Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="6"/>
 
 
         </Grid>
 
-        <Grid Name="updataGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
+        <Grid Name="updataGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="-3,-2,3,0">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -69,27 +73,35 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
 
-            <Button x:Name="CloseWindow" Content="סגירת חלון" Grid.Column="3" HorizontalAlignment="Center" Margin="0,23,0,0" Grid.Row="1" VerticalAlignment="Top" Click="CloseWindow_Click" Width="75"/>
-            <Button x:Name="UpdateData"  Content="עידכון נתונים"   Grid.Column="3" HorizontalAlignment="Left" Margin="16,5,0,0" Grid.Row="2" VerticalAlignment="Top" Click="UpdateData_Click"/>
+            <Button x:Name="CloseWindow" Content="Close window" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Center" Click="CloseWindow_Click" Width="95" Grid.ColumnSpan="2"/>
+            <Button x:Name="UpdateData"  Content="Update parcel"   Grid.Column="2" HorizontalAlignment="Center" Margin="0,30,0,0" Grid.Row="7" VerticalAlignment="Top" Click="UpdateData_Click" Width="96" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
 
-            <Label Content="id :"  Grid.Column="0"  HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-            <TextBox x:Name="id" IsEnabled="False"  Grid.Column="1" HorizontalAlignment="Left" Margin="34,25,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
+            <Label Content="ID:"  FontWeight="Bold" Grid.Column="0"  HorizontalAlignment="Left" Margin="10,23,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+            <TextBox x:Name="IDTextBox" IsEnabled="False"  Grid.Column="1" BorderBrush="#FF02040C" HorizontalAlignment="Left" Margin="37,19,0,0" Grid.Row="2" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Grid.ColumnSpan="2" Height="22"/>
 
-            <Label Content="Name :" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-            <TextBox x:Name="Name" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" BorderBrush="#FF02040C" Margin="34,22,0,0" Grid.ColumnSpan="2"/>
+            <Label Content="Sender ID:"  FontWeight="Bold" Grid.Column="0"  HorizontalAlignment="Left" Margin="10,19,0,0" Grid.Row="2" VerticalAlignment="Top"/>
 
-            <Label Content="Free Charge Slots :" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="114"/>
-            <TextBox x:Name="FreeChargeSlots"  Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" Margin="34,24,0,0"  Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="senderId" IsEnabled="False"  Grid.Column="1" BorderBrush="#FF02040C" HorizontalAlignment="Left" Margin="37,25,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="90" Grid.ColumnSpan="2" Height="22"/>
 
-            <Label Content="Full Charge Slots :" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="4" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="114"/>
-            <TextBox x:Name="FullChargeSlots" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="34,24,0,0" Grid.Row="4" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
+            <Label Content="Target ID:" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Left" Margin="10,18,0,0" Grid.Row="3" VerticalAlignment="Top"/>
+            <TextBox x:Name="targetId" Grid.Column="1" HorizontalAlignment="Left" BorderBrush="#FF02040C" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="88" Margin="37,15,0,0" Grid.ColumnSpan="2" Height="23"/>
 
-            <Label Content="Add Charge Slots :" HorizontalAlignment="Left" Margin="71,34,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="119" Grid.RowSpan="2"/>
-            <TextBox x:Name="AddChargeSlots" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" BorderBrush="#FF02040C" Margin="22,42,0,0" Grid.RowSpan="2"/>
+            <Label Content="weight:" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="4" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="114"/>
+            <TextBox x:Name="weightTextBox" Grid.Column="1" HorizontalAlignment="Left" BorderBrush="#FF02040C" Margin="39,0,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Center" Width="88" Grid.ColumnSpan="2" Height="23"/>
 
-            <Label Content=" base station to delete :" HorizontalAlignment="Left" Margin="56,23,0,0" Grid.Row="7" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-            <ComboBox x:Name="BaseStationToDelete" Grid.Column="2" HorizontalAlignment="Left" Margin="22,27,0,0" Grid.Row="7" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" SelectionChanged="BaseStationToDelete_SelectionChanged"/>
-            <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="28,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+            <Label Content="Priority:" FontWeight="Bold" HorizontalAlignment="Left" Grid.Row="5" VerticalAlignment="Top" Margin="11,9,0,0"/>
+            <TextBox x:Name="priorityTextBox" Grid.Column="1" HorizontalAlignment="Left" BorderBrush="#FF02040C" Margin="39,17,0,0" Grid.Row="5"  TextWrapping="Wrap" VerticalAlignment="Top" Width="88" Grid.ColumnSpan="2" Height="20"/>
+            <Label Content="Parcel Status:" FontWeight="Bold" HorizontalAlignment="Center" BorderBrush="#FF02040C" Margin="0,10,0,0" Grid.Row="6" VerticalAlignment="Top"/>
+            <TextBox x:Name="parcelStatusTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="39,24,0,0" Grid.Row="6"  TextWrapping="Wrap" VerticalAlignment="Top" Width="88" Grid.ColumnSpan="2" Height="17"/>
+            <CheckBox x:Name="PickedUp_OR_Delivered" Content="PickedUp_OR_Delivered" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="39,25,0,0" Checked="PickedUp_OR_Delivered_Checked"
+                      Visibility="Visible"/>
+            <Button Content="View sender" Grid.Column="3" HorizontalAlignment="Center" Margin="0,21,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+            <Button Content="View target" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Center"/>
+            <Button Content="View drone" Grid.Column="3" HorizontalAlignment="Left" Margin="17,12,0,0" Grid.Row="4" VerticalAlignment="Top"/>
+
+
+
+
 
 
 
@@ -97,5 +109,6 @@
 
 
         </Grid>
+        <Label Content="Label" HorizontalAlignment="Left" Margin="380,-19,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
