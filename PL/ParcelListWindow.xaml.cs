@@ -40,10 +40,10 @@ namespace PL
 
         private void senderCheckBox_check(object sender, RoutedEventArgs e)
         {
-            if(senderCheckBox.IsChecked!=null && targetCheckBox==null)
+            if (senderCheckBox.IsChecked != null && targetCheckBox == null)
             {
                 senderOrTargetID.ItemsSource = (from parcel in approachBL.getAllParcels()
-                                                where parcel.Senderld!=0
+                                                where parcel.Senderld != 0
                                                 select parcel.Senderld).ToList();
 
                 senderOrTargetID.IsEnabled = true;
@@ -73,11 +73,11 @@ namespace PL
 
         private void senderOrTargetID_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (senderCheckBox.IsChecked!=null)
+            if (senderCheckBox.IsChecked != null)
             {
-              
+
             }
-            else 
+            else
             {
 
             }
@@ -86,3 +86,4 @@ namespace PL
         }
     }
 }
+
