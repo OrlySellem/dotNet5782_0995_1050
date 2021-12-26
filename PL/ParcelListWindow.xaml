@@ -42,6 +42,8 @@
 
         </ListView>
         <Button x:Name="addParcelToList" Content="Add Parcel" Grid.Column="4" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Center" Height="49" Width="85" Click="addParcelToList_Click"/>
+        <TextBox x:Name="targetORsenderld"  Grid.Column="1" HorizontalAlignment="Left" Height="26" Margin="4,0,0,0" Grid.Row="1" Text="enter ID" TextWrapping="Wrap" VerticalAlignment="Center" Width="196" Grid.ColumnSpan="2"/>
+        <Label Content="Label" Grid.Column="4" HorizontalAlignment="Left" Margin="83,0,0,0" Grid.Row="1" VerticalAlignment="Center"/>
 
     </Grid>
 </Window>
