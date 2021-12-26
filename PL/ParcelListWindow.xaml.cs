@@ -84,5 +84,10 @@ namespace PL
 
 
         }
+
+        private void addParcelToList_Click(object sender, RoutedEventArgs e)
+        {
+            new ParcelWindow(approachBL).ShowDialog();
+        }
     }
 }
