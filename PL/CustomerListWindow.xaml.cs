@@ -39,7 +39,7 @@ namespace PL
 
         private void CustomerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            new CustomerWindow(approachBL, (CustomerToList)CustomerListView.SelectedItem).ShowDialog();
+            new CustomerWindow (approachBL, (CustomerToList)CustomerListView.SelectedItem).ShowDialog();
         }
     }
 }
