@@ -65,7 +65,6 @@ namespace BlApi
 
         }
 
-
         // Read
         public DroneToList getDrone(int id)
         {

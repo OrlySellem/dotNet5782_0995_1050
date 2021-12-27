@@ -99,37 +99,39 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
 
-            <Button x:Name="CloseWindow" Content="סגירת חלון" Grid.Column="3" HorizontalAlignment="Center" Margin="0,23,0,0" Grid.Row="1" VerticalAlignment="Top" Click="CloseWindow_Click" Width="75"/>
-            <Button x:Name="UpdateData"  Content="עידכון נתונים"   Grid.Column="3" HorizontalAlignment="Left" Margin="16,5,0,0" Grid.Row="2" VerticalAlignment="Top" Click="UpdateData_Click"/>
-            <Button x:Name="SendingDroneForCharging" Content="שליחת רחפן לטעינה" Grid.Column="2" HorizontalAlignment="Left" Margin="65,35,0,0"  Grid.Row="2" VerticalAlignment="Top" Click="SendingDroneForCharging_Click" Grid.ColumnSpan="2" Width="115" Grid.RowSpan="2"/>
-            <Button x:Name="ReleaseDroneFromCharging" Content="שחרור רחפן מטעינה " Grid.Column="2" HorizontalAlignment="Left" Margin="65,18,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="115" Click="ReleaseDroneFromCharging_Click"/>
-            <Button x:Name="SendDroneForDelivery" Content="שליחת הרחפן למשלוח " Grid.Column="3" Margin="0,0,10,0" Grid.Row="4" VerticalAlignment="Top" Click="SendDroneForDelivery_Click"/>
-            <Button x:Name="ParcelCollection" Content="איסוף חבילה " Grid.Column="3" HorizontalAlignment="Center" Margin="0,34,0,0" Grid.Row="4" VerticalAlignment="Top" Click="ParcelCollection_Click" Grid.RowSpan="2"/>
-            <Button x:Name="ParcelArriveToDestination" Content="אספקת החבילה " Grid.Column="2" HorizontalAlignment="Left" Margin="89,18,0,0"  Grid.Row="5" VerticalAlignment="Top" Click="ParcelArriveToDestination_Click" Grid.ColumnSpan="2"/>
+            <Button x:Name="CloseWindow" Content="Close Window" Grid.Column="2" HorizontalAlignment="Left" Margin="65,23,0,0" Grid.Row="1" VerticalAlignment="Top" Click="CloseWindow_Click" Width="115" Grid.ColumnSpan="2"/>
+            <Button x:Name="UpdateData"  Content="Update Model"   Grid.Column="2" HorizontalAlignment="Left" Margin="65,5,0,0" Grid.Row="2" VerticalAlignment="Top" Click="UpdateData_Click" Grid.ColumnSpan="2" Width="114"/>
+            <Button x:Name="SendingDroneForCharging" Content="charging drone" Grid.Column="2" HorizontalAlignment="Left" Margin="65,35,0,0"  Grid.Row="2" VerticalAlignment="Top" Click="SendingDroneForCharging_Click" Grid.ColumnSpan="2" Width="115" Grid.RowSpan="2"/>
+            <Button x:Name="ReleaseDroneFromCharging" Content="Free drone from charging" Grid.Column="2" HorizontalAlignment="Left" Margin="25,18,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="155" Click="ReleaseDroneFromCharging_Click"/>
+            <Button x:Name="SendDroneForDelivery" Content="Send drone to delivery" Grid.Column="2" Margin="48,0,10,0" Grid.Row="4" VerticalAlignment="Top" Click="SendDroneForDelivery_Click" Grid.ColumnSpan="2"/>
+            <Button x:Name="ParcelCollection" Content="Pick up parcel" Grid.Column="2" HorizontalAlignment="Left" Margin="73,32,0,0" Grid.Row="4" VerticalAlignment="Top" Click="ParcelCollection_Click" Grid.RowSpan="2" Width="107" Grid.ColumnSpan="2"/>
+            <Button x:Name="ParcelArriveToDestination" Content="parcel arrived" Grid.Column="2" HorizontalAlignment="Left" Margin="73,18,0,0"  Grid.Row="5" VerticalAlignment="Top" Click="ParcelArriveToDestination_Click" Grid.ColumnSpan="2" Width="107"/>
 
-            <Label Content="id:"  Grid.Column="0"  HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+            <Label Content="id:"  FontWeight="Bold" Grid.Column="0"  HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="1" VerticalAlignment="Top"/>
             <TextBox x:Name="id" IsEnabled="False"  Grid.Column="1" HorizontalAlignment="Left" Margin="0,24,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85"/>
 
-            <Label Content="Model:" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+            <Label Content="Model:" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="2" VerticalAlignment="Top"/>
             <TextBox x:Name="Model" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" BorderBrush="#FF02040C" Margin="0,22,0,0"/>
 
-            <Label Content="MaxWeight:" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="3" VerticalAlignment="Top"/>
+            <Label Content="MaxWeight:" FontWeight="Bold" HorizontalAlignment="Left" Margin="4,20,0,0" Grid.Row="3" VerticalAlignment="Top"/>
             <TextBox x:Name="MaxWeight" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="0,25,0,0" Grid.Row="3" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85"/>
 
-            <Label Content="Battery:" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="4" VerticalAlignment="Top"/>
+            <Label Content="Battery:" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="4" VerticalAlignment="Top"/>
             <TextBox x:Name="Battery" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="0,25,0,0" Grid.Row="4" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85"/>
 
-            <Label Content="Status:" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="5" VerticalAlignment="Top" RenderTransformOrigin="0.677,2.339"/>
+            <Label Content="Status:" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="5" VerticalAlignment="Top" RenderTransformOrigin="0.677,2.339"/>
             <TextBox x:Name="Status" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="0,25,0,0" Grid.Row="5" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85"/>
 
-            <Label Content="idParcel:" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="6" VerticalAlignment="Top"/>
+            <Label Content="idParcel:" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="6" VerticalAlignment="Top"/>
             <TextBox x:Name="idParcel" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="0,25,0,0" Grid.Row="6" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85"/>
 
-            <Label Content="CurrentLocation:" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="7" VerticalAlignment="Top"/>
-            <Label Content="Lattitude:"  Grid.Column="0" HorizontalAlignment="Left" Margin="76,47,0,0" Grid.Row="7" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.RowSpan="2" RenderTransformOrigin="0.201,0.482"/>
-            <TextBox x:Name="Lattitude" IsEnabled="False" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="52,0,0,0" Grid.Row="8" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="55"/>
-            <Label Content="Longitude:" Grid.Column="0" HorizontalAlignment="Left" Margin="76,13,0,0" Grid.Row="8" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="Longitude" IsEnabled="False" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="52,21,0,0" Grid.Row="8" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="55"/>
+            <Label Content="Current Location:" FontWeight="Bold" HorizontalAlignment="Left" Margin="4,22,0,0" Grid.Row="7" VerticalAlignment="Top" Width="123" Grid.ColumnSpan="2"/>
+            <Label Content="Lattitude:"  FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Left" Margin="88,46,0,0" Grid.Row="7" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.RowSpan="2" RenderTransformOrigin="0.201,0.482"/>
+            <Label Content="Longitude:" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Left" Margin="88,19,0,0" Grid.Row="8" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="LattitudeTextBox" IsEnabled="false" Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,6,32" Grid.Row="8" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="88" Height="19"/>
+            <TextBox  x:Name="LongitudeTextBox" IsEnabled="false" Grid.Column="2" HorizontalAlignment="Left" Margin="1,26,0,0" Grid.Row="8" TextWrapping="Wrap" VerticalAlignment="Top" Width="88" Height="19"/>
+
+
 
 
 

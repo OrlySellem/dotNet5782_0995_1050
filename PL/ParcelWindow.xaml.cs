@@ -175,10 +175,6 @@ namespace PL
 
 
 
-
-
-
-
         private void ViewSender_Click(object sender, RoutedEventArgs e)
         {
             CustomerToList c = (from customer in approachBL.getAllCustomers()

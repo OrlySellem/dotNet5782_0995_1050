@@ -41,7 +41,9 @@ namespace PL
         private void CustomerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             new CustomerWindow (approachBL, (CustomerToList)CustomerListView.SelectedItem).ShowDialog();
-            CustomerListView.ItemsSource = approachBL.getAllCustomers();
+
+            CustomerListView.SelectedItem = approachBL.getAllCustomers();
+
         }
     }
 }

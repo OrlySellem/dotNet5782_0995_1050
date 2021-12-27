@@ -135,12 +135,12 @@ namespace PL
 
             id.Text = drone.Id.ToString();
             Model.Text = drone.Model.ToString();
-            MaxWeight.Text = drone.Model.ToString();
+            MaxWeight.Text = drone.MaxWeight.ToString();
             Battery.Text = drone.Battery.ToString();
             Status.Text = drone.Status.ToString();
             idParcel.Text = drone.idParcel.ToString();
-            Lattitude.Text = drone.CurrentLocation.Lattitude.ToString();
-            Longitude.Text = drone.CurrentLocation.Longitude.ToString();
+            LattitudeTextBox.Text = drone.CurrentLocation.Lattitude.ToString();
+            LongitudeTextBox.Text = drone.CurrentLocation.Longitude.ToString();
 
 
             if (drone.Status == DroneStatuses.available)
@@ -219,7 +219,7 @@ namespace PL
 
         private void UpdateData_Click(object sender, RoutedEventArgs e)
         {
-            if (Model.Text != ""&& TheChosenDrone.Model!= Model.Text)
+            if (Model.Text != "" && TheChosenDrone.Model!= Model.Text)
             {
                 droneBL.updateModelDrone(TheChosenDrone.Id, Model.Text.ToString());
 
@@ -233,9 +233,7 @@ namespace PL
                 this.DragMove();
         }
 
-
-
-
+       
         #endregion updat Drone
 
         //private void cancelAddDrone_Click(object sender, RoutedEventArgs e)
