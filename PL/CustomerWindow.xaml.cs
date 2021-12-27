@@ -110,7 +110,7 @@ namespace PL
         addGrid.Visibility = Visibility.Hidden;
 
             id.Text = TheChosenCustomer.Id.ToString();
-            Name.Text = TheChosenCustomer.Name.ToString();
+            CustomerName.Text = TheChosenCustomer.Name.ToString();
             Phone.Text = TheChosenCustomer.Phone.ToString();
             Sented_and_provided_parcels.Text = TheChosenCustomer.Num_of_sented_and_provided_parcels.ToString();
             Sented_and_unprovided_parcels.Text = TheChosenCustomer.Num_of_sented_and_unprovided_parcels.ToString();
@@ -119,9 +119,9 @@ namespace PL
     }
     private void UpdateData_Click(object sender, RoutedEventArgs e)
     {
-        if ((Name.Text != "" && Name.Text != TheChosenCustomer.Name) || (Phone.Text != "" && Phone.Text != TheChosenCustomer.Phone))
+        if ((CustomerName.Text != "" && CustomerName.Text != TheChosenCustomer.Name) || (Phone.Text != "" && Phone.Text != TheChosenCustomer.Phone))
             {
-                approachBL.updateCustomer(TheChosenCustomer.Id, Name.Text, Phone.Text);
+                approachBL.updateCustomer(TheChosenCustomer.Id, CustomerName.Text, Phone.Text);
                 this.Close();
             }
             

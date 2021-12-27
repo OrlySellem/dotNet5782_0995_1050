@@ -104,7 +104,7 @@ namespace PL
             addGrid.Visibility = Visibility.Hidden;
 
             id.Text = BaseStation.Id.ToString();
-            Name.Text = BaseStation.Name.ToString();
+            StationName.Text = BaseStation.Name.ToString();
             FreeChargeSlots.Text = BaseStation.ChargeSlotsFree.ToString();
             FullChargeSlots.Text = BaseStation.ChargeSlotsFull.ToString();
 
@@ -117,9 +117,9 @@ namespace PL
         {
 
 
-            if ((Name.Text != "" && TheChosenBaseStation.Name != int.Parse(Name.Text)))
+            if ((StationName.Text != "" && TheChosenBaseStation.Name != int.Parse(StationName.Text)))
             {
-                approachBL.updateStation(TheChosenBaseStation.Id, int.Parse(Name.Text), int.Parse(AddChargeSlots.Text));
+                approachBL.updateStation(TheChosenBaseStation.Id, int.Parse(StationName.Text), int.Parse(AddChargeSlots.Text));
             }
         }
 
