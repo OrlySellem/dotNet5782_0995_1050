@@ -120,7 +120,11 @@ namespace PL
     private void UpdateData_Click(object sender, RoutedEventArgs e)
     {
         if ((Name.Text != "" && Name.Text != TheChosenCustomer.Name) || (Phone.Text != "" && Phone.Text != TheChosenCustomer.Phone))
-            approachBL.updateCustomer(TheChosenCustomer.Id, Name.Text, Phone.Text);
+            {
+                approachBL.updateCustomer(TheChosenCustomer.Id, Name.Text, Phone.Text);
+                this.Close();
+            }
+            
 
     }
 
