@@ -67,7 +67,7 @@ namespace PL
             weightSelector.Text = TheChosenParcel.Weight.ToString();
             prioritySelector.Text = TheChosenParcel.Priority.ToString();
             parcelStatusTextBox.Text = TheChosenParcel.ParcelStatus.ToString();
-            parcelStatusComboBox.ItemsSource = Enum.GetValues(typeof(ParcelStatus));
+            //parcelStatusComboBox.ItemsSource = Enum.GetValues(typeof(ParcelStatus));
 
             if (parcel.ParcelStatus == ParcelStatus.scheduled || parcel.ParcelStatus == ParcelStatus.PickedUp)
                 PickedUp_OR_Delivered.Visibility = Visibility.Visible;
@@ -148,7 +148,7 @@ namespace PL
 
         private void PickedUp_OR_Delivered_Checked(object sender, RoutedEventArgs e)
         {
-            if (PickedUp_OR_Delivered != null)
+            if (PickedUp_OR_Delivered.IsChecked != null)
             {
                 if(TheChosenParcel.ParcelStatus== ParcelStatus.scheduled)
                 approachBL.dronePickParcel(TheChosenParcel.Id);
@@ -156,6 +156,21 @@ namespace PL
                     approachBL.deliveryAriveToCustomer(TheChosenParcel.Id);
 
             }
+        }
+
+        private void CloseWindow_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void UpdateData_Click(object sender, RoutedEventArgs e)
+        {
+                if (TheChosenParcel.ParcelStatus == ParcelStatus.scheduled)
+                    approachBL.dronePickParcel(TheChosenParcel.Id);
+                if (TheChosenParcel.ParcelStatus == ParcelStatus.PickedUp)
+                    approachBL.deliveryAriveToCustomer(TheChosenParcel.Id);
+
+            
         }
     }
 }
