@@ -218,6 +218,12 @@ namespace PL
         
         }
 
+        private void moveWindow(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
         //private void cancelAddDrone_Click(object sender, RoutedEventArgs e)
         //{
         //    cancelAddDrone.IsEnabled;
