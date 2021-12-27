@@ -27,9 +27,9 @@ namespace PL
         {
             InitializeComponent();
             approachBL = bl;
-            //BaseStationsListView.ItemsSource = approachBL.getAllStations();
+            ParcelListView.ItemsSource = approachBL.getAllParcels();
 
-            senderOrTargetID.ItemsSource = approachBL.getAllParcels();
+          //  senderOrTargetID.ItemsSource = approachBL.getAllParcels();
 
         }
 
@@ -40,12 +40,12 @@ namespace PL
 
         private void senderCheckBox_check(object sender, RoutedEventArgs e)
         {
-            if (senderCheckBox.IsChecked != null && targetCheckBox == null)
+            if (senderCheckBox.IsChecked != false )
             {
                 senderOrTargetID.ItemsSource = (from parcel in approachBL.getAllParcels()
                                                 where parcel.Senderld != 0
                                                 select parcel.Senderld).ToList();
-
+                targetCheckBox.IsChecked = false;
                 senderOrTargetID.IsEnabled = true;
             }
             else if (senderCheckBox.IsChecked != null && targetCheckBox != null)
@@ -57,11 +57,12 @@ namespace PL
 
         private void targetCheckBox_check(object sender, RoutedEventArgs e)
         {
-            if (senderCheckBox.IsChecked == null && targetCheckBox != null)
+            if (targetCheckBox.IsChecked != false)
             {
                 senderOrTargetID.ItemsSource = (from parcel in approachBL.getAllParcels()
                                                 where parcel.Targetld != 0
                                                 select parcel.Senderld).ToList();
+                senderCheckBox.IsChecked = false; 
                 senderOrTargetID.IsEnabled = true;
             }
             else if (senderCheckBox.IsChecked != null && targetCheckBox != null)
