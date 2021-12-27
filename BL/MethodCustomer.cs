@@ -125,6 +125,7 @@ namespace BlApi
         //Update
         public void updateCustomer(int idCustomer, string newName, string newPhone)
         {
+
             try
             {
                 var customerToUpdate = dal.getCustomer(idCustomer);
