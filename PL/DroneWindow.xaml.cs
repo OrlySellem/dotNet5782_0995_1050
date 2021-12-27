@@ -21,9 +21,11 @@ namespace PL
     /// </summary>
     public partial class DroneWindow : Window
     {
-        BlApi.IBL droneBL;
 
-     
+
+        #region ADD drone
+
+        BlApi.IBL droneBL;     
         public DroneWindow(BlApi.IBL bl)
         {
             InitializeComponent();
@@ -44,10 +46,6 @@ namespace PL
 
         }
 
-        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            MessageBox.Show(e.NewValue.ToString());
-        }
 
         private void addDrone_Click(object sender, RoutedEventArgs e)
         {
@@ -55,7 +53,7 @@ namespace PL
             {
                 Drone newDrone = new Drone()
                 {
-                    
+
                     Id = int.Parse(TextBoxId.Text),
                     Model = TextBoxModel.Text,
                     MaxWeight = (WeightCategories)WeightSelector.SelectedItem
@@ -73,12 +71,15 @@ namespace PL
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch(DoesntExistentObjectException ex)
+            catch (DoesntExistentObjectException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
+
+
+
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -102,21 +103,25 @@ namespace PL
             this.Close();
         }
 
+
+
         private void TextBoxModel_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (TextBoxId.Text!="" && TextBoxModel.Text!=""&& WeightSelector.SelectedItem!= null && idStation.SelectedItem!=null)
+            if (TextBoxId.Text != "" && TextBoxModel.Text != "" && WeightSelector.SelectedItem != null && idStation.SelectedItem != null)
                 addDrone.IsEnabled = true;
             else
                 addDrone.IsEnabled = false;
 
         }
 
+        #endregion ADD drone
 
+        //private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        //{
+        //    MessageBox.Show(e.NewValue.ToString());
+        //}
 
-
-        //פעולות
-        //סגירת חלון
-        //לא סיימתי להחביא את  הכפתורים הניצרכים
+        #region updat Drone
 
         static DroneToList TheChosenDrone;
         public DroneWindow(BlApi.IBL bl, BO.DroneToList drone)
@@ -133,6 +138,7 @@ namespace PL
             MaxWeight.Text = drone.Model.ToString();
             Battery.Text = drone.Battery.ToString();
             Status.Text = drone.Status.ToString();
+            idParcel.Text = drone.idParcel.ToString();
             Lattitude.Text = drone.CurrentLocation.Lattitude.ToString();
             Longitude.Text = drone.CurrentLocation.Longitude.ToString();
 
@@ -157,9 +163,12 @@ namespace PL
                 SendingDroneForCharging.Visibility = Visibility.Hidden;
                 ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
                 SendDroneForDelivery.Visibility = Visibility.Hidden;
+         
+
             }
         }
 
+       
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -212,8 +221,8 @@ namespace PL
         {
             if (Model.Text != ""&& TheChosenDrone.Model!= Model.Text)
             {
-                string t = Model.Text;
-                droneBL.updateModelDrone(TheChosenDrone.Id, t);
+                droneBL.updateModelDrone(TheChosenDrone.Id, Model.Text.ToString());
+
             }
         
         }
@@ -223,6 +232,11 @@ namespace PL
             if (e.ChangedButton == MouseButton.Left)
                 this.DragMove();
         }
+
+
+
+
+        #endregion updat Drone
 
         //private void cancelAddDrone_Click(object sender, RoutedEventArgs e)
         //{

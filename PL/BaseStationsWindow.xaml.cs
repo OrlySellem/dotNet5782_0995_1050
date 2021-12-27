@@ -119,14 +119,18 @@ namespace PL
 
             if ((StationName.Text != "" && TheChosenBaseStation.Name != int.Parse(StationName.Text)))
             {
-                approachBL.updateStation(TheChosenBaseStation.Id, int.Parse(StationName.Text), int.Parse(AddChargeSlots.Text));
+                int cs;
+                if (AddChargeSlots.Text == "")
+                    cs = 0;
+                else
+                    cs = int.Parse(AddChargeSlots.Text.ToString());
+                approachBL.updateStation(TheChosenBaseStation.Id, int.Parse(StationName.Text.ToString()),cs);
             }
         }
 
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
-
             this.Close();
         }
 

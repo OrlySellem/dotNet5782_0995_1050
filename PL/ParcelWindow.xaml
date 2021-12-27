@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ParcelWindow" Height="450" Width="380">
     <Grid>
-        <Grid Name="addGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
+        <Grid Name="addGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -52,7 +52,7 @@
 
         </Grid>
 
-        <Grid Name="updataGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="-3,-2,3,0">
+        <Grid Name="updataGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="-3,-2,3,0">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>

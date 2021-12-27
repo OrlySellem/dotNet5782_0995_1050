@@ -49,33 +49,7 @@ namespace PL
 
 
         }
-        #endregion ADD Parcel
 
-        #region UPDATA Parcel
-
-        static ParcelToList TheChosenParcel;
-        public ParcelWindow(IBL bl, ParcelToList parcel)
-        {
-            InitializeComponent();
-            approachBL = bl;
-            TheChosenParcel = parcel;
-            updataGrid.Visibility = Visibility.Visible;
-            addGrid.Visibility = Visibility.Hidden;
-
-            IDTextBox.Text = TheChosenParcel.Id.ToString();
-            senderId.Text = TheChosenParcel.Senderld.ToString();
-            targetId.Text = TheChosenParcel.Targetld.ToString();
-            weightTextBox.Text = TheChosenParcel.Weight.ToString();
-            priorityTextBox.Text = TheChosenParcel.Priority.ToString();
-            parcelStatusTextBox.Text = TheChosenParcel.ParcelStatus.ToString();
-            //parcelStatusComboBox.ItemsSource = Enum.GetValues(typeof(ParcelStatus));
-
-            if (parcel.ParcelStatus == ParcelStatus.scheduled || parcel.ParcelStatus == ParcelStatus.PickedUp)
-                PickedUp_OR_Delivered.Visibility = Visibility.Visible;
-            else
-                PickedUp_OR_Delivered.Visibility = Visibility.Hidden;
-        }
-        #endregion UPDATA Parcel
 
         private void cancelAddBaseStation_Click(object sender, RoutedEventArgs e)
         {
@@ -120,11 +94,11 @@ namespace PL
             {
                 Parcel newParcel = new Parcel()
                 {
-                   
-                   Senderld= int.Parse(senderSelector.SelectedItem.ToString()),
-                   Targetld = int.Parse(senderSelector.SelectedItem.ToString()),
-                   Weight = (WeightCategories)weightSelector.SelectedItem,
-                   Priority=(Priorities)prioritySelector.SelectedItem
+
+                    Senderld = int.Parse(senderSelector.SelectedItem.ToString()),
+                    Targetld = int.Parse(senderSelector.SelectedItem.ToString()),
+                    Weight = (WeightCategories)weightSelector.SelectedItem,
+                    Priority = (Priorities)prioritySelector.SelectedItem
                 };
 
                 approachBL.addParcel(newParcel);
@@ -142,17 +116,41 @@ namespace PL
             }
         }
 
-        private void parcelStatusComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        #endregion ADD Parcel
 
+        #region UPDATA Parcel
+
+        static ParcelToList TheChosenParcel;
+        public ParcelWindow(IBL bl, ParcelToList parcel)
+        {
+            InitializeComponent();
+            approachBL = bl;
+            TheChosenParcel = parcel;
+            updataGrid.Visibility = Visibility.Visible;
+            addGrid.Visibility = Visibility.Hidden;
+
+            IDTextBox.Text = TheChosenParcel.Id.ToString();
+            senderId.Text = TheChosenParcel.Senderld.ToString();
+            targetId.Text = TheChosenParcel.Targetld.ToString();
+            weightTextBox.Text = TheChosenParcel.Weight.ToString();
+            priorityTextBox.Text = TheChosenParcel.Priority.ToString();
+            parcelStatusTextBox.Text = TheChosenParcel.ParcelStatus.ToString();
+            //parcelStatusComboBox.ItemsSource = Enum.GetValues(typeof(ParcelStatus));
+
+            if (parcel.ParcelStatus == ParcelStatus.scheduled || parcel.ParcelStatus == ParcelStatus.PickedUp)
+                PickedUp_OR_Delivered.Visibility = Visibility.Visible;
+            else
+                PickedUp_OR_Delivered.Visibility = Visibility.Hidden;
         }
+
+
 
         private void PickedUp_OR_Delivered_Checked(object sender, RoutedEventArgs e)
         {
             if (PickedUp_OR_Delivered.IsChecked != null)
             {
-                if(TheChosenParcel.ParcelStatus== ParcelStatus.scheduled)
-                approachBL.dronePickParcel(TheChosenParcel.Id);
+                if (TheChosenParcel.ParcelStatus == ParcelStatus.scheduled)
+                    approachBL.dronePickParcel(TheChosenParcel.Id);
                 if (TheChosenParcel.ParcelStatus == ParcelStatus.PickedUp)
                     approachBL.deliveryAriveToCustomer(TheChosenParcel.Id);
 
@@ -166,15 +164,20 @@ namespace PL
 
         private void UpdateData_Click(object sender, RoutedEventArgs e)
         {
-                if (TheChosenParcel.ParcelStatus == ParcelStatus.scheduled)
-                    approachBL.dronePickParcel(TheChosenParcel.Id);
-                if (TheChosenParcel.ParcelStatus == ParcelStatus.PickedUp)
-                    approachBL.deliveryAriveToCustomer(TheChosenParcel.Id);
+            if (TheChosenParcel.ParcelStatus == ParcelStatus.scheduled)
+                approachBL.dronePickParcel(TheChosenParcel.Id);
+            if (TheChosenParcel.ParcelStatus == ParcelStatus.PickedUp)
+                approachBL.deliveryAriveToCustomer(TheChosenParcel.Id);
 
-            
+
         }
+        #endregion UPDATA Parcel
 
-      
+
+
+
+
+
 
         private void ViewSender_Click(object sender, RoutedEventArgs e)
         {
