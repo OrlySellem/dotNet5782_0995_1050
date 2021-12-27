@@ -36,11 +36,11 @@ namespace PL
 
             senderSelector.ItemsSource = (from parcel in approachBL.getAllParcels()
                                           where parcel.Senderld != 0
-                                          select parcel.Senderld).ToList();
+                                          select parcel.Senderld).ToList().Distinct();
 
             targetSelector.ItemsSource = (from parcel in approachBL.getAllParcels()
                                           where parcel.Targetld != 0
-                                          select parcel.Targetld).ToList();
+                                          select parcel.Targetld).ToList().Distinct();
 
             weightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
 
@@ -62,10 +62,11 @@ namespace PL
             updataGrid.Visibility = Visibility.Visible;
             addGrid.Visibility = Visibility.Hidden;
 
+            IDTextBox.Text = TheChosenParcel.Id.ToString();
             senderId.Text = TheChosenParcel.Senderld.ToString();
             targetId.Text = TheChosenParcel.Targetld.ToString();
-            weightSelector.Text = TheChosenParcel.Weight.ToString();
-            prioritySelector.Text = TheChosenParcel.Priority.ToString();
+            weightTextBox.Text = TheChosenParcel.Weight.ToString();
+            priorityTextBox.Text = TheChosenParcel.Priority.ToString();
             parcelStatusTextBox.Text = TheChosenParcel.ParcelStatus.ToString();
             //parcelStatusComboBox.ItemsSource = Enum.GetValues(typeof(ParcelStatus));
 
@@ -171,6 +172,32 @@ namespace PL
                     approachBL.deliveryAriveToCustomer(TheChosenParcel.Id);
 
             
+        }
+
+      
+
+        private void ViewSender_Click(object sender, RoutedEventArgs e)
+        {
+            CustomerToList c = (from customer in approachBL.getAllCustomers()
+                                where customer.Id == TheChosenParcel.Senderld
+                                select customer).FirstOrDefault();
+            new CustomerWindow(approachBL, c).ShowDialog();
+
+        }
+
+        private void ViewTargetr_Click(object sender, RoutedEventArgs e)
+        {
+            CustomerToList c = (from customer in approachBL.getAllCustomers()
+                                where customer.Id == TheChosenParcel.Targetld
+                                select customer).FirstOrDefault();
+            new CustomerWindow(approachBL, c).ShowDialog();
+        }
+
+        private void ViewDrone_Click(object sender, RoutedEventArgs e)
+        {
+            Parcel p = approachBL.getParcel(TheChosenParcel.Id);
+
+            new DroneWindow(approachBL,approachBL.getDrone(p.Droneld)).ShowDialog();
         }
     }
 }

@@ -63,20 +63,16 @@ namespace DalObject
                 };
                 stations.Add(temp);
             }
+           string[] nameArr = { "Shirel", "Moria", "Renana", "Ariel", "Itay","Reut" , "Lavie", "Amit", "Harel", "Michal" };
+
             //Initialize 10 customers
             for (int i = 0; i < 10; i++)
             {
-                string newName = "";
-                for (int j = 0; j < 5; j++)
-                {
-                    int a = rand.Next(97, 122);
-                    newName += (char)a;
-                }
                 Customer temp = new Customer()
                 {
                     Id = rand.Next(100000000, 999999999),
-                    Name = newName,
-                    Phone = "05" + rand.Next(0, 4) + "-" + rand.Next(10000000, 99999999),
+                    Name = nameArr[i],
+                    Phone = "05" + rand.Next(0, 4) + "-" + rand.Next(1000000, 9999999),
                     Longitude = rand.Next(-180, 180),
                     Lattitude = rand.Next(-90, 90),
                 };

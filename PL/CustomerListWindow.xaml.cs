@@ -35,6 +35,7 @@ namespace PL
         private void addCustomerToList_Click(object sender, RoutedEventArgs e)
         {
             new CustomerWindow(approachBL).ShowDialog();
+            CustomerListView.ItemsSource = approachBL.getAllCustomers();
         }
 
         private void CustomerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

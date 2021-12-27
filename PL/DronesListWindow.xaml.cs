@@ -21,12 +21,12 @@ namespace PL
     /// </summary>
     public partial class DronesListWindow : Window
     {
-        BlApi.IBL dronesBL;
+        BlApi.IBL approachBL;
         public DronesListWindow(BlApi.IBL bl)
         {
             InitializeComponent();
-            dronesBL = bl;
-            DronesListView.ItemsSource = dronesBL.GetDrones();
+            approachBL = bl;
+            DronesListView.ItemsSource = approachBL.GetDrones();
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             StattusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
         }
@@ -38,18 +38,19 @@ namespace PL
 
         private void addDroneToList_Click(object sender, RoutedEventArgs e)
         {       
-            new DroneWindow(dronesBL).ShowDialog();
+            new DroneWindow(approachBL).ShowDialog();
+            DronesListView.ItemsSource = approachBL.GetDrones();
         }
 
         private void StattusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (StattusSelector.SelectedItem == null)
             {
-              DronesListView.ItemsSource = dronesBL.GetDrones();
+              DronesListView.ItemsSource = approachBL.GetDrones();
             }
             else
             {
-                DronesListView.ItemsSource = dronesBL.GetDrones(x=>x.Status == (DroneStatuses)StattusSelector.SelectedItem);
+                DronesListView.ItemsSource = approachBL.GetDrones(x=>x.Status == (DroneStatuses)StattusSelector.SelectedItem);
             }
         }
 
@@ -57,17 +58,17 @@ namespace PL
         {
             if (WeightSelector.SelectedItem == null)
             {
-                DronesListView.ItemsSource = dronesBL.GetDrones();
+                DronesListView.ItemsSource = approachBL.GetDrones();
             }
             else
             {
-                DronesListView.ItemsSource = dronesBL.GetDrones(x => x.MaxWeight == (WeightCategories)WeightSelector.SelectedItem);
+                DronesListView.ItemsSource = approachBL.GetDrones(x => x.MaxWeight == (WeightCategories)WeightSelector.SelectedItem);
             }
         }
 
         private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            new DroneWindow(dronesBL, (DroneToList)DronesListView.SelectedItem).ShowDialog();
+            new DroneWindow(approachBL, (DroneToList)DronesListView.SelectedItem).ShowDialog();
         }
     }
 }

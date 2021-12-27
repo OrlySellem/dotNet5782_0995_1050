@@ -63,7 +63,7 @@ namespace PL
 
                 AmountOfFreeChargingStations.ItemsSource = (from findStations in approachBL.display_station_with_freeChargingStations()
                                                             where findStations.ChargeSlotsFree == (int)AmountOfFreeChargingStations.SelectedItem
-                                                            select findStations).ToList();
+                                                            select findStations).ToList().Distinct();
 
 
 
@@ -87,6 +87,7 @@ namespace PL
         private void addBaseStationsToList_Click(object sender, RoutedEventArgs e)
         {
             new BaseStationsWindow(approachBL).ShowDialog();
+            BaseStationsListView.ItemsSource = approachBL.getAllStations();
         }
     }
 }

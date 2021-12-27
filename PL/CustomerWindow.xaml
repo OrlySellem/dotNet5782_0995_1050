@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="CustomerWindow" Height="450" Width="380">
     <Grid>
-        <Grid Name="addGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
+        <Grid Name="addGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -29,37 +29,38 @@
             </Grid.ColumnDefinitions >
 
             <Label Content="ID:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="13,16,0,0" VerticalAlignment="Top" Width="82" Grid.Row="1"/>
-            <TextBox x:Name="TextBoxId" HorizontalAlignment="Left" Margin="0,31,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="1"/>
+            <TextBox x:Name="TextBoxId" HorizontalAlignment="Left" Margin="0,31,0,0" TextWrapping="Wrap" Width="120" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="1" TextChanged="TextBoxId_TextChanged"/>
 
             <Label Content="Name:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="10,13,0,0" VerticalAlignment="Top" Width="82" Grid.Row="2"/>
-            <TextBox x:Name="TextBoxName" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="2" Margin="0,22,0,0"/>
+            <TextBox x:Name="TextBoxName" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="2" Margin="0,22,0,0" TextChanged="TextBoxName_TextChanged"/>
 
             <Label Content="Phone:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="82" Grid.Row="3" Margin="13,2,0,0"/>
-            <TextBox x:Name="TextBoxChargeSlots" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="3" Margin="0,18,0,0"/>
+            <TextBox x:Name="TextBoxPhone" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="3" Margin="0,18,0,0" TextChanged="TextBoxPhone_TextChanged"/>
 
             <Label Content="Address:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="82" Grid.Row="3" Margin="13,37,0,0" Grid.RowSpan="2"/>
 
             <Label Content="Lattitude:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="45,17,0,0" VerticalAlignment="Top" Width="82" Grid.Row="4" Grid.ColumnSpan="2"/>
-            <Slider  x:Name="SliderLattitude" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="60,49,0,0" Grid.Row="4" VerticalAlignment="Top" Width="120"
+            <Slider  x:Name="SliderLattitude" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="60,24,0,0" Grid.Row="4" VerticalAlignment="Top" Width="120"
                      Minimum="-90"
                      Maximum="90"
-                     Value="0" Grid.RowSpan="2"/>
+                     Value="0" />
 
             <Label Content="Longitude:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="45,43,0,0" VerticalAlignment="Top" Width="82" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-            <Slider x:Name="SliderLongitude" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="60,22,0,0" Grid.Row="4" VerticalAlignment="Top" Width="120"
+            <Slider x:Name="SliderLongitude" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="60,0,0,31" Grid.Row="4" VerticalAlignment="Bottom" Width="120"
                     Minimum="-180"
                      Maximum="180"
-                     Value="0"/>
+                     Value="0" Grid.RowSpan="2"/>
 
 
-            <Button x:Name="addCustomer" Content="Add" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="37,0,0,0" VerticalAlignment="Center" Height="40" Width="90" 
+
+            <Button x:Name="addCustomer" Content="Add" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="37,0,0,0" VerticalAlignment="Top" Height="40" Width="90" 
              IsEnabled="False" Grid.ColumnSpan="2" Grid.Row="7" Click="addCustomer_Click"/>
             <Button x:Name="cancelAddCustomer" Content="Cancel" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Top" Height="40" Width="90"  Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="7"/>
 
 
         </Grid>
 
-        <Grid Name="updataGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
+        <Grid Name="updataGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -80,32 +81,29 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
 
-            <Button x:Name="CloseWindow" Content="סגירת חלון" Grid.Column="3" HorizontalAlignment="Center" Margin="0,23,0,0" Grid.Row="1" VerticalAlignment="Top" Click="CloseWindow_Click" Width="75"/>
-            <Button x:Name="UpdateData"  Content="עידכון נתונים"   Grid.Column="3" HorizontalAlignment="Left" Margin="16,5,0,0" Grid.Row="2" VerticalAlignment="Top" Click="UpdateData_Click"/>
+            <Button x:Name="CloseWindow" Content="Close Window" Grid.Column="2" HorizontalAlignment="Left" Margin="85,21,0,0" Grid.Row="1" VerticalAlignment="Top" Click="CloseWindow_Click" Width="95" Grid.ColumnSpan="2"/>
+            <Button x:Name="UpdateData"  Content="Update"   Grid.Column="2" HorizontalAlignment="Left" Margin="85,7,0,0" Grid.Row="2" VerticalAlignment="Top" Click="UpdateData_Click" Width="95" Grid.ColumnSpan="2"/>
 
-            <Label Content="id :"  Grid.Column="0"  HorizontalAlignment="Left" Margin="10,17,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+            <Label Content="id :" FontWeight="bold" Grid.Column="0"  HorizontalAlignment="Left" Margin="10,17,0,0" VerticalAlignment="Top" Grid.Row="1"/>
             <TextBox x:Name="id" IsEnabled="False"  Grid.Column="1" HorizontalAlignment="Left" Margin="45,21,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" Grid.ColumnSpan="2" Grid.Row="1"/>
 
-            <Label Content="Name :" Grid.Column="0" HorizontalAlignment="Left" Margin="10,5,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-            <TextBox x:Name="Name" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" BorderBrush="#FF02040C" Margin="45,9,0,0" Grid.ColumnSpan="2"/>
+            <Label Content="Name :" FontWeight="bold" Grid.Column="0" HorizontalAlignment="Left" Margin="10,5,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+            <TextBox x:Name="Name" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" BorderBrush="#FF02040C" Margin="45,9,0,0" Grid.ColumnSpan="2" TextChanged="Name_TextChanged"/>
 
-            <Label Content="Phone:" Grid.Column="0" HorizontalAlignment="Left" Margin="10,41,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="114" Grid.RowSpan="2"/>
+            <Label Content="Phone :" FontWeight="bold" Grid.Column="0" HorizontalAlignment="Left" Margin="10,41,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="114" Grid.RowSpan="2"/>
             <TextBox x:Name="Phone"  Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" Margin="45,45,0,0"  BorderBrush="#FF02040C" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
 
-            <Label Content="Sented and provided parcels:" Grid.Column="0" HorizontalAlignment="Left" Margin="10,31,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="180" Grid.RowSpan="2"/>
-            <TextBox x:Name="Sented_and_provided_parcels" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Margin="25,39,0,0" Grid.Row="3" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <Label Content="Sented and provided parcels:" FontWeight="bold" Grid.Column="0" HorizontalAlignment="Left" Margin="10,31,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="180" Grid.RowSpan="2"/>
+            <TextBox x:Name="Sented_and_provided_parcels" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Margin="46,39,0,0" Grid.Row="3" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
 
-            <Label Content="Sented and unprovided parcels:" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="4" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="192"/>
-            <TextBox x:Name="Sented_and_unprovided_parcels" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Margin="26,28,0,0" Grid.Row="4" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
+            <Label Content="Sented and unprovided parcels:" FontWeight="bold" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="4" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="192"/>
+            <TextBox x:Name="Sented_and_unprovided_parcels" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Margin="46,26,0,0" Grid.Row="4" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
 
-            <Label Content="Received parcels :" Grid.Column="0" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="5" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="114"/>
-            <TextBox x:Name="Received_parcels" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Margin="26,0,0,0" Grid.Row="5" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Width="85" Grid.ColumnSpan="2"/>
+            <Label Content="Received parcels :" Grid.Column="0" FontWeight="bold" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="5" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="114"/>
+            <TextBox x:Name="Received_parcels" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Margin="46,0,0,0" Grid.Row="5" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Width="85" Grid.ColumnSpan="2"/>
 
-            <Label Content="Parcels on the way to the customer:" Grid.Column="0" HorizontalAlignment="Left" Margin="10,48,0,0" Grid.Row="5" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="216" Grid.RowSpan="2"/>
-            <TextBox x:Name="Parcels_onTheWay_toCustomer" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Margin="26,3,0,0" Grid.Row="6" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
-
-            <Label Content=" customer to delete :" HorizontalAlignment="Left" Margin="29,32,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="1"/>
-            <ComboBox Grid.Column="2" HorizontalAlignment="Left" Margin="58,36,0,0" Grid.Row="6" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <Label Content="Parcels on the way to the customer:" FontWeight="bold" Grid.Column="0" HorizontalAlignment="Left" Margin="10,48,0,0" Grid.Row="5" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="216" Grid.RowSpan="2"/>
+            <TextBox x:Name="Parcels_onTheWay_toCustomer" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Margin="46,3,0,0" Grid.Row="6" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
 
 
 

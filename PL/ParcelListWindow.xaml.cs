@@ -27,10 +27,8 @@ namespace PL
         {
             InitializeComponent();
             approachBL = bl;
-            //BaseStationsListView.ItemsSource = approachBL.getAllStations();
-
-            senderOrTargetID.ItemsSource = approachBL.getAllParcels();
-
+            ParcelListView.ItemsSource = approachBL.getAllParcels();
+        
         }
 
         private void ParcelListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -40,47 +38,54 @@ namespace PL
 
         private void senderCheckBox_check(object sender, RoutedEventArgs e)
         {
-            if (senderCheckBox.IsChecked != null && targetCheckBox == null)
+
+            senderOrTargetID.SelectedItem = null;
+            if (senderCheckBox.IsChecked != false)
             {
                 senderOrTargetID.ItemsSource = (from parcel in approachBL.getAllParcels()
                                                 where parcel.Senderld != 0
-                                                select parcel.Senderld).ToList();
-
+                                                select parcel.Senderld).ToList().Distinct();
+                targetCheckBox.IsChecked = false;
                 senderOrTargetID.IsEnabled = true;
             }
-            else if (senderCheckBox.IsChecked != null && targetCheckBox != null)
-            {
-                MessageBox.Show("Please check one option");
-            }
+         
+           
 
         }
 
         private void targetCheckBox_check(object sender, RoutedEventArgs e)
         {
-            if (senderCheckBox.IsChecked == null && targetCheckBox != null)
+            senderOrTargetID.SelectedItem = null;
+            if (targetCheckBox.IsChecked != false)
             {
                 senderOrTargetID.ItemsSource = (from parcel in approachBL.getAllParcels()
                                                 where parcel.Targetld != 0
-                                                select parcel.Senderld).ToList();
+                                                select parcel.Targetld).ToList().Distinct();
+                senderCheckBox.IsChecked = false;
                 senderOrTargetID.IsEnabled = true;
             }
-            else if (senderCheckBox.IsChecked != null && targetCheckBox != null)
-            {
-                MessageBox.Show("Please check one option");
-            }
+              
         }
 
 
         private void senderOrTargetID_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (senderCheckBox.IsChecked != null)
+            if (targetCheckBox.IsChecked != false)
             {
-
+                ParcelListView.ItemsSource = (from parcel in approachBL.getAllParcels()
+                                              where parcel.Targetld == int.Parse(senderOrTargetID.SelectedItem.ToString())
+                                              select parcel).ToList();
+                
             }
-            else
+            if (senderCheckBox.IsChecked != false)
             {
-
+                ParcelListView.ItemsSource = (from parcel in approachBL.getAllParcels()
+                                              where parcel.Senderld == int.Parse(senderOrTargetID.SelectedItem.ToString())
+                                              select parcel).ToList();
+                
             }
+           
+
 
 
         }
@@ -88,6 +93,7 @@ namespace PL
         private void addParcelToList_Click(object sender, RoutedEventArgs e)
         {
             new ParcelWindow(approachBL).ShowDialog();
+            ParcelListView.ItemsSource = approachBL.getAllParcels();
         }
     }
 }
