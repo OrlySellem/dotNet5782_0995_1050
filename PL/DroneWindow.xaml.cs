@@ -233,7 +233,13 @@ namespace PL
                 this.DragMove();
         }
 
-       
+        private void OpenParcelWindow_Click(object sender, RoutedEventArgs e)
+        {
+            (DroneToList)droneBL.TheChosenDrone.idParcel
+            new ParcelWindow(droneBL,).
+        }
+
+
         #endregion updat Drone
 
         //private void cancelAddDrone_Click(object sender, RoutedEventArgs e)
