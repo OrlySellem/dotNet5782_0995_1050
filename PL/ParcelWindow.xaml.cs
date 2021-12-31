@@ -151,9 +151,9 @@ namespace PL
             {
                 if (TheChosenParcel.ParcelStatus == ParcelStatus.scheduled)
                     approachBL.dronePickParcel(TheChosenParcel.Id);
+
                 if (TheChosenParcel.ParcelStatus == ParcelStatus.PickedUp)
                     approachBL.deliveryAriveToCustomer(TheChosenParcel.Id);
-
             }
         }
 
@@ -198,5 +198,7 @@ namespace PL
 
             new DroneWindow(approachBL,approachBL.getDrone(p.Droneld)).ShowDialog();
         }
+
+       
     }
 }

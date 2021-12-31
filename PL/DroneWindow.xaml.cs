@@ -22,7 +22,6 @@ namespace PL
     public partial class DroneWindow : Window
     {
 
-
         #region ADD drone
 
         BlApi.IBL droneBL;     
@@ -222,7 +221,6 @@ namespace PL
             if (Model.Text != "" && TheChosenDrone.Model!= Model.Text)
             {
                 droneBL.updateModelDrone(TheChosenDrone.Id, Model.Text.ToString());
-
             }
         
         }
@@ -233,7 +231,7 @@ namespace PL
                 this.DragMove();
         }
 
-       
+
         #endregion updat Drone
 
         //private void cancelAddDrone_Click(object sender, RoutedEventArgs e)

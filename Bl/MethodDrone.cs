@@ -438,8 +438,6 @@ namespace BlApi
                 else
                     throw new DelivereyAlreadyArrive("The drone has already picked up the parcel");
 
-
-
                 if (flag)
                     throw new DeliveryCannotBeMade("The delivery Cannot Be Made");
 

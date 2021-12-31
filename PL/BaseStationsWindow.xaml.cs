@@ -32,7 +32,6 @@ namespace PL
             approachBL = bl;
             updataGrid.Visibility = Visibility.Hidden;
             addGrid.Visibility = Visibility.Visible;
-
         }
 
 
@@ -107,9 +106,6 @@ namespace PL
             StationName.Text = BaseStation.Name.ToString();
             FreeChargeSlots.Text = BaseStation.ChargeSlotsFree.ToString();
             FullChargeSlots.Text = BaseStation.ChargeSlotsFull.ToString();
-
-
-
         }
 
 
@@ -117,7 +113,7 @@ namespace PL
         {
 
 
-            if ((StationName.Text != "" && TheChosenBaseStation.Name != int.Parse(StationName.Text)))
+            if (StationName.Text != "" && TheChosenBaseStation.Name != int.Parse(StationName.Text))
             {
                 int cs;
                 if (AddChargeSlots.Text == "")
@@ -144,8 +140,9 @@ namespace PL
 
 
 
+
         #endregion UPDATA BaseStations
 
-
+      
     }
 }

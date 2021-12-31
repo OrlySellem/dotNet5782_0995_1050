@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,29 +22,54 @@ namespace PL
     /// </summary>
     public partial class CustomerListWindow : Window
     {
-        BlApi.IBL approachBL;
-        public CustomerListWindow(BlApi.IBL bl)
+        IBL approachBL;
+        private ObservableCollection <BO.CustomerToList> allCustomers = new ObservableCollection <BO.CustomerToList>();
+
+        public CustomerListWindow(IBL bl)
         {
             InitializeComponent();
-            approachBL = bl;
-            CustomerListView.ItemsSource = approachBL.getAllCustomers();
+            approachBL = BlFactory.GetBl();
 
+            foreach (BO.CustomerToList c in approachBL.getAllCustomers())
+                allCustomers.Add(c);
+
+            CustomerListView.ItemsSource = allCustomers;
         }
 
-      
+        //private void addCustomerToList(BO.CustomerToList c)
+        //{
+        //    //function to sent to the add window- add the station to the list
+           
+        //    allCustomers.Clear();
+        //    foreach (BO.CustomerToList cu in approachBL.getAllCustomers())
+        //        allCustomers.Add(cu);
+        //    allCustomers.Add(c);
+        //}
 
         private void addCustomerToList_Click(object sender, RoutedEventArgs e)
         {
             new CustomerWindow(approachBL).ShowDialog();
-            CustomerListView.ItemsSource = approachBL.getAllCustomers();
+
+            allCustomers.Clear();
+
+            foreach (BO.CustomerToList c in approachBL.getAllCustomers())
+               allCustomers.Add(c);
+
+            CustomerListView.ItemsSource = allCustomers;
         }
 
         private void CustomerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             new CustomerWindow (approachBL, (CustomerToList)CustomerListView.SelectedItem).ShowDialog();
 
-            CustomerListView.SelectedItem = approachBL.getAllCustomers();
+            allCustomers.Clear();
 
+            foreach (BO.CustomerToList c in approachBL.getAllCustomers())
+                allCustomers.Add(c);
+
+            CustomerListView.ItemsSource = allCustomers;
         }
+
     }
-}
+    }
+
