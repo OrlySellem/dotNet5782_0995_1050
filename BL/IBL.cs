@@ -36,7 +36,7 @@ namespace BlApi
 
         public void dronePickParcel(int idDrone);
 
-        public void deliveryAriveToCustomer(int idDrone);
+        public void deliveryArivveToCustomer(int idDrone);
 
         #endregion
 

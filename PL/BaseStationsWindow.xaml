@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="BaseStationsWindow" Height="450" Width="380">
     <Grid>
-        <Grid Name="addGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
+        <Grid Name="addGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -39,20 +39,22 @@
 
             <Label Content="Address:" FontWeight="Bold" HorizontalAlignment="Center" Height="29" VerticalAlignment="Center" Width="82" Grid.Row="3"/>
 
-            <Label Content="Lattitude:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="41,31,0,0" VerticalAlignment="Top" Width="82" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <Label Content="Lattitude:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="63,31,0,0" VerticalAlignment="Top" Width="82" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
             <Slider  x:Name="SliderLattitude" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="60,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120"
                      Minimum="-90"
                      Maximum="90"
-                     Value="0"/>
+                     Value="0"
+                     AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
 
-            <Label Content="Longitude:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="41,13,0,0" VerticalAlignment="Top" Width="82" Grid.Row="4" Grid.ColumnSpan="2"/>
+            <Label Content="Longitude:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="63,13,0,0" VerticalAlignment="Top" Width="82" Grid.Row="4" Grid.ColumnSpan="2"/>
             <Slider x:Name="SliderLongitude" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="60,36,0,0" Grid.Row="3" VerticalAlignment="Top" Width="120" Grid.RowSpan="2"
                     Minimum="-180"
                      Maximum="180"
-                     Value="0"/>
+                     Value="0"
+                    AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
 
 
-            <Button x:Name="addBaseStation" Content="Add" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="37,0,0,0" VerticalAlignment="Center" Height="40" Width="90" Click="addBaseStation_Click" 
+            <Button x:Name="addBaseStation" Content="Add" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="61,2,0,0" VerticalAlignment="Top" Height="40" Width="90" Click="addBaseStation_Click" 
              IsEnabled="False" Grid.ColumnSpan="2" Grid.Row="7"/>
 
             <Button x:Name="cancelAddBaseStation" Content="Cancel" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Top" Height="40" Width="90" Click="cancelAddBaseStation_Click" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="7"/>
@@ -60,7 +62,7 @@
 
         </Grid>
 
-        <Grid Name="updataGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
+        <Grid Name="updataGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -88,7 +90,7 @@
             <TextBox x:Name="id" IsEnabled="False"  Grid.Column="1" HorizontalAlignment="Left" Margin="34,25,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
 
             <Label Content="Name :" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-            <TextBox x:Name="StationName" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" BorderBrush="#FF02040C" Margin="34,22,0,0" Grid.ColumnSpan="2" TextChanged="StationName_TextChanged"/>
+            <TextBox x:Name="StationName" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" BorderBrush="#FF02040C" Margin="34,22,0,0" Grid.ColumnSpan="2"/>
 
             <Label Content="Free Charge Slots :" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="114"/>
             <TextBox x:Name="FreeChargeSlots"  Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" Margin="34,24,0,0"  Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>

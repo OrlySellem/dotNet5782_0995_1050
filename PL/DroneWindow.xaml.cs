@@ -24,22 +24,22 @@ namespace PL
 
         #region ADD drone
 
-        BlApi.IBL droneBL;     
+        BlApi.IBL approachBL;     
         public DroneWindow(BlApi.IBL bl)
         {
             InitializeComponent();
             updataGrid.Visibility = Visibility.Hidden;
             UpGrid.Visibility = Visibility.Visible;
       
-            droneBL = bl;
+            approachBL = bl;
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
 
-            List <StationToList> stationFreeCharging = droneBL.display_station_with_freeChargingStations().ToList();
+            List <StationToList> stationFreeCharging = approachBL.display_station_with_freeChargingStations().ToList();
 
-            for (int i = 0; i < stationFreeCharging.Count(); i++)
+            foreach (var item in stationFreeCharging)
             {
                 ComboBoxItem newItem = new ComboBoxItem();
-                newItem.Content = stationFreeCharging[i].Id;
+                newItem.Content = item.Id;
                 idStation.Items.Add(newItem);
             }
 
@@ -58,10 +58,10 @@ namespace PL
                     MaxWeight = (WeightCategories)WeightSelector.SelectedItem
                 };
 
-                List<StationToList> stationFreeCharging = droneBL.display_station_with_freeChargingStations().ToList();
+                List<StationToList> stationFreeCharging = approachBL.display_station_with_freeChargingStations().ToList();
                 int idSt = stationFreeCharging[idStation.SelectedIndex].Id;
 
-                droneBL.addDrone(newDrone, idSt);
+                approachBL.addDrone(newDrone, idSt);
 
                 this.Close();
 
@@ -126,7 +126,7 @@ namespace PL
         public DroneWindow(BlApi.IBL bl, BO.DroneToList drone)
         {
             InitializeComponent();
-            droneBL = bl;
+            approachBL = bl;
             UpGrid.Visibility = Visibility.Hidden;
             updataGrid.Visibility = Visibility.Visible;
             TheChosenDrone = drone;
@@ -175,54 +175,100 @@ namespace PL
 
         private void SendingDroneForCharging_Click(object sender, RoutedEventArgs e)
         {
-            if(TheChosenDrone.Status== DroneStatuses.available)
-            droneBL.chargingDrone(TheChosenDrone.Id);
+            try
+            {
+                if (TheChosenDrone.Status == DroneStatuses.available)
+                    approachBL.chargingDrone(TheChosenDrone.Id);
 
-        
-            
-            ReleaseDroneFromCharging.Visibility = Visibility.Visible;
 
-            SendingDroneForCharging.Visibility = Visibility.Hidden;
-            SendDroneForDelivery.Visibility = Visibility.Hidden;
-            ParcelCollection.Visibility = Visibility.Hidden;
-            ParcelArriveToDestination.Visibility = Visibility.Hidden;
 
+                ReleaseDroneFromCharging.Visibility = Visibility.Visible;
+
+                SendingDroneForCharging.Visibility = Visibility.Hidden;
+                SendDroneForDelivery.Visibility = Visibility.Hidden;
+                ParcelCollection.Visibility = Visibility.Hidden;
+                ParcelArriveToDestination.Visibility = Visibility.Hidden;
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+          
         }
 
         private void ReleaseDroneFromCharging_Click(object sender, RoutedEventArgs e)
         {
-            if (TheChosenDrone.Status == DroneStatuses.maintenance)
-                droneBL.freeDroneFromCharging(TheChosenDrone.Id,DateTime.Now);
+            try
+            {
+                if (TheChosenDrone.Status == DroneStatuses.maintenance)
+                    approachBL.freeDroneFromCharging(TheChosenDrone.Id, DateTime.Now);
 
+                SendingDroneForCharging.Visibility = Visibility.Visible;
+                SendDroneForDelivery.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
-
-            SendingDroneForCharging.Visibility = Visibility.Visible;
-            SendDroneForDelivery.Visibility = Visibility.Visible;
         }
 
         private void SendDroneForDelivery_Click(object sender, RoutedEventArgs e)
         {
-            if (TheChosenDrone.Status == DroneStatuses.available)
-                droneBL.assignDroneToParcel(TheChosenDrone.Id);
+            try
+            {
+                if (TheChosenDrone.Status == DroneStatuses.available)
+                    approachBL.assignDroneToParcel(TheChosenDrone.Id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void ParcelCollection_Click(object sender, RoutedEventArgs e)
         {
-            droneBL.dronePickParcel(TheChosenDrone.Id);
+            try
+            {
+                approachBL.dronePickParcel(TheChosenDrone.Id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+           
         }
 
         private void ParcelArriveToDestination_Click(object sender, RoutedEventArgs e)
         {
-            droneBL.deliveryAriveToCustomer(TheChosenDrone.Id);
+            try
+            {
+                approachBL.deliveryArivveToCustomer(TheChosenDrone.Id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void UpdateData_Click(object sender, RoutedEventArgs e)
         {
-            if (Model.Text != "" && TheChosenDrone.Model!= Model.Text)
+            try
             {
-                droneBL.updateModelDrone(TheChosenDrone.Id, Model.Text.ToString());
+                if (Model.Text != "" && TheChosenDrone.Model != Model.Text)
+                {
+                    approachBL.updateModelDrone(TheChosenDrone.Id, Model.Text.ToString());
+                    UpdateData.IsEnabled = false;
+                }
+
             }
-        
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void moveWindow(object sender, MouseButtonEventArgs e)
@@ -233,8 +279,18 @@ namespace PL
 
         private void OpenParcelWindow_Click(object sender, RoutedEventArgs e)
         {
-            (DroneToList)droneBL.TheChosenDrone.idParcel
-            new ParcelWindow(droneBL,).
+            try
+            {
+                ParcelToList p = (from parcel in approachBL.getAllParcels()
+                                  where parcel.Id == TheChosenDrone.idParcel
+                                  select parcel).FirstOrDefault();
+                new ParcelWindow(approachBL, p).ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
 

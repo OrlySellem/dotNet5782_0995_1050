@@ -100,19 +100,19 @@
             </Grid.ColumnDefinitions >
 
             <Button x:Name="CloseWindow" Content="Close Window" Grid.Column="2" HorizontalAlignment="Left" Margin="65,23,0,0" Grid.Row="1" VerticalAlignment="Top" Click="CloseWindow_Click" Width="115" Grid.ColumnSpan="2"/>
-            <Button x:Name="UpdateData"  Content="Update Model"   Grid.Column="2" HorizontalAlignment="Left" Margin="65,5,0,0" Grid.Row="2" VerticalAlignment="Top" Click="UpdateData_Click" Grid.ColumnSpan="2" Width="114"/>
+            <Button x:Name="UpdateData"  Content="Update Model"   IsEnabled="True" Grid.Column="2" HorizontalAlignment="Left" Margin="65,5,0,0" Grid.Row="2" VerticalAlignment="Top" Click="UpdateData_Click" Grid.ColumnSpan="2" Width="114"/>
             <Button x:Name="SendingDroneForCharging" Content="charging drone" Grid.Column="2" HorizontalAlignment="Left" Margin="65,35,0,0"  Grid.Row="2" VerticalAlignment="Top" Click="SendingDroneForCharging_Click" Grid.ColumnSpan="2" Width="115" Grid.RowSpan="2"/>
             <Button x:Name="ReleaseDroneFromCharging" Content="Free drone from charging" Grid.Column="2" HorizontalAlignment="Left" Margin="25,18,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="155" Click="ReleaseDroneFromCharging_Click"/>
-            <Button x:Name="SendDroneForDelivery" Content="Send drone to delivery" Grid.Column="2" Margin="48,0,10,0" Grid.Row="4" VerticalAlignment="Top" Click="SendDroneForDelivery_Click" Grid.ColumnSpan="2"/>
-            <Button x:Name="ParcelCollection" Content="Pick up parcel" Grid.Column="2" HorizontalAlignment="Left" Margin="73,32,0,0" Grid.Row="4" VerticalAlignment="Top" Click="ParcelCollection_Click" Grid.RowSpan="2" Width="107" Grid.ColumnSpan="2"/>
-            <Button x:Name="ParcelArriveToDestination" Content="parcel arrived" Grid.Column="2" HorizontalAlignment="Left" Margin="73,18,0,0"  Grid.Row="5" VerticalAlignment="Top" Click="ParcelArriveToDestination_Click" Grid.ColumnSpan="2" Width="107"/>
-            <Button x:Name="OpenParcelWindow" Content="Open Parcel" HorizontalAlignment="Left" Margin="10,43,0,0"  Grid.Row="6" VerticalAlignment="Top" Width="85" Grid.RowSpan="2" Grid.Column="1" Height="25" Click="OpenParcelWindow_Click"/>
+            <Button x:Name="SendDroneForDelivery" Content="Send drone to delivery" Grid.Column="2" Margin="48,50,10,0" Grid.Row="3" VerticalAlignment="Top" Click="SendDroneForDelivery_Click" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <Button x:Name="ParcelCollection" Content="Pick up parcel" Grid.Column="2" HorizontalAlignment="Left" Margin="73,28,0,0" Grid.Row="4" VerticalAlignment="Top" Click="ParcelCollection_Click" Width="107" Grid.ColumnSpan="2"/>
+            <Button x:Name="ParcelArriveToDestination" Content="parcel arrived" Grid.Column="2" HorizontalAlignment="Left" Margin="73,6,0,0"  Grid.Row="5" VerticalAlignment="Top" Click="ParcelArriveToDestination_Click" Grid.ColumnSpan="2" Width="107"/>
+            <Button x:Name="OpenParcelWindow" Content="Open Parcel" HorizontalAlignment="Left" Margin="0,48,0,0"  Grid.Row="6" VerticalAlignment="Top" Width="85" Grid.RowSpan="2" Grid.Column="1" Height="20" Click="OpenParcelWindow_Click"/>
 
             <Label Content="id:"  FontWeight="Bold" Grid.Column="0"  HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="1" VerticalAlignment="Top"/>
             <TextBox x:Name="id" IsEnabled="False"  Grid.Column="1" HorizontalAlignment="Left" Margin="0,24,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85"/>
 
             <Label Content="Model:" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-            <TextBox x:Name="Model" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" BorderBrush="#FF02040C" Margin="0,22,0,0" TextChanged="Model_TextChanged"/>
+            <TextBox x:Name="Model" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" BorderBrush="#FF02040C" Margin="0,22,0,0"/>
 
             <Label Content="MaxWeight:" FontWeight="Bold" HorizontalAlignment="Left" Margin="4,20,0,0" Grid.Row="3" VerticalAlignment="Top"/>
             <TextBox x:Name="MaxWeight" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="0,25,0,0" Grid.Row="3" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85"/>

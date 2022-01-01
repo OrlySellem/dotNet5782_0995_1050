@@ -29,7 +29,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions >
 
-        <ListView x:Name="BaseStationsListView" Grid.Row="3" Grid.ColumnSpan="6" SelectionChanged="BaseStationsListView_SelectionChanged" Margin="0,46,0,0" Grid.RowSpan="7">
+        <ListView x:Name="BaseStationsListView" Grid.Row="2" Grid.ColumnSpan="6" SelectionChanged="BaseStationsListView_SelectionChanged" Margin="0,46,0,0" Grid.RowSpan="8">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="ID " Width="auto"/>
@@ -41,10 +41,10 @@
             </ListView.View>
 
         </ListView>
-        <Button x:Name="FreeChargeSlots" Content="סינון לתחנות טעינה פנויות " HorizontalAlignment="Left" Margin="56,21,0,0" Grid.Row="1" VerticalAlignment="Top" Width="161" Grid.ColumnSpan="2" Click="FreeChargeSlots_Click"/>
+        <Button x:Name="FreeChargeSlots" Content="Display stations with available charging stations" FontWeight="Bold" HorizontalAlignment="Left" Margin="41,46,0,0" Grid.Row="1" VerticalAlignment="Top" Width="293" Click="FreeChargeSlots_Click" Height="31" RenderTransformOrigin="0.357,-0.035" Grid.RowSpan="2" Grid.ColumnSpan="3" Grid.Column="1"/>
 
-        <Label Content="תצוגה של תחנות לפי מס' עמדות טעינה פנויות" Grid.Column="1" HorizontalAlignment="Left" Margin="104,18,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="272" Height="26"/>
-        <ComboBox x:Name="AmountOfFreeChargingStations" Grid.Column="2" HorizontalAlignment="Left" Margin="25,3,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120" SelectionChanged="AmountOfFreeChargingStations_SelectionChanged" Grid.ColumnSpan="2"/>
-        <Button x:Name="addBaseStationsToList" Content="Add BaseStations" Grid.Column="4" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Center" Height="49" Width="85" Click="addBaseStationsToList_Click"/>
+        <Label Content="Display of stations by number of available charging stations:" FontWeight="Bold" HorizontalAlignment="Left" Margin="131,19,0,0" VerticalAlignment="Top" Width="350" Height="26" Grid.ColumnSpan="4"/>
+        <ComboBox x:Name="AmountOfFreeChargingStations" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Width="113" SelectionChanged="AmountOfFreeChargingStations_SelectionChanged" Margin="0,6,0,0"/>
+        <Button x:Name="addBaseStationsToList" Content="Add Base stations" FontWeight="Bold" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Top" Height="46" Width="116" Click="addBaseStationsToList_Click" Margin="0,45,0,0" Grid.RowSpan="2"/>
     </Grid>
 </Window>

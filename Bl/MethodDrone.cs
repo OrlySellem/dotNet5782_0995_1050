@@ -453,7 +453,7 @@ namespace BlApi
         }
 
 
-        public void deliveryAriveToCustomer(int droneId)
+        public void deliveryArivveToCustomer(int droneId)
         {
             try
             {

@@ -44,26 +44,42 @@ namespace PL
 
         private void StattusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (StattusSelector.SelectedItem == null)
+            try
             {
-              DronesListView.ItemsSource = approachBL.GetDrones();
+                if (StattusSelector.SelectedItem == null)
+                {
+                    DronesListView.ItemsSource = approachBL.GetDrones();
+                }
+                else
+                {
+                    DronesListView.ItemsSource = approachBL.GetDrones(x => x.Status == (DroneStatuses)StattusSelector.SelectedItem);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                DronesListView.ItemsSource = approachBL.GetDrones(x=>x.Status == (DroneStatuses)StattusSelector.SelectedItem);
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (WeightSelector.SelectedItem == null)
+            try
             {
-                DronesListView.ItemsSource = approachBL.GetDrones();
+                if (WeightSelector.SelectedItem == null)
+                {
+                    DronesListView.ItemsSource = approachBL.GetDrones();
+                }
+                else
+                {
+                    DronesListView.ItemsSource = approachBL.GetDrones(x => x.MaxWeight == (WeightCategories)WeightSelector.SelectedItem);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                DronesListView.ItemsSource = approachBL.GetDrones(x => x.MaxWeight == (WeightCategories)WeightSelector.SelectedItem);
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            
         }
 
         private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

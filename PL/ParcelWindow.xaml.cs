@@ -147,14 +147,22 @@ namespace PL
 
         private void PickedUp_OR_Delivered_Checked(object sender, RoutedEventArgs e)
         {
-            if (PickedUp_OR_Delivered.IsChecked != null)
+            try
             {
-                if (TheChosenParcel.ParcelStatus == ParcelStatus.scheduled)
-                    approachBL.dronePickParcel(TheChosenParcel.Id);
+                if (PickedUp_OR_Delivered.IsChecked != null)
+                {
+                    if (TheChosenParcel.ParcelStatus == ParcelStatus.scheduled)
+                        approachBL.dronePickParcel(TheChosenParcel.Id);
 
-                if (TheChosenParcel.ParcelStatus == ParcelStatus.PickedUp)
-                    approachBL.deliveryAriveToCustomer(TheChosenParcel.Id);
+                    if (TheChosenParcel.ParcelStatus == ParcelStatus.PickedUp)
+                        approachBL.deliveryArivveToCustomer(TheChosenParcel.Id);
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
@@ -164,12 +172,19 @@ namespace PL
 
         private void UpdateData_Click(object sender, RoutedEventArgs e)
         {
-            if (TheChosenParcel.ParcelStatus == ParcelStatus.scheduled)
-                approachBL.dronePickParcel(TheChosenParcel.Id);
-            if (TheChosenParcel.ParcelStatus == ParcelStatus.PickedUp)
-                approachBL.deliveryAriveToCustomer(TheChosenParcel.Id);
+            try
+            {
+                if (TheChosenParcel.ParcelStatus == ParcelStatus.scheduled)
+                    approachBL.dronePickParcel(TheChosenParcel.Id);
 
+                if (TheChosenParcel.ParcelStatus == ParcelStatus.PickedUp)
+                    approachBL.deliveryArivveToCustomer(TheChosenParcel.Id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
 
+            }
         }
         #endregion UPDATA Parcel
 
@@ -177,26 +192,50 @@ namespace PL
 
         private void ViewSender_Click(object sender, RoutedEventArgs e)
         {
-            CustomerToList c = (from customer in approachBL.getAllCustomers()
-                                where customer.Id == TheChosenParcel.Senderld
-                                select customer).FirstOrDefault();
-            new CustomerWindow(approachBL, c).ShowDialog();
+            try
+            {
+                CustomerToList c = (from customer in approachBL.getAllCustomers()
+                                    where customer.Id == TheChosenParcel.Senderld
+                                    select customer).FirstOrDefault();
+                new CustomerWindow(approachBL, c).ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
 
         }
 
         private void ViewTargetr_Click(object sender, RoutedEventArgs e)
         {
-            CustomerToList c = (from customer in approachBL.getAllCustomers()
-                                where customer.Id == TheChosenParcel.Targetld
-                                select customer).FirstOrDefault();
-            new CustomerWindow(approachBL, c).ShowDialog();
+            try
+            {
+                CustomerToList c = (from customer in approachBL.getAllCustomers()
+                                    where customer.Id == TheChosenParcel.Targetld
+                                    select customer).FirstOrDefault();
+                new CustomerWindow(approachBL, c).ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void ViewDrone_Click(object sender, RoutedEventArgs e)
         {
-            Parcel p = approachBL.getParcel(TheChosenParcel.Id);
+            try
+            {
+                Parcel p = approachBL.getParcel(TheChosenParcel.Id);
 
-            new DroneWindow(approachBL,approachBL.getDrone(p.Droneld)).ShowDialog();
+                new DroneWindow(approachBL, approachBL.getDrone(p.Droneld)).ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
        

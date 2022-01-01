@@ -42,23 +42,31 @@ namespace PL
 
         private void addBaseStation_Click(object sender, RoutedEventArgs e)
         {
-            Location address = new Location()
+            try
             {
-                Longitude = SliderLattitude.Value,
-                Lattitude = SliderLongitude.Value
-            };
-            Station newStation = new Station()
+                Location address = new Location()
+                {
+                    Longitude = SliderLattitude.Value,
+                    Lattitude = SliderLongitude.Value
+                };
+                Station newStation = new Station()
+                {
+
+                    Id = int.Parse(TextBoxId.Text),
+                    Name = int.Parse(TextBoxName.Text),
+                    Address = address,
+                    ChargeSlots = int.Parse(TextBoxChargeSlots.Text),
+                    Charging_drones = null
+                };
+                approachBL.addStation(newStation);
+
+                this.Close();
+            }
+            catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
-                Id = int.Parse(TextBoxId.Text),
-                Name = int.Parse(TextBoxName.Text),
-                Address = address,
-                ChargeSlots = int.Parse(TextBoxChargeSlots.Text),
-                Charging_drones = null
-            };
-            approachBL.addStation(newStation);
-
-            this.Close();
         }
 
 
@@ -111,17 +119,21 @@ namespace PL
 
         private void UpdateData_Click(object sender, RoutedEventArgs e)
         {
-
-
-            if (StationName.Text != "" && TheChosenBaseStation.Name != int.Parse(StationName.Text))
+            try
             {
-                int cs;
-                if (AddChargeSlots.Text == "")
-                    cs = 0;
-                else
-                    cs = int.Parse(AddChargeSlots.Text.ToString());
-                approachBL.updateStation(TheChosenBaseStation.Id, int.Parse(StationName.Text.ToString()),cs);
+                if (StationName.Text != "" && TheChosenBaseStation.Name != int.Parse(StationName.Text))
+                {
+                    int cs;
+                    if (AddChargeSlots.Text == "")
+                        cs = 0;
+                    else
+                        cs = int.Parse(AddChargeSlots.Text.ToString());
+                    approachBL.updateStation(TheChosenBaseStation.Id, int.Parse(StationName.Text.ToString()), cs);
+                }
             }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error); }
+
+            
         }
 
 
@@ -132,17 +144,18 @@ namespace PL
 
         private void BaseStationToDelete_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            approachBL.deleteFromStations(TheChosenBaseStation.Id);
+            try
+            {
+                approachBL.deleteFromStations(TheChosenBaseStation.Id);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
-
-
-
-
-
-
-
         #endregion UPDATA BaseStations
 
-      
+
     }
 }

@@ -105,6 +105,7 @@ namespace DalObject
                 if (d < 5)
                 {
                     temp.Droneld = drones[d].Id;
+                    temp.Scheduled = DateTime.Now;
                 }
                 else
                 {

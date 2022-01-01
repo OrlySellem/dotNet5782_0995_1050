@@ -23,7 +23,7 @@ namespace PL
     public partial class CustomerListWindow : Window
     {
         IBL approachBL;
-        private ObservableCollection <BO.CustomerToList> allCustomers = new ObservableCollection <BO.CustomerToList>();
+        private ObservableCollection<BO.CustomerToList> allCustomers = new ObservableCollection<BO.CustomerToList>();
 
         public CustomerListWindow(IBL bl)
         {
@@ -39,7 +39,7 @@ namespace PL
         //private void addCustomerToList(BO.CustomerToList c)
         //{
         //    //function to sent to the add window- add the station to the list
-           
+
         //    allCustomers.Clear();
         //    foreach (BO.CustomerToList cu in approachBL.getAllCustomers())
         //        allCustomers.Add(cu);
@@ -48,28 +48,43 @@ namespace PL
 
         private void addCustomerToList_Click(object sender, RoutedEventArgs e)
         {
-            new CustomerWindow(approachBL).ShowDialog();
+            try
+            {
+                new CustomerWindow(approachBL).ShowDialog();
 
-            allCustomers.Clear();
 
-            foreach (BO.CustomerToList c in approachBL.getAllCustomers())
-               allCustomers.Add(c);
+                allCustomers.Clear();
 
-            CustomerListView.ItemsSource = allCustomers;
+                foreach (BO.CustomerToList c in approachBL.getAllCustomers())
+                   allCustomers.Add(c);
+
+                CustomerListView.ItemsSource = allCustomers;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void CustomerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            new CustomerWindow (approachBL, (CustomerToList)CustomerListView.SelectedItem).ShowDialog();
+            try
+            {
+                new CustomerWindow(approachBL, (CustomerToList)CustomerListView.SelectedItem).ShowDialog();                
+                //this.CustomerListView.SelectionChanged -= new System.Windows.Controls.SelectionChangedEventHandler(this.CustomerListView_SelectionChanged);
+                CustomerListView.ItemsSource = approachBL.getAllCustomers();
+                //this.CustomerListView.SelectionChanged += new System.Windows.Controls.SelectionChangedEventHandler(this.CustomerListView_SelectionChanged);
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
-            allCustomers.Clear();
 
-            foreach (BO.CustomerToList c in approachBL.getAllCustomers())
-                allCustomers.Add(c);
-
-            CustomerListView.ItemsSource = allCustomers;
         }
 
     }
-    }
+}
 

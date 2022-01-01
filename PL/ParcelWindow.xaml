@@ -99,7 +99,7 @@
             <Button x:Name="ViewSender" Content="View sender" Grid.Column="3" HorizontalAlignment="Center" Margin="0,22,0,0" Grid.Row="2" VerticalAlignment="Top" Click="ViewSender_Click"  />
             <Button x:Name="ViewTargetr" Content="View target" Grid.Column="3" HorizontalAlignment="Center" Grid.Row="3" VerticalAlignment="Top" Click="ViewTargetr_Click" Margin="0,16,0,0" />
             <Button x:Name="ViewDrone" Content="View drone" Grid.Column="3" HorizontalAlignment="Left" Margin="17,9,0,0" Grid.Row="4" VerticalAlignment="Top" Click="ViewDrone_Click"/>
-            <CheckBox x:Name="PickedUp_OR_Delivered" Content="PickedUp_OR_Delivered" Grid.Column="2" HorizontalAlignment="Left" Margin="39,19,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="180" Checked="PickedUp_OR_Delivered_Checked"/>
+            <CheckBox x:Name="PickedUp_OR_Delivered"  Content="PickedUp_OR_Delivered" Grid.Column="2" HorizontalAlignment="Left" Margin="39,19,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="180" Checked="PickedUp_OR_Delivered_Checked"/>
 
 
 

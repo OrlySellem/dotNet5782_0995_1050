@@ -43,13 +43,16 @@
             <Slider  x:Name="SliderLattitude" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="60,24,0,0" Grid.Row="4" VerticalAlignment="Top" Width="120"
                      Minimum="-90"
                      Maximum="90"
-                     Value="0" />
+                     Value="0"
+                     AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" 
+                    />
 
             <Label Content="Longitude:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="45,43,0,0" VerticalAlignment="Top" Width="82" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
             <Slider x:Name="SliderLongitude" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="60,0,0,31" Grid.Row="4" VerticalAlignment="Bottom" Width="120"
                     Minimum="-180"
                      Maximum="180"
-                     Value="0" Grid.RowSpan="2"/>
+                     Value="0" Grid.RowSpan="2"
+                    AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
 
 
 
@@ -60,7 +63,7 @@
 
         </Grid>
 
-        <Grid Name="updataGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
+        <Grid Name="updataGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
