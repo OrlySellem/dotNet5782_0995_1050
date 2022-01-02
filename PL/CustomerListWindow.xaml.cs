@@ -71,9 +71,17 @@ namespace PL
         {
             try
             {
-                new CustomerWindow(approachBL, (CustomerToList)CustomerListView.SelectedItem).ShowDialog();                
-                //this.CustomerListView.SelectionChanged -= new System.Windows.Controls.SelectionChangedEventHandler(this.CustomerListView_SelectionChanged);
-                CustomerListView.ItemsSource = approachBL.getAllCustomers();
+                 Action updateCustomer=(() =>
+                { new CustomerWindow(approachBL, (CustomerToList)CustomerListView.SelectedItem).ShowDialog();});
+
+                if (CustomerListView.SelectedItem != null)
+                {
+                    updateCustomer();
+                }
+
+                    //this.CustomerListView.SelectionChanged -= new System.Windows.Controls.SelectionChangedEventHandler(this.CustomerListView_SelectionChanged);
+                    CustomerListView.ItemsSource = approachBL.getAllCustomers();
+                
                 //this.CustomerListView.SelectionChanged += new System.Windows.Controls.SelectionChangedEventHandler(this.CustomerListView_SelectionChanged);
                 
             }
