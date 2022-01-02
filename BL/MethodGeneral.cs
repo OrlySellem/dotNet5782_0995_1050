@@ -96,20 +96,20 @@ namespace BlApi
                                     };
                                 }
 
-                                if ((WeightCategories)itemParcel.Weight == WeightCategories.light)
+                                if ((BO.WeightCategories)itemParcel.Weight == BO.WeightCategories.light)
                                 {
                                     double powerForDistance = power[1] * minDistance/Math.Pow(10,3);
                                     tempDroneToList.Battery = (int)(rand.NextDouble() * (100 - powerForDistance) + powerForDistance);
                                 }
 
-                                if ((WeightCategories)itemParcel.Weight == WeightCategories.medium)
+                                if ((BO.WeightCategories)itemParcel.Weight == BO.WeightCategories.medium)
                                 {
                                     double powerForDistance = power[2] * minDistance / Math.Pow(10, 3);
                                    tempDroneToList.Battery = (int)(rand.NextDouble() * (100 - powerForDistance) + powerForDistance);
 
                                 }
 
-                                if ((WeightCategories)itemParcel.Weight == WeightCategories.heavy)
+                                if ((BO.WeightCategories)itemParcel.Weight == BO.WeightCategories.heavy)
                                 {
 
                                     double powerForDistance = power[3] * minDistance / Math.Pow(10, 3);
