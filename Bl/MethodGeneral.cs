@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DalApi;
+using DO;
 using BO;
 
 namespace BlApi
@@ -11,13 +13,16 @@ namespace BlApi
    
     public sealed partial class BL : IBL
     {
-        #region cause for BL to be Instance 
+        #region singelton 
         static readonly BL instance = new BL();
-        internal static BL Instance { get { return instance; } }      
+        internal static BL Instance { get { return instance; } }
         static BL() { }
-        #endregion cause for BL to be Instance 
-     
-      public DalApi.IDal dal; //object of dal
+
+        readonly IDal dal = DalFactory.GetDal();  //object of dal
+
+        #endregion singelton
+
+        //  
         //יתחזק רשימת רחפנים
         public static List<DroneToList> drones;
 
@@ -39,7 +44,7 @@ namespace BlApi
             {
                 double minDistance = 0;
 
-                dal = DalApi.DalFactory.GetDal("1");
+                dal = DalApi.DalFactory.GetDal();
 
                 drones = new List<DroneToList>();
 
@@ -91,20 +96,20 @@ namespace BlApi
                                     };
                                 }
 
-                                if ((WeightCategories)itemParcel.Weight == WeightCategories.light)
+                                if ((BO.WeightCategories)itemParcel.Weight == BO.WeightCategories.light)
                                 {
                                     double powerForDistance = power[1] * minDistance/Math.Pow(10,3);
                                     tempDroneToList.Battery = (int)(rand.NextDouble() * (100 - powerForDistance) + powerForDistance);
                                 }
 
-                                if ((WeightCategories)itemParcel.Weight == WeightCategories.medium)
+                                if ((BO.WeightCategories)itemParcel.Weight == BO.WeightCategories.medium)
                                 {
                                     double powerForDistance = power[2] * minDistance / Math.Pow(10, 3);
                                    tempDroneToList.Battery = (int)(rand.NextDouble() * (100 - powerForDistance) + powerForDistance);
 
                                 }
 
-                                if ((WeightCategories)itemParcel.Weight == WeightCategories.heavy)
+                                if ((BO.WeightCategories)itemParcel.Weight == BO.WeightCategories.heavy)
                                 {
 
                                     double powerForDistance = power[3] * minDistance / Math.Pow(10, 3);
