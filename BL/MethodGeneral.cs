@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DalApi;
+using DO;
 using BO;
 
 namespace BlApi
@@ -11,13 +13,16 @@ namespace BlApi
    
     public sealed partial class BL : IBL
     {
-        #region cause for BL to be Instance 
+        #region singelton 
         static readonly BL instance = new BL();
-        internal static BL Instance { get { return instance; } }      
+        internal static BL Instance { get { return instance; } }
         static BL() { }
-        #endregion cause for BL to be Instance 
-     
-      public DalApi.IDal dal; //object of dal
+
+        readonly IDal dal = DalFactory.GetDal();  //object of dal
+
+        #endregion singelton
+
+        //  
         //יתחזק רשימת רחפנים
         public static List<DroneToList> drones;
 
@@ -39,7 +44,7 @@ namespace BlApi
             {
                 double minDistance = 0;
 
-                dal = DalApi.DalFactory.GetDal("1");
+                dal = DalApi.DalFactory.GetDal();
 
                 drones = new List<DroneToList>();
 

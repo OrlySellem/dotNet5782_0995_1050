@@ -8,7 +8,7 @@ using BlApi;
 
 namespace BlApi
 {
-    public class BlFactory
+    public static class BlFactory
     {
       public static IBL GetBl() {return BL.Instance; }
     }

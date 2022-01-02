@@ -7,14 +7,19 @@ using System.Threading.Tasks;
 using DalApi;
 using DO;
 
+
 namespace Dal
 {
     sealed class DalObject : IDal
     {
+
+        #region singelton
         static readonly IDal instance = new DalObject();
         public static IDal Instance { get => instance; }
         DalObject() { }
         internal static Random rand = new Random();
+
+        #endregion singelton
 
         #region ADD
         public void addStaion(Station stationToAdd)
