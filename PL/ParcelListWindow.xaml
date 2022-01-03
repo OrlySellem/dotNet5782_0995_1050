@@ -41,11 +41,11 @@
             </ListView.View>
 
         </ListView>
-        <Button x:Name="addParcelToList" Content="Add Parcel" Grid.Column="4" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Center" Height="49" Width="85" Click="addParcelToList_Click"/>
+        <Button x:Name="addParcelToList" Content="Add Parcel" Grid.Column="4" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Center" Height="49" Width="85" Click="AddParcelToList_Click"/>
         <CheckBox x:Name="senderCheckBox" Content="sender" Grid.Column="1" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Height="23" Grid.RowSpan="2" Checked="senderCheckBox_check"
                   />
-        <CheckBox x:Name="targetCheckBox" Content="target" Grid.Column="2" HorizontalAlignment="Left" Margin="8,27,0,0" VerticalAlignment="Top" Height="23" Grid.RowSpan="2" Checked="targetCheckBox_check"/>
-        <ComboBox x:Name="senderOrTargetID" IsEnabled="False" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="38,11,0,0" Grid.Row="1" VerticalAlignment="Top" Width="161" SelectionChanged="senderOrTargetID_SelectionChanged"/>
+        <CheckBox x:Name="targetCheckBox" Content="target" Grid.Column="2" HorizontalAlignment="Left" Margin="8,27,0,0" VerticalAlignment="Top" Height="23" Grid.RowSpan="2" Checked="TargetCheckBox_check"/>
+        <ComboBox x:Name="senderOrTargetID" IsEnabled="False" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="38,11,0,0" Grid.Row="1" VerticalAlignment="Top" Width="161" SelectionChanged="SenderOrTargetID_SelectionChanged"/>
 
     </Grid>
 </Window>

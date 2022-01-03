@@ -36,7 +36,7 @@ namespace Dal
                 x.Serialize(file, list);
                 file.Close();
             }
-            catch (Exception ex)
+            catch (Exception /*ex*/)
             {
                // throw new LoadingException(filePath, $"fail to create xml file: {filePath}", ex);
             }
@@ -60,7 +60,7 @@ namespace Dal
                 else
                     return new List<T>();
             }
-            catch (Exception ex)
+            catch (Exception /*ex*/)
             {
                 throw new Exception();// LoadingException(filePath, $"fail to load xml file: {filePath}", ex);
             }

@@ -51,7 +51,7 @@ namespace PL
         }
 
 
-        private void cancelAddBaseStation_Click(object sender, RoutedEventArgs e)
+        private void CancelAddBaseStation_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
@@ -64,7 +64,7 @@ namespace PL
                 addParcel.IsEnabled = false;
         }
 
-        private void senderSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SenderSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (senderSelector.SelectedItem != null && targetSelector.SelectedItem != null && weightSelector.SelectedItem != null && prioritySelector.SelectedItem != null)
                 addParcel.IsEnabled = true;
@@ -72,7 +72,7 @@ namespace PL
                 addParcel.IsEnabled = false;
         }
 
-        private void targetSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void TargetSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (senderSelector.SelectedItem != null && targetSelector.SelectedItem != null && weightSelector.SelectedItem != null && prioritySelector.SelectedItem != null)
                 addParcel.IsEnabled = true;

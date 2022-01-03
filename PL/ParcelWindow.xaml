@@ -30,10 +30,10 @@
 
             <Label Content="senderld:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="27,18,0,0" VerticalAlignment="Top" Width="82" Grid.Row="1" Grid.ColumnSpan="2"/>
 
-            <ComboBox x:Name="senderSelector" Grid.Column="2" HorizontalAlignment="Center" Margin="0,25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="95" Height="24" SelectionChanged="senderSelector_SelectionChanged"/>
+            <ComboBox x:Name="senderSelector" Grid.Column="2" HorizontalAlignment="Center" Margin="0,25,0,0" Grid.Row="1" VerticalAlignment="Top" Width="95" Height="24" SelectionChanged="SenderSelector_SelectionChanged"/>
 
             <Label Content="targetld:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="28,17,0,0" VerticalAlignment="Top" Width="82" Grid.Row="2" Grid.ColumnSpan="2"/>
-            <ComboBox x:Name="targetSelector" Grid.Column="2" HorizontalAlignment="Center" Margin="0,27,0,0" Grid.Row="2" VerticalAlignment="Top" Width="95" SelectionChanged="targetSelector_SelectionChanged"/>
+            <ComboBox x:Name="targetSelector" Grid.Column="2" HorizontalAlignment="Center" Margin="0,27,0,0" Grid.Row="2" VerticalAlignment="Top" Width="95" SelectionChanged="TargetSelector_SelectionChanged"/>
 
             <Label Content="Weight:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="82" Grid.Row="3" Margin="28,16,0,0" Grid.ColumnSpan="2"/>
             <ComboBox x:Name="weightSelector" Grid.Column="2" HorizontalAlignment="Center" Margin="0,24,0,0" Grid.Row="3" VerticalAlignment="Top" Width="95" SelectionChanged="WeightSelector_SelectionChanged_1"/>

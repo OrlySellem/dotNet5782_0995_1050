@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DalApi;
 using DO;
 using BO;
+using IDAL;
 
 namespace BlApi
 {
@@ -15,10 +16,10 @@ namespace BlApi
     {
         #region singelton 
         static readonly BL instance = new BL();
-        internal static BL Instance { get { return instance; } }
+        public static BL Instance { get => instance;  }
         static BL() { }
 
-        readonly IDal dal = DalFactory.GetDal();  //object of dal
+        readonly DalApi.IDal dal = DalFactory.GetDal();  //object of dal
 
         #endregion singelton
 
@@ -162,7 +163,7 @@ namespace BlApi
                             };
 
                             minDistance = 0;
-                            Station nearStation = nearStationToDrone(tempDroneToList, ref minDistance);
+                           BO.Station nearStation = nearStationToDrone(tempDroneToList, ref minDistance);
                             double powerForDistance = power[0] * minDistance;
                             tempDroneToList.Battery = rand.NextDouble() * (100 - powerForDistance) + powerForDistance;
 
@@ -176,11 +177,11 @@ namespace BlApi
             #endregion
             catch (DO.DoesntExistentObjectException ex)
             {
-                throw new DoesntExistentObjectException(ex.Message);
+                throw new DO.DoesntExistentObjectException(ex.Message);
             }
             catch (DO.AlreadyExistException ex)
             {
-                throw new AlreadyExistException(ex.Message);
+                throw new DO.AlreadyExistException(ex.Message);
             }
             catch(DO.stringException)
             {
@@ -192,7 +193,7 @@ namespace BlApi
         #endregion constructor BL
 
         #region find nearest station to Drone
-        Station nearStationToDrone(DroneToList droneItem, ref double minDistance)
+       BO.Station nearStationToDrone(DroneToList droneItem, ref double minDistance)
         {
             double checkDistance;
             IEnumerable<DO.Station> listStation = dal.getStations().ToList();
@@ -219,7 +220,7 @@ namespace BlApi
                 Longitude = minStation.Longitude
             };
 
-            return new Station()
+            return new BO.Station()
             {
                 Id = minStation.Id,
                 Name = minStation.Name,

@@ -53,7 +53,7 @@ namespace PL
 
         }
 
-        private void targetCheckBox_check(object sender, RoutedEventArgs e)
+        private void TargetCheckBox_check(object sender, RoutedEventArgs e)
         {
             senderOrTargetID.SelectedItem = null;
             if (targetCheckBox.IsChecked != false)
@@ -68,7 +68,7 @@ namespace PL
         }
 
 
-        private void senderOrTargetID_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SenderOrTargetID_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (targetCheckBox.IsChecked != false)
             {
@@ -90,7 +90,7 @@ namespace PL
 
         }
 
-        private void addParcelToList_Click(object sender, RoutedEventArgs e)
+        private void AddParcelToList_Click(object sender, RoutedEventArgs e)
         {
             new ParcelWindow(approachBL).ShowDialog();
             ParcelListView.ItemsSource = approachBL.getAllParcels();
