@@ -148,12 +148,47 @@ namespace Dal
         #endregion GET 
         public void delFromDrones(Drone droneToDel)
         {
-            throw new NotImplementedException();
+            var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
+            Parcel parcelToUpdate = listParcel.Find(x => x.Droneld == droneToDel.Id);
+            if (parcelToUpdate.Id != 0)
+            {
+                if (parcelToUpdate.Delivered == null)
+                {
+                    delFromParcels(parcelToUpdate);
+                    parcelToUpdate.Scheduled = null;
+                    parcelToUpdate.PickedUp = null;
+                    parcelToUpdate.Droneld = 0;
+                    addParcel(parcelToUpdate);
+                }
+            }
+            var listDrone = XMLTools.LoadListFromXMLSerializer<Drone>(dronePath);
+            listDrone.Remove(droneToDel);
+            XMLTools.SaveListToXMLSerializer(listDrone, dronePath);
+
+            //throw new NotImplementedException();
         }
 
-        public void delFromStations(Station stationToDel, bool free)
+        public void delFromStations(Station stationToDel, bool freeDrone)
         {
-            throw new NotImplementedException();
+            if (freeDrone)
+            {
+                var listDronesCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(droneChargePath);
+                foreach (var dronesCharge in listDronesCharge)
+                {
+                    if (dronesCharge.Stationld == stationToDel.Id)
+                    {
+                        Drone droneToUpdate = getDrone(dronesCharge.Droneld);
+                        freeDroneCharge(droneToUpdate);
+                    }
+                }
+            }
+            var listStation = XMLTools.LoadListFromXMLSerializer<Station>(stationPath);
+            listStation.Remove(stationToDel);
+            XMLTools.SaveListToXMLSerializer(listStation, stationPath);
+
+           
+
+            // throw new NotImplementedException();
         }
 
         public void delFromParcels(Parcel parcelToDel)
