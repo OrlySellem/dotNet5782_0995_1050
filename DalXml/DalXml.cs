@@ -196,16 +196,17 @@ namespace Dal
             // throw new NotImplementedException();
         }
 
+
         public void delFromParcels(Parcel parcelToDel)
         {
             XElement parcelList = XMLTools.LoadListFromXMLElement(parcelPath);
             var DelParcel = (from parcel in parcelList.Elements()
-                             where (parcel.Element("parcelToDel") == parcelToDel.Id)
+                             where (parcel.Element("Id").Value == parcelToDel.Id.ToString())
                              select parcel).FirstOrDefault();
             if (DelParcel == null)
                 throw new DoesntExistentObjectException("parcel");
 
-            parcelList.Remove(DelParcel);
+            parcelList.Remove();
             XMLTools.SaveListToXMLElement(parcelList, parcelPath);
 
             //var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
