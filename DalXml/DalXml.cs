@@ -14,7 +14,10 @@ namespace Dal
 
         static readonly IDal instance = new DalXml();
         public static IDal Instance { get => instance; }
-        DalXml() { }
+        DalXml()
+        {
+        //    DataSource.Initialize();
+                }
 
         #endregion singelton
 
@@ -410,14 +413,13 @@ namespace Dal
         #region power
         public double[] R_power_consumption_Drone()
         {
-            //    double[] power = new double[5];
-            //    power[0] = DalApi.DalConfig.DalConfig().Config.available;
-            //    power[1] = .lightWeight;
-            //    power[2] = DataSource.Config.mediumWeight;
-            //    power[3] = DataSource.Config.heavyWeight;
-            //    power[4] = DataSource.Config.Drone_charging_speed;
-            double[] a = { 3.4 };
-            return a;
+            double[] power = new double[5];
+            power[0] = 1;
+            power[1] = 5;
+            power[2] = 10;
+            power[3] = 15;
+            power[4] = 40;
+            return power;
         }
 
 
