@@ -14,15 +14,6 @@ namespace BlApi
    
     public sealed partial class BL : IBL
     {
-        #region singelton 
-        static readonly BL instance = new BL();
-        public static BL Instance { get => instance;  }
-        static BL() { }
-
-        readonly DalApi.IDal dal = DalFactory.GetDal();  //object of dal
-
-        #endregion singelton
-
         //  
         //יתחזק רשימת רחפנים
         public static List<DroneToList> drones;
@@ -36,6 +27,16 @@ namespace BlApi
         internal static double Drone_charging_speed;//Drone charging speed in percentage per hour  
 
         internal static Random rand;
+
+        #region singelton 
+        static readonly BL instance = new BL();
+        public static BL Instance { get => instance;  }
+        static BL() { }
+
+        readonly DalApi.IDal dal = DalFactory.GetDal();  //object of dal
+
+        #endregion singelton
+
         #region constructor BL
         BL()//ctor of BlApi
         {
