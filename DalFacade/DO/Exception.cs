@@ -69,6 +69,26 @@ namespace DO
         }
     }
 
+    public class LoadingException : Exception
+    {
+        private string filePath;
+        private string v;
+        private Exception ex;
+
+        public LoadingException() : base() { }
+        public LoadingException(string message) : base(message) { }
+        public LoadingException(string message, Exception inner) : base(message, inner) { }
+        public LoadingException(string filePath, string v, Exception ex)
+        {
+            this.filePath = filePath;
+            this.v = v;
+            this.ex = ex;
+        }
+        protected LoadingException(SerializationInfo info, StreamingContext context)
+        : base(info, context) { }
+
+
+    }
 }
 
 
