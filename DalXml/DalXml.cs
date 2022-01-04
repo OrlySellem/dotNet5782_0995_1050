@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 using DalApi;
 using DO;
 
@@ -173,6 +175,8 @@ namespace Dal
 
         public void delFromStations(Station stationToDel, bool freeDrone)
         {
+
+
             if (freeDrone)
             {
                 var listDronesCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(droneChargePath);
@@ -194,11 +198,21 @@ namespace Dal
 
         public void delFromParcels(Parcel parcelToDel)
         {
-            var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
+            XElement parcelList = XMLTools.LoadListFromXMLElement(parcelPath);
+            var DelParcel = (from parcel in parcelList.Elements()
+                             where (parcel.Element("parcelToDel.Id") == parcelToDel.Id)
+                             select parcel).FirstOrDefault();
+            if (DelParcel == null)
+                throw new DoesntExistentObjectException("parcel");
 
-            listParcel.Remove(parcelToDel);
+            parcelList.Remove(DelParcel);
+            XMLTools.SaveListToXMLElement(parcelList, parcelPath);
 
-            XMLTools.SaveListToXMLSerializer(listParcel, parcelPath);
+            //var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
+
+            //listParcel.Remove(parcelToDel);
+
+            //XMLTools.SaveListToXMLSerializer(listParcel, parcelPath);
 
         }
 
