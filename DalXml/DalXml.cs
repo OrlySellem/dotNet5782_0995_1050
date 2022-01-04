@@ -200,7 +200,7 @@ namespace Dal
         {
             XElement parcelList = XMLTools.LoadListFromXMLElement(parcelPath);
             var DelParcel = (from parcel in parcelList.Elements()
-                             where (parcel.Element("parcelToDel.Id") == parcelToDel.Id)
+                             where (parcel.Element("parcelToDel") == parcelToDel.Id)
                              select parcel).FirstOrDefault();
             if (DelParcel == null)
                 throw new DoesntExistentObjectException("parcel");
