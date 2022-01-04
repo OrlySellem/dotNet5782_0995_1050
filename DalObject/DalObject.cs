@@ -198,11 +198,6 @@ namespace Dal
             return DataSource.customers.FindAll(x => prdicat == null ? true : prdicat(x));
         }
 
-        //public IEnumerable<Customer> getAllCustomer()//return list of customers
-        //{
-        //    return DataSource.customers;
-        //}
-
         public IEnumerable<DroneCharge> getDronesCharge(Predicate<DroneCharge> prdicat = null)
         {
             return DataSource.dronesCharge.FindAll(x => prdicat == null ? true : prdicat(x));
@@ -295,7 +290,6 @@ namespace Dal
         {
             try
             {
-                //getDrone(droneToUpdate.Id);
                 Parcel myParcel = getParcel(parcelToUpdate.Id);
 
                 DataSource.parcels.Remove(parcelToUpdate);

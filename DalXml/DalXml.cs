@@ -8,7 +8,7 @@ using DO;
 
 namespace Dal
 {
-    sealed class DalXml :IDal
+    sealed class DalXml : IDal
     {
         #region singelton
 
@@ -50,7 +50,7 @@ namespace Dal
             listDrone.Add(DroneToAdd);
             XMLTools.SaveListToXMLSerializer(listDrone, dronePath);
 
-           // throw new NotImplementedException();
+            // throw new NotImplementedException();
         }
 
         public void addCustomer(Customer CustomerToAdd)
@@ -97,8 +97,8 @@ namespace Dal
         {
             var listDrone = XMLTools.LoadListFromXMLSerializer<Drone>(dronePath);
             Drone drone = (from findDrone in listDrone
-                             where findDrone.Id == id
-                             select findDrone).FirstOrDefault();
+                           where findDrone.Id == id
+                           select findDrone).FirstOrDefault();
             if (drone.Equals(default(Parcel)))
                 throw new DoesntExistentObjectException("drone");
             return drone;
@@ -110,8 +110,8 @@ namespace Dal
         {
             var listStation = XMLTools.LoadListFromXMLSerializer<Station>(stationPath);
             Station station = (from findStation in listStation
-                             where findStation.Id == id
-                             select findStation).FirstOrDefault();
+                               where findStation.Id == id
+                               select findStation).FirstOrDefault();
             if (station.Equals(default(Parcel)))
                 throw new DoesntExistentObjectException("station");
             return station;
@@ -123,8 +123,8 @@ namespace Dal
         {
             var listCustomer = XMLTools.LoadListFromXMLSerializer<Customer>(customerPath);
             Customer customer = (from findCustomer in listCustomer
-                             where findCustomer.Id == id
-                             select findCustomer).FirstOrDefault();
+                                 where findCustomer.Id == id
+                                 select findCustomer).FirstOrDefault();
             if (customer.Equals(default(Parcel)))
                 throw new DoesntExistentObjectException("customer");
             return customer;
@@ -136,8 +136,8 @@ namespace Dal
         {
             var listDroneCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(parcelPath);
             DroneCharge droneCharge = (from findDroneCharge in listDroneCharge
-                             where findDroneCharge.Droneld == id
-                             select findDroneCharge).FirstOrDefault();
+                                       where findDroneCharge.Droneld == id
+                                       select findDroneCharge).FirstOrDefault();
             if (droneCharge.Equals(default(DroneCharge)))
                 throw new chargingException("the drone is not charging");
             return droneCharge;
@@ -146,6 +146,8 @@ namespace Dal
         }
 
         #endregion GET 
+
+        #region DELETE
         public void delFromDrones(Drone droneToDel)
         {
             var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
@@ -186,100 +188,242 @@ namespace Dal
             listStation.Remove(stationToDel);
             XMLTools.SaveListToXMLSerializer(listStation, stationPath);
 
-           
-
             // throw new NotImplementedException();
         }
 
         public void delFromParcels(Parcel parcelToDel)
         {
-            throw new NotImplementedException();
+            var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
+
+            listParcel.Remove(parcelToDel);
+
+            XMLTools.SaveListToXMLSerializer(listParcel, parcelPath);
+
         }
 
         public void delFromCustomers(Customer customerToDel)
         {
-            throw new NotImplementedException();
+            var listCustomer = XMLTools.LoadListFromXMLSerializer<Customer>(parcelPath);
+
+            listCustomer.Remove(customerToDel);
+
+            XMLTools.SaveListToXMLSerializer(listCustomer, parcelPath);
+
         }
 
         public void delFromChargingDrone(DroneCharge droneCharge)
         {
-            throw new NotImplementedException();
+            var listStation = XMLTools.LoadListFromXMLSerializer<Station>(stationPath);
+            Station stationToUpdate = listStation.Find(x => x.Id == droneCharge.Stationld);
+            listStation.Remove(stationToUpdate);
+            plusChargeSlots(ref stationToUpdate);
+            addStaion(stationToUpdate);
+
+            var listDroneCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(droneChargePath);
+            listDroneCharge.Remove(droneCharge);
+            XMLTools.SaveListToXMLSerializer(listDroneCharge, parcelPath);
         }
 
+        #endregion DELETE
+
+        #region GET_LIST
         public IEnumerable<Parcel> getParcels(Predicate<Parcel> prdicat = null)
         {
-            throw new NotImplementedException();
+            var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
+            return listParcel;
         }
 
         public IEnumerable<DroneCharge> getDronesCharge(Predicate<DroneCharge> prdicat = null)
         {
-            throw new NotImplementedException();
+            var listDroneCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(droneChargePath);
+            return listDroneCharge;
         }
 
         public IEnumerable<Drone> getDrones(Predicate<Drone> prdicat = null)
         {
-            throw new NotImplementedException();
+            var listDrone = XMLTools.LoadListFromXMLSerializer<Drone>(dronePath);
+            return listDrone;
         }
 
         public IEnumerable<Station> getStations(Predicate<Station> prdicat = null)
         {
-            throw new NotImplementedException();
+            var listStation = XMLTools.LoadListFromXMLSerializer<Station>(stationPath);
+            return listStation;
         }
 
         public IEnumerable<Customer> getCustomers(Predicate<Customer> prdicat = null)
         {
-            throw new NotImplementedException();
+            var listCustomer = XMLTools.LoadListFromXMLSerializer<Customer>(customerPath);
+            return listCustomer;
         }
+
 
         public IEnumerable<Parcel> print_unconnected_parcels_to_Drone()
         {
-            throw new NotImplementedException();
+            List<Parcel> parcelsList = new List<Parcel>();
+            var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
+
+            foreach (Parcel parcel in listParcel)
+            {
+                if (parcel.Droneld == 0 && parcel.Scheduled == null)
+                    parcelsList.Add(parcel);
+            }
+            return parcelsList;
         }
 
         public IEnumerable<Station> print_stations_with_freeDroneCharge()
         {
-            throw new NotImplementedException();
+            List<Station> stationList = new List<Station>();
+
+            var listStation = XMLTools.LoadListFromXMLSerializer<Station>(stationPath);
+
+            foreach (Station station in listStation)
+            {
+                if (station.ChargeSlots > 0)
+                    stationList.Add(station);
+            }
+
+            return stationList;
         }
 
+        #endregion GET_LIST
+
+        #region updateChargeSlots
         public void reduceChargeSlots(ref Station s)
         {
-            throw new NotImplementedException();
+            if (s.ChargeSlots == 0)
+                throw new chargingException("There isn't any available charging slots in this station");
+            s.ChargeSlots--;//Reduce the number of claim positions
+
         }
 
         public void plusChargeSlots(ref Station s)
         {
-            throw new NotImplementedException();
+            s.ChargeSlots++;
         }
 
+        #endregion updateChargeSlots
+
+        #region UPDATE
         public void assign_drone_parcel(Drone droneToUpdate, Parcel parcelToUpdate)
         {
-            throw new NotImplementedException();
+
+            var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
+
+            Parcel myParcel = listParcel.Find(x => x.Id == parcelToUpdate.Id);
+            listParcel.Remove(parcelToUpdate);
+
+            myParcel.Droneld = droneToUpdate.Id;
+            myParcel.Scheduled = DateTime.Now;
+
+            listParcel.Add(myParcel);
+            XMLTools.SaveListToXMLSerializer(listParcel, parcelPath);
         }
 
         public void drone_pick_parcel(Drone droneToUpdate, Parcel parcelToUpdate)
         {
-            throw new NotImplementedException();
+            var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
+
+            Parcel myParcel = listParcel.Find(x => x.Id == parcelToUpdate.Id);
+
+            listParcel.Remove(parcelToUpdate);
+
+            myParcel.PickedUp = DateTime.Now;
+
+            listParcel.Add(myParcel);
         }
 
         public void delivery_arrive_toCustomer(Parcel parcelToUpdate)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
+
+                Parcel myParcel = listParcel.Find(x => x.Id == parcelToUpdate.Id);
+
+                listParcel.Remove(parcelToUpdate);
+
+                myParcel.Delivered = DateTime.Now;
+
+                listParcel.Add(myParcel);
+            }
+            catch (DoesntExistentObjectException ex)
+            {
+                throw new DoesntExistentObjectException(ex.Message);
+            }
+
         }
 
         public void chargingDrone(Drone droneToUpdate, Station stationToUpdate)
         {
-            throw new NotImplementedException();
+            try
+            {
+                getDrone(droneToUpdate.Id); //to check if the drone exist in the list
+
+                var listStation = XMLTools.LoadListFromXMLSerializer<Station>(stationPath);
+
+                var listChargeSlots = XMLTools.LoadListFromXMLSerializer<DroneCharge>(droneChargePath);
+
+                Station myStation = listStation.Find(x => x.Id == stationToUpdate.Id);
+
+                if (myStation.ChargeSlots != 0)//If there are no charge slots available, choose a new station  
+                {
+                    listStation.Remove(stationToUpdate);
+                    reduceChargeSlots(ref myStation);
+                    listStation.Add(myStation);
+
+                    DroneCharge droneChargeToAdd = new DroneCharge() { Droneld = droneToUpdate.Id, Stationld = myStation.Id, StartedRecharged = DateTime.Now };
+                    listChargeSlots.Add(droneChargeToAdd);
+                    return;
+                }
+            }
+            catch (DoesntExistentObjectException ex)
+            {
+                throw new DoesntExistentObjectException(ex.Message);
+            }
+
         }
 
         public void freeDroneCharge(Drone droneToUpdate)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var listDroneCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(droneChargePath);
 
+                DroneCharge droneChargeToDel = listDroneCharge.Find(x => x.Droneld == droneToUpdate.Id);
+
+                if (droneChargeToDel.Droneld != 0 && droneChargeToDel.Stationld != 0)
+                {
+                    delFromChargingDrone(droneChargeToDel);
+
+                    return;
+                }
+
+                throw new chargingException("The drone doesn't charging in this station");
+            }
+            catch (DoesntExistentObjectException ex)
+            {
+
+                throw new DoesntExistentObjectException(ex.Message);
+            }
+        }
+        #endregion UPDATE
+
+        #region power
         public double[] R_power_consumption_Drone()
         {
-            throw new NotImplementedException();
+            //    double[] power = new double[5];
+            //    power[0] = DalApi.DalConfig.DalConfig().Config.available;
+            //    power[1] = .lightWeight;
+            //    power[2] = DataSource.Config.mediumWeight;
+            //    power[3] = DataSource.Config.heavyWeight;
+            //    power[4] = DataSource.Config.Drone_charging_speed;
+            double[] a = { 3.4 };
+            return a;
         }
+
+
+        #endregion power
     }
 
 

@@ -46,6 +46,7 @@
                   />
         <CheckBox x:Name="targetCheckBox" Content="target" Grid.Column="2" HorizontalAlignment="Left" Margin="8,27,0,0" VerticalAlignment="Top" Height="23" Grid.RowSpan="2" Checked="TargetCheckBox_check"/>
         <ComboBox x:Name="senderOrTargetID" IsEnabled="False" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="38,11,0,0" Grid.Row="1" VerticalAlignment="Top" Width="161" SelectionChanged="SenderOrTargetID_SelectionChanged"/>
+        <StackPanel Grid.Column="4"/>
 
     </Grid>
 </Window>

@@ -484,6 +484,7 @@ namespace BlApi
                     //	שינוי מצב רחפן לפנוי
                     droneToUpdate.Status = DroneStatuses.available;
 
+                    
                     //	עדכון זמן אספקה
                     dal.delivery_arrive_toCustomer(parcel_Ascribed_drone);
                 }
