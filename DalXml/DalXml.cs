@@ -28,8 +28,6 @@ namespace Dal
         #region ADD
         public void addStaion(Station stationToAdd)
         {
-
-
             var listStation = XMLTools.LoadListFromXMLSerializer<Station>(stationPath);
             if (listStation.Exists(x => x.Id == stationToAdd.Id))
                 throw new AlreadyExistException("station");
