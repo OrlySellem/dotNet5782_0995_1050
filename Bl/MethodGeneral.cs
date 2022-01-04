@@ -246,7 +246,7 @@ namespace BlApi
             //מרחק ראשון בין הלקוח המבוקש והמקום הראשון ברשימת התחנות
             minDistance = Math.Sqrt(Math.Pow(costumerItem.Lattitude - listStation.First().Lattitude, 2) + Math.Pow(costumerItem.Longitude - listStation.First().Longitude, 2));
             minStation = listStation.First();
-            foreach (var itemStation in listStation)
+            foreach  (var itemStation in listStation)
             {
                 checkDistance = Math.Sqrt(Math.Pow(costumerItem.Lattitude - itemStation.Lattitude, 2) + Math.Pow(costumerItem.Longitude - itemStation.Longitude, 2));
                 if (minDistance > checkDistance)
