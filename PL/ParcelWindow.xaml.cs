@@ -21,9 +21,6 @@ namespace PL
     /// </summary>
     public partial class ParcelWindow : Window
     {
-
-
-
         #region ADD Parcel
 
         BlApi.IBL approachBL;
@@ -141,6 +138,16 @@ namespace PL
                 PickedUp_OR_Delivered.Visibility = Visibility.Visible;
             else
                 PickedUp_OR_Delivered.Visibility = Visibility.Hidden;
+
+            if (parcel.ParcelStatus ==ParcelStatus.requested)
+            {
+                delParcel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                delParcel.Visibility = Visibility.Hidden;
+            }
+            
         }
 
 
@@ -238,6 +245,18 @@ namespace PL
 
         }
 
-       
+        private void deleteParcel_click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                approachBL.deleteFromParcels(TheChosenParcel.Id);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
     }
 }

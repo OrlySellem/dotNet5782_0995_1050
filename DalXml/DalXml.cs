@@ -206,7 +206,7 @@ namespace Dal
             if (DelParcel == null)
                 throw new DoesntExistentObjectException("parcel");
 
-            parcelList.Remove();
+            DelParcel.Remove();
             XMLTools.SaveListToXMLElement(parcelList, parcelPath);
 
             //var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);

@@ -36,7 +36,7 @@ namespace BlApi
         readonly DalApi.IDal dal = DalFactory.GetDal();  //object of dal
 
         #endregion singelton
-
+       
         #region constructor BL
         BL()//ctor of BlApi
         {
