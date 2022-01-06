@@ -3,145 +3,171 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using BO;
+using BlApi;
 
-namespace BlApi
+namespace BL
 {
     public partial class BL : IBL
     {
         #region CRUD
         //Create
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void addParcel(Parcel ParcelToAdd)
         {
-            try
+            lock (dal)
             {
-                DO.Parcel dalParcel = new DO.Parcel()
+                try
                 {
-                    Id=0,
-                    Senderld = ParcelToAdd.Senderld,
-                    Targetld = ParcelToAdd.Targetld,
-                    Weight = (DO.WeightCategories)ParcelToAdd.Weight,
-                    Priority = (DO.Priorities)ParcelToAdd.Priority,
-                    Requested = DateTime.Now,
-                    Droneld = 0,
-                    Scheduled =null,
-                    PickedUp =null,
-                    Delivered = null
-                };
+                    DO.Parcel dalParcel = new DO.Parcel()
+                    {
+                        Id = 0,
+                        Senderld = ParcelToAdd.Senderld,
+                        Targetld = ParcelToAdd.Targetld,
+                        Weight = (DO.WeightCategories)ParcelToAdd.Weight,
+                        Priority = (DO.Priorities)ParcelToAdd.Priority,
+                        Requested = DateTime.Now,
+                        Droneld = 0,
+                        Scheduled = null,
+                        PickedUp = null,
+                        Delivered = null
+                    };
 
-                dal.addParcel(dalParcel);
-            }
-            catch (DO.AlreadyExistException ex)
-            {
+                    dal.addParcel(dalParcel);
+                }
+                catch (DO.AlreadyExistException ex)
+                {
 
-                throw new AlreadyExistException(ex.Message);
+                    throw new AlreadyExistException(ex.Message);
+                }
+
             }
 
         }
 
         // Read
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel getParcel(int id)
         {
-            try
+            lock (dal)
             {
-               DO.Parcel p = dal.getParcel(id);
-
-
-                return new BO.Parcel//have to add chargingDrone list!! - לעשות
+                try
                 {
-                    Id = p.Id,
+                    DO.Parcel p = dal.getParcel(id);
 
-                    Senderld = p.Senderld,
 
-                    Targetld = p.Targetld,
+                    return new BO.Parcel//have to add chargingDrone list!! - לעשות
+                    {
+                        Id = p.Id,
 
-                    Weight = (BO.WeightCategories)p.Weight,
+                        Senderld = p.Senderld,
 
-                    Priority = (BO.Priorities)p.Priority,
+                        Targetld = p.Targetld,
 
-                    Requested = p.Requested,
+                        Weight = (BO.WeightCategories)p.Weight,
 
-                    Droneld = p.Droneld,
+                        Priority = (BO.Priorities)p.Priority,
 
-                    Scheduled = p.Scheduled,
+                        Requested = p.Requested,
 
-                    PickedUp = p.PickedUp,
+                        Droneld = p.Droneld,
 
-                    Delivered = p.Delivered
-                };
-            }
-            catch (DO.DoesntExistentObjectException ex)
-            {
-                throw new DoesntExistentObjectException(ex.Message);
+                        Scheduled = p.Scheduled,
+
+                        PickedUp = p.PickedUp,
+
+                        Delivered = p.Delivered
+                    };
+
+                }
+                catch (DO.DoesntExistentObjectException ex)
+                {
+                    throw new DoesntExistentObjectException(ex.Message);
+                }
+
             }
 
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelToList> getAllParcels(Predicate<ParcelToList> predicate = null)
         {
-            IEnumerable<DO.Parcel> ParcelList_dal = dal.getParcels().ToList();
-            List<ParcelToList> ParcelList_bl = new List<ParcelToList>();
-
-            foreach (var parcelItem in ParcelList_dal)
+            lock (dal)
             {
-                ParcelToList addParcel = new ParcelToList()
+                IEnumerable<DO.Parcel> ParcelList_dal = dal.getParcels().ToList();
+                List<ParcelToList> ParcelList_bl = new List<ParcelToList>();
+
+                foreach (var parcelItem in ParcelList_dal)
                 {
-                    Id = parcelItem.Id,
-                    Senderld = parcelItem.Senderld,
-                    Targetld = parcelItem.Targetld,
-                    Weight = (WeightCategories)parcelItem.Weight,
-                    Priority = (Priorities)parcelItem.Priority,
-                };
+                    ParcelToList addParcel = new ParcelToList()
+                    {
+                        Id = parcelItem.Id,
+                        Senderld = parcelItem.Senderld,
+                        Targetld = parcelItem.Targetld,
+                        Weight = (WeightCategories)parcelItem.Weight,
+                        Priority = (Priorities)parcelItem.Priority,
+                    };
 
-                if (parcelItem.Requested != null && parcelItem.Scheduled ==null)
-                    addParcel.ParcelStatus = ParcelStatus.requested;
-                if (parcelItem.Scheduled != null && parcelItem.PickedUp == null)
-                    addParcel.ParcelStatus = ParcelStatus.scheduled;
-                if (parcelItem.PickedUp != null && parcelItem.Delivered == null)
-                    addParcel.ParcelStatus = ParcelStatus.PickedUp;
-                if (parcelItem.Delivered !=null)
-                    addParcel.ParcelStatus = ParcelStatus.Delivered;
+                    if (parcelItem.Requested != null && parcelItem.Scheduled == null)
+                        addParcel.ParcelStatus = ParcelStatus.requested;
+                    if (parcelItem.Scheduled != null && parcelItem.PickedUp == null)
+                        addParcel.ParcelStatus = ParcelStatus.scheduled;
+                    if (parcelItem.PickedUp != null && parcelItem.Delivered == null)
+                        addParcel.ParcelStatus = ParcelStatus.PickedUp;
+                    if (parcelItem.Delivered != null)
+                        addParcel.ParcelStatus = ParcelStatus.Delivered;
 
 
 
-                ParcelList_bl.Add(addParcel);
+                    ParcelList_bl.Add(addParcel);
+
+                }
+
+                return ParcelList_bl.FindAll(x => predicate == null ? true : predicate(x));
 
             }
-
-            return ParcelList_bl.FindAll(x => predicate == null ? true : predicate(x));
-
-         
         }
 
         //Update
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<ParcelToList> ParcelDoesntAssignToDrone()
         {
-            var parcelList_dal = dal.print_unconnected_parcels_to_Drone();
-            List<ParcelToList> ParcelList_bl = new List<ParcelToList>();
-
-            foreach (var parcelItem in parcelList_dal)
+            lock (dal)
             {
-                ParcelToList addParcel = new ParcelToList()
+                var parcelList_dal = dal.print_unconnected_parcels_to_Drone();
+                List<ParcelToList> ParcelList_bl = new List<ParcelToList>();
+
+                foreach (var parcelItem in parcelList_dal)
                 {
-                    Id = parcelItem.Id,
-                    Senderld = parcelItem.Senderld,
-                    Targetld = parcelItem.Targetld,
-                    Weight = (WeightCategories)parcelItem.Weight,
-                    Priority = (Priorities)parcelItem.Priority,
-                    ParcelStatus = ParcelStatus.requested
-                };
+                    ParcelToList addParcel = new ParcelToList()
+                    {
+                        Id = parcelItem.Id,
+                        Senderld = parcelItem.Senderld,
+                        Targetld = parcelItem.Targetld,
+                        Weight = (WeightCategories)parcelItem.Weight,
+                        Priority = (Priorities)parcelItem.Priority,
+                        ParcelStatus = ParcelStatus.requested
+                    };
 
-                ParcelList_bl.Add(addParcel);
+                    ParcelList_bl.Add(addParcel);
+                }
+
+                return ParcelList_bl;
             }
-
-            return ParcelList_bl;
+           
         }
 
         //Delete
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void deleteFromParcels(int IDparcelToDel)
         {
-            DO.Parcel parcel = dal.getParcel(IDparcelToDel);
-            dal.delFromParcels(parcel);
+            lock (dal)
+            {
+                DO.Parcel parcel = dal.getParcel(IDparcelToDel);
+                dal.delFromParcels(parcel);
+            }
+           
         }
 
         #endregion CRUD

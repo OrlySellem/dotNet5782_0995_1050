@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
 using BlApi;
 using BO;
 
@@ -21,7 +22,12 @@ namespace PL
     /// </summary>
     public partial class DronesListWindow : Window
     {
+
         BlApi.IBL approachBL;
+
+        private Thread dateThread;
+        delegate void dateChange();
+
         public DronesListWindow(BlApi.IBL bl)
         {
             InitializeComponent();
@@ -29,8 +35,19 @@ namespace PL
             DronesListView.ItemsSource = approachBL.GetDrones();
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             StattusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
+            dateThread = new Thread(Thread_Date);
+            dateThread.Start();
         }
-         
+
+        private void Thread_Date()
+        {
+            while ()
+            {
+                dateDelegate();
+                Thread.Sleep(1000);
+            }
+        }
+
         private void ChooseDroneToShow_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             

@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DalApi;
 using DO;
 using BO;
+using BlApi;
 using IDAL;
 
-namespace BlApi
-{
-
-   
+namespace BL
+{  
     public sealed partial class BL : IBL
     {
         //  
@@ -33,10 +33,10 @@ namespace BlApi
         public static BL Instance { get => instance;  }
         static BL() { }
 
-        readonly DalApi.IDal dal = DalFactory.GetDal();  //object of dal
+        internal readonly DalApi.IDal dal = DalFactory.GetDal();  //object of dal
 
         #endregion singelton
-       
+
         #region constructor BL
         BL()//ctor of BlApi
         {
@@ -263,6 +263,17 @@ namespace BlApi
             return returnTemp;
         }
         #endregion find nearest station to customer
+
+        public void openSimulator(int idDrone, Action update, Func<bool> checkStop)
+        {
+
+
+
+
+
+
+        }
+
     }
 
 }

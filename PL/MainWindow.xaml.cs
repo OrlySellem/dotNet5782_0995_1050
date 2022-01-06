@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
 using BlApi;
 
 namespace PL
@@ -20,12 +19,13 @@ namespace PL
 
     public partial class MainWindow : Window
     {
+        
         public BlApi.IBL mainBl =  BlApi.BlFactory.GetBl();
 
         //Button insertToDroneList;
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();         
         }
 
         private void ViewDroneList_Click(object sender, RoutedEventArgs e)

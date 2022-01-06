@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BlApi;
+using System.ComponentModel;
+using System.Diagnostics;
 using BO;
 
 namespace PL
@@ -24,7 +27,9 @@ namespace PL
 
         #region ADD drone
 
-        BlApi.IBL approachBL;     
+        BlApi.IBL approachBL;
+        BackgroundWorker Worker;
+
         public DroneWindow(BlApi.IBL bl)
         {
             InitializeComponent();
@@ -115,11 +120,6 @@ namespace PL
 
         #endregion ADD drone
 
-        //private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        //{
-        //    MessageBox.Show(e.NewValue.ToString());
-        //}
-
         #region updat Drone
 
         static DroneToList TheChosenDrone;
@@ -135,12 +135,13 @@ namespace PL
             id.Text = drone.Id.ToString();
             Model.Text = drone.Model.ToString();
             MaxWeight.Text = drone.MaxWeight.ToString();
-            Battery.Text = drone.Battery.ToString();
+            PrecentsBattery.Content = drone.Battery.ToString() + " %";
             Status.Text = drone.Status.ToString();
             idParcel.Text = drone.idParcel.ToString();
             LattitudeTextBox.Text = drone.CurrentLocation.Lattitude.ToString();
             LongitudeTextBox.Text = drone.CurrentLocation.Longitude.ToString();
 
+            Regular.Visibility = Visibility.Hidden;
 
             if (drone.Status == DroneStatuses.available)
             {
@@ -165,9 +166,17 @@ namespace PL
          
 
             }
+
+            Worker = new BackgroundWorker();
+            Worker.DoWork += Worker_DoWork;
+            Worker.ProgressChanged += Worker_ProgressChanged;
+            Worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+
+            Worker.WorkerReportsProgress = true;
+            Worker.WorkerSupportsCancellation = true;
         }
 
-       
+
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -293,21 +302,109 @@ namespace PL
 
         }
 
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            int length = (int)e.Argument;
+
+            for (int i = 1; i <= length; i++) 
+            {
+                if (Worker.CancellationPending == true)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+                else
+                {
+                    // Perform a time consuming operation and report progress.
+                    Thread.Sleep(500);
+                    if (Worker.WorkerReportsProgress == true)
+                        Worker.ReportProgress(i * 100 / length);
+                }
+            }
+            e.Result = stopwatch.ElapsedMilliseconds;
+        }
+
+        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            int progress = e.ProgressPercentage;
+            PrecentsBattery.Content = (progress + "%");
+            BatteryProgressBar.Value = progress;
+        }
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled == true)
+            {
+                PrecentsBattery.Content = "Canceled!";
+            }
+            else if (e.Error != null)
+            {
+                PrecentsBattery.Content = "Error: " + e.Error.Message; // Exception Message
+            }
+            else
+            {
+                long result = (long)e.Result;
+                if (result < 100)
+                {
+                    PrecentsBattery.Content = result + " %";
+                    
+                    TheChosenDrone.Battery = result;
+                }
+                else
+                {
+                    PrecentsBattery.Content = 100 + " %";
+                    
+                    TheChosenDrone.Battery = result;
+                }
+                   
+            }
+        }
+        private void Automatic_Click(object sender, RoutedEventArgs e)
+        {
+            CloseWindow.Visibility = Visibility.Hidden;
+            UpdateData.Visibility = Visibility.Hidden;
+            SendingDroneForCharging.Visibility = Visibility.Hidden;
+            ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
+            SendDroneForDelivery.Visibility = Visibility.Hidden;
+            ParcelCollection.Visibility = Visibility.Hidden;
+            ParcelArriveToDestination.Visibility = Visibility.Hidden;
+            Regular.Visibility = Visibility.Visible;
+
+            if (Worker.IsBusy != true)
+            {
+                Worker.RunWorkerAsync(35);
+            }
+           
+
+
+
+
+
+        }
+
+        private void Manual_Click(object sender, RoutedEventArgs e)
+        {
+
+            CloseWindow.Visibility = Visibility.Visible;
+            UpdateData.Visibility = Visibility.Visible;
+            SendingDroneForCharging.Visibility = Visibility.Hidden;
+            ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
+            SendDroneForDelivery.Visibility = Visibility.Hidden;
+            ParcelCollection.Visibility = Visibility.Hidden;
+            ParcelArriveToDestination.Visibility = Visibility.Hidden;
+            Regular.Visibility = Visibility.Visible;
+
+
+
+
+
+        }
+
+        
 
         #endregion updat Drone
-
-        //private void cancelAddDrone_Click(object sender, RoutedEventArgs e)
-        //{
-        //    cancelAddDrone.IsEnabled;
-        //}
-
-        /*     <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}"/>
-                </DataTemplate>
-              </ComboBox.ItemTemplate>
-            </ComboBox>
-        */
 
     }
 }

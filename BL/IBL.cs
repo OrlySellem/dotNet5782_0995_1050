@@ -10,7 +10,8 @@ namespace BlApi
 {
     public interface IBL
     {
-       
+        public void openSimulator(int idDrone, Action update, Func<bool> checkStop);
+
         #region ADD
         public void addStation(Station StationToAdd);
 

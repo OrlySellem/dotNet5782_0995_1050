@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using IDAL.DO;
 
 namespace DalObject
@@ -24,6 +25,7 @@ namespace DalObject
         #endregion
 
         #region ADD
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void addStaion(Station stationToAdd)
         {
             Station temp = DataSource.stations.Find(x => x.Id == stationToAdd.Id);
@@ -33,6 +35,7 @@ namespace DalObject
             DataSource.stations.Add(stationToAdd);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void addDrone(Drone droneToAdd)
         {
             Drone temp = DataSource.drones.Find(x => x.Id == droneToAdd.Id);
@@ -42,6 +45,7 @@ namespace DalObject
             DataSource.drones.Add(droneToAdd);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void addCustomer(Customer CustomerToAdd)
         {
             Customer temp = DataSource.customers.Find(x => x.Id == CustomerToAdd.Id);
@@ -50,7 +54,9 @@ namespace DalObject
 
             DataSource.customers.Add(CustomerToAdd);
         }
+
         //צריך שהתוכנית תגדיר לו ת"ז
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void addParcel(Parcel ParcelToAdd)
         {
             Parcel temp = DataSource.parcels.Find(x => x.Id == ParcelToAdd.Id);
@@ -69,6 +75,7 @@ namespace DalObject
         #endregion
 
         #region REMOVE
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void delFromDrones(Drone droneToDel)
         {
             Parcel parcelToUpdate = DataSource.parcels.Find(x => x.Droneld == droneToDel.Id);
@@ -87,6 +94,7 @@ namespace DalObject
             DataSource.drones.Remove(droneToDel);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void delFromStations(Station stationToDel, bool freeDrone=true)
         {
             if (freeDrone)
@@ -104,16 +112,19 @@ namespace DalObject
             DataSource.stations.Remove(stationToDel);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void delFromParcels (Parcel parcelToDel)
         {
             DataSource.parcels.Remove(parcelToDel);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void delFromCustomers (Customer customerToDel)
         {
             DataSource.customers.Remove(customerToDel);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void delFromChargingDrone (DroneCharge droneCharge)
         {
             Station stationToUpdate = DataSource.stations.Find (x => x.Id == droneCharge.Stationld);
@@ -128,6 +139,7 @@ namespace DalObject
 
 
         #region GET 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel getParcel(int id)//Finds the requested parcel from the arr
         {
             Parcel parcel = DataSource.parcels.Find(p => p.Id == id);
@@ -136,6 +148,7 @@ namespace DalObject
             return parcel;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone getDrone(int id)//Finds the requested drone from the arr
         {
             Drone drone = DataSource.drones.Find(d => d.Id == id);
@@ -144,6 +157,7 @@ namespace DalObject
             return drone;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Station getStation(int id)//Finds the requested station from the arr
         {
             Station station = DataSource.stations.Find(s => s.Id == id);
@@ -152,6 +166,7 @@ namespace DalObject
             return station;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer getCustomer(int id)//loop to find the customer acordding to ID 
         {
             Customer customer = DataSource.customers.Find(c => c.Id == id);
@@ -160,6 +175,7 @@ namespace DalObject
             return customer;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneCharge getDroneCharge(int id)//loop to find the customer acordding to ID 
         {
             DroneCharge droneCharge = DataSource.dronesCharge.Find(c => c.Droneld == id);
@@ -170,37 +186,37 @@ namespace DalObject
 
         #region GET_LIST
 
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> getParcels(Predicate<Parcel> prdicat = null)
         {
             return DataSource.parcels.FindAll(x => prdicat == null ? true : prdicat(x));
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable <Drone> getDrones(Predicate <Drone> prdicat = null)
         {
             return DataSource.drones.FindAll(x => prdicat == null ? true : prdicat(x));
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> getStations(Predicate <Station> prdicat = null)//return list of stations
         {
             return DataSource.stations.FindAll(x => prdicat == null ? true : prdicat(x));
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> getCustomers(Predicate <Customer> prdicat = null)//return list of stations
         {
             return DataSource.customers.FindAll(x => prdicat == null ? true : prdicat(x));
         }
-    
-        //public IEnumerable<Customer> getAllCustomer()//return list of customers
-        //{
-        //    return DataSource.customers;
-        //}
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneCharge> getDronesCharge(Predicate <DroneCharge> prdicat = null)
         {
             return DataSource.dronesCharge.FindAll(x => prdicat == null ? true : prdicat(x));
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> print_unconnected_parcels_to_Drone()
         {
          List<Parcel> parcelsList = new List<Parcel>();
@@ -211,6 +227,8 @@ namespace DalObject
             }
             return parcelsList;
         }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> print_stations_with_freeDroneCharge()
         {
            List<Station> stationList = new List<Station>();
@@ -227,6 +245,7 @@ namespace DalObject
         #endregion GET_LIST
 
         #region updateChargeSlots
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void reduceChargeSlots(ref Station s)
         {
             if (s.ChargeSlots == 0)
@@ -234,6 +253,7 @@ namespace DalObject
             s.ChargeSlots--;//Reduce the number of claim positions
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void plusChargeSlots(ref Station s)
         {
             s.ChargeSlots++;
@@ -241,6 +261,7 @@ namespace DalObject
         #endregion
 
         #region update
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void assign_drone_parcel(Drone droneToUpdate, Parcel parcelToUpdate)//assign drone to parcel
         {
             try
@@ -261,6 +282,7 @@ namespace DalObject
            
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void drone_pick_parcel(Drone droneToUpdate, Parcel parcelToUpdate)//pick up parcel by drone
         {
             try
@@ -284,6 +306,7 @@ namespace DalObject
                   
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void delivery_arrive_toCustomer( Parcel parcelToUpdate)//The delivery arrived to the customer
         {
             try
@@ -305,6 +328,7 @@ namespace DalObject
             
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void chargingDrone(Drone droneToUpdate, Station stationToUpdate)//Inserts a drone to charg
         {
             try
@@ -333,6 +357,7 @@ namespace DalObject
                     
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void freeDroneCharge(Drone droneToUpdate)//Drone release from charging
         {
             try
@@ -359,6 +384,7 @@ namespace DalObject
         #endregion
 
         #region power
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] R_power_consumption_Drone()
         {
             double[] power = new double[5];
@@ -371,10 +397,6 @@ namespace DalObject
             return power;
         }
 
-        public void getParcel(Parcel parcelItem)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
 
     }

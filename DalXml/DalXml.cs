@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using System.Runtime.CompilerServices;
 using DalApi;
 using DO;
 
@@ -83,6 +84,7 @@ namespace Dal
         #endregion ADD
 
         #region GET 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel getParcel(int id)
         {
             var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
@@ -96,6 +98,7 @@ namespace Dal
             //  throw new NotImplementedException();
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone getDrone(int id)
         {
             var listDrone = XMLTools.LoadListFromXMLSerializer<Drone>(dronePath);
@@ -109,6 +112,7 @@ namespace Dal
             //  throw new NotImplementedException();
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Station getStation(int id)
         {
             var listStation = XMLTools.LoadListFromXMLSerializer<Station>(stationPath);
@@ -122,6 +126,7 @@ namespace Dal
             //  throw new NotImplementedException();
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer getCustomer(int id)
         {
             var listCustomer = XMLTools.LoadListFromXMLSerializer<Customer>(customerPath);
@@ -135,6 +140,7 @@ namespace Dal
             //  throw new NotImplementedException();
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneCharge getDroneCharge(int id)
         {
             var listDroneCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(parcelPath);
@@ -151,6 +157,7 @@ namespace Dal
         #endregion GET 
 
         #region DELETE
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void delFromDrones(Drone droneToDel)
         {
             var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
@@ -173,10 +180,9 @@ namespace Dal
             //throw new NotImplementedException();
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void delFromStations(Station stationToDel, bool freeDrone)
         {
-
-
             if (freeDrone)
             {
                 var listDronesCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(droneChargePath);
@@ -196,7 +202,7 @@ namespace Dal
             // throw new NotImplementedException();
         }
 
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void delFromParcels(Parcel parcelToDel)
         {
             XElement parcelList = XMLTools.LoadListFromXMLElement(parcelPath);
@@ -217,6 +223,7 @@ namespace Dal
 
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void delFromCustomers(Customer customerToDel)
         {
             var listCustomer = XMLTools.LoadListFromXMLSerializer<Customer>(parcelPath);
@@ -227,6 +234,7 @@ namespace Dal
 
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void delFromChargingDrone(DroneCharge droneCharge)
         {
             var listStation = XMLTools.LoadListFromXMLSerializer<Station>(stationPath);
@@ -243,37 +251,42 @@ namespace Dal
         #endregion DELETE
 
         #region GET_LIST
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> getParcels(Predicate<Parcel> prdicat = null)
         {
             var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
             return listParcel;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneCharge> getDronesCharge(Predicate<DroneCharge> prdicat = null)
         {
             var listDroneCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(droneChargePath);
             return listDroneCharge;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> getDrones(Predicate<Drone> prdicat = null)
         {
             var listDrone = XMLTools.LoadListFromXMLSerializer<Drone>(dronePath);
             return listDrone;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> getStations(Predicate<Station> prdicat = null)
         {
             var listStation = XMLTools.LoadListFromXMLSerializer<Station>(stationPath);
             return listStation;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> getCustomers(Predicate<Customer> prdicat = null)
         {
             var listCustomer = XMLTools.LoadListFromXMLSerializer<Customer>(customerPath);
             return listCustomer;
         }
 
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> print_unconnected_parcels_to_Drone()
         {
             List<Parcel> parcelsList = new List<Parcel>();
@@ -287,6 +300,7 @@ namespace Dal
             return parcelsList;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> print_stations_with_freeDroneCharge()
         {
             List<Station> stationList = new List<Station>();
@@ -305,6 +319,7 @@ namespace Dal
         #endregion GET_LIST
 
         #region updateChargeSlots
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void reduceChargeSlots(ref Station s)
         {
             if (s.ChargeSlots == 0)
@@ -313,6 +328,7 @@ namespace Dal
 
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void plusChargeSlots(ref Station s)
         {
             s.ChargeSlots++;
@@ -321,6 +337,7 @@ namespace Dal
         #endregion updateChargeSlots
 
         #region UPDATE
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void assign_drone_parcel(Drone droneToUpdate, Parcel parcelToUpdate)
         {
 
@@ -336,6 +353,7 @@ namespace Dal
             XMLTools.SaveListToXMLSerializer(listParcel, parcelPath);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void drone_pick_parcel(Drone droneToUpdate, Parcel parcelToUpdate)
         {
             var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
@@ -349,6 +367,7 @@ namespace Dal
             listParcel.Add(myParcel);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void delivery_arrive_toCustomer(Parcel parcelToUpdate)
         {
             try
@@ -370,6 +389,7 @@ namespace Dal
 
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void chargingDrone(Drone droneToUpdate, Station stationToUpdate)
         {
             try
@@ -400,6 +420,7 @@ namespace Dal
 
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void freeDroneCharge(Drone droneToUpdate)
         {
             try
@@ -426,6 +447,7 @@ namespace Dal
         #endregion UPDATE
 
         #region power
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] R_power_consumption_Drone()
         {
             double[] power = new double[5];
