@@ -15,6 +15,8 @@ namespace BO
 
         public string Phone { get; set; }
 
+        public string Password { get; set; }
+
         public int Num_of_sented_and_provided_parcels { get; set; }
 
         public int Num_of_sented_and_unprovided_parcels { get; set; }

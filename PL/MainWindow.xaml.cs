@@ -13,7 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BlApi;
-
+using BO;
+using BL;
 namespace PL
 {
 
@@ -35,7 +36,10 @@ namespace PL
 
         private void insertToBaseStations_Click(object sender, RoutedEventArgs e)
         {
-            new BaseStationsListWindow(mainBl).ShowDialog();
+            DronesListView.Visibility = Visibility.Hidden;
+            BaseStationsListView.Visibility = Visibility.Visible;
+
+            //new BaseStationsListWindow(mainBl).ShowDialog();
         }
 
         private void ViewCustomerList_Click(object sender, RoutedEventArgs e)
@@ -46,6 +50,49 @@ namespace PL
         private void ViewParcelList_Click(object sender, RoutedEventArgs e)
         {
             new ParcelListWindow(mainBl).ShowDialog();
+        }
+
+        private void sign_Click(object sender, RoutedEventArgs e)
+        {
+            new CustomerWindow(mainBl).ShowDialog();
+        }
+
+        private void LogIn_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                CustomerToList c = (from customer in mainBl.getAllCustomers()
+                                    where IDTextBox.Text == customer.Id.ToString() && passwordUserName.Password == customer.Password
+                                    select customer).FirstOrDefault();
+
+                passwordUserName.Visibility = Visibility.Hidden;
+                ID.Visibility = Visibility.Hidden;
+                Password.Visibility = Visibility.Hidden;
+                IDTextBox.Visibility = Visibility.Hidden;
+                signUp.Visibility = Visibility.Hidden;
+                LogIn.Visibility = Visibility.Hidden;
+                MainGrid.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void BaseStationsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void CustomerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

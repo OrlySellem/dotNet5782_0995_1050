@@ -35,18 +35,18 @@ namespace PL
             DronesListView.ItemsSource = approachBL.GetDrones();
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             StattusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
-            dateThread = new Thread(Thread_Date);
-            dateThread.Start();
+            //dateThread = new Thread(Thread_Date);
+            //dateThread.Start();
         }
 
-        private void Thread_Date()
-        {
-            while ()
-            {
-                dateDelegate();
-                Thread.Sleep(1000);
-            }
-        }
+        //private void Thread_Date()
+        //{
+        //    while ()
+        //    {
+        //        dateDelegate();
+        //        Thread.Sleep(1000);
+        //    }
+        //}
 
         private void ChooseDroneToShow_DoubleClick(object sender, MouseButtonEventArgs e)
         {

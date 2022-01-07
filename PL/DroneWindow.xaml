@@ -93,10 +93,10 @@
                 <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="95"/>
             </Grid.ColumnDefinitions >
 
             <Button x:Name="CloseWindow" Content="Close Window" Grid.Column="2" HorizontalAlignment="Left" Margin="65,23,0,0" Grid.Row="1" VerticalAlignment="Top" Click="CloseWindow_Click" Width="115" Grid.ColumnSpan="2"/>

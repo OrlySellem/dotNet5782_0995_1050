@@ -5,63 +5,177 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="640" Width="800">
-    <Window.Background>
-        <ImageBrush ImageSource="droneSky.jpg">
-        </ImageBrush>
-    </Window.Background>
+        Title="MainWindow" Height="640" Width="927">
 
-    <Grid Name="MainGrid" Margin="0,0,0,-6">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="400*"/>
-        </Grid.RowDefinitions>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Name="EntranceGrid" Margin="0,0,0,-6" Visibility="Hidden">
 
-        <Button x:Name="ViewDroneList" 
-                Content="Drones List"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="400*"/>
+            </Grid.RowDefinitions>
+            <PasswordBox x:Name="passwordUserName" HorizontalAlignment="Left" Margin="532,236,0,0" Grid.Row="1" VerticalAlignment="Top" Width="169" Height="20"/>
+            <Label x:Name="ID" Content="ID:" HorizontalAlignment="Left" Margin="475,191,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+            <Label x:Name="Password" Content="Password:" HorizontalAlignment="Left" Margin="467,234,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+            <TextBox x:Name="IDTextBox"  HorizontalAlignment="Left" Margin="531,193,0,0" Grid.Row="1" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Height="24"/>
+            <Button x:Name="signUp" Content="Sign up" HorizontalAlignment="Left" Margin="536,280,0,0" Grid.Row="1" VerticalAlignment="Top" Width="70" Height="20" Click="sign_Click"/>
+            <Button x:Name="LogIn" Content="Log in" HorizontalAlignment="Left" Margin="631,280,0,0" Grid.Row="1" VerticalAlignment="Top" Width="70" Height="20" Click="LogIn_Click"/>
+        </Grid>
+
+        <Grid Name="MainGrid" Margin="0,0,-43,-6" Visibility="Visible" Grid.ColumnSpan="2">
+            <Grid.Background>
+                <ImageBrush ImageSource="/droneSky.jpg"/>
+            </Grid.Background>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70.004"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+
+
+            <Button x:Name="ViewDroneList" 
+                Content="רשימת רחפנים"
                 FontWeight="Bold"
-                FontSize="25"
-                HorizontalAlignment="Left" 
-                Margin="598,70,0,0" 
+                FontSize="20"
+                HorizontalAlignment="Left"              
+                Margin="14,10,0,0" 
                 VerticalAlignment="Top"
-                Height="79" Width="166" 
-                Click="ViewDroneList_Click" BorderBrush="#FF22445D" FontFamily="Kristen ITC" Background="#FF9CC3FD" Grid.RowSpan="2"/>
+                Height="39" Width="189" 
+                Click="ViewDroneList_Click" FontFamily="heebo" Grid.Row="1" Foreground="Black">
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="White" Opacity="0"/>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <SolidColorBrush Color="#FF604E4E" Opacity="0.15"/>
+                </Button.Background>
+            </Button>
 
-        <Button x:Name="ViewBaseStationList" 
-                Content="Base Stations"
+            <Button x:Name="ViewBaseStationList" 
+                Content="רשימת תחנות בסיס"
                 FontWeight="Bold"
-                FontSize="25"
+                FontSize="20"
                 HorizontalAlignment="Left" 
-                Margin="400,94,0,0" 
+                Margin="14,58,0,0" 
                 Grid.Row="1" 
                 VerticalAlignment="Top"
-                Height="79" Width="218" 
-                 BorderBrush="#FF22445D" FontFamily="Kristen ITC" Background="#FF9CC3FD" Click="insertToBaseStations_Click"/>
+                Height="41" Width="189" Click="insertToBaseStations_Click">
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="#FF22445D" Opacity="0"/>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <SolidColorBrush Color="White" Opacity="0.15"/>
+                </Button.Background>
+            </Button>
 
-        <Button x:Name="ViewCustomerList" 
-                Content="Customer View"
+            <Button x:Name="ViewCustomerList" 
+                Content="רשימת לקוחות"
                 FontWeight="Bold"
-                FontSize="25"
+                FontSize="20"
                 HorizontalAlignment="Left" 
-                Margin="199,70,0,0" 
+                Margin="10,110,0,0" 
                 VerticalAlignment="Top"
-                Height="79" Width="226" 
-                 BorderBrush="#FF22445D" FontFamily="Kristen ITC" Background="#FF9CC3FD" Grid.RowSpan="2" Click="ViewCustomerList_Click"/>
+                Height="40" Width="193" Click="ViewCustomerList_Click" Grid.Row="1">
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="#FF22445D" Opacity="0"/>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <SolidColorBrush Color="#FF9CC3FD" Opacity="0.15"/>
+                </Button.Background>
+            </Button>
 
-        <Button x:Name="ViewParcelList" 
-                Content="Parcel View"
+            <Button x:Name="ViewParcelList" 
+                Content="רשימת חבילות"
                 FontWeight="Bold"
-                FontSize="25"
+                FontSize="20"
                 HorizontalAlignment="Left" 
-                Margin="59,94,0,0" 
+                Margin="10,158,0,0" 
                 Grid.Row="1" 
                 VerticalAlignment="Top"
-                Height="79" Width="166" 
-                BorderBrush="#FF22445D" FontFamily="Kristen ITC" Background="#FF9CC3FD" Click="ViewParcelList_Click"/>
+                Height="39" Width="193" Click="ViewParcelList_Click">
+                <Button.BorderBrush>
+                    <SolidColorBrush Color="#FF22445D" Opacity="0"/>
+                </Button.BorderBrush>
+                <Button.Background>
+                    <SolidColorBrush Color="#FFD1D9E5" Opacity="0.15"/>
+                </Button.Background>
+            </Button>
+            <Grid x:Name="DronesListViewGrid" Margin="227,70,0,0" Grid.RowSpan="2"/>
+            <ListView x:Name="DronesListView" MouseDoubleClick="ChooseDroneToShow_DoubleClick" SelectionChanged="DronesListView_SelectionChanged" Margin="227,70,0,0" Grid.RowSpan="2">
+                <ListView.Background>
+                    <SolidColorBrush Color="White" Opacity="0"/>
+                </ListView.Background>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Id}" Header=" ID " Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Model}" Header=" MODEL " Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding MaxWeight}" Header=" WEIGHT " Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Battery}" Header=" BATTERY " Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Status}" Header=" STATUS " Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding CurrentLocation.Longitude}" Header=" LOCATION LONGITUDE " Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding CurrentLocation.Latitude}" Header=" LOCATION LATITUDE " Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding idParcel}" Header="ASSIGNED PARCEL" Width="auto"/>
+                    </GridView>
+                </ListView.View>
 
-     
+            </ListView>
+
+            <Grid x:Name="BaseStationListViewGrid" Visibility="Hidden" Margin="227,70,0,0" Grid.RowSpan="2"/>
 
 
+            <ListView x:Name="BaseStationsListView"  Visibility="Hidden" SelectionChanged="BaseStationsListView_SelectionChanged" Margin="227,70,-227,10" Grid.RowSpan="2">
+                <ListView.Background>
+                    <SolidColorBrush Color="White" Opacity="0.5"/>
+                </ListView.Background>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="ID " Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="NAME" Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding ChargeSlotsFree}" Header="FREE CHARGE SIOTS" Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding ChargeSlotsFull}" Header="FULL CHARGE SIOTS" Width="auto"/>
+
+                    </GridView>
+                </ListView.View>
+
+            </ListView>
+
+            <Grid x:Name="CustomerListViewGrid" Visibility="Hidden" Margin="227,70,0,0" Grid.RowSpan="2"/>
+            <ListView x:Name="CustomerListView" SelectionChanged="CustomerListView_SelectionChanged" Margin="227,70,0,0" Grid.RowSpan="2">
+                <ListView.Background>
+                    <SolidColorBrush Color="White" Opacity="0.3"/>
+                </ListView.Background>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="ID " Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="NAME" Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Phone}" Header="PHONE" Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Num_of_sented_and_provided_parcels}" Header="Sented and provided parcels" Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Num_of_sented_and_unprovided_parcels}" Header="Sented and unprovided parcels" Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Num_of_received_parcels}" Header="Received parcels" Width="auto"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding Num_of_parcels_onTheWay_toCustomer}" Header="Parcels onTheWay toCustomer" Width="auto"/>
+                    </GridView>
+                </ListView.View>
+
+            </ListView>
+
+        </Grid>
+        
+        
+        
+        
+        
+        
+        
+        
+        
     </Grid>
+
+
+
+
 
 </Window>

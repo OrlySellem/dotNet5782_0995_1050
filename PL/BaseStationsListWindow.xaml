@@ -43,7 +43,7 @@
         </ListView>
         <Button x:Name="FreeChargeSlots" Content="Display stations with available charging stations" FontWeight="Bold" HorizontalAlignment="Left" Margin="41,46,0,0" Grid.Row="1" VerticalAlignment="Top" Width="293" Click="FreeChargeSlots_Click" Height="31" RenderTransformOrigin="0.357,-0.035" Grid.RowSpan="2" Grid.ColumnSpan="3" Grid.Column="1"/>
 
-        <Label Content="Display of stations by number of available charging stations:" FontWeight="Bold" HorizontalAlignment="Left" Margin="131,19,0,0" VerticalAlignment="Top" Width="350" Height="26" Grid.ColumnSpan="4"/>
+        <Label Content="Display of stations by number of available charging stations:" FontFamily="heebo" FontWeight="Bold" HorizontalAlignment="Left" Margin="131,19,0,0" VerticalAlignment="Top" Width="350" Height="26" Grid.ColumnSpan="4"/>
         <ComboBox x:Name="AmountOfFreeChargingStations" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Width="113" SelectionChanged="AmountOfFreeChargingStations_SelectionChanged" Margin="0,6,0,0"/>
         <Button x:Name="addBaseStationsToList" Content="Add Base stations" FontWeight="Bold" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Top" Height="46" Width="116" Click="addBaseStationsToList_Click" Margin="0,45,0,0" Grid.RowSpan="2"/>
     </Grid>
