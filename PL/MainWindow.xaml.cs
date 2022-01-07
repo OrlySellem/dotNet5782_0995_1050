@@ -31,11 +31,12 @@ namespace PL
 
         private void ViewDroneList_Click(object sender, RoutedEventArgs e)
         {
-            new DronesListWindow(mainBl).ShowDialog();
+            new DronesListPage(mainBl).Visibility = Visibility.Visible;
         }
 
         private void insertToBaseStations_Click(object sender, RoutedEventArgs e)
         {
+            new CustomersListPage(mainBl).Visibility = Visibility.Visible;
             DronesListView.Visibility = Visibility.Hidden;
             BaseStationsListView.Visibility = Visibility.Visible;
 
@@ -44,12 +45,12 @@ namespace PL
 
         private void ViewCustomerList_Click(object sender, RoutedEventArgs e)
         {
-            new CustomerListWindow(mainBl).ShowDialog();
+            new CustomersListPage(mainBl).Visibility = Visibility.Visible;
         }
 
         private void ViewParcelList_Click(object sender, RoutedEventArgs e)
         {
-            new ParcelListWindow(mainBl).ShowDialog();
+            new ParcelsListPage(mainBl).Visibility = Visibility.Visible;
         }
 
         private void sign_Click(object sender, RoutedEventArgs e)

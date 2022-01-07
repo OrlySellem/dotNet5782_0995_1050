@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="droneSky.jpg" />
+    <Resource Include="Images\droneSky.jpg" />
   </ItemGroup>
 
 </Project>

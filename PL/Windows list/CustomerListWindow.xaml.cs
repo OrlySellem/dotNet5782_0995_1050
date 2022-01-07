@@ -64,7 +64,6 @@ namespace PL
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
 
         private void CustomerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

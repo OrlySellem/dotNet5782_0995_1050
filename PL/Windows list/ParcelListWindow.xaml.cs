@@ -85,9 +85,6 @@ namespace PL
                 
             }
            
-
-
-
         }
 
         private void AddParcelToList_Click(object sender, RoutedEventArgs e)
