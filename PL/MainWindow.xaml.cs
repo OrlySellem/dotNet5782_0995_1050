@@ -26,36 +26,35 @@ namespace PL
         //Button insertToDroneList;
         public MainWindow()
         {
-            InitializeComponent();         
+            InitializeComponent();
         }
 
         private void ViewDroneList_Click(object sender, RoutedEventArgs e)
         {
-            new DronesListPage(mainBl).Visibility = Visibility.Visible;
+            tableLists.Content = new DronesListPage(mainBl);
+            
         }
 
-        private void insertToBaseStations_Click(object sender, RoutedEventArgs e)
+        private void ViewBaseStationList_Click(object sender, RoutedEventArgs e)
         {
-            new CustomersListPage(mainBl).Visibility = Visibility.Visible;
-            DronesListView.Visibility = Visibility.Hidden;
-            BaseStationsListView.Visibility = Visibility.Visible;
-
-            //new BaseStationsListWindow(mainBl).ShowDialog();
+            tableLists.Content = new BaseStationsListPage(mainBl);
+           
         }
 
         private void ViewCustomerList_Click(object sender, RoutedEventArgs e)
         {
-            new CustomersListPage(mainBl).Visibility = Visibility.Visible;
+            tableLists.Content = new CustomersListPage(mainBl);
         }
 
         private void ViewParcelList_Click(object sender, RoutedEventArgs e)
         {
-            new ParcelsListPage(mainBl).Visibility = Visibility.Visible;
+            tableLists.Content = new ParcelsListPage(mainBl);
+            
         }
 
         private void sign_Click(object sender, RoutedEventArgs e)
         {
-            new CustomerWindow(mainBl).ShowDialog();
+            tableLists.Content = new CustomerWindow(mainBl).ShowDialog();
         }
 
         private void LogIn_Click(object sender, RoutedEventArgs e)
@@ -92,6 +91,11 @@ namespace PL
         }
 
         private void CustomerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
 
         }

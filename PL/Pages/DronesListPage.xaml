@@ -15,14 +15,15 @@
         <ListView x:Name="DronesListView" Grid.Row="1" MouseDoubleClick="ChooseDroneToShow_DoubleClick" SelectionChanged="DronesListView_SelectionChanged">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Id}" Header=" ID " Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Model}" Header=" MODEL " Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding MaxWeight}" Header=" WEIGHT " Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Battery}" Header=" BATTERY " Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Status}" Header=" STATUS " Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding CurrentLocation.Longitude}" Header=" LOCATION LONGITUDE " Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding CurrentLocation.Latitude}" Header=" LOCATION LATITUDE " Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding idParcel}" Header="ASSIGNED PARCEL" Width="auto"/>
+                    <GridViewColumn x:Name="idCol" DisplayMemberBinding="{Binding Id}" Header=" תז "  Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Model}" Header=" מודל " Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding MaxWeight}" Header=" משקל " Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Battery}" Header=" בטריה " Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Status}" Header=" סטטוס " Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding CurrentLocation.Longitude}" Header=" מיקום אורך" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding CurrentLocation.Latitude}" Header=" מיקום רוחב" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding idParcel}" Header="חבילה משוייכת" Width="auto"/>
+                    
                 </GridView>
             </ListView.View>
 
@@ -39,13 +40,17 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Content="Weight:" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="-0.145,0.86"/>
-            <Label Content="Stattus:"  FontWeight="Bold" HorizontalAlignment="Left" Margin="48,20,0,0" VerticalAlignment="Top" RenderTransformOrigin="-9.916,0.488" Width="152"/>
+            <Label Content=":משקל" FontWeight="Bold" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="-0.145,0.86" Margin="80,21,0,0"/>
+            <Label Content=":סטטוס"  FontWeight="Bold" HorizontalAlignment="Left" Margin="114,19,0,0" VerticalAlignment="Top" RenderTransformOrigin="-9.916,0.488" Width="152" Grid.ColumnSpan="2" Grid.Column="1"/>
             <Grid Grid.Column="3">
-                <ComboBox x:Name="WeightSelector" HorizontalAlignment="Center" VerticalAlignment="Top" Width="120" Margin="0,26,0,0" SelectionChanged="WeightSelector_SelectionChanged"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="65*"/>
+                </Grid.RowDefinitions>
+                <ComboBox x:Name="WeightSelector" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="-68,16,0,0" SelectionChanged="WeightSelector_SelectionChanged" Grid.Row="1"/>
             </Grid>
-            <Button x:Name="addDroneToList" Content="Add drone" Grid.Column="4" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Center" Height="49" Width="85" Click="addDroneToList_Click"/>
-            <ComboBox x:Name="StattusSelector" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Center" Width="120" Grid.Column="1" SelectionChanged="StattusSelector_SelectionChanged"/>
+            <Button x:Name="addDroneToList" Content="הוסף רחפן" Grid.Column="4" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Center" Height="49" Width="85" Click="addDroneToList_Click"/>
+            <ComboBox x:Name="StattusSelector" HorizontalAlignment="Left" Margin="138,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="StattusSelector_SelectionChanged" Grid.ColumnSpan="2"/>
         </Grid>
     </Grid >
 

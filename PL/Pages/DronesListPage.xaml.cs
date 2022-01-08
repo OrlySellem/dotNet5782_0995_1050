@@ -31,6 +31,7 @@ namespace PL
             DronesListView.ItemsSource = approachBL.GetDrones();
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             StattusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
+            
         }
 
         private void ChooseDroneToShow_DoubleClick(object sender, MouseButtonEventArgs e)

@@ -32,9 +32,9 @@
         <ListView x:Name="CustomerListView" Grid.Row="1" Grid.ColumnSpan="6" SelectionChanged="CustomerListView_SelectionChanged" Margin="0,46,0,0" Grid.RowSpan="9">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="ID " Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="NAME" Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Phone}" Header="PHONE" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="תז" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="שם מלא" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Phone}" Header="פלאפון" Width="auto"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Num_of_sented_and_provided_parcels}" Header="Sented and provided parcels" Width="auto"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Num_of_sented_and_unprovided_parcels}" Header="Sented and unprovided parcels" Width="auto"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Num_of_received_parcels}" Header="Received parcels" Width="auto"/>
@@ -43,7 +43,7 @@
             </ListView.View>
 
         </ListView>
-        <Button x:Name="addCustomerToList" Content="Add Customer" Grid.Column="4" HorizontalAlignment="Left" Margin="40,0,0,44" VerticalAlignment="Bottom" Height="49" Width="85" Click="addCustomerToList_Click" Grid.RowSpan="2"/>
+        <Button x:Name="addCustomerToList" Content="הוסף לקוח" Grid.Column="4" HorizontalAlignment="Left" Margin="114,25,0,0" VerticalAlignment="Top" Height="49" Width="85" Click="addCustomerToList_Click" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Page>
