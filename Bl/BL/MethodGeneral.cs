@@ -8,26 +8,29 @@ using DalApi;
 using DO;
 using BO;
 using BlApi;
-using IDAL;
+
 
 namespace BL
 {  
-    public sealed partial class BL : IBL
+   partial class BL : IBL
     {
         //  
         //יתחזק רשימת רחפנים
-        public static List<DroneToList> drones;
+        public static List <DroneToList> drones;
 
-        public static List<ChargingDrone> chargingDrones;
+        //public static List<ChargingDrone> chargingDrones;
 
-        internal static double available;
-        internal static double lightWeight;//Lightweight issue
-        internal static double mediumWeight;//MediumWeight issue
-        internal static double heavyWeight;//Heavyweight issue
-        internal static double Drone_charging_speed;//Drone charging speed in percentage per hour  
+        private static double available;
+        private static double lightWeight;//Lightweight issue
+        private static double mediumWeight;//MediumWeight issue
+        private static double heavyWeight;//Heavyweight issue
+        private static double Drone_charging_speed;//Drone charging speed in percentage per hour  
 
-        internal static Random rand;
+        private static Random rand;
 
+        /// <summary>
+        /// Template of singleton
+        /// </summary>
         #region singelton 
         static readonly BL instance = new BL();
         public static BL Instance { get => instance;  }
@@ -57,9 +60,12 @@ namespace BL
                 heavyWeight = power[3];
                 Drone_charging_speed = power[4];
 
+                //is must to be list because we want to use the index
                 List<DO.Drone> dronesFromDS = dal.getDrones().ToList();
                 List<DO.Parcel> parcelsFromDS = dal.getParcels().ToList();
                 List<DO.Station> stationFromDS = dal.getStations().ToList();
+
+           
 
                 foreach (DO.Drone itemDrone in dronesFromDS)//pass over the drones's list 
                 {

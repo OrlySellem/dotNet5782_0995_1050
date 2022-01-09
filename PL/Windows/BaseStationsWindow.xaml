@@ -1,0 +1,111 @@
+﻿<Window x:Class="PL.BaseStationsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="BaseStationsWindow" Height="450" Width="380">
+    <Grid>
+        <Grid Name="addGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
+
+            <Label Content="ID:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="13,16,0,0" VerticalAlignment="Top" Width="82" Grid.Row="1"/>
+            <TextBox x:Name="TextBoxId" HorizontalAlignment="Left" Margin="0,31,0,0" TextWrapping="Wrap" Width="120" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="1" TextChanged="TextBoxId_TextChanged"/>
+
+            <Label Content="Name:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="10,13,0,0" VerticalAlignment="Top" Width="82" Grid.Row="2"/>
+            <TextBox x:Name="TextBoxName" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="2" Margin="0,22,0,0" TextChanged="TextBoxName_TextChanged"/>
+
+            <Label Content="ChargeSlots:" FontWeight="Bold" HorizontalAlignment="Center" Height="29" VerticalAlignment="Center" Width="82" Grid.Row="5"/>
+            <TextBox x:Name="TextBoxChargeSlots" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="5" TextChanged="TextBoxChargeSlots_TextChanged"/>
+
+            <Label Content="Address:" FontWeight="Bold" HorizontalAlignment="Center" Height="29" VerticalAlignment="Center" Width="82" Grid.Row="3"/>
+
+            <Label Content="Lattitude:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="63,31,0,0" VerticalAlignment="Top" Width="82" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <Slider  x:Name="SliderLattitude" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="60,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120"
+                     Minimum="-90"
+                     Maximum="90"
+                     Value="0"
+                     AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
+
+            <Label Content="Longitude:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="63,13,0,0" VerticalAlignment="Top" Width="82" Grid.Row="4" Grid.ColumnSpan="2"/>
+            <Slider x:Name="SliderLongitude" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="60,36,0,0" Grid.Row="3" VerticalAlignment="Top" Width="120" Grid.RowSpan="2"
+                    Minimum="-180"
+                     Maximum="180"
+                     Value="0"
+                    AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
+
+
+            <Button x:Name="addBaseStation" Content="Add" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="61,2,0,0" VerticalAlignment="Top" Height="40" Width="90" Click="addBaseStation_Click" 
+             IsEnabled="False" Grid.ColumnSpan="2" Grid.Row="7"/>
+
+            <Button x:Name="cancelAddBaseStation" Content="Cancel" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Top" Height="40" Width="90" Click="cancelAddBaseStation_Click" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="7"/>
+
+
+        </Grid>
+
+        <Grid Name="updataGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions >
+
+            <Button x:Name="CloseWindow" Content="סגור חלון" HorizontalAlignment="Left" Grid.Row="8" VerticalAlignment="Top" Click="CloseWindow_Click" Width="96" Grid.Column="1" Grid.ColumnSpan="2" Margin="6,0,0,0"/>
+            <Button x:Name="UpdateData"  Content="עדכון"   Grid.Column="2" HorizontalAlignment="Left" Margin="35,0,0,0" Grid.Row="8" VerticalAlignment="Top" Click="UpdateData_Click" Height="20" Width="75" Grid.ColumnSpan="2"/>
+
+            <Label Content="תז"  Grid.Column="3"  HorizontalAlignment="Left" Margin="47,21,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+            <TextBox x:Name="id" IsEnabled="False"  Grid.Column="1" HorizontalAlignment="Left" Margin="34,25,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
+
+            <Label Content="שם מלא" Grid.Column="3" HorizontalAlignment="Center" Margin="0,18,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+            <TextBox x:Name="StationName" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" BorderBrush="#FF02040C" Margin="34,22,0,0" Grid.ColumnSpan="2"/>
+
+            <Label Content="עמדות טעינה פנויות" Grid.Column="2" HorizontalAlignment="Left" Margin="61,20,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="118"/>
+            <TextBox x:Name="FreeChargeSlots"  IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" Margin="34,24,0,0"  Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
+
+            <Label Content="עמדות טעינה תפוסות" Grid.Column="2" HorizontalAlignment="Left" Margin="58,16,0,0" Grid.Row="4" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="124"/>
+            <TextBox x:Name="FullChargeSlots" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="34,24,0,0" Grid.Row="4" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
+
+            <Label Content="הוספת עמדות טעינה" HorizontalAlignment="Left" Margin="63,23,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="119" Grid.Column="2"/>
+            <TextBox x:Name="AddChargeSlots" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" BorderBrush="#FF02040C" Margin="34,29,0,0" Grid.ColumnSpan="2"/>
+
+
+
+
+
+
+        </Grid>
+    </Grid>
+</Window>

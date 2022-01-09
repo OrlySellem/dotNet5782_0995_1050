@@ -8,14 +8,29 @@ namespace DO
 {
     public struct Station
     {
+        /// <summary>
+        /// station's id
+        /// </summary>
         public int Id { get; set; }
 
+        /// <summary>
+        /// station's name
+        /// </summary>
         public int Name { get; set; }
 
+        /// <summary>
+        /// Longitude in the globe 
+        /// </summary>
         public double Longitude { get; set; }
 
+        /// <summary>
+        /// Lattitude in the globe 
+        /// </summary>
         public double Lattitude { get; set; }
 
+        /// <summary>
+        /// The number of the available charge slots
+        /// </summary>
         public int ChargeSlots { get; set; }
 
         public override string ToString()

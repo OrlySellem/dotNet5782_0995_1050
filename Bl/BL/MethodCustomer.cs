@@ -9,7 +9,7 @@ using BlApi;
 
 namespace BL
 {
-    public partial class BL: IBL
+    partial class BL: IBL
     {
 
         #region CRUD
@@ -32,7 +32,7 @@ namespace BL
 
                     dal.addCustomer(dalCustomer);
                 }
-                catch (DO.AlreadyExistException ex)
+                catch (AlreadyExistException ex)
                 {
                     throw new AlreadyExistException(ex.Message);
                 }

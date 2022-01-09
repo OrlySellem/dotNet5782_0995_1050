@@ -10,7 +10,7 @@ using BlApi;
 
 namespace BL
 {
-    public partial class BL : IBL
+    partial class BL : IBL
     {
         #region CRUD
 
@@ -146,22 +146,20 @@ namespace BL
                 try
                 {
                     var updateStation = dal.getStation(idStation);
-                    List<DO.DroneCharge> chargingDrones = (List<DO.DroneCharge>)dal.getDronesCharge().ToList();
+                    List<DO.DroneCharge> chargingDrones = dal.getDronesCharge().ToList();
 
                     dal.delFromStations(updateStation, false);
-
-                    var chargeSlotsDal = dal.getDronesCharge().ToList();
 
                     if (name_int != 0)
                     {
                         updateStation.Name = name_int;
                     }
 
-                    if (chargeSlots != 0)
+                    if (chargeSlots > 0)
                     {
-                        int notAvailable_chargeSlots = chargeSlotsDal.Count(x => x.Stationld == idStation);
+                        int ChargeSlotsFull = chargingDrones.Count(x => x.Stationld == idStation);
 
-                        updateStation.ChargeSlots = chargeSlots - notAvailable_chargeSlots;
+                        updateStation.ChargeSlots += chargeSlots;
                     }
 
                     dal.addStaion(updateStation);
