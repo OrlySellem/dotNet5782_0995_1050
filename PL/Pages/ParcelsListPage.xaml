@@ -8,46 +8,46 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ParcelsListPage">
     <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="20"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions >
 
-            <ListView x:Name="ParcelListView" Grid.Row="1" Grid.ColumnSpan="6" SelectionChanged="ParcelListView_SelectionChanged" Margin="0,46,0,0" Grid.RowSpan="7">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="ID " Width="auto"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Senderld}" Header="Senderld" Width="auto"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Targetld}" Header="Targetld" Width="auto"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Weight}" Header="Weight" Width="auto"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding Priority}" Header="Priority" Width="auto"/>
-                        <GridViewColumn DisplayMemberBinding="{Binding ParcelStatus}" Header="ParcelStatus" Width="auto"/>
-                    </GridView>
-                </ListView.View>
+        <ListView x:Name="ParcelListView"  Background="#FFE4E4E4" Grid.Row="1" Grid.ColumnSpan="6" SelectionChanged="ParcelListView_SelectionChanged" Margin="0,46,0,0" Grid.RowSpan="9">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="תז " Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Senderld}" Header="תז שולח" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Targetld}" Header="תז מקבל" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Weight}" Header="משקל" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Priority}" Header="עדיפות" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ParcelStatus}" Header="סטטוס חבילה" Width="auto"/>
+                </GridView>
+            </ListView.View>
 
-            </ListView>
-            <Button x:Name="addParcelToList" Content="Add Parcel" Grid.Column="4" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Center" Height="49" Width="85" Click="AddParcelToList_Click"/>
-            <CheckBox x:Name="senderCheckBox" Content="sender" Grid.Column="1" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Height="23" Grid.RowSpan="2" Checked="senderCheckBox_check"
+        </ListView>
+        <Button x:Name="addParcelToList" Content="Add Parcel" Grid.Column="4" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Center" Height="49" Width="85" Click="AddParcelToList_Click"/>
+        <CheckBox x:Name="senderCheckBox" Content="sender" Grid.Column="1" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Height="23" Grid.RowSpan="2" Checked="senderCheckBox_check"
                   />
-            <CheckBox x:Name="targetCheckBox" Content="target" Grid.Column="2" HorizontalAlignment="Left" Margin="8,27,0,0" VerticalAlignment="Top" Height="23" Grid.RowSpan="2" Checked="TargetCheckBox_check"/>
-            <ComboBox x:Name="senderOrTargetID" IsEnabled="False" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="38,11,0,0" Grid.Row="1" VerticalAlignment="Top" Width="161" SelectionChanged="SenderOrTargetID_SelectionChanged"/>
-            <StackPanel Grid.Column="4"/>
+        <CheckBox x:Name="targetCheckBox" Content="target" Grid.Column="2" HorizontalAlignment="Left" Margin="8,27,0,0" VerticalAlignment="Top" Height="23" Grid.RowSpan="2" Checked="TargetCheckBox_check"/>
+        <ComboBox x:Name="senderOrTargetID" IsEnabled="False" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="38,11,0,0" Grid.Row="1" VerticalAlignment="Top" Width="161" SelectionChanged="SenderOrTargetID_SelectionChanged"/>
+        <StackPanel Grid.Column="4"/>
 
-        </Grid>
+    </Grid>
 </Page>

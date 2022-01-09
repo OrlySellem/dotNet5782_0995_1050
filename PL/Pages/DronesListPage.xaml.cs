@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BlApi;
 using BO;
-using BL;
 namespace PL
 {
     /// <summary>
@@ -34,15 +33,18 @@ namespace PL
             
         }
 
-        private void ChooseDroneToShow_DoubleClick(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
         private void addDroneToList_Click(object sender, RoutedEventArgs e)
         {
-            new DroneWindow(approachBL).ShowDialog();
-            DronesListView.ItemsSource = approachBL.GetDrones();
+            try
+            {
+                new DroneWindow(approachBL).ShowDialog();
+                DronesListView.ItemsSource = approachBL.GetDrones();
+            }
+            catch (AlreadyExistException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void StattusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -53,12 +55,16 @@ namespace PL
                 {
                     DronesListView.ItemsSource = approachBL.GetDrones();
                 }
+                else if (WeightSelector.SelectedItem!=null)
+                {
+                    DronesListView.ItemsSource = approachBL.GetDrones(x => x.Status == (DroneStatuses)StattusSelector.SelectedItem && x.MaxWeight == (WeightCategories)WeightSelector.SelectedItem);
+                }
                 else
                 {
                     DronesListView.ItemsSource = approachBL.GetDrones(x => x.Status == (DroneStatuses)StattusSelector.SelectedItem);
                 }
             }
-            catch (Exception ex)
+            catch (DoesntExistentObjectException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -73,12 +79,16 @@ namespace PL
                 {
                     DronesListView.ItemsSource = approachBL.GetDrones();
                 }
+                else if(StattusSelector.SelectedItem!=null)
+                {
+                    DronesListView.ItemsSource = approachBL.GetDrones(x => x.MaxWeight == (WeightCategories)WeightSelector.SelectedItem && x.Status == (DroneStatuses)StattusSelector.SelectedItem);
+                }
                 else
                 {
                     DronesListView.ItemsSource = approachBL.GetDrones(x => x.MaxWeight == (WeightCategories)WeightSelector.SelectedItem);
                 }
             }
-            catch (Exception ex)
+            catch (DoesntExistentObjectException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }

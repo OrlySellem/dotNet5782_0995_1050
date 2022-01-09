@@ -97,7 +97,7 @@ namespace PL
                     Weight = (WeightCategories)weightSelector.SelectedItem,
                     Priority = (Priorities)prioritySelector.SelectedItem
                 };
-
+                MessageBoxResult result = MessageBox.Show("!החבילה נוספה בהצלחה");
                 approachBL.addParcel(newParcel);
 
                 this.Close();
@@ -165,7 +165,11 @@ namespace PL
                         approachBL.deliveryArivveToCustomer(TheChosenParcel.Id);
                 }
             }
-            catch (Exception ex)
+            catch (DoesntExistentObjectException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch(AlreadyExistException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -187,14 +191,25 @@ namespace PL
                 if (TheChosenParcel.ParcelStatus == ParcelStatus.PickedUp)
                     approachBL.deliveryArivveToCustomer(TheChosenParcel.Id);
             }
-            catch (Exception ex)
+            catch (DelivereyAlreadyArrive ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-
+            }
+            catch (DeliveryCannotBeMade ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (DoesntExistentObjectException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch(AlreadyExistException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         #endregion UPDATA Parcel
-
+        
 
 
         private void ViewSender_Click(object sender, RoutedEventArgs e)
@@ -238,7 +253,7 @@ namespace PL
 
                 new DroneWindow(approachBL, approachBL.getDrone(p.Droneld)).ShowDialog();
             }
-            catch (Exception ex)
+            catch (DoesntExistentObjectException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -252,7 +267,7 @@ namespace PL
                 approachBL.deleteFromParcels(TheChosenParcel.Id);
                 this.Close();
             }
-            catch (Exception ex)
+            catch (DoesntExistentObjectException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }

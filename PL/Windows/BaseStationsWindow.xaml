@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="BaseStationsWindow" Height="450" Width="380">
     <Grid>
-        <Grid Name="addGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
+        <Grid Name="addGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -62,7 +62,7 @@
 
         </Grid>
 
-        <Grid Name="updataGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
+        <Grid Name="updataGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -83,25 +83,23 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
 
-            <Button x:Name="CloseWindow" Content="Close window" Grid.Column="2" HorizontalAlignment="Left" Margin="89,23,0,0" Grid.Row="1" VerticalAlignment="Top" Click="CloseWindow_Click" Width="95" Grid.ColumnSpan="2"/>
-            <Button x:Name="UpdateData"  Content="Update"   Grid.Column="3" HorizontalAlignment="Left" Margin="6,5,0,0" Grid.Row="2" VerticalAlignment="Top" Click="UpdateData_Click" Height="20" Width="75"/>
+            <Button x:Name="CloseWindow" Content="סגור חלון" HorizontalAlignment="Left" Grid.Row="8" VerticalAlignment="Top" Click="CloseWindow_Click" Width="96" Grid.Column="1" Grid.ColumnSpan="2" Margin="6,0,0,0"/>
+            <Button x:Name="UpdateData"  Content="עדכון"   Grid.Column="2" HorizontalAlignment="Left" Margin="35,0,0,0" Grid.Row="8" VerticalAlignment="Top" Click="UpdateData_Click" Height="20" Width="75" Grid.ColumnSpan="2"/>
 
-            <Label Content="id :"  Grid.Column="0"  HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+            <Label Content="תז"  Grid.Column="3"  HorizontalAlignment="Left" Margin="47,21,0,0" Grid.Row="1" VerticalAlignment="Top"/>
             <TextBox x:Name="id" IsEnabled="False"  Grid.Column="1" HorizontalAlignment="Left" Margin="34,25,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
 
-            <Label Content="Name :" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+            <Label Content="שם מלא" Grid.Column="3" HorizontalAlignment="Center" Margin="0,18,0,0" Grid.Row="2" VerticalAlignment="Top"/>
             <TextBox x:Name="StationName" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" BorderBrush="#FF02040C" Margin="34,22,0,0" Grid.ColumnSpan="2"/>
 
-            <Label Content="Free Charge Slots :" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="114"/>
-            <TextBox x:Name="FreeChargeSlots"  Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" Margin="34,24,0,0"  Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
+            <Label Content="עמדות טעינה פנויות" Grid.Column="2" HorizontalAlignment="Left" Margin="61,20,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="118"/>
+            <TextBox x:Name="FreeChargeSlots"  IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" Margin="34,24,0,0"  Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
 
-            <Label Content="Full Charge Slots :" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="4" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="114"/>
+            <Label Content="עמדות טעינה תפוסות" Grid.Column="2" HorizontalAlignment="Left" Margin="58,16,0,0" Grid.Row="4" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="124"/>
             <TextBox x:Name="FullChargeSlots" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="34,24,0,0" Grid.Row="4" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
 
-            <Label Content="Add Charge Slots :" HorizontalAlignment="Left" Margin="71,34,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="119" Grid.RowSpan="2"/>
-            <TextBox x:Name="AddChargeSlots" Grid.Column="2" HorizontalAlignment="Left" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" BorderBrush="#FF02040C" Margin="2,40,0,0" Grid.RowSpan="2"/>
-
-            <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="28,25,0,0" Grid.Row="5" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2"/>
+            <Label Content="הוספת עמדות טעינה" HorizontalAlignment="Left" Margin="63,23,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="119" Grid.Column="2"/>
+            <TextBox x:Name="AddChargeSlots" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" BorderBrush="#FF02040C" Margin="34,29,0,0" Grid.ColumnSpan="2"/>
 
 
 

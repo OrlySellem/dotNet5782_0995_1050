@@ -68,6 +68,8 @@ namespace PL
 
                 approachBL.addDrone(newDrone, idSt);
 
+                MessageBoxResult result = MessageBox.Show("!הרחפן נוסף בהצלחה");
+
                 this.Close();
 
             }
@@ -131,7 +133,7 @@ namespace PL
             updataGrid.Visibility = Visibility.Visible;
             TheChosenDrone = drone;
 
-
+            //view the data of the chosen drone
             id.Text = drone.Id.ToString();
             Model.Text = drone.Model.ToString();
             MaxWeight.Text = drone.MaxWeight.ToString();
@@ -167,13 +169,13 @@ namespace PL
 
             }
 
-            Worker = new BackgroundWorker();
-            Worker.DoWork += Worker_DoWork;
-            Worker.ProgressChanged += Worker_ProgressChanged;
-            Worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            //Worker = new BackgroundWorker();
+            //Worker.DoWork += Worker_DoWork;
+            //Worker.ProgressChanged += Worker_ProgressChanged;
+            //Worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
 
-            Worker.WorkerReportsProgress = true;
-            Worker.WorkerSupportsCancellation = true;
+            //Worker.WorkerReportsProgress = true;
+            //Worker.WorkerSupportsCancellation = true;
         }
 
 
@@ -197,8 +199,13 @@ namespace PL
                 SendDroneForDelivery.Visibility = Visibility.Hidden;
                 ParcelCollection.Visibility = Visibility.Hidden;
                 ParcelArriveToDestination.Visibility = Visibility.Hidden;
+                MessageBoxResult result = MessageBox.Show("!הרחפן נשלח לטעינה בהצלחה");
             }
-            catch (Exception ex)
+            catch (chargingException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (DoesntExistentObjectException ex)
             {
 
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -215,8 +222,14 @@ namespace PL
 
                 SendingDroneForCharging.Visibility = Visibility.Visible;
                 SendDroneForDelivery.Visibility = Visibility.Visible;
+                MessageBoxResult result = MessageBox.Show("!הרחפן שוחרר מטעינה בהצלחה");
+
             }
-            catch (Exception ex)
+            catch (DoesntExistentObjectException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (OnlyMaintenanceDroneWillBeAbleToBeReleasedFromCharging ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -229,6 +242,7 @@ namespace PL
             {
                 if (TheChosenDrone.Status == DroneStatuses.available)
                     approachBL.assignDroneToParcel(TheChosenDrone.Id);
+                MessageBoxResult result = MessageBox.Show("!הרחפן שוייך לחבילה בהצלחה");
             }
             catch (Exception ex)
             {
@@ -242,12 +256,25 @@ namespace PL
             try
             {
                 approachBL.dronePickParcel(TheChosenDrone.Id);
+                MessageBoxResult result = MessageBox.Show("!הרחפן אסף חבילה בהצלחה");
             }
-            catch (Exception ex)
+            catch (DelivereyAlreadyArrive ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-           
+            catch (DeliveryCannotBeMade ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (DoesntExistentObjectException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (AlreadyExistException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void ParcelArriveToDestination_Click(object sender, RoutedEventArgs e)
@@ -255,8 +282,13 @@ namespace PL
             try
             {
                 approachBL.deliveryArivveToCustomer(TheChosenDrone.Id);
+                MessageBoxResult result = MessageBox.Show("!הרחפן ביצע את המשלוח בהצלחה");
             }
-            catch (Exception ex)
+            catch (DroneCantBeAssigend ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (DoesntExistentObjectException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -273,7 +305,11 @@ namespace PL
                 }
 
             }
-            catch (Exception ex)
+            catch (DoesntExistentObjectException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (AlreadyExistException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -295,13 +331,13 @@ namespace PL
                                   select parcel).FirstOrDefault();
                 new ParcelWindow(approachBL, p).ShowDialog();
             }
-            catch (Exception ex)
+            catch (DoesntExistentObjectException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
-
+        #region thread
         private void Worker_DoWork(object sender, DoWorkEventArgs e)
         {
             Stopwatch stopwatch = new Stopwatch();
@@ -401,8 +437,8 @@ namespace PL
 
 
         }
+        #endregion thread
 
-        
 
         #endregion updat Drone
 

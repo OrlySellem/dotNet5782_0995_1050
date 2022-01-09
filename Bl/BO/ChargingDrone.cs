@@ -9,8 +9,14 @@ namespace BO
 {
     public class ChargingDrone
     {
+        /// <summary>
+        /// Id of drone in charging 
+        /// </summary>
         public int Id { get; set; }
 
+        /// <summary>
+        /// The percent's battery of drone
+        /// </summary>
         public double Battery { get; set; }
 
         public override string ToString()

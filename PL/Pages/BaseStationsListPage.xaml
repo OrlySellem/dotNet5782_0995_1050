@@ -31,13 +31,13 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions >
 
-        <ListView x:Name="BaseStationsListView" Grid.Row="2" Grid.ColumnSpan="6" SelectionChanged="BaseStationsListView_SelectionChanged" Margin="0,46,0,0" Grid.RowSpan="8">
+        <ListView x:Name="BaseStationsListView"  Background="#FFE4E4E4" Grid.Row="2" Grid.ColumnSpan="6" SelectionChanged="BaseStationsListView_SelectionChanged" Margin="0,46,0,0" Grid.RowSpan="8">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="ID " Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="NAME" Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding ChargeSlotsFree}" Header="FREE CHARGE SIOTS" Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding ChargeSlotsFull}" Header="FULL CHARGE SIOTS" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="תז " Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="שם מלא" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ChargeSlotsFree}" Header="עמדות טעינה פנויות" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ChargeSlotsFull}" Header="עמדות טעינה תפוסות" Width="auto"/>
 
                 </GridView>
             </ListView.View>

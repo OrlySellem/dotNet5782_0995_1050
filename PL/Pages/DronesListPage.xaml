@@ -12,7 +12,7 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="DronesListView" Grid.Row="1" MouseDoubleClick="ChooseDroneToShow_DoubleClick" SelectionChanged="DronesListView_SelectionChanged">
+        <ListView x:Name="DronesListView" Background="#FFE4E4E4" Grid.Row="1" SelectionChanged="DronesListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn x:Name="idCol" DisplayMemberBinding="{Binding Id}" Header=" תז "  Width="auto"/>
@@ -23,7 +23,7 @@
                     <GridViewColumn DisplayMemberBinding="{Binding CurrentLocation.Longitude}" Header=" מיקום אורך" Width="auto"/>
                     <GridViewColumn DisplayMemberBinding="{Binding CurrentLocation.Latitude}" Header=" מיקום רוחב" Width="auto"/>
                     <GridViewColumn DisplayMemberBinding="{Binding idParcel}" Header="חבילה משוייכת" Width="auto"/>
-                    
+
                 </GridView>
             </ListView.View>
 
@@ -52,6 +52,7 @@
             <Button x:Name="addDroneToList" Content="הוסף רחפן" Grid.Column="4" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Center" Height="49" Width="85" Click="addDroneToList_Click"/>
             <ComboBox x:Name="StattusSelector" HorizontalAlignment="Left" Margin="138,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="StattusSelector_SelectionChanged" Grid.ColumnSpan="2"/>
         </Grid>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" Height="26" Width="79"/>
     </Grid >
 
 </Page>

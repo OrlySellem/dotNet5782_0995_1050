@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using BlApi;
-using BL;
 using BO;
 namespace PL
 {
@@ -24,7 +23,7 @@ namespace PL
     public partial class CustomersListPage : Page
     {
         IBL approachBL;
-        private ObservableCollection<BO.CustomerToList> allCustomers = new ObservableCollection<BO.CustomerToList>();
+        private ObservableCollection <BO.CustomerToList> allCustomers = new ObservableCollection<BO.CustomerToList>();
 
         public CustomersListPage(IBL bl)
         {
@@ -38,28 +37,18 @@ namespace PL
         }
         private void addCustomerToList_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
                 new CustomerWindow(approachBL).ShowDialog();
 
+                //allCustomers.Clear();
 
-                allCustomers.Clear();
-
-                foreach (BO.CustomerToList c in approachBL.getAllCustomers())
-                    allCustomers.Add(c);
+                //foreach (BO.CustomerToList c in approachBL.getAllCustomers())
+                //    allCustomers.Add(c);
 
                 CustomerListView.ItemsSource = allCustomers;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
 
         private void CustomerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
-            {
                 Action updateCustomer = (() =>
                 { new CustomerWindow(approachBL, (CustomerToList)CustomerListView.SelectedItem).ShowDialog(); });
 
@@ -67,17 +56,7 @@ namespace PL
                 {
                     updateCustomer();
                 }
-
-                //this.CustomerListView.SelectionChanged -= new System.Windows.Controls.SelectionChangedEventHandler(this.CustomerListView_SelectionChanged);
                 CustomerListView.ItemsSource = approachBL.getAllCustomers();
-
-                //this.CustomerListView.SelectionChanged += new System.Windows.Controls.SelectionChangedEventHandler(this.CustomerListView_SelectionChanged);
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
         }
     }
 }

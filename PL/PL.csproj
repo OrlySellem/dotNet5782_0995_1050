@@ -12,7 +12,8 @@
 
   <ItemGroup>
     <None Remove="backGroundLists.jpg" />
-    <None Remove="Drone.png" />
+    <None Remove="backGroundMain.jpg" />
+    <None Remove="drone.png" />
     <None Remove="droneSky.jpg" />
     <None Remove="logo.png" />
   </ItemGroup>
@@ -22,9 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="backGroundLists.jpg" />
-    <Resource Include="Drone.png" />
-    <Resource Include="Images\droneSky.jpg" />
+    <Resource Include="backGroundMain.jpg" />
+    <Resource Include="drone.png" />
     <Resource Include="logo.png" />
   </ItemGroup>
 

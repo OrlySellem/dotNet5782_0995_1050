@@ -10,7 +10,7 @@ using BlApi;
 namespace BL
 {
    
-    public partial class BL : IBL
+    partial class BL : IBL
     {
         #region CRUD
         //Create

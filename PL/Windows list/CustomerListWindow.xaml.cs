@@ -23,28 +23,18 @@ namespace PL
     public partial class CustomerListWindow : Window
     {
         IBL approachBL;
-        private ObservableCollection<BO.CustomerToList> allCustomers = new ObservableCollection<BO.CustomerToList>();
+        private ObservableCollection <CustomerToList> allCustomers;
 
         public CustomerListWindow(IBL bl)
         {
             InitializeComponent();
             approachBL = BlFactory.GetBl();
-
+            allCustomers = new ObservableCollection<CustomerToList>();
             foreach (BO.CustomerToList c in approachBL.getAllCustomers())
                 allCustomers.Add(c);
 
             CustomerListView.ItemsSource = allCustomers;
         }
-
-        //private void addCustomerToList(BO.CustomerToList c)
-        //{
-        //    //function to sent to the add window- add the station to the list
-
-        //    allCustomers.Clear();
-        //    foreach (BO.CustomerToList cu in approachBL.getAllCustomers())
-        //        allCustomers.Add(cu);
-        //    allCustomers.Add(c);
-        //}
 
         private void addCustomerToList_Click(object sender, RoutedEventArgs e)
         {
@@ -60,7 +50,7 @@ namespace PL
 
                 CustomerListView.ItemsSource = allCustomers;
             }
-            catch (Exception ex)
+            catch (AlreadyExistException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -77,14 +67,13 @@ namespace PL
                 {
                     updateCustomer();
                 }
-
-                    //this.CustomerListView.SelectionChanged -= new System.Windows.Controls.SelectionChangedEventHandler(this.CustomerListView_SelectionChanged);
-                    CustomerListView.ItemsSource = approachBL.getAllCustomers();
-                
-                //this.CustomerListView.SelectionChanged += new System.Windows.Controls.SelectionChangedEventHandler(this.CustomerListView_SelectionChanged);
-                
+                    CustomerListView.ItemsSource = approachBL.getAllCustomers();                               
             }
-            catch (Exception ex)
+            catch (DoesntExistentObjectException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch(AlreadyExistException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }

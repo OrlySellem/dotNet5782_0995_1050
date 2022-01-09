@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BO;
-using BL;
 using BlApi;
 namespace PL
 {
@@ -48,23 +47,25 @@ namespace PL
 
         private void BaseStationsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            new BaseStationsWindow(approachBL, (StationToList)BaseStationsListView.SelectedItem).ShowDialog();
-            BaseStationsListView.Items.Refresh();
+
+                new BaseStationsWindow(approachBL, (StationToList)BaseStationsListView.SelectedItem).ShowDialog();
+                BaseStationsListView.Items.Refresh();
+            
         }
 
         private void FreeChargeSlots_Click(object sender, RoutedEventArgs e)
         {
 
-            BaseStationsListView.ItemsSource = approachBL.display_station_with_freeChargingStations();
-
-
-
+                BaseStationsListView.ItemsSource = approachBL.display_station_with_freeChargingStations();
         }
 
-        private void addBaseStationsToList_Click(object sender, RoutedEventArgs e)
+
+        private void addBaseStationsToList_Click(object sender, RoutedEventArgs e) //add base station
         {
-            new BaseStationsWindow(approachBL).ShowDialog();
-            BaseStationsListView.ItemsSource = approachBL.getAllStations();
+                new BaseStationsWindow(approachBL).ShowDialog(); 
+                BaseStationsListView.ItemsSource = approachBL.getAllStations(); 
+                MessageBoxResult result = MessageBox.Show("!תחנת הבסיס הוכנסה בהצלחה");
+
         }
 
     }

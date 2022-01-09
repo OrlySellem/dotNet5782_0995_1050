@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using DalApi;
 using DO;
 
+
 namespace Dal
 {
     sealed class DalXml : IDal
@@ -17,19 +18,18 @@ namespace Dal
 
         static readonly IDal instance = new DalXml();
         public static IDal Instance { get => instance; }
-        DalXml()
-        {
-        //    DataSource.Initialize();
-                }
+        DalXml() {}
 
         #endregion singelton
-
+        /// <summary>
+        /// Pointers to the files
+        /// </summary>
         string customerPath = @"CustomerXml.xml";//XElement
         string dronePath = @"DroneXml.xml";  //XElement
         string droneChargePath = @"DroneChargeXml.xml";//XElement
         string parcelPath = @"ParcelXml.xml";//XMLSerializer
         string stationPath = @"Station.xml";//XMLSerializer
-
+        string dalConfigPath = @"dal-config.xml";  //XElement
 
         #region ADD
         public void addStaion(Station stationToAdd)
@@ -71,14 +71,23 @@ namespace Dal
 
         public void addParcel(Parcel ParcelToAdd)
         {
+            
             var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
             if (listParcel.Exists(x => x.Id == ParcelToAdd.Id))
                 throw new AlreadyExistException("parcel");
 
+            if (ParcelToAdd.Id != 0)
+                ParcelToAdd.Id = ParcelToAdd.Id;
+            //else
+            //{
+            //    XElement dalConfig = XMLTools.LoadListFromXMLElement(parcelPath);
+            //    var DelParcel = (from parcel in parcelList.Elements()
+            //                     where (parcel.Element("Id").Value == parcelToDel.Id.ToString())
+            //                     select parcel).FirstOrDefault();
+            //}
+
             listParcel.Add(ParcelToAdd);
             XMLTools.SaveListToXMLSerializer(listParcel, parcelPath);
-
-            // throw new NotImplementedException();
         }
 
         #endregion ADD
@@ -214,13 +223,6 @@ namespace Dal
 
             DelParcel.Remove();
             XMLTools.SaveListToXMLElement(parcelList, parcelPath);
-
-            //var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
-
-            //listParcel.Remove(parcelToDel);
-
-            //XMLTools.SaveListToXMLSerializer(listParcel, parcelPath);
-
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]

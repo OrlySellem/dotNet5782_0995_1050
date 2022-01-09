@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BlApi;
 using BO;
-using BL;
 namespace PL
 {
     /// <summary>

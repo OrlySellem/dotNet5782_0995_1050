@@ -59,10 +59,10 @@ namespace PL
                     Charging_drones = null
                 };
                 approachBL.addStation(newStation);
-
+                MessageBoxResult result = MessageBox.Show("!תחנת הבסיס נוספה בהצלחה");
                 this.Close();
             }
-            catch (Exception ex)
+            catch (AlreadyExistException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -109,6 +109,7 @@ namespace PL
             TheChosenBaseStation = BaseStation;
             updataGrid.Visibility = Visibility.Visible;
             addGrid.Visibility = Visibility.Hidden;
+            UpdateData.IsEnabled = true;
 
             id.Text = BaseStation.Id.ToString();
             StationName.Text = BaseStation.Name.ToString();
@@ -116,24 +117,37 @@ namespace PL
             FullChargeSlots.Text = BaseStation.ChargeSlotsFull.ToString();
         }
 
-
+        
         private void UpdateData_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                //in case the user change the name of base station
                 if (StationName.Text != "" && TheChosenBaseStation.Name != int.Parse(StationName.Text))
                 {
-                    int cs;
                     if (AddChargeSlots.Text == "")
-                        cs = 0;
+                        approachBL.updateStation(TheChosenBaseStation.Id, int.Parse(StationName.Text.ToString()), 0);
                     else
-                        cs = int.Parse(AddChargeSlots.Text.ToString());
-                    approachBL.updateStation(TheChosenBaseStation.Id, int.Parse(StationName.Text.ToString()), cs);
-                }
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error); }
+                        approachBL.updateStation(TheChosenBaseStation.Id, int.Parse(StationName.Text.ToString()), int.Parse(AddChargeSlots.Text));
 
-            
+                }
+                else if (AddChargeSlots.Text != "")
+                {
+                    approachBL.updateStation(TheChosenBaseStation.Id, 0, int.Parse(AddChargeSlots.Text));
+                }
+
+                MessageBoxResult result = MessageBox.Show("!תחנת הבסיס עודכנה בהצלחה");
+            }
+
+            catch (DoesntExistentObjectException ex) 
+            { 
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error); 
+            }
+            catch(AlreadyExistException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            UpdateData.IsEnabled = false;
         }
 
 
@@ -147,9 +161,9 @@ namespace PL
             try
             {
                 approachBL.deleteFromStations(TheChosenBaseStation.Id);
-
+                MessageBoxResult result = MessageBox.Show("!תחנת הבסיס נמחקה בהצלחה");
             }
-            catch (Exception ex)
+            catch (DoesntExistentObjectException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }

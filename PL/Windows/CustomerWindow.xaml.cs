@@ -53,8 +53,9 @@ namespace PL
                     Address = address,
                 };
                 approachBL.addCustomer(newCustomer);
+                MessageBoxResult result = MessageBox.Show("!הלקוח נוסף בהצלחה");
             }
-            catch (Exception ex)
+            catch (AlreadyExistException ex)
             {
 
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -143,11 +144,15 @@ namespace PL
                     approachBL.updateCustomer(TheChosenCustomer.Id, CustomerName.Text, Phone.Text);
                     UpdateData.IsEnabled = false;
                 }
+                MessageBoxResult result = MessageBox.Show("!הלקוח עודכן בהצלחה");
 
             }
-            catch (Exception ex)
+            catch (DoesntExistentObjectException ex)
             {
-
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (AlreadyExistException ex)
+            {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

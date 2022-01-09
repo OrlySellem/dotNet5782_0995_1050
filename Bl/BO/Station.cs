@@ -8,15 +8,30 @@ namespace BO
 {
     public class Station
     {
+        /// <summary>
+        /// The id of station
+        /// </summary>
         public int Id { get; set; }
 
+        /// <summary>
+        /// The name of station
+        /// </summary>
         public int Name { get; set; }
 
+        /// <summary>
+        /// The address of station
+        /// </summary>
         public Location Address { get; set; }
 
-        public int ChargeSlots { get; set; }
+        /// <summary>
+        /// The number of free charging slots in station
+        /// </summary>
+        public int ChargeSlots { get; set; } 
 
-        public List<ChargingDrone> Charging_drones { get; set; }
+        /// <summary>
+        /// The drone's list in charging at this station
+        /// </summary>
+        public List <ChargingDrone> Charging_drones { get; set; }
 
         public override string ToString()
         {
