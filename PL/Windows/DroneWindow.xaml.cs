@@ -128,6 +128,7 @@ namespace PL
         #region updat Drone
 
         static DroneToList TheChosenDrone;
+        static ParcelToList parcel;
         public DroneWindow(BlApi.IBL bl, BO.DroneToList drone)
         {
             InitializeComponent();
@@ -150,27 +151,41 @@ namespace PL
 
             if (drone.Status == DroneStatuses.available)
             {
+                SendingDroneForCharging.Visibility = Visibility.Visible;
                 ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
-                ParcelCollection.Visibility = Visibility.Hidden;
-                ParcelArriveToDestination.Visibility = Visibility.Hidden;
+                assignDroneToParcel.Visibility = Visibility.Visible;
+                pickUpParcel.Visibility = Visibility.Hidden;
+                ParcelArriveToCustomer.Visibility = Visibility.Hidden;
             }
 
             if (drone.Status == DroneStatuses.maintenance)
             {
                 SendingDroneForCharging.Visibility = Visibility.Hidden;
-                SendDroneForDelivery.Visibility = Visibility.Hidden;
-                ParcelCollection.Visibility = Visibility.Hidden;
-                ParcelArriveToDestination.Visibility = Visibility.Hidden;
+                ReleaseDroneFromCharging.Visibility = Visibility.Visible;
+                assignDroneToParcel.Visibility = Visibility.Hidden;
+                pickUpParcel.Visibility = Visibility.Hidden;
+                ParcelArriveToCustomer.Visibility = Visibility.Hidden;
             }
 
             if (drone.Status == DroneStatuses.delivery)
             {
+                parcel = (from findParcel in approachBL.getAllParcels()
+                          where findParcel.Id == drone.idParcel
+                          select findParcel).FirstOrDefault();
+
                 SendingDroneForCharging.Visibility = Visibility.Hidden;
                 ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
-                SendDroneForDelivery.Visibility = Visibility.Hidden;
-         
+                assignDroneToParcel.Visibility = Visibility.Hidden;
+                pickUpParcel.Visibility = Visibility.Hidden;
+                ParcelArriveToCustomer.Visibility = Visibility.Hidden;
 
-            }
+                if (parcel.ParcelStatus == ParcelStatus.requested)
+                    pickUpParcel.Visibility = Visibility.Visible;
+
+                if (parcel.ParcelStatus == ParcelStatus.PickedUp)
+                    ParcelArriveToCustomer.Visibility = Visibility.Visible;                 
+
+                   }
 
             //Worker = new BackgroundWorker();
             //Worker.DoWork += Worker_DoWork;
@@ -192,17 +207,17 @@ namespace PL
             try
             {
                 if (TheChosenDrone.Status == DroneStatuses.available)
+                {
                     approachBL.chargingDrone(TheChosenDrone.Id);
 
+                    SendingDroneForCharging.Visibility = Visibility.Hidden;
+                    ReleaseDroneFromCharging.Visibility = Visibility.Visible;
+                    assignDroneToParcel.Visibility = Visibility.Hidden;
+                    pickUpParcel.Visibility = Visibility.Hidden;
+                    ParcelArriveToCustomer.Visibility = Visibility.Hidden;
 
-
-                ReleaseDroneFromCharging.Visibility = Visibility.Visible;
-
-                SendingDroneForCharging.Visibility = Visibility.Hidden;
-                SendDroneForDelivery.Visibility = Visibility.Hidden;
-                ParcelCollection.Visibility = Visibility.Hidden;
-                ParcelArriveToDestination.Visibility = Visibility.Hidden;
-                MessageBoxResult result = MessageBox.Show("!הרחפן נשלח לטעינה בהצלחה");
+                    MessageBoxResult result = MessageBox.Show("!הרחפן נשלח לטעינה בהצלחה");
+                }
             }
             catch (chargingException ex)
             {
@@ -221,12 +236,17 @@ namespace PL
             try
             {
                 if (TheChosenDrone.Status == DroneStatuses.maintenance)// if the drone in charging slot
+                {
                     approachBL.freeDroneFromCharging(TheChosenDrone.Id, DateTime.Now);
 
-                ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
-                SendingDroneForCharging.Visibility = Visibility.Visible;
-                assignDroneToParcel.Visibility = Visibility.Visible;
-                MessageBoxResult result = MessageBox.Show("!הרחפן שוחרר מטעינה בהצלחה");
+                    SendingDroneForCharging.Visibility = Visibility.Visible;
+                    ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
+                    assignDroneToParcel.Visibility = Visibility.Visible;
+                    pickUpParcel.Visibility = Visibility.Hidden;
+                    ParcelArriveToCustomer.Visibility = Visibility.Hidden;
+
+                    MessageBoxResult result = MessageBox.Show("!הרחפן שוחרר מטעינה בהצלחה");
+                }
 
             }
             catch (DoesntExistentObjectException ex)
@@ -240,13 +260,22 @@ namespace PL
 
         }
 
-        private void SendDroneForDelivery_Click(object sender, RoutedEventArgs e)
+        private void AssignDroneToParcel_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (TheChosenDrone.Status == DroneStatuses.available)
+                {
                     approachBL.assignDroneToParcel(TheChosenDrone.Id);
-                MessageBoxResult result = MessageBox.Show("!הרחפן שוייך לחבילה בהצלחה");
+                    MessageBoxResult result = MessageBox.Show("!הרחפן שוייך לחבילה בהצלחה");
+
+                    SendingDroneForCharging.Visibility = Visibility.Hidden;
+                    ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
+                    assignDroneToParcel.Visibility = Visibility.Hidden;
+                    pickUpParcel.Visibility = Visibility.Visible;
+                    ParcelArriveToCustomer.Visibility = Visibility.Hidden;
+
+                }
             }
             catch (Exception ex)
             {
@@ -255,12 +284,19 @@ namespace PL
 
         }
 
-        private void ParcelCollection_Click(object sender, RoutedEventArgs e)
+        private void PickUpParcel_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 approachBL.dronePickParcel(TheChosenDrone.Id);
                 MessageBoxResult result = MessageBox.Show("!הרחפן אסף חבילה בהצלחה");
+
+                SendingDroneForCharging.Visibility = Visibility.Hidden;
+                ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
+                assignDroneToParcel.Visibility = Visibility.Hidden;
+                pickUpParcel.Visibility = Visibility.Hidden;
+                ParcelArriveToCustomer.Visibility = Visibility.Visible;
+
             }
             catch (DelivereyAlreadyArrive ex)
             {
@@ -281,12 +317,19 @@ namespace PL
 
         }
 
-        private void ParcelArriveToDestination_Click(object sender, RoutedEventArgs e)
+        private void ParcelArriveToCustomer_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 approachBL.deliveryArivveToCustomer(TheChosenDrone.Id);
                 MessageBoxResult result = MessageBox.Show("!הרחפן ביצע את המשלוח בהצלחה");
+
+                SendingDroneForCharging.Visibility = Visibility.Visible;
+                ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
+                assignDroneToParcel.Visibility = Visibility.Visible;
+                pickUpParcel.Visibility = Visibility.Hidden;
+                ParcelArriveToCustomer.Visibility = Visibility.Hidden;
+
             }
             catch (DroneCantBeAssigend ex)
             {
