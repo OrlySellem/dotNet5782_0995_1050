@@ -24,12 +24,12 @@ namespace Dal
         /// <summary>
         /// Pointers to the files
         /// </summary>
-        string customerPath = @"CustomerXml.xml";//XElement
-        string dronePath = @"DroneXml.xml";  //XElement
-        string droneChargePath = @"DroneChargeXml.xml";//XElement
-        string parcelPath = @"ParcelXml.xml";//XMLSerializer
-        string stationPath = @"Station.xml";//XMLSerializer
-        string dalConfigPath = @"dal-config.xml";  //XElement
+        string customerPath = @"..\..\xml\CustomerXml.xml";//XElement
+        string dronePath = @"..\..\xml\DroneXml.xml";  //XElement
+        string droneChargePath = @"..\..\xml\DroneChargeXml.xml";//XElement
+        string parcelPath = @"..\..\xml\ParcelXml.xml";//XMLSerializer
+        string stationPath = @"..\..\xml\Station.xml";//XMLSerializer
+        //string dalConfigPath = @"dal-config.xml";  //XElement
 
         #region ADD
         public void addStaion(Station stationToAdd)
