@@ -64,7 +64,6 @@ namespace PL
         {
                 new BaseStationsWindow(approachBL).ShowDialog(); 
                 BaseStationsListView.ItemsSource = approachBL.getAllStations(); 
-                MessageBoxResult result = MessageBox.Show("!תחנת הבסיס הוכנסה בהצלחה");
 
         }
 
