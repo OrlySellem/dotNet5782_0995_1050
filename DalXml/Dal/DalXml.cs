@@ -29,7 +29,7 @@ namespace Dal
         string droneChargePath = @"..\..\xml\DroneChargeXml.xml";//XElement
         string parcelPath = @"..\..\xml\ParcelXml.xml";//XMLSerializer
         string stationPath = @"..\..\xml\Station.xml";//XMLSerializer
-        //string dalConfigPath = @"dal-config.xml";  //XElement
+        string dalConfigPath = @"..\..\dal-config.xml";  //XElement
 
         #region ADD
         public void addStaion(Station stationToAdd)
