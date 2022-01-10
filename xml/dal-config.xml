@@ -1,8 +1,9 @@
-﻿<config>
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<config>
 	<dal>xml</dal>
 	<dal-packages>
 		<data>DalObject</data>
-		<xml class="DalXml" namespace="Dal">DalXml</xml>
-	</dal-packages>
+		<xml class="DalXml" namespace="Dal">DalXml</xml>	
+</dal-packages>
 	<parcelID>1</parcelID>
 </config>
