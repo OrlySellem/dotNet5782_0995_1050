@@ -39,16 +39,6 @@
 
                 </GridView>
             </ListView.View>
-            
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ListView.GroupStyle>
         </ListView>
         <Button x:Name="FreeChargeSlots" Content="Display stations with available charging stations" FontWeight="Bold" HorizontalAlignment="Left" Margin="41,46,0,0" Grid.Row="1" VerticalAlignment="Top" Width="293" Click="FreeChargeSlots_Click" Height="31" RenderTransformOrigin="0.357,-0.035" Grid.RowSpan="2" Grid.ColumnSpan="3" Grid.Column="1"/>
 
