@@ -151,25 +151,23 @@ namespace PL
             if (drone.Status == DroneStatuses.available)
             {
                 ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
-                ParcelCollection.Visibility = Visibility.Hidden;
-                ParcelArriveToDestination.Visibility = Visibility.Hidden;
+                pickUpParcel.Visibility = Visibility.Hidden;
+                ParcelArriveToCustomer.Visibility = Visibility.Hidden;
             }
 
             if (drone.Status == DroneStatuses.maintenance)
             {
                 SendingDroneForCharging.Visibility = Visibility.Hidden;
-                SendDroneForDelivery.Visibility = Visibility.Hidden;
-                ParcelCollection.Visibility = Visibility.Hidden;
-                ParcelArriveToDestination.Visibility = Visibility.Hidden;
+                assignDroneToParcel.Visibility = Visibility.Hidden;
+                pickUpParcel.Visibility = Visibility.Hidden;
+                ParcelArriveToCustomer.Visibility = Visibility.Hidden;
             }
 
             if (drone.Status == DroneStatuses.delivery)
             {
                 SendingDroneForCharging.Visibility = Visibility.Hidden;
                 ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
-                SendDroneForDelivery.Visibility = Visibility.Hidden;
-         
-
+                assignDroneToParcel.Visibility = Visibility.Hidden;
             }
 
             //Worker = new BackgroundWorker();
@@ -199,9 +197,9 @@ namespace PL
                 ReleaseDroneFromCharging.Visibility = Visibility.Visible;
 
                 SendingDroneForCharging.Visibility = Visibility.Hidden;
-                SendDroneForDelivery.Visibility = Visibility.Hidden;
-                ParcelCollection.Visibility = Visibility.Hidden;
-                ParcelArriveToDestination.Visibility = Visibility.Hidden;
+                assignDroneToParcel.Visibility = Visibility.Hidden;
+                pickUpParcel.Visibility = Visibility.Hidden;
+                ParcelArriveToCustomer.Visibility = Visibility.Hidden;
                 MessageBoxResult result = MessageBox.Show("!הרחפן נשלח לטעינה בהצלחה");
             }
             catch (chargingException ex)

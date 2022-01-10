@@ -17,7 +17,7 @@ namespace BL
 
         Stopwatch stopwatch;
 
-        Simulator (BL bl, int idDrone, Action update, Func<bool> checkStop)
+        public Simulator (BL bl, int idDrone, Action update, Func<bool> checkStop)
         {
             while (checkStop()) //until we didn't stop the thread
             {
@@ -30,7 +30,7 @@ namespace BL
                         if (drone.Battery >= 100)
                         {
                             DateTime time =  DateTime.Now;
-                            bl.freeDroneFromCharging(idDrone, time);
+                            bl.freeDroneFromCharging(idDrone, time);                            
                         }
                     }
                     
@@ -48,7 +48,7 @@ namespace BL
                         
                     if (drone.Status == DroneStatuses.delivery) //if the stattus of drone is delivery - check the level and update accordding to level
                     {
-                        //find 
+                        //find the parcel that assigned to drone
                         var parcel = (from p in bl.getAllParcels()
                                       where p.Id == drone.idParcel
                                       select p).FirstOrDefault();
@@ -60,11 +60,6 @@ namespace BL
                         if (parcel.ParcelStatus == ParcelStatus.PickedUp)
                         {
                             bl.deliveryArivveToCustomer(idDrone);
-                        }
-
-                        if (parcel.ParcelStatus == ParcelStatus.Delivered)
-                        {
-                            
                         }
                     }
                 }

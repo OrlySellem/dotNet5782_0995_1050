@@ -271,7 +271,7 @@ namespace BL
         #endregion find nearest station to customer
         public void openSimulator(int idDrone, Action update, Func<bool> checkStop)
         {
-            Simulator(this, idDrone, update, checkStop);
+            Simulator s = new Simulator(this ,idDrone, update, checkStop);        
         }
     }
 
