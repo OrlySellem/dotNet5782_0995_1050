@@ -217,11 +217,12 @@ namespace PL
         {
             try
             {
-                if (TheChosenDrone.Status == DroneStatuses.maintenance)
+                if (TheChosenDrone.Status == DroneStatuses.maintenance)// if the drone in charging slot
                     approachBL.freeDroneFromCharging(TheChosenDrone.Id, DateTime.Now);
 
+                ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
                 SendingDroneForCharging.Visibility = Visibility.Visible;
-                SendDroneForDelivery.Visibility = Visibility.Visible;
+                assignDroneToParcel.Visibility = Visibility.Visible;
                 MessageBoxResult result = MessageBox.Show("!הרחפן שוחרר מטעינה בהצלחה");
 
             }
@@ -403,10 +404,11 @@ namespace PL
             UpdateData.Visibility = Visibility.Hidden;
             SendingDroneForCharging.Visibility = Visibility.Hidden;
             ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
-            SendDroneForDelivery.Visibility = Visibility.Hidden;
-            ParcelCollection.Visibility = Visibility.Hidden;
-            ParcelArriveToDestination.Visibility = Visibility.Hidden;
+            assignDroneToParcel.Visibility = Visibility.Hidden;
+            pickUpParcel.Visibility = Visibility.Hidden;
+            ParcelArriveToCustomer.Visibility = Visibility.Hidden;
             Regular.Visibility = Visibility.Visible;
+
 
             if (Worker.IsBusy != true)
             {
@@ -427,15 +429,10 @@ namespace PL
             UpdateData.Visibility = Visibility.Visible;
             SendingDroneForCharging.Visibility = Visibility.Hidden;
             ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
-            SendDroneForDelivery.Visibility = Visibility.Hidden;
-            ParcelCollection.Visibility = Visibility.Hidden;
-            ParcelArriveToDestination.Visibility = Visibility.Hidden;
+            assignDroneToParcel.Visibility = Visibility.Hidden;
+            pickUpParcel.Visibility = Visibility.Hidden;
+            ParcelArriveToCustomer.Visibility = Visibility.Hidden;
             Regular.Visibility = Visibility.Visible;
-
-
-
-
-
         }
         #endregion thread
 

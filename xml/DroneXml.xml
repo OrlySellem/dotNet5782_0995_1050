@@ -35,4 +35,9 @@
     <Model>4G</Model>
     <MaxWeight>light</MaxWeight>
   </Drone>
+  <Drone>
+    <Id>7854</Id>
+    <Model>6G</Model>
+    <MaxWeight>light</MaxWeight>
+  </Drone>
 </ArrayOfDrone>

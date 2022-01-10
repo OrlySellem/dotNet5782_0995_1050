@@ -74,7 +74,7 @@
                 <Button x:Name="cancelAddDrone" Content="Cancel" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="211,-76,0,0" VerticalAlignment="Top" Height="40" Width="90" Click="cancelAddDrone_Click"/>
             </Grid>
             <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="57" Margin="0,344,0,0" VerticalAlignment="Top" Width="450" Grid.Row="1"/>
-            <TextBox x:Name="TextBoxId" Grid.Column="1" HorizontalAlignment="Left" Margin="65,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="TextBoxId"  Grid.Column="1" HorizontalAlignment="Left" Margin="65,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
         </Grid>
 
@@ -99,14 +99,14 @@
                 <ColumnDefinition Width="95"/>
             </Grid.ColumnDefinitions >
 
-            <Button x:Name="CloseWindow" Content="Close Window" Grid.Column="2" HorizontalAlignment="Left" Margin="65,23,0,0" Grid.Row="1" VerticalAlignment="Top" Click="CloseWindow_Click" Width="115" Grid.ColumnSpan="2"/>
-            <Button x:Name="UpdateData"  Content="Update Model"   IsEnabled="True" Grid.Column="2" HorizontalAlignment="Left" Margin="65,5,0,0" Grid.Row="2" VerticalAlignment="Top" Click="UpdateData_Click" Grid.ColumnSpan="2" Width="114"/>
-            <Button x:Name="SendingDroneForCharging" Content="charging drone" Grid.Column="2" HorizontalAlignment="Left" Margin="65,35,0,0"  Grid.Row="2" VerticalAlignment="Top" Click="SendingDroneForCharging_Click" Grid.ColumnSpan="2" Width="115" Grid.RowSpan="2"/>
-            <Button x:Name="ReleaseDroneFromCharging" Content="Free drone from charging" Grid.Column="2" HorizontalAlignment="Left" Margin="25,18,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="155" Click="ReleaseDroneFromCharging_Click"/>
-            <Button x:Name="SendDroneForDelivery" Content="Send drone to delivery" Grid.Column="2" Margin="48,50,10,0" Grid.Row="3" VerticalAlignment="Top" Click="SendDroneForDelivery_Click" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-            <Button x:Name="ParcelCollection" Content="Pick up parcel" Grid.Column="2" HorizontalAlignment="Left" Margin="73,28,0,0" Grid.Row="4" VerticalAlignment="Top" Click="ParcelCollection_Click" Width="107" Grid.ColumnSpan="2"/>
-            <Button x:Name="ParcelArriveToDestination" Content="parcel arrived" Grid.Column="2" HorizontalAlignment="Left" Margin="73,6,0,0"  Grid.Row="5" VerticalAlignment="Top" Click="ParcelArriveToDestination_Click" Grid.ColumnSpan="2" Width="107"/>
-            <Button x:Name="OpenParcelWindow" Content="Open Parcel" HorizontalAlignment="Left" Margin="0,48,0,0"  Grid.Row="6" VerticalAlignment="Top" Width="85" Grid.RowSpan="2" Grid.Column="1" Height="20" Click="OpenParcelWindow_Click"/>
+            <Button x:Name="CloseWindow" Content="סגור חלון" Grid.Column="2" HorizontalAlignment="Left" Margin="65,23,0,0" Grid.Row="1" VerticalAlignment="Top" Click="CloseWindow_Click" Width="115" Grid.ColumnSpan="2"/>
+            <Button x:Name="UpdateData"  Content="עדכן מודל"   IsEnabled="True" Grid.Column="2" HorizontalAlignment="Left" Margin="65,5,0,0" Grid.Row="2" VerticalAlignment="Top" Click="UpdateData_Click" Grid.ColumnSpan="2" Width="114"/>
+            <Button x:Name="SendingDroneForCharging" Content="שלח רחפן לטעינה" Grid.Column="2" HorizontalAlignment="Left" Margin="65,35,0,0"  Grid.Row="2" VerticalAlignment="Top" Click="SendingDroneForCharging_Click" Grid.ColumnSpan="2" Width="115" Grid.RowSpan="2"/>
+            <Button x:Name="ReleaseDroneFromCharging" Content="שחרר רחפן מטעינה" Grid.Column="2" HorizontalAlignment="Left" Margin="65,35,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="115" Click="ReleaseDroneFromCharging_Click" Grid.RowSpan="2"/>
+            <Button x:Name="assignDroneToParcel" Content="שיוך רחפן למשלוח " Grid.Column="2" Margin="65,14,11,0" Grid.Row="3" VerticalAlignment="Top" Click="SendDroneForDelivery_Click" Grid.ColumnSpan="2"/>
+            <Button x:Name="pickUpParcel" Content="אסוף משלוח" Grid.Column="2" HorizontalAlignment="Left" Margin="65,14,0,0" Grid.Row="3" VerticalAlignment="Top" Click="ParcelCollection_Click" Width="115" Grid.ColumnSpan="2"/>
+            <Button x:Name="ParcelArriveToCustomer" Content="משלוח בוצע" Grid.Column="2" HorizontalAlignment="Left" Margin="65,14,0,0"  Grid.Row="3" VerticalAlignment="Top" Click="ParcelArriveToDestination_Click" Grid.ColumnSpan="2" Width="115"/>
+            <Button x:Name="OpenParcelWindow" Content="פתח חבילה" HorizontalAlignment="Left" Margin="0,48,0,0"  Grid.Row="6" VerticalAlignment="Top" Width="85" Grid.RowSpan="2" Grid.Column="1" Height="20" Click="OpenParcelWindow_Click"/>
 
             <Label Content="id:"  FontWeight="Bold" Grid.Column="0"  HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="1" VerticalAlignment="Top"/>
             <TextBox x:Name="id" IsEnabled="False"  Grid.Column="1" HorizontalAlignment="Left" Margin="0,24,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85"/>
@@ -133,8 +133,8 @@
             <Label Content="Longitude:" FontWeight="Bold" Grid.Column="0" HorizontalAlignment="Left" Margin="88,19,0,0" Grid.Row="8" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
             <TextBox x:Name="LattitudeTextBox" IsEnabled="false" Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,6,32" Grid.Row="8" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="88" Height="19"/>
             <TextBox  x:Name="LongitudeTextBox" IsEnabled="false" Grid.Column="2" HorizontalAlignment="Left" Margin="1,26,0,0" Grid.Row="8" TextWrapping="Wrap" VerticalAlignment="Top" Width="88" Height="19"/>
-            <Button x:Name="Automatic" Content="Automatic" Grid.Column="3" HorizontalAlignment="Center" Height="21" Grid.Row="6" VerticalAlignment="Top" Margin="0,48,0,0" Grid.RowSpan="2" Click="Automatic_Click" Width="58"/>
-            <Button x:Name="Regular" Content="Regular" Grid.Column="2" HorizontalAlignment="Left" Margin="45,48,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="55" Height="21" Grid.RowSpan="2" Click="Manual_Click"/>
+            <Button x:Name="Automatic" Content="אוטומטי" Grid.Column="3" HorizontalAlignment="Center" Height="21" Grid.Row="6" VerticalAlignment="Top" Margin="0,48,0,0" Grid.RowSpan="2" Click="Automatic_Click" Width="58"/>
+            <Button x:Name="Regular" Visibility="Hidden" Content="עצור" Grid.Column="2" HorizontalAlignment="Left" Margin="45,48,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="55" Height="21" Grid.RowSpan="2" Click="Manual_Click"/>
 
 
 
