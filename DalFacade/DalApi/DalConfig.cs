@@ -17,7 +17,7 @@ namespace DalApi
             DalName = dalConfig.Element("dal").Value;
             DalPackages = (from pkg in dalConfig.Element("dal-packages").Elements()
                            select pkg
-                          ).ToDictionary(p => "" + p.Name, p => p.Value);
+                           ).ToDictionary(p => "" + p.Name, p => p.Value);
         }
     }
     public class DalConfigException : Exception
