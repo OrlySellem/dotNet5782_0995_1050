@@ -179,7 +179,7 @@ namespace PL
                 pickUpParcel.Visibility = Visibility.Hidden;
                 ParcelArriveToCustomer.Visibility = Visibility.Hidden;
 
-                if (parcel.ParcelStatus == ParcelStatus.requested)
+                if (parcel.ParcelStatus == ParcelStatus.scheduled)
                     pickUpParcel.Visibility = Visibility.Visible;
 
                 if (parcel.ParcelStatus == ParcelStatus.PickedUp)
@@ -208,6 +208,11 @@ namespace PL
             {
                 if (TheChosenDrone.Status == DroneStatuses.available)
                 {
+                    if (TheChosenDrone.Battery >=100)
+                    {
+                        MessageBox.Show("The battary is full");
+                        return;
+                    }
                     approachBL.chargingDrone(TheChosenDrone.Id);
 
                     SendingDroneForCharging.Visibility = Visibility.Hidden;
@@ -234,7 +239,7 @@ namespace PL
         private void ReleaseDroneFromCharging_Click(object sender, RoutedEventArgs e)
         {
             try
-            {
+            {                
                 if (TheChosenDrone.Status == DroneStatuses.maintenance)// if the drone in charging slot
                 {
                     approachBL.freeDroneFromCharging(TheChosenDrone.Id, DateTime.Now);

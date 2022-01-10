@@ -1,17 +1,5 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfParcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Parcel>
-    <Id>1</Id>
-    <Senderld>860761028</Senderld>
-    <Targetld>748737268</Targetld>
-    <Weight>medium</Weight>
-    <Priority>fast</Priority>
-    <Requested>2022-01-04T22:17:26.0721381+02:00</Requested>
-    <Droneld>1598</Droneld>
-    <Scheduled>2022-01-04T22:17:26.0747825+02:00</Scheduled>
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-  </Parcel>
   <Parcel>
     <Id>2</Id>
     <Senderld>860761028</Senderld>
@@ -21,18 +9,6 @@
     <Requested>2022-01-04T22:17:26.0751209+02:00</Requested>
     <Droneld>9657</Droneld>
     <Scheduled>2022-01-04T22:17:26.0751228+02:00</Scheduled>
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-  </Parcel>
-  <Parcel>
-    <Id>3</Id>
-    <Senderld>119875546</Senderld>
-    <Targetld>929795100</Targetld>
-    <Weight>light</Weight>
-    <Priority>fast</Priority>
-    <Requested>2022-01-04T22:17:26.0751234+02:00</Requested>
-    <Droneld>9928</Droneld>
-    <Scheduled>2022-01-04T22:17:26.0751237+02:00</Scheduled>
     <PickedUp xsi:nil="true" />
     <Delivered xsi:nil="true" />
   </Parcel>
@@ -153,6 +129,18 @@
     <Requested>2022-01-05T01:30:52.0720621+02:00</Requested>
     <Droneld>123456</Droneld>
     <Scheduled>2022-01-10T01:02:31.293113+02:00</Scheduled>
+    <PickedUp xsi:nil="true" />
+    <Delivered xsi:nil="true" />
+  </Parcel>
+  <Parcel>
+    <Id>3</Id>
+    <Senderld>119875546</Senderld>
+    <Targetld>929795100</Targetld>
+    <Weight>light</Weight>
+    <Priority>fast</Priority>
+    <Requested>2022-01-04T22:17:26.0751234+02:00</Requested>
+    <Droneld>1234</Droneld>
+    <Scheduled>2022-01-11T01:26:15.8651317+02:00</Scheduled>
     <PickedUp xsi:nil="true" />
     <Delivered xsi:nil="true" />
   </Parcel>

@@ -134,10 +134,10 @@ namespace PL
             parcelStatusTextBox.Text = TheChosenParcel.ParcelStatus.ToString();
             //parcelStatusComboBox.ItemsSource = Enum.GetValues(typeof(ParcelStatus));
 
-            if (parcel.ParcelStatus == ParcelStatus.scheduled || parcel.ParcelStatus == ParcelStatus.PickedUp)
-                PickedUp_OR_Delivered.Visibility = Visibility.Visible;
-            else
-                PickedUp_OR_Delivered.Visibility = Visibility.Hidden;
+            //if (parcel.ParcelStatus == ParcelStatus.scheduled || parcel.ParcelStatus == ParcelStatus.PickedUp)
+            //    PickedUp_OR_Delivered.Visibility = Visibility.Visible;
+            //else
+            //    PickedUp_OR_Delivered.Visibility = Visibility.Hidden;
 
             if (parcel.ParcelStatus ==ParcelStatus.requested)
             {
@@ -150,31 +150,29 @@ namespace PL
             
         }
 
+        //private void PickedUp_OR_Delivered_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (PickedUp_OR_Delivered.IsChecked != null)
+        //        {
+        //            if (TheChosenParcel.ParcelStatus == ParcelStatus.scheduled)
+        //                approachBL.dronePickParcel(TheChosenParcel.Id);
 
+        //            if (TheChosenParcel.ParcelStatus == ParcelStatus.PickedUp)
+        //                approachBL.deliveryArivveToCustomer(TheChosenParcel.Id);
+        //        }
+        //    }
+        //    catch (DoesntExistentObjectException ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
+        //    catch (AlreadyExistException ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
 
-        private void PickedUp_OR_Delivered_Checked(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (PickedUp_OR_Delivered.IsChecked != null)
-                {
-                    if (TheChosenParcel.ParcelStatus == ParcelStatus.scheduled)
-                        approachBL.dronePickParcel(TheChosenParcel.Id);
-
-                    if (TheChosenParcel.ParcelStatus == ParcelStatus.PickedUp)
-                        approachBL.deliveryArivveToCustomer(TheChosenParcel.Id);
-                }
-            }
-            catch (DoesntExistentObjectException ex)
-            {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch(AlreadyExistException ex)
-            {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-        }
+        //}
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
