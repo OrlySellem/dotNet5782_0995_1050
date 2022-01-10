@@ -269,17 +269,10 @@ namespace BL
             return returnTemp;
         }
         #endregion find nearest station to customer
-
         public void openSimulator(int idDrone, Action update, Func<bool> checkStop)
         {
-
-
-
-
-
-
+            Simulator(this, idDrone, update, checkStop);
         }
-
     }
 
 }

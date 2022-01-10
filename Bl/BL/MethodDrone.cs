@@ -242,7 +242,7 @@ namespace BL
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        IEnumerable<DO.Parcel> relevantParcel_enoughBattary(DroneToList drone, IEnumerable<DO.Parcel> parcelsDal)
+        internal IEnumerable<DO.Parcel> relevantParcel_enoughBattary(DroneToList drone, IEnumerable<DO.Parcel> parcelsDal)
         {
             lock (dal)
             {
@@ -295,7 +295,7 @@ namespace BL
                     }
                     if (parcels == null)
                     {
-                        throw new NoSuitablePsrcelWasFoundToBelongToTheDrone("There isn't parcel suitable for delivery by the current drone");
+                        return null;
                     }
 
                     return parcels;
@@ -329,6 +329,11 @@ namespace BL
 
                     IEnumerable<DO.Parcel> parcelsDal = dal.getParcels().ToList();
                     IEnumerable<DO.Parcel> parcels = relevantParcel_enoughBattary(droneToUpdate, parcelsDal);
+
+                    if (parcels == null)
+                    {
+                        throw new NoSuitablePsrcelWasFoundToBelongToTheDrone("There isn't parcel suitable for delivery by the current drone");
+                    }
 
                     DO.Parcel parcelToAssign = parcels.First();
 

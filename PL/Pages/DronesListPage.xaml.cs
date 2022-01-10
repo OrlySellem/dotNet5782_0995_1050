@@ -100,6 +100,11 @@ namespace PL
             new DroneWindow(approachBL, (DroneToList)DronesListView.SelectedItem).ShowDialog();
             DronesListView.Items.Refresh();
         }
+
+        private void grouping_Click(object sender, RoutedEventArgs e)
+        {
+           
+        }
     }
 }
 

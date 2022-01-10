@@ -29,6 +29,9 @@ namespace PL
 
         BlApi.IBL approachBL;
         BackgroundWorker Worker;
+        bool Auto;
+        private void updateDrone() => Worker.ReportProgress(0);
+        private bool checkStop() => Worker.CancellationPending;
 
         public DroneWindow(BlApi.IBL bl)
         {
@@ -339,65 +342,65 @@ namespace PL
 
         }
         #region thread
-        private void Worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
+        //private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        //{
+        //    Stopwatch stopwatch = new Stopwatch();
+        //    stopwatch.Start();
 
-            int length = (int)e.Argument;
+        //    int length = (int)e.Argument;
 
-            for (int i = 1; i <= length; i++) 
-            {
-                if (Worker.CancellationPending == true)
-                {
-                    e.Cancel = true;
-                    break;
-                }
-                else
-                {
-                    // Perform a time consuming operation and report progress.
-                    Thread.Sleep(500);
-                    if (Worker.WorkerReportsProgress == true)
-                        Worker.ReportProgress(i * 100 / length);
-                }
-            }
-            e.Result = stopwatch.ElapsedMilliseconds;
-        }
+        //    for (int i = 1; i <= length; i++) 
+        //    {
+        //        if (Worker.CancellationPending == true)
+        //        {
+        //            e.Cancel = true;
+        //            break;
+        //        }
+        //        else
+        //        {
+        //            // Perform a time consuming operation and report progress.
+        //            Thread.Sleep(500);
+        //            if (Worker.WorkerReportsProgress == true)
+        //                Worker.ReportProgress(i * 100 / length);
+        //        }
+        //    }
+        //    e.Result = stopwatch.ElapsedMilliseconds;
+        //}
 
-        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            int progress = e.ProgressPercentage;
-            PrecentsBattery.Content = (progress + "%");
-            BatteryProgressBar.Value = progress;
-        }
-        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Cancelled == true)
-            {
-                PrecentsBattery.Content = "Canceled!";
-            }
-            else if (e.Error != null)
-            {
-                PrecentsBattery.Content = "Error: " + e.Error.Message; // Exception Message
-            }
-            else
-            {
-                long result = (long)e.Result;
-                if (result < 100)
-                {
-                    PrecentsBattery.Content = result + " %";
+        //private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        //{
+        //    int progress = e.ProgressPercentage;
+        //    PrecentsBattery.Content = (progress + "%");
+        //    BatteryProgressBar.Value = progress;
+        //}
+        //private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        //{
+        //    if (e.Cancelled == true)
+        //    {
+        //        PrecentsBattery.Content = "Canceled!";
+        //    }
+        //    else if (e.Error != null)
+        //    {
+        //        PrecentsBattery.Content = "Error: " + e.Error.Message; // Exception Message
+        //    }
+        //    else
+        //    {
+        //        long result = (long)e.Result;
+        //        if (result < 100)
+        //        {
+        //            PrecentsBattery.Content = result + " %";
                     
-                    TheChosenDrone.Battery = result;
-                }
-                else
-                {
-                    PrecentsBattery.Content = 100 + " %";
+        //            TheChosenDrone.Battery = result;
+        //        }
+        //        else
+        //        {
+        //            PrecentsBattery.Content = 100 + " %";
                     
-                    TheChosenDrone.Battery = result;
-                }
+        //            TheChosenDrone.Battery = result;
+        //        }
                    
-            }
-        }
+        //    }
+        //}
         private void Automatic_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow.Visibility = Visibility.Hidden;
@@ -436,6 +439,27 @@ namespace PL
         }
         #endregion thread
 
+        private void automatic_Click(object sender, RoutedEventArgs e)
+        {
+            Auto = true;
+            Worker = new BackgroundWorker();
+            Worker.DoWork += Worker_DoWork;
+            Worker.ProgressChanged += Worker_ProgressChanged;
+            Worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            Worker.RunWorkerAsync(int.Parse(id.Text));
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            approachBL.openSimulator(int.Parse(id.Text), updateDrone, checkStop);
+        }
+        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e) { }
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) //cancel panding
+        {
+            Auto = false;
+            Worker = null;
+            Close();
+        }
 
         #endregion updat Drone
 
