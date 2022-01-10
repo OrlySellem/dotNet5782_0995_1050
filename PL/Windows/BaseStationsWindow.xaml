@@ -6,8 +6,21 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="BaseStationsWindow" Height="450" Width="380">
-    <Grid>
-        <Grid Name="addGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
+    <Window.Resources>
+        <Style TargetType="Button" x:Key="roundButton">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="20" Background="White" BorderBrush="#ccc" BorderThickness="0,1,1,0" >
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Height="440" VerticalAlignment="Top">
+        <Grid Name="addGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -27,42 +40,72 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
+            <Image Grid.ColumnSpan="4" Margin="-1077,-17,-18,-98" Grid.RowSpan="10" Stretch="Fill" Source="/PL;component/backGroundMain.jpg"/>
 
-            <Label Content="ID:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="13,16,0,0" VerticalAlignment="Top" Width="82" Grid.Row="1"/>
-            <TextBox x:Name="TextBoxId" HorizontalAlignment="Left" Margin="0,31,0,0" TextWrapping="Wrap" Width="120" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="1" TextChanged="TextBoxId_TextChanged"/>
+            <Label Content="מספר מזהה" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="43,31,0,0" VerticalAlignment="Top" Width="82" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="TextBoxId" HorizontalAlignment="Left" Margin="0,35,0,43" TextWrapping="Wrap" Width="128" Grid.Row="1" TextChanged="TextBoxId_TextChanged" Grid.ColumnSpan="2" Grid.Column="1" Grid.RowSpan="2">
+                <TextBox.Background>
+                    <SolidColorBrush Color="White" Opacity="0.95"/>
+                </TextBox.Background>
+            </TextBox>
 
-            <Label Content="Name:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="10,13,0,0" VerticalAlignment="Top" Width="82" Grid.Row="2"/>
-            <TextBox x:Name="TextBoxName" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="2" Margin="0,22,0,0" TextChanged="TextBoxName_TextChanged"/>
+            <Label Content="שם מלא" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="53,23,0,0" VerticalAlignment="Top" Width="82" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <TextBox x:Name="TextBoxName" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="128" Grid.Row="2" Margin="0,25,0,0" TextChanged="TextBoxName_TextChanged" Grid.ColumnSpan="2" Height="23" Grid.Column="1">
+                <TextBox.Background>
+                    <SolidColorBrush Color="White" Opacity="0.95"/>
+                </TextBox.Background>
+            </TextBox>
 
-            <Label Content="ChargeSlots:" FontWeight="Bold" HorizontalAlignment="Center" Height="29" VerticalAlignment="Center" Width="82" Grid.Row="5"/>
-            <TextBox x:Name="TextBoxChargeSlots" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="5" TextChanged="TextBoxChargeSlots_TextChanged"/>
+            <Label Content="עמדות טעינה פנויות" FontWeight="Bold" Height="29" VerticalAlignment="Top" Grid.Row="5" Grid.Column="2" Margin="52,26,6,0" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="TextBoxChargeSlots" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="132" Grid.ColumnSpan="2" Grid.Row="5" TextChanged="TextBoxChargeSlots_TextChanged" Margin="0,29,0,0" Height="21" Grid.Column="1">
+                <TextBox.Background>
+                    <SolidColorBrush Color="White" Opacity="0.95"/>
+                </TextBox.Background>
+            </TextBox>
 
-            <Label Content="Address:" FontWeight="Bold" HorizontalAlignment="Center" Height="29" VerticalAlignment="Center" Width="82" Grid.Row="3"/>
+            <Label Content="מיקום" FontWeight="Bold" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="76" Grid.Row="3" Grid.Column="3" Margin="18,6,0,0"/>
 
-            <Label Content="Lattitude:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="63,31,0,0" VerticalAlignment="Top" Width="82" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-            <Slider  x:Name="SliderLattitude" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="60,0,0,0" Grid.Row="4" VerticalAlignment="Center" Width="120"
+            <Label Content="קו רוחב" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="68,41,0,0" VerticalAlignment="Top" Width="82" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="2"/>
+            <Slider  x:Name="SliderLattitude" Grid.ColumnSpan="2" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Width="143"
                      Minimum="-90"
                      Maximum="90"
                      Value="0"
-                     AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
+                     AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" Grid.RowSpan="2" Grid.Column="1" />
 
-            <Label Content="Longitude:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="63,13,0,0" VerticalAlignment="Top" Width="82" Grid.Row="4" Grid.ColumnSpan="2"/>
-            <Slider x:Name="SliderLongitude" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="60,36,0,0" Grid.Row="3" VerticalAlignment="Top" Width="120" Grid.RowSpan="2"
+            <Label Content="קו אורך" FontWeight="Bold" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="82" Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="72,33,0,0"/>
+            <Slider x:Name="SliderLongitude" Grid.ColumnSpan="2" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Top" Width="135"
                     Minimum="-180"
                      Maximum="180"
                      Value="0"
-                    AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
+                    AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" Margin="4,46,0,0" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" Grid.Column="1" >
+                <Slider.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-0.051"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Slider.RenderTransform>
+            </Slider>
 
 
-            <Button x:Name="addBaseStation" Content="Add" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="61,2,0,0" VerticalAlignment="Top" Height="40" Width="90" Click="addBaseStation_Click" 
-             IsEnabled="False" Grid.ColumnSpan="2" Grid.Row="7"/>
+            <Button Style="{DynamicResource roundButton}" x:Name="addBaseStation"  Content="הוספה" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="85,44,0,0" VerticalAlignment="Top" Height="41" Width="99" Click="addBaseStation_Click" 
+             IsEnabled="False" Grid.Row="6" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <Button.Background>
+                    <SolidColorBrush Color="#FFE9F3FF" Opacity="0.85"/>
+                </Button.Background>
+            </Button>
 
-            <Button x:Name="cancelAddBaseStation" Content="Cancel" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="15,0,0,0" VerticalAlignment="Top" Height="40" Width="90" Click="cancelAddBaseStation_Click" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="7"/>
+            <Button Style="{DynamicResource roundButton}" x:Name="cancelAddBaseStation" Content="ביטול" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="13,45,0,0" VerticalAlignment="Top" Height="40" Width="97" Click="cancelAddBaseStation_Click" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="6" Grid.RowSpan="2">
+                <Button.Background>
+                    <SolidColorBrush Color="#FFDDDDDD" Opacity="0.85"/>
+                </Button.Background>
+            </Button>
 
 
         </Grid>
 
-        <Grid Name="updataGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
+        <Grid Name="updataGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
