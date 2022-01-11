@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<string>5</string>
+	
+	<string>10</string>
+
+	<string>15</string>
+
+	<string>40</string>
+
+	<string>11</string> 
+
+</ArrayOfString>

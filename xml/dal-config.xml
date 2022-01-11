@@ -3,7 +3,7 @@
 	<dal>xml</dal>
 	<dal-packages>
 		<data>DalObject</data>
-		<xml class="DalXml" namespace="Dal">DalXml</xml>	
-</dal-packages>
-	<parcelID>1</parcelID>
+		<xml class="DalXml" namespace="Dal">DalXml</xml>
+	</dal-packages>
 </config>
+

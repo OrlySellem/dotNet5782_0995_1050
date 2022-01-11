@@ -29,7 +29,7 @@ namespace Dal
         string droneChargePath = @"..\..\xml\DroneChargeXml.xml";//XElement
         string parcelPath = @"..\..\xml\ParcelXml.xml";//XMLSerializer
         string stationPath = @"..\..\xml\Station.xml";//XMLSerializer
-        string dalConfigPath = @"..\..\dal-config.xml";  //XElement
+        string dalConfigPath = @"..\..\xml\DalXmlConfig.xml";  //XElement
 
         #region ADD
         public void addStaion(Station stationToAdd)
@@ -70,7 +70,7 @@ namespace Dal
         }
 
         public void addParcel(Parcel ParcelToAdd)
-        {
+        {     
             
             var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
             if (listParcel.Exists(x => x.Id == ParcelToAdd.Id))
@@ -78,13 +78,15 @@ namespace Dal
 
             if (ParcelToAdd.Id != 0)
                 ParcelToAdd.Id = ParcelToAdd.Id;
-            //else
-            //{
-            //    XElement dalConfig = XMLTools.LoadListFromXMLElement(parcelPath);
-            //    var DelParcel = (from parcel in parcelList.Elements()
-            //                     where (parcel.Element("Id").Value == parcelToDel.Id.ToString())
-            //                     select parcel).FirstOrDefault();
-            //}
+
+            else
+            {
+                var dalConfig = XMLTools.LoadListFromXMLSerializer<string>(dalConfigPath);
+                int num = int.Parse(dalConfig[5]);
+                ParcelToAdd.Id = num++;
+                dalConfig[5]=num.ToString();
+                XMLTools.SaveListToXMLSerializer<string>(dalConfig, dalConfigPath);
+            }
 
             listParcel.Add(ParcelToAdd);
             XMLTools.SaveListToXMLSerializer(listParcel, parcelPath);

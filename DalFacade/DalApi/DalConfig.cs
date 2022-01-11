@@ -11,10 +11,13 @@ namespace DalApi
     {
         internal static string DalName;
         internal static Dictionary<string, string> DalPackages;
+        /// <summary>
+        /// Check 
+        /// </summary>
         static DalConfig()
         {
-            XElement dalConfig = XElement.Load(@"..\..\xml\dal-config.xml");
-            DalName = dalConfig.Element("dal").Value;
+            XElement dalConfig = XElement.Load(@"..\..\xml\dal-config.xml"); //go to dal-config file and open in
+            DalName = dalConfig.Element("dal").Value; //
             DalPackages = (from pkg in dalConfig.Element("dal-packages").Elements()
                            select pkg
                            ).ToDictionary(p => "" + p.Name, p => p.Value);

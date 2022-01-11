@@ -7,8 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "T.Targil0", "T.Targil0\T.Ta
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{556745E3-1A4E-450C-AB29-667DBD6D4E0B}"
 	ProjectSection(SolutionItems) = preProject
+		xml\BaseStationXml.xml = xml\BaseStationXml.xml
+		xml\CustomerXml.xml = xml\CustomerXml.xml
 		xml\dal-config.xml = xml\dal-config.xml
+		xml\DalXmlConfig.xml = xml\DalXmlConfig.xml
+		xml\DroneXml.xml = xml\DroneXml.xml
+		xml\ParcelXml.xml = xml\ParcelXml.xml
 		README.md = README.md
+		xml\Station.xml = xml\Station.xml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "Bl\BL.csproj", "{3226FC3C-5C53-46DC-B350-3D37B3E8C52D}"

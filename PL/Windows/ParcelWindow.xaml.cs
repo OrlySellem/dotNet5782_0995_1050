@@ -97,19 +97,20 @@ namespace PL
                     Weight = (WeightCategories)weightSelector.SelectedItem,
                     Priority = (Priorities)prioritySelector.SelectedItem
                 };
-                MessageBoxResult result = MessageBox.Show("!החבילה נוספה בהצלחה");
+               
                 approachBL.addParcel(newParcel);
+                MessageBoxResult result = MessageBox.Show("!החבילה נוספה בהצלחה");
 
                 this.Close();
 
             }
             catch (AlreadyExistException ex)
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (DoesntExistentObjectException ex)
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message.ToString(), "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
