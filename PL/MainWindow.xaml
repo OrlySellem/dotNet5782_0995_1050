@@ -143,7 +143,7 @@
                 <Frame x:Name="tableLists" NavigationUIVisibility="Hidden" Margin="10,0,10,70"/>
 
             </Grid>
-            <Grid x:Name="dronePng" Grid.Column="2" Grid.Row="1" Margin="10,491,12,35">
+            <Grid x:Name="dronePng" Grid.Column="1" Grid.Row="1" Margin="328,466,9,23" Grid.ColumnSpan="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0*"/>
                     <RowDefinition/>

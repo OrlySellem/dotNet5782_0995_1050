@@ -129,23 +129,26 @@ namespace PL
 
         static DroneToList TheChosenDrone;
         static ParcelToList parcel;
+        private DroneToList droneToList = new DroneToList();
         public DroneWindow(BlApi.IBL bl, BO.DroneToList drone)
         {
             InitializeComponent();
+            DataContext = droneToList;
             approachBL = bl;
             UpGrid.Visibility = Visibility.Hidden;
             updataGrid.Visibility = Visibility.Visible;
             TheChosenDrone = drone;
             int Id = drone.Id;
 
-            //view the data of the chosen drone
-            id.DataContext = drone.Id;
-            Model.DataContext = drone.Model;
-            MaxWeight.DataContext = drone.MaxWeight;
-            //PrecentsBattery.Content = drone.Battery.ToString() + " %";
-            Status.DataContext = drone.Status;
-            idParcel.DataContext = drone.idParcel;
-            LocationTextBox.DataContext = drone.CurrentLocation;
+            updataGrid.DataContext = drone;
+           // //view the data of the chosen drone
+           //// id.DataContext = drone.Id;
+           // //Model.DataContext = drone.Model;
+           // //MaxWeight.DataContext = drone.MaxWeight;
+           // //PrecentsBattery.Content = drone.Battery.ToString() + " %";
+           // Status.DataContext = drone.Status;
+           // idParcel.DataContext = drone.idParcel;
+           // LocationTextBox.DataContext = drone.CurrentLocation;
             
 
             Regular.Visibility = Visibility.Hidden;
@@ -353,11 +356,12 @@ namespace PL
         {
             try
             {
-                if (Model.Text != "" && TheChosenDrone.Model != Model.Text)
-                {
-                    approachBL.updateModelDrone(TheChosenDrone.Id, Model.Text.ToString());
-                    UpdateData.IsEnabled = false;
-                }
+            //{
+            //    if (Model.Text != "" && TheChosenDrone.Model != Model.Text)
+            //    {
+            //        approachBL.updateModelDrone(TheChosenDrone.Id, Model.Text.ToString());
+            //        UpdateData.IsEnabled = false;
+            //    }
 
             }
             catch (DoesntExistentObjectException ex)
@@ -490,27 +494,27 @@ namespace PL
         }
         #endregion thread
 
-        private void automatic_Click(object sender, RoutedEventArgs e)
-        {
-            Auto = true;
-            Worker = new BackgroundWorker();
-            Worker.DoWork += Worker_DoWork;
-            Worker.ProgressChanged += Worker_ProgressChanged;
-            Worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            Worker.RunWorkerAsync(int.Parse(id.Text));
-        }
+        //private void automatic_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Auto = true;
+        //    Worker = new BackgroundWorker();
+        //    Worker.DoWork += Worker_DoWork;
+        //    Worker.ProgressChanged += Worker_ProgressChanged;
+        //    Worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+        //    Worker.RunWorkerAsync(int.Parse(id.Text));
+        //}
 
-        private void Worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            approachBL.openSimulator(int.Parse(id.Text), updateDrone, checkStop);
-        }
-        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e) { }
-        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) //cancel panding
-        {
-            Auto = false;
-            Worker = null;
-            Close();
-        }
+        //private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        //{
+        //    approachBL.openSimulator(int.Parse(id.Text), updateDrone, checkStop);
+        //}
+        //private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e) { }
+        //private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) //cancel panding
+        //{
+        //    Auto = false;
+        //    Worker = null;
+        //    Close();
+        //}
 
         #endregion updat Drone
 

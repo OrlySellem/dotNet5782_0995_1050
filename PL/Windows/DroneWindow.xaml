@@ -109,13 +109,13 @@
             <Button x:Name="OpenParcelWindow" Content="פתח חבילה" HorizontalAlignment="Left" Margin="35,19,0,0"  Grid.Row="6" VerticalAlignment="Top" Width="85" Height="20" Click="OpenParcelWindow_Click" Grid.ColumnSpan="2"/>
 
             <Label Content="מספר מזהה"  FontWeight="Bold" Grid.Column="2" Margin="75,14,38,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.712,0.517" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="id"  IsEnabled="False"  Grid.Column="1" Margin="44,19,32,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="id_" Text="{Binding Id}" IsEnabled="False"  Grid.Column="1" Margin="44,19,32,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
 
             <Label Content="מודל" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Left" Margin="87,0,0,0" Grid.Row="2" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="Model" Text="{Binding }" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Width="115" BorderBrush="#FF02040C" Grid.ColumnSpan="2" Margin="44,0,0,0" Height="20"/>
+            <TextBox x:Name="Model_" Text="{Binding Model}" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Width="115" BorderBrush="#FF02040C" Grid.ColumnSpan="2" Margin="44,0,0,0" Height="20"/>
 
             <Label Content="משקל מירבי" FontWeight="Bold" HorizontalAlignment="Left" Margin="85,18,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="2"/>
-            <TextBox x:Name="MaxWeight" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="43,18,0,0" Grid.Row="3" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" Grid.ColumnSpan="2" Height="22"/>
+            <TextBox x:Name="MaxWeight" Text="{Binding MaxWeight}" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="43,18,0,0" Grid.Row="3"  TextWrapping="Wrap" VerticalAlignment="Top" Width="116" Grid.ColumnSpan="2" Height="22"/>
 
 
             <Label Content="בטריה" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Left" Margin="90,23,0,0" Grid.Row="4" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
@@ -126,10 +126,10 @@
             <TextBox x:Name="Status" Text="{Binding Status}"  IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="44,26,0,0" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="115" Grid.ColumnSpan="2"/>
 
             <Label Content="מס' חבילה" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Left" Margin="82,0,0,0" Grid.Row="6" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="idParcel" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="44,21,0,0" Grid.Row="6" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" RenderTransformOrigin="0.544,0.649" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="idParcel" IsReadOnly="True"  Text="{Binding idParcel, Mode=OneWay}" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="44,21,0,0" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" RenderTransformOrigin="0.544,0.649" Grid.ColumnSpan="2"/>
 
             <Label Content="מיקום נוכחי" FontWeight="Bold" HorizontalAlignment="Left" Margin="90,0,0,0" Grid.Row="7" VerticalAlignment="Top" Width="123" Grid.ColumnSpan="2" Grid.Column="2"/>
-            <TextBox x:Name="LocationTextBox" IsEnabled="false" HorizontalAlignment="Right" Margin="0,0,30,26" Grid.Row="7" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="177" Height="18" Grid.ColumnSpan="3"/>
+            <TextBox x:Name="LocationTextBox" Text="{Binding CurrentLocation, Mode=OneWay}" IsEnabled="false" HorizontalAlignment="Right" Margin="0,0,30,26" Grid.Row="7" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="177" Height="18" Grid.ColumnSpan="3"/>
             <Button x:Name="Automatic" Content="אוטומטי" HorizontalAlignment="Left" Height="22" VerticalAlignment="Center" Margin="36,0,0,0" Click="Automatic_Click" Width="58" Grid.Row="1"/>
             <Button x:Name="Regular" Visibility="Hidden" Content="עצור" Grid.Column="2" HorizontalAlignment="Left" Margin="45,48,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="55" Height="21" Grid.RowSpan="2" Click="Manual_Click"/>
 
