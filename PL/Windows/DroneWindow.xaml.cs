@@ -144,8 +144,8 @@ namespace PL
             PrecentsBattery.Content = drone.Battery.ToString() + " %";
             Status.Text = drone.Status.ToString();
             idParcel.Text = drone.idParcel.ToString();
-            LattitudeTextBox.Text = drone.CurrentLocation.Lattitude.ToString();
-            LongitudeTextBox.Text = drone.CurrentLocation.Longitude.ToString();
+            LocationTextBox.Text = drone.CurrentLocation.ToString();
+            
 
             Regular.Visibility = Visibility.Hidden;
 
@@ -510,6 +510,7 @@ namespace PL
         }
 
         #endregion updat Drone
+
 
     }
 }

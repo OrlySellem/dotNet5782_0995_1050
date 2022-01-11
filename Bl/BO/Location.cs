@@ -15,7 +15,9 @@ namespace BO
 
         public override string ToString()
         {
-            return string.Format("\nLongitude is:{0}\nLattitude is:{1}\n", Longitude, Lattitude);
+                     return string.Format("({0}° {1}′ {2}″ N, {3}° {4}′ {5}″ E) \n", (int)Lattitude,((int)((Lattitude % 1) * 60)), ((int)((((Lattitude % 1) * 60) % 1) * 60 + .5)) ,(int)Longitude, ((int)((Longitude % 1) * 60)), ((int)((((Longitude % 1) * 60) % 1) * 60 + .5)));
+          
+            //    return string.Format("\nLongitude is:{0}\nLattitude is:{1}\n", Longitude, Lattitude);
         }
 
     }
