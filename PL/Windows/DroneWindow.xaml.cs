@@ -136,15 +136,16 @@ namespace PL
             UpGrid.Visibility = Visibility.Hidden;
             updataGrid.Visibility = Visibility.Visible;
             TheChosenDrone = drone;
+            int Id = drone.Id;
 
             //view the data of the chosen drone
-            id.Text = drone.Id.ToString();
-            Model.Text = drone.Model.ToString();
-            MaxWeight.Text = drone.MaxWeight.ToString();
-            PrecentsBattery.Content = drone.Battery.ToString() + " %";
-            Status.Text = drone.Status.ToString();
-            idParcel.Text = drone.idParcel.ToString();
-            LocationTextBox.Text = drone.CurrentLocation.ToString();
+            id.DataContext = drone.Id;
+            Model.DataContext = drone.Model;
+            MaxWeight.DataContext = drone.MaxWeight;
+            //PrecentsBattery.Content = drone.Battery.ToString() + " %";
+            Status.DataContext = drone.Status;
+            idParcel.DataContext = drone.idParcel;
+            LocationTextBox.DataContext = drone.CurrentLocation;
             
 
             Regular.Visibility = Visibility.Hidden;
@@ -183,9 +184,7 @@ namespace PL
                     pickUpParcel.Visibility = Visibility.Visible;
 
                 if (parcel.ParcelStatus == ParcelStatus.PickedUp)
-                    ParcelArriveToCustomer.Visibility = Visibility.Visible;                 
-
-                   }
+                    ParcelArriveToCustomer.Visibility = Visibility.Visible;}
 
             //Worker = new BackgroundWorker();
             //Worker.DoWork += Worker_DoWork;
@@ -210,7 +209,7 @@ namespace PL
                 {
                     if (TheChosenDrone.Battery >=100)
                     {
-                        MessageBox.Show("The battary is full");
+                        MessageBox.Show("הבטריה מלאה", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                     approachBL.chargingDrone(TheChosenDrone.Id);
@@ -244,7 +243,7 @@ namespace PL
                 {
                     approachBL.freeDroneFromCharging(TheChosenDrone.Id, DateTime.Now);
 
-                    SendingDroneForCharging.Visibility = Visibility.Visible;
+                    //SendingDroneForCharging.Visibility = Visibility.Visible;
                     ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
                     assignDroneToParcel.Visibility = Visibility.Visible;
                     pickUpParcel.Visibility = Visibility.Hidden;

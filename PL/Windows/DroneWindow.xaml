@@ -102,17 +102,17 @@
             <Button x:Name="CloseWindow" Content="סגור חלון" HorizontalAlignment="Center" Margin="0,27,0,0" Grid.Row="8" VerticalAlignment="Top" Click="CloseWindow_Click" Width="81" Grid.Column="1"/>
             <Button x:Name="UpdateData"  Content="עדכן מודל"   IsEnabled="True" Margin="34,0,76,0" Grid.Row="2" VerticalAlignment="Center" Click="UpdateData_Click" Grid.ColumnSpan="2"/>
             <Button x:Name="SendingDroneForCharging" Content="שלח רחפן לטעינה" HorizontalAlignment="Left" Margin="12,22,0,0"  Grid.Row="4" VerticalAlignment="Top" Click="SendingDroneForCharging_Click" Grid.ColumnSpan="2" Width="115"/>
-            <Button x:Name="ReleaseDroneFromCharging" Content="שחרר רחפן מטעינה" HorizontalAlignment="Left" Margin="12,22,0,0" Grid.Row="4" VerticalAlignment="Top" Width="115" Click="ReleaseDroneFromCharging_Click" Grid.ColumnSpan="2"/>
+            <Button x:Name="ReleaseDroneFromCharging" Visibility="{Binding ElementName=SendingDroneForCharging, Path=Visibility,Mode=TwoWay}" Content="שחרר רחפן מטעינה" HorizontalAlignment="Left" Margin="12,22,0,0" Grid.Row="4" VerticalAlignment="Top" Width="115" Click="ReleaseDroneFromCharging_Click" Grid.ColumnSpan="2"/>
             <Button x:Name="assignDroneToParcel" Content="שיוך רחפן למשלוח " Grid.Column="2" Margin="15,27,60,0" Grid.Row="8" VerticalAlignment="Top" Click="AssignDroneToParcel_Click" Grid.ColumnSpan="2"/>
             <Button x:Name="pickUpParcel" Content="אסוף משלוח" Grid.Column="2" HorizontalAlignment="Left" Margin="16,27,0,0" Grid.Row="8" VerticalAlignment="Top" Click="PickUpParcel_Click" Width="114" Grid.ColumnSpan="2"/>
             <Button x:Name="ParcelArriveToCustomer" Content="משלוח בוצע" Grid.Column="2" HorizontalAlignment="Left" Margin="14,27,0,0"  Grid.Row="8" VerticalAlignment="Top" Click="ParcelArriveToCustomer_Click" Width="118" Grid.ColumnSpan="2"/>
             <Button x:Name="OpenParcelWindow" Content="פתח חבילה" HorizontalAlignment="Left" Margin="35,19,0,0"  Grid.Row="6" VerticalAlignment="Top" Width="85" Height="20" Click="OpenParcelWindow_Click" Grid.ColumnSpan="2"/>
 
             <Label Content="מספר מזהה"  FontWeight="Bold" Grid.Column="2" Margin="75,14,38,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.712,0.517" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="id" IsEnabled="False"  Grid.Column="1" Margin="44,19,32,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="id"  IsEnabled="False"  Grid.Column="1" Margin="44,19,32,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
 
             <Label Content="מודל" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Left" Margin="87,0,0,0" Grid.Row="2" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="Model" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Width="115" BorderBrush="#FF02040C" Grid.ColumnSpan="2" Margin="44,0,0,0" Height="20"/>
+            <TextBox x:Name="Model" Text="{Binding }" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Width="115" BorderBrush="#FF02040C" Grid.ColumnSpan="2" Margin="44,0,0,0" Height="20"/>
 
             <Label Content="משקל מירבי" FontWeight="Bold" HorizontalAlignment="Left" Margin="85,18,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="2"/>
             <TextBox x:Name="MaxWeight" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="43,18,0,0" Grid.Row="3" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" Grid.ColumnSpan="2" Height="22"/>
@@ -120,10 +120,10 @@
 
             <Label Content="בטריה" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Left" Margin="90,23,0,0" Grid.Row="4" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
             <ProgressBar x:Name="BatteryProgressBar" HorizontalAlignment="Left" Height="18" Grid.Row="4" VerticalAlignment="Top" Width="117" Grid.Column="1" Margin="43,23,0,0" Background="#FFF3F0F0" Grid.ColumnSpan="2"/>
-            <Label x:Name="PrecentsBattery" Grid.Column="1" HorizontalAlignment="Left" Margin="24,21,0,0" Grid.Row="4" VerticalAlignment="Top"/>
+            <TextBlock Text="{Binding Battery,StringFormat={}{0:0}%}"  Grid.Column="1" HorizontalAlignment="Left" Margin="71,24,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="72"/>
 
             <Label Content="סטטוס" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Left" Margin="90,21,0,0" Grid.Row="5" VerticalAlignment="Top" RenderTransformOrigin="0.677,2.339" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="Status" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="44,26,0,0" Grid.Row="5" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="115" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="Status" Text="{Binding Status}"  IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="44,26,0,0" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="115" Grid.ColumnSpan="2"/>
 
             <Label Content="מס' חבילה" FontWeight="Bold" Grid.Column="2" HorizontalAlignment="Left" Margin="82,0,0,0" Grid.Row="6" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
             <TextBox x:Name="idParcel" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="44,21,0,0" Grid.Row="6" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" RenderTransformOrigin="0.544,0.649" Grid.ColumnSpan="2"/>
