@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1920">
+        Title="MainWindow"  Height="697" Width="1333">
 
     <Window.Resources>
         <Style TargetType="Button" x:Key="roundButton">
@@ -61,7 +61,7 @@
                 FontSize="20"
                 MinWidth="100"
                 MinHeight="50"
-                Grid.Column="2" HorizontalAlignment="Left" Margin="32,136,0,0" Grid.Row="1" VerticalAlignment="Top" Height="48" Width="187" Click="Button_Click"/>
+                Grid.Column="1" HorizontalAlignment="Left" Margin="325,136,0,0" Grid.Row="1" VerticalAlignment="Top" Height="48" Width="187" Click="Button_Click" Grid.ColumnSpan="2"/>
 
             <Button Style="{DynamicResource roundButton}" x:Name="ViewDroneList" 
                 Content="רחפנים"
@@ -70,10 +70,10 @@
                 MinWidth="100"
                 MinHeight="50"
                 HorizontalAlignment="Left"              
-                Margin="30,200,0,0" 
+                Margin="324,200,0,0" 
                 VerticalAlignment="Top"
                 Height="50" Width="189" 
-                Click="ViewDroneList_Click" FontFamily="heebo" Grid.Row="1" Foreground="Black" Grid.Column="2">
+                Click="ViewDroneList_Click" FontFamily="heebo" Grid.Row="1" Foreground="Black" Grid.Column="1" Grid.ColumnSpan="2">
                 <Button.BorderBrush>
                     <SolidColorBrush Color="White" Opacity="0"/>
                 </Button.BorderBrush>
@@ -89,10 +89,10 @@
                 MinWidth="100"
                 MinHeight="50"
                 HorizontalAlignment="Left" 
-                Margin="32,266,0,0" 
+                Margin="324,266,0,0" 
                 Grid.Row="1" 
                 VerticalAlignment="Top"
-                Height="50" Width="189" Click="ViewBaseStationList_Click" Grid.Column="2">
+                Height="50" Width="189" Click="ViewBaseStationList_Click" Grid.Column="1" Grid.ColumnSpan="2">
                 <Button.BorderBrush>
                     <SolidColorBrush Color="#FF22445D" Opacity="0"/>
                 </Button.BorderBrush>
@@ -108,9 +108,9 @@
                 HorizontalAlignment="Left" 
                 MinWidth="100"
                 MinHeight="50"
-                Margin="32,334,0,0" 
+                Margin="324,334,0,0" 
                 VerticalAlignment="Top"
-                Height="50" Width="193" Click="ViewCustomerList_Click" Grid.Row="1" Grid.Column="2">
+                Height="50" Width="193" Click="ViewCustomerList_Click" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
                 <Button.BorderBrush>
                     <SolidColorBrush Color="#FF22445D" Opacity="0"/>
                 </Button.BorderBrush>
@@ -126,10 +126,10 @@
                 HorizontalAlignment="Left" 
                 MinWidth="100"
                 MinHeight="50"
-                Margin="32,399,0,0" 
+                Margin="322,399,0,0" 
                 Grid.Row="1" 
                 VerticalAlignment="Top"
-                Height="50" Width="193" Click="ViewParcelList_Click" Grid.Column="2">
+                Height="50" Width="193" Click="ViewParcelList_Click" Grid.Column="1" Grid.ColumnSpan="2">
                 <Button.BorderBrush>
                     <SolidColorBrush Color="#FF22445D" Opacity="0"/>
                 </Button.BorderBrush>
@@ -143,7 +143,7 @@
                 <Frame x:Name="tableLists" NavigationUIVisibility="Hidden" Margin="10,0,10,70"/>
 
             </Grid>
-            <Grid x:Name="dronePng" Grid.Column="1" Grid.Row="1" Margin="394,505,-21,34" Grid.ColumnSpan="2">
+            <Grid x:Name="dronePng" Grid.Column="2" Grid.Row="1" Margin="10,491,12,35">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0*"/>
                     <RowDefinition/>
@@ -154,7 +154,15 @@
                 </Grid.Background>
 
             </Grid>
-            <Grid x:Name="logo" Grid.Column="1" Margin="410,31,37,707" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <Grid x:Name="logo" Margin="0,42,36,546" RenderTransformOrigin="0.5,0.5" Grid.Column="2" Grid.RowSpan="2">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
                 <Grid.Background>
                     <ImageBrush ImageSource="/logo.png"/>
                 </Grid.Background>
