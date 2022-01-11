@@ -24,25 +24,28 @@ namespace PL
     /// </summary>
     public partial class DroneWindow : Window
     {
-
-        #region ADD drone
-
         BlApi.IBL approachBL;
         BackgroundWorker Worker;
+
         bool Auto;
         private void updateDrone() => Worker.ReportProgress(0);
         private bool checkStop() => Worker.CancellationPending;
+
+
+        #region ADD drone
+
+
 
         public DroneWindow(BlApi.IBL bl)
         {
             InitializeComponent();
             updataGrid.Visibility = Visibility.Hidden;
             UpGrid.Visibility = Visibility.Visible;
-      
+
             approachBL = bl;
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
 
-            List <StationToList> stationFreeCharging = approachBL.display_station_with_freeChargingStations().ToList();
+            List<StationToList> stationFreeCharging = approachBL.display_station_with_freeChargingStations().ToList();
 
             foreach (var item in stationFreeCharging)
             {
@@ -210,7 +213,7 @@ namespace PL
             {
                 if (TheChosenDrone.Status == DroneStatuses.available)
                 {
-                    if (TheChosenDrone.Battery >=100)
+                    if (TheChosenDrone.Battery >= 100)
                     {
                         MessageBox.Show("הבטריה מלאה", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
@@ -239,13 +242,13 @@ namespace PL
 
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-          
+
         }
 
         private void ReleaseDroneFromCharging_Click(object sender, RoutedEventArgs e)
         {
             try
-            {                
+            {
                 if (TheChosenDrone.Status == DroneStatuses.maintenance)// if the drone in charging slot
                 {
                     approachBL.freeDroneFromCharging(TheChosenDrone.Id, DateTime.Now);
@@ -356,12 +359,11 @@ namespace PL
         {
             try
             {
-            //{
-            //    if (Model.Text != "" && TheChosenDrone.Model != Model.Text)
-            //    {
-            //        approachBL.updateModelDrone(TheChosenDrone.Id, Model.Text.ToString());
-            //        UpdateData.IsEnabled = false;
-            //    }
+                if (Model.Text != "" && TheChosenDrone.Model != Model.Text)
+                {
+                    approachBL.updateModelDrone(TheChosenDrone.Id, Model.Text.ToString());
+                    UpdateData.IsEnabled = false;
+                }
 
             }
             catch (DoesntExistentObjectException ex)
@@ -396,7 +398,9 @@ namespace PL
             }
 
         }
+
         #region thread
+
         //private void Worker_DoWork(object sender, DoWorkEventArgs e)
         //{
         //    Stopwatch stopwatch = new Stopwatch();
@@ -422,12 +426,16 @@ namespace PL
         //    e.Result = stopwatch.ElapsedMilliseconds;
         //}
 
+
+
         //private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         //{
         //    int progress = e.ProgressPercentage;
         //    PrecentsBattery.Content = (progress + "%");
         //    BatteryProgressBar.Value = progress;
         //}
+
+
         //private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         //{
         //    if (e.Cancelled == true)
@@ -444,41 +452,28 @@ namespace PL
         //        if (result < 100)
         //        {
         //            PrecentsBattery.Content = result + " %";
-                    
+
         //            TheChosenDrone.Battery = result;
         //        }
         //        else
         //        {
         //            PrecentsBattery.Content = 100 + " %";
-                    
+
         //            TheChosenDrone.Battery = result;
         //        }
-                   
+
         //    }
         //}
-        private void Automatic_Click(object sender, RoutedEventArgs e)
-        {
-            CloseWindow.Visibility = Visibility.Hidden;
-            UpdateData.Visibility = Visibility.Hidden;
-            SendingDroneForCharging.Visibility = Visibility.Hidden;
-            ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
-            assignDroneToParcel.Visibility = Visibility.Hidden;
-            pickUpParcel.Visibility = Visibility.Hidden;
-            ParcelArriveToCustomer.Visibility = Visibility.Hidden;
-            Regular.Visibility = Visibility.Visible;
+        //private void Automatic_Click(object sender, RoutedEventArgs e)
+        //{
+        //   Automatic_Click
 
+        //    if (Worker.IsBusy != true)
+        //    {
+        //        Worker.RunWorkerAsync(35);
+        //    }
 
-            if (Worker.IsBusy != true)
-            {
-                Worker.RunWorkerAsync(35);
-            }
-           
-
-
-
-
-
-        }
+        //}
 
         private void Manual_Click(object sender, RoutedEventArgs e)
         {
@@ -494,28 +489,46 @@ namespace PL
         }
         #endregion thread
 
-        //private void automatic_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Auto = true;
-        //    Worker = new BackgroundWorker();
-        //    Worker.DoWork += Worker_DoWork;
-        //    Worker.ProgressChanged += Worker_ProgressChanged;
-        //    Worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-        //    Worker.RunWorkerAsync(int.Parse(id.Text));
-        //}
+        #region Simulator
+        private void Automatic_Click(object sender, RoutedEventArgs e)
+        {
+            Auto = true;
+            Worker = new BackgroundWorker();
+            Worker.DoWork += Worker_DoWork;
+            Worker.ProgressChanged += Worker_ProgressChanged;
+            Worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            Worker.RunWorkerAsync(int.Parse(id.Text));
 
-        //private void Worker_DoWork(object sender, DoWorkEventArgs e)
-        //{
-        //    approachBL.openSimulator(int.Parse(id.Text), updateDrone, checkStop);
-        //}
-        //private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e) { }
-        //private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) //cancel panding
-        //{
-        //    Auto = false;
-        //    Worker = null;
-        //    Close();
-        //}
+            Worker.WorkerReportsProgress = true;
+            Worker.WorkerSupportsCancellation = true;
 
+        }
+
+        private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            approachBL.openSimulator(int.Parse(id.Text), updateDrone, checkStop);
+        }
+        private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e) //פונקיה שמעדכנת את השינוים
+        {
+            //view the data of the chosen drone
+            DroneToList drone = approachBL.getDrone(TheChosenDrone.Id);
+            PrecentsBattery.Text = drone.Battery.ToString() + " %";
+            Status.Text = drone.Status.ToString();
+            idParcel.Text = drone.idParcel.ToString();
+            LocationTextBox.Text = drone.CurrentLocation.ToString();
+
+            int progress = e.ProgressPercentage;
+             BatteryProgressBar.Value = progress;
+        }
+        private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) //cancel panding
+        {
+            Auto = false;
+            Worker = null;
+
+            Close();
+        }
+
+        #endregion Simulator
         #endregion updat Drone
 
 

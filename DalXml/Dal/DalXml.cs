@@ -454,12 +454,15 @@ namespace Dal
         [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] R_power_consumption_Drone()
         {
+            var dalConfig = XMLTools.LoadListFromXMLSerializer<string>(dalConfigPath);
+            double.Parse(dalConfig[5]);
+
             double[] power = new double[5];
-            power[0] = 1;
-            power[1] = 5;
-            power[2] = 10;
-            power[3] = 15;
-            power[4] = 40;
+            power[0] = double.Parse(dalConfig[0]); ;
+            power[1] = double.Parse(dalConfig[1]); ;
+            power[2] = double.Parse(dalConfig[2]); ;
+            power[3] = double.Parse(dalConfig[3]); ;
+            power[4] = double.Parse(dalConfig[4]); ;
             return power;
         }
 
