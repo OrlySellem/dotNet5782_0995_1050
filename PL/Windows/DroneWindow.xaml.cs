@@ -228,6 +228,10 @@ namespace PL
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            catch (TheDroneCanNotBeSentForCharging ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             catch (DoesntExistentObjectException ex)
             {
 

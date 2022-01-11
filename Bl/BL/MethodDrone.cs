@@ -161,7 +161,8 @@ namespace BL
                         Station closerStationBL = nearStationToDrone(droneToUpdate, ref minDistance);
                         Location nearStation = closerStationBL.Address;
 
-                        double powerForDistance = available * minDistance;
+                        double tempPowerForDistance = available * minDistance;
+                        int powerForDistance = (int)tempPowerForDistance;
 
                         if (powerForDistance > droneToUpdate.Battery)
                         {
@@ -216,7 +217,7 @@ namespace BL
 
                         TimeSpan incharging = droneChargeDal.StartedRecharged - newtime;
                         double hoursnInCahrge = incharging.Hours + (((double)(incharging.Minutes)) / 60) + (((double)(incharging.Seconds) / 3600));
-                        double batrryCharge = hoursnInCahrge * Drone_charging_speed + droneBL.Battery;
+                        int batrryCharge =(int) (hoursnInCahrge * Drone_charging_speed + droneBL.Battery);
 
                         if (batrryCharge > 100)
                             batrryCharge = 100;
@@ -457,7 +458,7 @@ namespace BL
 
                         //	עדכון מצב סוללה לפי המרחק בין מיקום מקורי לבין מיקום השולח
                         double distance = Math.Sqrt(Math.Pow(droneToUpdate.CurrentLocation.Lattitude - SenderForLocation.Lattitude, 2) + Math.Pow(droneToUpdate.CurrentLocation.Longitude - SenderForLocation.Longitude, 2));
-                        droneToUpdate.Battery = droneToUpdate.Battery - ((distance / Math.Pow(10, 3)) * available);//אולי אין מספיק בטריה
+                        droneToUpdate.Battery = (int)(droneToUpdate.Battery - ((distance / Math.Pow(10, 3)) * available));//אולי אין מספיק בטריה
 
                         //	עדכון מיקום למיקום השולח
                         droneToUpdate.CurrentLocation = new Location()
@@ -513,11 +514,11 @@ namespace BL
                         double distance = Math.Sqrt(Math.Pow(droneToUpdate.CurrentLocation.Lattitude - TargetldForLocation.Lattitude, 2) + Math.Pow(droneToUpdate.CurrentLocation.Longitude - TargetldForLocation.Longitude, 2));
 
                         if (droneToUpdate.MaxWeight == WeightCategories.light)
-                            droneToUpdate.Battery = droneToUpdate.Battery - (distance / Math.Pow(10, 3) * lightWeight);//אולי אין מספיק בטריה
+                            droneToUpdate.Battery = (int)(droneToUpdate.Battery - (distance / Math.Pow(10, 3) * lightWeight));//אולי אין מספיק בטריה
                         if (droneToUpdate.MaxWeight == WeightCategories.medium)
-                            droneToUpdate.Battery = droneToUpdate.Battery - (distance / Math.Pow(10, 3) * mediumWeight);//אולי אין מספיק בטריה
+                            droneToUpdate.Battery = (int)(droneToUpdate.Battery - (distance / Math.Pow(10, 3) * mediumWeight));//אולי אין מספיק בטריה
                         if (droneToUpdate.MaxWeight == WeightCategories.heavy)
-                            droneToUpdate.Battery = droneToUpdate.Battery - (distance / Math.Pow(10, 3) * available);//אולי אין מספיק בטריה
+                            droneToUpdate.Battery = (int)(droneToUpdate.Battery - (distance / Math.Pow(10, 3) * available));//אולי אין מספיק בטריה
 
                         //	עדכון מיקום למיקום יעד המשלוח
                         droneToUpdate.CurrentLocation = new Location()
