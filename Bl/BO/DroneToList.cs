@@ -8,7 +8,7 @@
 
         public WeightCategories          MaxWeight          { get; set; }
 
-        public double                    Battery            { get; set; }
+        public int                    Battery            { get; set; }
          
         public DroneStatuses             Status             { get; set; }
 

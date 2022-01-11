@@ -104,7 +104,7 @@ namespace PL
                 this.Close();
 
             }
-            catch (AlreadyExistException ex)
+            catch (AlreadyExistException)
             {
                 MessageBox.Show("", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }

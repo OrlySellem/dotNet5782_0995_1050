@@ -85,7 +85,7 @@ namespace BL
                         //אם החבילה שויכה אך לא סופקה ולא נאספה 
                         if (itemDrone.Id == itemParcel.Droneld)//The drone is assign to parcel
                         {
-                            droneAssignToParcel = true;
+                           
                             if (itemParcel.Delivered == null)//The parcel isn't delivered
                             {
                                 tempDroneToList.Status = DroneStatuses.delivery;
@@ -124,7 +124,7 @@ namespace BL
                                     tempDroneToList.Battery = (int)(rand.NextDouble() * (100 - powerForDistance) + powerForDistance);
 
                                 }
-                      
+                                droneAssignToParcel = true;
                                 drones.Add(tempDroneToList);
                                 break;
                             }
@@ -154,7 +154,7 @@ namespace BL
                             drones.Add(tempDroneToList);
 
                             dal.chargingDrone(itemDrone, stationFromDS[indexStation]);
-                            break;
+                            
 
                         }
 
@@ -172,12 +172,12 @@ namespace BL
                             minDistance = 0;
                            BO.Station nearStation = nearStationToDrone(tempDroneToList, ref minDistance);
                             double powerForDistance = power[0] * minDistance;
-                            tempDroneToList.Battery = rand.NextDouble() * (100 - powerForDistance) + powerForDistance;
-
+                            tempDroneToList.Battery = (int)(rand.NextDouble() * (100 - powerForDistance) + powerForDistance);
+                          
                         }
 
                         drones.Add(tempDroneToList);
-                        break;
+                      
                     }
                 }
             }
