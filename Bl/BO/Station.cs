@@ -16,7 +16,7 @@ namespace BO
         /// <summary>
         /// The name of station
         /// </summary>
-        public int Name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// The address of station

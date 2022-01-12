@@ -16,7 +16,7 @@ namespace DO
         /// <summary>
         /// station's name
         /// </summary>
-        public int Name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Longitude in the globe 

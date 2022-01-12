@@ -110,27 +110,29 @@ namespace PL
 
 
         static CustomerToList TheChosenCustomer;
-        public CustomerWindow(IBL bl, CustomerToList Customer)
+        private CustomerToList droneToList = new CustomerToList();
+        public CustomerWindow(IBL bl, CustomerToList customer)
         {
             InitializeComponent();
 
-            if (Customer == null)
+            if (customer == null)
             {
                 return;
             }
 
             approachBL = bl;
-            TheChosenCustomer = Customer;
+            TheChosenCustomer = customer;
             updataGrid.Visibility = Visibility.Visible;
             addGrid.Visibility = Visibility.Hidden;
-
-            id.Text = TheChosenCustomer.Id.ToString();
-            CustomerName.Text = TheChosenCustomer.Name.ToString();
-            Phone.Text = TheChosenCustomer.Phone.ToString();
-            Sented_and_provided_parcels.Text = TheChosenCustomer.Num_of_sented_and_provided_parcels.ToString();
-            Sented_and_unprovided_parcels.Text = TheChosenCustomer.Num_of_sented_and_unprovided_parcels.ToString();
-            Received_parcels.Text = TheChosenCustomer.Num_of_received_parcels.ToString();
-            Parcels_onTheWay_toCustomer.Text = TheChosenCustomer.Num_of_parcels_onTheWay_toCustomer.ToString();
+            updataGrid.DataContext = customer;
+            
+            //id.Text = TheChosenCustomer.Id.ToString();
+            //CustomerName.Text = TheChosenCustomer.Name.ToString();
+            //Phone.Text = TheChosenCustomer.Phone.ToString();
+            //Sented_and_provided_parcels.Text = TheChosenCustomer.Num_of_sented_and_provided_parcels.ToString();
+            //Sented_and_unprovided_parcels.Text = TheChosenCustomer.Num_of_sented_and_unprovided_parcels.ToString();
+            //Received_parcels.Text = TheChosenCustomer.Num_of_received_parcels.ToString();
+            //Parcels_onTheWay_toCustomer.Text = TheChosenCustomer.Num_of_parcels_onTheWay_toCustomer.ToString();
             UpdateData.IsEnabled = true;
 
 

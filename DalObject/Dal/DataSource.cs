@@ -50,13 +50,14 @@ namespace Dal
                 };
                 drones.Add(temp);
             }
+            string[] name = { "ירושלים", "תל אביב" };
             //Initialize 2 stations
             for (int i = 0; i < 2; i++)
             {
                 Station temp = new Station()
                 {
                     Id = rand.Next(10000, 99999),
-                    Name = i,
+                    Name = name[i],
                     Longitude = rand.Next(-180, 180),
                     Lattitude = rand.Next(-90, 90),
                     ChargeSlots = rand.Next(1, 10),

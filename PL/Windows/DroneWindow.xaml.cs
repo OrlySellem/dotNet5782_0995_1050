@@ -31,7 +31,7 @@ namespace PL
         private void updateDrone() => Worker.ReportProgress(0);
         private bool checkStop() => Worker.CancellationPending;
 
-
+        //private DronePO dronePO = new DronePO();
         #region ADD drone
 
 
@@ -140,20 +140,11 @@ namespace PL
             approachBL = bl;
             UpGrid.Visibility = Visibility.Hidden;
             updataGrid.Visibility = Visibility.Visible;
-            TheChosenDrone = drone;
-            int Id = drone.Id;
-
+            TheChosenDrone = drone;          
             updataGrid.DataContext = drone;
-           // //view the data of the chosen drone
-           //// id.DataContext = drone.Id;
-           // //Model.DataContext = drone.Model;
-           // //MaxWeight.DataContext = drone.MaxWeight;
-           // //PrecentsBattery.Content = drone.Battery.ToString() + " %";
-           // Status.DataContext = drone.Status;
-           // idParcel.DataContext = drone.idParcel;
-           // LocationTextBox.DataContext = drone.CurrentLocation;
-            
 
+            
+                 
             Regular.Visibility = Visibility.Hidden;
 
             if (drone.Status == DroneStatuses.available)
@@ -385,8 +376,15 @@ namespace PL
 
         private void OpenParcelWindow_Click(object sender, RoutedEventArgs e)
         {
+            if (TheChosenDrone.idParcel == 0)
+            {
+                MessageBox.Show("הרחפן לא משוייך לחבילה", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
+            }
+
             try
             {
+               
                 ParcelToList p = (from parcel in approachBL.getAllParcels()
                                   where parcel.Id == TheChosenDrone.idParcel
                                   select parcel).FirstOrDefault();
@@ -394,7 +392,7 @@ namespace PL
             }
             catch (DoesntExistentObjectException ex)
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("החבילה לא קיימת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }

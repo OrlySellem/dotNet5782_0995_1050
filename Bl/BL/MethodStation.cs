@@ -139,7 +139,7 @@ namespace BL
 
         //Update
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void updateStation(int idStation, int name_int, int chargeSlots)
+        public void updateStation(int idStation, string name, int chargeSlots)
         {
             lock (dal)
             {
@@ -150,9 +150,9 @@ namespace BL
 
                     dal.delFromStations(updateStation, false);
 
-                    if (name_int != 0)
+                    if (name != "")
                     {
-                        updateStation.Name = name_int;
+                        updateStation.Name = name;
                     }
 
                     if (chargeSlots > 0)

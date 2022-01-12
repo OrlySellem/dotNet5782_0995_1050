@@ -53,7 +53,7 @@ namespace PL
                 {
 
                     Id = int.Parse(TextBoxId.Text),
-                    Name = int.Parse(TextBoxName.Text),
+                    Name = TextBoxName.Text,
                     Address = address,
                     ChargeSlots = int.Parse(TextBoxChargeSlots.Text),
                     Charging_drones = null
@@ -102,6 +102,7 @@ namespace PL
 
         #region UPDATA BaseStations
         static StationToList TheChosenBaseStation;
+        private StationToList stationToList = new StationToList();
         public BaseStationsWindow(IBL bl, StationToList BaseStation)
         {
             InitializeComponent();
@@ -110,20 +111,15 @@ namespace PL
             updataGrid.Visibility = Visibility.Visible;
             addGrid.Visibility = Visibility.Hidden;
             UpdateData.IsEnabled = true;
-
-            id.Text = BaseStation.Id.ToString();
-            StationName.Text = BaseStation.Name.ToString();
-            FreeChargeSlots.Text = BaseStation.ChargeSlotsFree.ToString();
-            FullChargeSlots.Text = BaseStation.ChargeSlotsFull.ToString();
+            updataGrid.DataContext = stationToList;         
         }
 
-        
-        private void UpdateData_Click(object sender, RoutedEventArgs e)
+            private void UpdateData_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 //in case the user change the name of base station
-                if (StationName.Text != "" && TheChosenBaseStation.Name != int.Parse(StationName.Text))
+                if (StationName.Text != "" && TheChosenBaseStation.Name != StationName.Text)
                 {
                     if (AddChargeSlots.Text == "")
                         approachBL.updateStation(TheChosenBaseStation.Id, int.Parse(StationName.Text.ToString()), 0);
@@ -168,8 +164,9 @@ namespace PL
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         #endregion UPDATA BaseStations
 
-
+       
     }
 }

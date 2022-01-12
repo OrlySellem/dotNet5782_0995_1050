@@ -42,38 +42,49 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
+            <Image Grid.ColumnSpan="4" Margin="-1420,-248,0,-252" Grid.RowSpan="10" Stretch="Fill" Source="/PL;component/backGroundMain.jpg"/>
 
-            <Label Content="ID:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="81,17,0,0" VerticalAlignment="Top" Width="82" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-            <TextBox x:Name="TextBoxId" HorizontalAlignment="Left" Margin="39,19,0,1" TextWrapping="Wrap" Width="150" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1" TextChanged="TextBoxId_TextChanged"/>
+            <Label Content="תז" FontWeight="Normal" HorizontalAlignment="Left" Height="29" Margin="103,17,0,0" VerticalAlignment="Top" Width="82" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" FontFamily="Heebo" FontSize="16"/>
+            <TextBox x:Name="TextBoxId" HorizontalAlignment="Left" Margin="39,18,0,2" TextWrapping="Wrap" Width="168" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1" TextChanged="TextBoxId_TextChanged">
+                <TextBox.BorderBrush>
+                    <SolidColorBrush Color="#FFABADB3" Opacity="0"/>
+                </TextBox.BorderBrush>
+            </TextBox>
 
-            <Label Content="Name:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="10,13,0,0" VerticalAlignment="Top" Width="82" Grid.Row="2"/>
-            <TextBox x:Name="TextBoxName" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="2" Margin="0,22,0,0" TextChanged="TextBoxName_TextChanged"/>
+            <Label Content="שם מלא" FontWeight="Normal" HorizontalAlignment="Left" Height="30" Margin="100,25,0,0" VerticalAlignment="Top" Width="82" Grid.Row="2" FontFamily="Heebo" FontSize="16" Grid.ColumnSpan="2" Grid.Column="2" Grid.RowSpan="2"/>
+            <TextBox x:Name="TextBoxName" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="2" Margin="39,27,0,0" TextChanged="TextBoxName_TextChanged" Height="27" Grid.RowSpan="2">
+                <TextBox.BorderBrush>
+                    <SolidColorBrush Color="#FFABADB3" Opacity="0"/>
+                </TextBox.BorderBrush>
+            </TextBox>
 
-            <Label Content="Phone:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="82" Grid.Row="3" Margin="13,2,0,0"/>
-            <TextBox x:Name="TextBoxPhone" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="3" Margin="0,18,0,0" TextChanged="TextBoxPhone_TextChanged"/>
+            <Label Content="פלאפון" FontWeight="Normal" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="58" Grid.Row="3" Margin="99,28,0,0" Grid.Column="2" FontFamily="Heebo" FontSize="16" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <TextBox x:Name="TextBoxPhone" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="168" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="3" Margin="39,0,0,0" TextChanged="TextBoxPhone_TextChanged" Height="25" Grid.RowSpan="2">
+                <TextBox.BorderBrush>
+                    <SolidColorBrush Color="#FFABADB3" Opacity="0"/>
+                </TextBox.BorderBrush>
+            </TextBox>
 
-            <Label Content="Address:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="82" Grid.Row="3" Margin="13,37,0,0" Grid.RowSpan="2"/>
-
-            <Label Content="Lattitude:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="45,17,0,0" VerticalAlignment="Top" Width="82" Grid.Row="4" Grid.ColumnSpan="2"/>
-            <Slider  x:Name="SliderLattitude" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="60,24,0,0" Grid.Row="4" VerticalAlignment="Top" Width="120"
+            <Label Content="מיקום אורך" FontWeight="Normal" HorizontalAlignment="Left" Height="28" Margin="103,32,0,0" VerticalAlignment="Top" Width="98" Grid.Row="4" Grid.ColumnSpan="2" Grid.Column="2" Grid.RowSpan="2" FontSize="16" FontFamily="Heebo"/>
+            <Slider  x:Name="SliderLattitude" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="39,42,0,0" Grid.Row="4" VerticalAlignment="Top" Width="168"
                      Minimum="-90"
                      Maximum="90"
                      Value="0"
-                     AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" 
+                     AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" Grid.RowSpan="2" 
                     />
 
-            <Label Content="Longitude:" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="45,43,0,0" VerticalAlignment="Top" Width="82" Grid.Row="4" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-            <Slider x:Name="SliderLongitude" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="60,0,0,31" Grid.Row="4" VerticalAlignment="Bottom" Width="120"
+            <Label Content="מיקום רוחב" FontWeight="Normal" HorizontalAlignment="Left" Height="30" Margin="106,36,0,0" VerticalAlignment="Top" Width="95" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="2" FontFamily="Heebo" FontSize="16"/>
+            <Slider x:Name="SliderLongitude" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="39,0,0,25" Grid.Row="6" VerticalAlignment="Bottom" Width="174"
                     Minimum="-180"
                      Maximum="180"
-                     Value="0" Grid.RowSpan="2"
+                     Value="0"
                     AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" />
 
 
 
-            <Button Style="{DynamicResource roundButton}" x:Name="addCustomer" Content="הוספה" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="29,44,0,0" VerticalAlignment="Top" Height="40" Width="90" 
-             IsEnabled="False" Grid.Row="7" Click="addCustomer_Click" Grid.Column="1" Grid.RowSpan="2"/>
-            <Button Style="{DynamicResource roundButton}" x:Name="cancelAddCustomer" Content="סגור חלון" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Top" Height="40" Width="90" Grid.Row="8"/>
+            <Button Style="{DynamicResource roundButton}" x:Name="addCustomer" Content="הוספה" FontWeight="Bold" FontSize="18" HorizontalAlignment="Center" Margin="0,44,0,0" VerticalAlignment="Top" Height="40" Width="90" 
+             IsEnabled="False" Grid.Row="7" Click="addCustomer_Click" Grid.Column="1" Grid.RowSpan="2" Background="#FF185BA1" Foreground="#FF185BA1"/>
+            <Button Style="{DynamicResource roundButton}" x:Name="cancelAddCustomer" Content="סגור חלון" FontWeight="Bold" FontSize="16" HorizontalAlignment="Left" Margin="25,0,0,0" VerticalAlignment="Top" Height="40" Width="90" Grid.Row="8" FontFamily="Heebo" Foreground="#FF185BA1"/>
 
 
         </Grid>
