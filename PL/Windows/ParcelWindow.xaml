@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ParcelWindow" Height="450" Width="380">
     <Grid>
-        <Grid Name="addGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="10,-1,-10,1">
+        <Grid Name="addGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="10,-1,-10,1">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -29,7 +29,7 @@
             </Grid.ColumnDefinitions >
             <Image Margin="-230,0,10,0" Grid.RowSpan="10" Stretch="Fill" Source="/PL;component/backGroundMain.jpg" Grid.ColumnSpan="4"/>
 
-            <Label Content="תז שולח החבילה" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="60,45,0,0" VerticalAlignment="Top" Width="103" Grid.Row="1" Grid.Column="2" RenderTransformOrigin="-0.058,1.33" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <Label Content="תז שולח החבילה" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="60,45,0,0" VerticalAlignment="Top" Width="103" Grid.Row="1" Grid.Column="2" RenderTransformOrigin="-0.058,1.33" Grid.ColumnSpan="2" Grid.RowSpan="2" FontFamily="Heebo"/>
 
             <ComboBox x:Name="senderSelector" Grid.Column="1" HorizontalAlignment="Left" Margin="34,49,0,0" Grid.Row="1" VerticalAlignment="Top" Width="95" Height="20" SelectionChanged="SenderSelector_SelectionChanged" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
 
@@ -53,7 +53,7 @@
 
         </Grid>
 
-        <Grid Name="updataGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="-3,-2,3,0">
+        <Grid Name="updataGrid" Visibility="hidden" Height="auto" Grid.Row="0" Width="auto" Margin="-3,-2,3,0">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>

@@ -5,19 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="BaseStationsWindow" Height="450" Width="380">
+        Title="BaseStationsWindow" Height="400" Width="500">
     <Window.Resources>
         <Style TargetType="Button" x:Key="roundButton">
             <Setter Property="Control.Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="20" Background="White" BorderBrush="#ccc" BorderThickness="0,1,1,0" >
+                        <Border CornerRadius="10" Background="#FFCCF617" BorderBrush="#ccc" BorderThickness="0,1,1,0" >
                             <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+
     </Window.Resources>
     <Grid Height="440" VerticalAlignment="Top">
         <Grid Name="addGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
@@ -42,42 +43,43 @@
             </Grid.ColumnDefinitions >
             <Image Grid.ColumnSpan="4" Margin="-1077,-17,-18,-98" Grid.RowSpan="10" Stretch="Fill" Source="/PL;component/backGroundMain.jpg"/>
 
-            <Label Content="מספר מזהה" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="43,31,0,0" VerticalAlignment="Top" Width="82" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="TextBoxId" HorizontalAlignment="Left" Margin="0,35,0,43" TextWrapping="Wrap" Width="128" Grid.Row="1" TextChanged="TextBoxId_TextChanged" Grid.ColumnSpan="2" Grid.Column="1" Grid.RowSpan="2">
+            <Label Content="מספר מזהה" FontWeight="Normal" HorizontalAlignment="Left" Height="32" Margin="110,36,0,0" VerticalAlignment="Top" Width="98" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2" FontFamily="Heebo" FontSize="16"/>
+            <TextBox x:Name="TextBoxId" HorizontalAlignment="Left" Margin="63,36,0,35" TextWrapping="Wrap" Width="133" Grid.Row="1" TextChanged="TextBoxId_TextChanged" Grid.ColumnSpan="2" Grid.RowSpan="2" Foreground="#FFC29797" Grid.Column="1">
+                <TextBox.BorderBrush>
+                    <SolidColorBrush Color="White" Opacity="0"/>
+                </TextBox.BorderBrush>
                 <TextBox.Background>
                     <SolidColorBrush Color="White" Opacity="0.95"/>
                 </TextBox.Background>
             </TextBox>
 
-            <Label Content="שם מלא" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="53,23,0,0" VerticalAlignment="Top" Width="82" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-            <TextBox x:Name="TextBoxName" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="128" Grid.Row="2" Margin="0,25,0,0" TextChanged="TextBoxName_TextChanged" Grid.ColumnSpan="2" Height="23" Grid.Column="1">
+            <Label Content="שם התחנה" FontWeight="Normal" HorizontalAlignment="Left" Height="29" Margin="118,30,0,0" VerticalAlignment="Top" Width="82" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" FontSize="16" FontFamily="Heebo"/>
+            <TextBox  x:Name="TextBoxName" TextWrapping="Wrap" Grid.Row="2" Margin="63,32,56,43" TextChanged="TextBoxName_TextChanged" Grid.ColumnSpan="2" Grid.Column="1" Grid.RowSpan="2">
                 <TextBox.Background>
                     <SolidColorBrush Color="White" Opacity="0.95"/>
                 </TextBox.Background>
             </TextBox>
 
-            <Label Content="עמדות טעינה פנויות" FontWeight="Bold" Height="29" VerticalAlignment="Top" Grid.Row="5" Grid.Column="2" Margin="52,26,6,0" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="TextBoxChargeSlots" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="132" Grid.ColumnSpan="2" Grid.Row="5" TextChanged="TextBoxChargeSlots_TextChanged" Margin="0,29,0,0" Height="21" Grid.Column="1">
+            <Label Content="עמדות טעינה פנויות" FontWeight="Normal" Height="29" VerticalAlignment="Top" Grid.Row="5" Grid.Column="2" Margin="69,25,-35,0" Grid.RowSpan="2" Grid.ColumnSpan="2" FontFamily="Heebo" FontSize="16"/>
+            <TextBox x:Name="TextBoxChargeSlots" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" Height="25" Grid.ColumnSpan="2" Grid.Row="5" TextChanged="TextBoxChargeSlots_TextChanged" Margin="56,27,0,0" Grid.RowSpan="2" Grid.Column="1">
                 <TextBox.Background>
                     <SolidColorBrush Color="White" Opacity="0.95"/>
                 </TextBox.Background>
             </TextBox>
 
-            <Label Content="מיקום" FontWeight="Bold" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="76" Grid.Row="3" Grid.Column="3" Margin="18,6,0,0"/>
-
-            <Label Content="קו רוחב" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="68,41,0,0" VerticalAlignment="Top" Width="82" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="2"/>
-            <Slider  x:Name="SliderLattitude" Grid.ColumnSpan="2" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Width="143"
+            <Label Content="מיקום קו רוחב" FontWeight="Normal" HorizontalAlignment="Left" Height="29" Margin="101,27,0,0" VerticalAlignment="Top" Width="111" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="2" FontSize="16" FontFamily="Heebo"/>
+            <Slider  x:Name="SliderLattitude" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Top" Width="143"
                      Minimum="-90"
                      Maximum="90"
                      Value="0"
-                     AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" Grid.RowSpan="2" Grid.Column="1" />
+                     AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" Margin="56,32,0,0" Grid.ColumnSpan="2" Grid.Column="1" />
 
-            <Label Content="קו אורך" FontWeight="Bold" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="82" Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="72,33,0,0"/>
+            <Label Content="מיקום קו אורך" FontWeight="Normal" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="107" Grid.Row="4" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="101,27,0,0" FontSize="16" FontFamily="Heebo"/>
             <Slider x:Name="SliderLongitude" Grid.ColumnSpan="2" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Top" Width="135"
                     Minimum="-180"
                      Maximum="180"
                      Value="0"
-                    AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" Margin="4,46,0,0" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" Grid.Column="1" >
+                    AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="0" Margin="61,34,0,0" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2" Grid.Column="1" >
                 <Slider.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -89,16 +91,16 @@
             </Slider>
 
 
-            <Button Style="{DynamicResource roundButton}" x:Name="addBaseStation"  Content="הוספה" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="85,44,0,0" VerticalAlignment="Top" Height="41" Width="99" Click="addBaseStation_Click" 
-             IsEnabled="False" Grid.Row="6" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <Button Style="{DynamicResource roundButton}" x:Name="addBaseStation"  Content="הוספה" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="9,1,0,0" VerticalAlignment="Top" Height="40" Width="99" Click="addBaseStation_Click" 
+             IsEnabled="False" Grid.Row="7" FontFamily="Heebo" Foreground="#FF185BA1" Grid.Column="1">
                 <Button.Background>
-                    <SolidColorBrush Color="#FFE9F3FF" Opacity="0.85"/>
+                    <SolidColorBrush Color="#FF69B0FE" Opacity="0"/>
                 </Button.Background>
             </Button>
 
-            <Button Style="{DynamicResource roundButton}" x:Name="cancelAddBaseStation" Content="ביטול" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="13,45,0,0" VerticalAlignment="Top" Height="40" Width="97" Click="cancelAddBaseStation_Click" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="6" Grid.RowSpan="2">
+            <Button Style="{DynamicResource roundButton}" x:Name="cancelAddBaseStation" Content="סגור חלון" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="17,1,0,0" VerticalAlignment="Top" Height="40" Width="98" Click="cancelAddBaseStation_Click" Grid.Row="7" FontFamily="Heebo" Foreground="#FF185BA1" OpacityMask="#FFCE7E7E" RenderTransformOrigin="-1.409,0.716">
                 <Button.Background>
-                    <SolidColorBrush Color="#FFDDDDDD" Opacity="0.85"/>
+                    <SolidColorBrush Color="#FF69B0FE" Opacity="0"/>
                 </Button.Background>
             </Button>
 
@@ -109,14 +111,14 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
                 <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -126,23 +128,26 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
 
-            <Button x:Name="CloseWindow" Content="סגור חלון" HorizontalAlignment="Left" Grid.Row="8" VerticalAlignment="Top" Click="CloseWindow_Click" Width="96" Grid.Column="1" Grid.ColumnSpan="2" Margin="6,0,0,0"/>
-            <Button x:Name="UpdateData"  Content="עדכון"   Grid.Column="2" HorizontalAlignment="Left" Margin="35,0,0,0" Grid.Row="8" VerticalAlignment="Top" Click="UpdateData_Click" Height="20" Width="75" Grid.ColumnSpan="2"/>
+            <Image Grid.ColumnSpan="4" Margin="-1077,-32,-18,-82" Grid.RowSpan="10" Stretch="Fill" Source="/PL;component/backGroundMain.jpg"/>
 
-            <Label Content="תז"  Grid.Column="3"  HorizontalAlignment="Left" Margin="47,21,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-            <TextBox x:Name="id" IsEnabled="False"  Grid.Column="1" HorizontalAlignment="Left" Margin="34,25,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
+            <Button Style="{DynamicResource roundButton}" x:Name="UpdateData"  Content="עדכון"   Grid.Column="1" HorizontalAlignment="Left" Margin="6,23,0,0" Grid.Row="7" VerticalAlignment="Top" Click="UpdateData_Click" Height="26" Width="86" FontSize="16" FontFamily="Heebo"/>
+            <Button Style="{DynamicResource roundButton}" x:Name="CloseWindow" Content="סגור חלון" HorizontalAlignment="Center" Grid.Row="7" VerticalAlignment="Top" Click="CloseWindow_Click" Width="96" Margin="0,22,0,0" FontFamily="Heebo" FontSize="16"/>
 
-            <Label Content="שם מלא" Grid.Column="3" HorizontalAlignment="Center" Margin="0,18,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-            <TextBox x:Name="StationName" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" BorderBrush="#FF02040C" Margin="34,22,0,0" Grid.ColumnSpan="2"/>
+            <Label Content="מספר מזהה"  Grid.Column="2"  HorizontalAlignment="Left" Margin="36,21,0,0" Grid.Row="1" VerticalAlignment="Top" FontSize="16" FontFamily="Heebo" Grid.RowSpan="2" Grid.ColumnSpan="2" Width="93"/>
+            <TextBox x:Name="id" IsEnabled="False"  Grid.Column="1" HorizontalAlignment="Left" Margin="34,25,0,0" Grid.Row="1" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="121" Grid.ColumnSpan="2" Height="29" Grid.RowSpan="2"/>
 
-            <Label Content="עמדות טעינה פנויות" Grid.Column="2" HorizontalAlignment="Left" Margin="61,20,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="118"/>
-            <TextBox x:Name="FreeChargeSlots"  IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" Margin="34,24,0,0"  Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
+            <Label Content="שם תחנה" Grid.Column="2" HorizontalAlignment="Left" Margin="35,18,0,0" Grid.Row="2" VerticalAlignment="Top" FontSize="16" FontFamily="Heebo" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="StationName" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="119" BorderBrush="#FF02040C" Margin="34,18,0,0" Grid.ColumnSpan="2" Height="28"/>
 
-            <Label Content="עמדות טעינה תפוסות" Grid.Column="2" HorizontalAlignment="Left" Margin="58,16,0,0" Grid.Row="4" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="124"/>
-            <TextBox x:Name="FullChargeSlots" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="34,24,0,0" Grid.Row="4" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
+            <Label Content="עמדות טעינה פנויות" Grid.Column="2" HorizontalAlignment="Left" Margin="35,20,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="144" FontSize="16" FontFamily="Heebo"/>
+            <TextBox x:Name="FreeChargeSlots"  IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" Margin="34,15,0,0"  Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="119" Grid.ColumnSpan="2" Height="32"/>
 
-            <Label Content="הוספת עמדות טעינה" HorizontalAlignment="Left" Margin="63,23,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="119" Grid.Column="2"/>
-            <TextBox x:Name="AddChargeSlots" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" BorderBrush="#FF02040C" Margin="34,29,0,0" Grid.ColumnSpan="2"/>
+            <Label Content="עמדות טעינה תפוסות" Grid.Column="2" HorizontalAlignment="Left" Margin="35,16,0,0" Grid.Row="4" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="155" FontFamily="Heebo" FontSize="16"/>
+            <TextBox x:Name="FullChargeSlots" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="34,16,0,0" Grid.Row="4" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="119" Grid.ColumnSpan="2" Height="34"/>
+
+            <Label Content="הוספת עמדות טעינה" HorizontalAlignment="Left" Margin="35,20,0,0" Grid.Row="5" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="155" Grid.Column="2" FontFamily="Heebo" FontSize="16"/>
+            <TextBox x:Name="AddChargeSlots" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="119" BorderBrush="#FF02040C" Margin="34,20,0,0" Grid.ColumnSpan="2" Height="26"/>
+
 
 
 

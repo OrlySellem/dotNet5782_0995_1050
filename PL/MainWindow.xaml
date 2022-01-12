@@ -58,19 +58,19 @@
             </Grid.RowDefinitions>
 
             <Button Style="{DynamicResource roundButton}" Content="עמוד ראשי"  FontWeight="Bold"
-                FontSize="20"
+                FontSize="22"
                 MinWidth="100"
                 MinHeight="50"
-                Grid.Column="1" HorizontalAlignment="Left" Margin="325,136,0,0" Grid.Row="1" VerticalAlignment="Top" Height="48" Width="187" Click="Button_Click" Grid.ColumnSpan="2"/>
+                Grid.Column="1" HorizontalAlignment="Left" Margin="325,98,0,0" Grid.Row="1" VerticalAlignment="Top" Height="48" Width="187" Click="Button_Click" Grid.ColumnSpan="2" FontFamily="Heebo"/>
 
             <Button Style="{DynamicResource roundButton}" x:Name="ViewDroneList" 
                 Content="רחפנים"
                 FontWeight="Bold"
-                FontSize="20"
+                FontSize="22"
                 MinWidth="100"
                 MinHeight="50"
                 HorizontalAlignment="Left"              
-                Margin="324,200,0,0" 
+                Margin="324,160,0,0" 
                 VerticalAlignment="Top"
                 Height="50" Width="189" 
                 Click="ViewDroneList_Click" FontFamily="heebo" Grid.Row="1" Foreground="Black" Grid.Column="1" Grid.ColumnSpan="2">
@@ -85,14 +85,14 @@
             <Button Style="{DynamicResource roundButton}" x:Name="ViewBaseStationList" 
                 Content="תחנות בסיס"
                 FontWeight="Bold"
-                FontSize="20"
+                FontSize="22"
                 MinWidth="100"
                 MinHeight="50"
                 HorizontalAlignment="Left" 
-                Margin="324,266,0,0" 
+                Margin="324,222,0,0" 
                 Grid.Row="1" 
                 VerticalAlignment="Top"
-                Height="50" Width="189" Click="ViewBaseStationList_Click" Grid.Column="1" Grid.ColumnSpan="2">
+                Height="50" Width="189" Click="ViewBaseStationList_Click" Grid.Column="1" Grid.ColumnSpan="2" FontFamily="Heebo">
                 <Button.BorderBrush>
                     <SolidColorBrush Color="#FF22445D" Opacity="0"/>
                 </Button.BorderBrush>
@@ -104,13 +104,13 @@
             <Button Style="{DynamicResource roundButton}" x:Name="ViewCustomerList" 
                 Content="לקוחות"
                 FontWeight="Bold"
-                FontSize="20"
+                FontSize="22"
                 HorizontalAlignment="Left" 
                 MinWidth="100"
                 MinHeight="50"
-                Margin="324,334,0,0" 
+                Margin="324,280,0,0" 
                 VerticalAlignment="Top"
-                Height="50" Width="193" Click="ViewCustomerList_Click" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+                Height="50" Width="193" Click="ViewCustomerList_Click" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontFamily="Heebo">
                 <Button.BorderBrush>
                     <SolidColorBrush Color="#FF22445D" Opacity="0"/>
                 </Button.BorderBrush>
@@ -122,14 +122,14 @@
             <Button Style="{DynamicResource roundButton}" x:Name="ViewParcelList" 
                 Content="חבילות"
                 FontWeight="Bold"
-                FontSize="20"
+                FontSize="22"
                 HorizontalAlignment="Left" 
                 MinWidth="100"
                 MinHeight="50"
-                Margin="322,399,0,0" 
+                Margin="322,341,0,0" 
                 Grid.Row="1" 
                 VerticalAlignment="Top"
-                Height="50" Width="193" Click="ViewParcelList_Click" Grid.Column="1" Grid.ColumnSpan="2">
+                Height="50" Width="193" Click="ViewParcelList_Click" Grid.Column="1" Grid.ColumnSpan="2" FontFamily="Heebo">
                 <Button.BorderBrush>
                     <SolidColorBrush Color="#FF22445D" Opacity="0"/>
                 </Button.BorderBrush>
@@ -143,7 +143,7 @@
                 <Frame x:Name="tableLists" NavigationUIVisibility="Hidden" Margin="10,0,10,70"/>
 
             </Grid>
-            <Grid x:Name="dronePng" Grid.Column="1" Grid.Row="1" Margin="328,466,9,23" Grid.ColumnSpan="2">
+            <Grid x:Name="dronePng" Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="2" Margin="295,450,0,18">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0*"/>
                     <RowDefinition/>
@@ -154,7 +154,7 @@
                 </Grid.Background>
 
             </Grid>
-            <Grid x:Name="logo" Margin="0,42,36,546" RenderTransformOrigin="0.5,0.5" Grid.Column="2" Grid.RowSpan="2">
+            <Grid x:Name="logo"  RenderTransformOrigin="0.5,0.5" Grid.Column="2" Margin="0,32,17,553" Grid.RowSpan="2">
                 <Grid.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="1"/>
