@@ -145,6 +145,8 @@ namespace BL
         }
 
         #endregion CRUD
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void chargingDrone(int droneId)
         {
             lock (dal)
@@ -294,7 +296,7 @@ namespace BL
                             }
                         }
                     }
-                    if (parcels == null)
+                    if (parcels.Count() == 0)
                     {
                         return null;
                     }

@@ -14,7 +14,7 @@ namespace BL
 {  
    partial class BL : IBL
     {
-        //  
+
         //יתחזק רשימת רחפנים
         public static List <DroneToList> drones;
 
@@ -33,6 +33,7 @@ namespace BL
         /// </summary>
         #region singelton 
         static readonly BL instance = new BL();
+
         public static BL Instance { get => instance;  }
         static BL() { }
 
@@ -269,6 +270,7 @@ namespace BL
             return returnTemp;
         }
         #endregion find nearest station to customer
+
         public void openSimulator(int idDrone, Action update, Func<bool> checkStop)
         {
             Simulator s = new Simulator(this ,idDrone, update, checkStop);        

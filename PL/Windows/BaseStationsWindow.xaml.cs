@@ -34,7 +34,11 @@ namespace PL
             addGrid.Visibility = Visibility.Visible;
         }
 
-
+        private void moveWindow(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
         private void cancelAddBaseStation_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
