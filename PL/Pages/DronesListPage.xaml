@@ -6,13 +6,26 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="DronesWindow" Height="640" Width="800">
+    <Page.Resources>
+        <Style TargetType="Button" x:Key="roundButton">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Background="White" BorderThickness="0,1,1,0" >
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
     <Grid Name="MainGrid">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="DronesListView" Background="#FFE4E4E4" Grid.Row="1" SelectionChanged="DronesListView_SelectionChanged">
+        <ListView x:Name="DronesListView" Background="#FFEBEBEB" Grid.Row="1" SelectionChanged="DronesListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn x:Name="idCol" DisplayMemberBinding="{Binding Id}" Header=" תז "  Width="auto"/>
@@ -32,26 +45,26 @@
          VerticalAlignment="Stretch" Width="auto">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="160*"/>
+                <ColumnDefinition Width="160*"/>
+                <ColumnDefinition Width="160*"/>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="96*"/>
+                <ColumnDefinition Width="39"/>
+                <ColumnDefinition Width="160*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Content=":משקל" FontWeight="Bold" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="-0.145,0.86" Margin="80,21,0,0"/>
-            <Label Content=":סטטוס"  FontWeight="Bold" HorizontalAlignment="Left" Margin="114,19,0,0" VerticalAlignment="Top" RenderTransformOrigin="-9.916,0.488" Width="152" Grid.ColumnSpan="2" Grid.Column="1"/>
-            <Grid Grid.Column="3">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="7*"/>
-                    <RowDefinition Height="65*"/>
-                </Grid.RowDefinitions>
-                <ComboBox x:Name="WeightSelector" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="-68,16,0,0" SelectionChanged="WeightSelector_SelectionChanged" Grid.Row="1"/>
+            <Label Content=":משקל" FontWeight="Bold" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="-0.145,0.86" Margin="75,25,0,0" FontFamily="Heebo" FontSize="16" Grid.ColumnSpan="2"/>
+            <Label Content=":סטטוס"  FontWeight="Bold" HorizontalAlignment="Left" Margin="38,25,0,0" VerticalAlignment="Top" RenderTransformOrigin="-9.916,0.488" Width="65" Grid.Column="2" FontSize="16" FontFamily="Heebo"/>
+            <Grid Grid.Column="3" Margin="8,6,152,-6" Grid.ColumnSpan="4">
+
+                <ComboBox x:Name="WeightSelector" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="-36,27,0,0" SelectionChanged="WeightSelector_SelectionChanged"/>
             </Grid>
-            <Button x:Name="addDroneToList" Content="הוסף רחפן" Grid.Column="4" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Center" Height="49" Width="85" Click="addDroneToList_Click"/>
-            <ComboBox x:Name="StattusSelector" HorizontalAlignment="Left" Margin="138,0,0,0" VerticalAlignment="Center" Width="120" SelectionChanged="StattusSelector_SelectionChanged" Grid.ColumnSpan="2"/>
+            <Button Style="{DynamicResource roundButton}" x:Name="addDroneToList" Content="הוסף רחפן" Grid.Column="6" HorizontalAlignment="Left" Margin="33,25,0,0" VerticalAlignment="Top" Height="33" Width="102" Click="addDroneToList_Click" FontFamily="Heebo" FontSize="16"/>
+            <ComboBox x:Name="StattusSelector" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" SelectionChanged="StattusSelector_SelectionChanged" Grid.Column="1" Margin="72,31,0,0" Grid.ColumnSpan="2"/>
+            <Button x:Name="refresh" Style="{DynamicResource roundButton}" Content="רענן" HorizontalAlignment="Left" Margin="41,27,0,0" VerticalAlignment="Top" Width="40" Height="26" FontFamily="Heebo" FontSize="16"/>
         </Grid>
-        <Button x:Name="groupingClick"  Content="קבץ לפי סטטוס" HorizontalAlignment="Left" Margin="18,21,0,0" VerticalAlignment="Top" Height="26" Width="94" Click="grouping_Click"/>
+        <Button Style="{DynamicResource roundButton}" x:Name="groupingClick"  Content="קבץ לפי סטטוס" HorizontalAlignment="Left" Margin="96,27,0,0" VerticalAlignment="Top" Height="26" Width="112" Click="grouping_Click" FontFamily="Heebo" FontSize="16"/>
     </Grid >
 
 </Page>

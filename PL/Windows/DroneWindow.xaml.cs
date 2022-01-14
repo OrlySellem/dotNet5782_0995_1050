@@ -27,7 +27,7 @@ namespace PL
         BlApi.IBL approachBL;
        
 
-
+        //private DronePO dronePO = new DronePO();
         #region ADD drone
 
 
@@ -136,11 +136,13 @@ namespace PL
             approachBL = bl;
             addGrid.Visibility = Visibility.Hidden;
             updataGrid.Visibility = Visibility.Visible;
-            TheChosenDrone = drone;
-            int Id = drone.Id;
-            Regular.IsEnabled = false;
+            TheChosenDrone = drone;          
             updataGrid.DataContext = drone;
-          
+
+            
+                 
+            Regular.Visibility = Visibility.Hidden;
+
             if (drone.Status == DroneStatuses.available)
             {
                 SendingDroneForCharging.Visibility = Visibility.Visible;
@@ -363,16 +365,23 @@ namespace PL
 
         private void OpenParcelWindow_Click(object sender, RoutedEventArgs e)
         {
+            if (TheChosenDrone.idParcel == 0)
+            {
+                MessageBox.Show("הרחפן לא משוייך לחבילה", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
+            }
+
             try
             {
+               
                 ParcelToList p = (from parcel in approachBL.getAllParcels()
                                   where parcel.Id == TheChosenDrone.idParcel
                                   select parcel).FirstOrDefault();
                 new ParcelWindow(approachBL, p).ShowDialog();
             }
-            catch (DoesntExistentObjectException ex)
+            catch (DoesntExistentObjectException )
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("החבילה לא קיימת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -382,7 +391,7 @@ namespace PL
         private void Manual_Click(object sender, RoutedEventArgs e)
         {
 
-            CloseDroneWindow.Visibility = Visibility.Visible;
+            CloseWindow.Visibility = Visibility.Visible;
             UpdateData.Visibility = Visibility.Visible;
             SendingDroneForCharging.Visibility = Visibility.Hidden;
             ReleaseDroneFromCharging.Visibility = Visibility.Hidden;

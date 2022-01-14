@@ -51,7 +51,7 @@ namespace BlApi
         /// <param name="id"></param>
         /// <param name="name_int"></param>
         /// <param name="chargeSlots"></param>
-        public void  updateStation(int id, int name_int, int chargeSlots);
+        public void  updateStation(int id, string name, int chargeSlots);
 
         public void updateCustomer(int id, string newName, string newPhone);
 

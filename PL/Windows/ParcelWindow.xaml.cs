@@ -126,6 +126,7 @@ namespace PL
         #region UPDATA Parcel
 
         static ParcelToList TheChosenParcel;
+        private ParcelToList parcelToList = new ParcelToList();
         public ParcelWindow(IBL bl, ParcelToList parcel)
         {
             InitializeComponent();
@@ -134,12 +135,7 @@ namespace PL
             updataGrid.Visibility = Visibility.Visible;
             addGrid.Visibility = Visibility.Hidden;
 
-            IDTextBox.Text = TheChosenParcel.Id.ToString();
-            senderId.Text = TheChosenParcel.Senderld.ToString();
-            targetId.Text = TheChosenParcel.Targetld.ToString();
-            weightTextBox.Text = TheChosenParcel.Weight.ToString();
-            priorityTextBox.Text = TheChosenParcel.Priority.ToString();
-            parcelStatusTextBox.Text = TheChosenParcel.ParcelStatus.ToString();
+          
             //parcelStatusComboBox.ItemsSource = Enum.GetValues(typeof(ParcelStatus));
 
             //if (parcel.ParcelStatus == ParcelStatus.scheduled || parcel.ParcelStatus == ParcelStatus.PickedUp)

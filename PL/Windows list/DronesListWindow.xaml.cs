@@ -25,7 +25,7 @@ namespace PL
 
         BlApi.IBL approachBL;
 
-        private Thread dateThread;
+     //   private Thread dateThread;
         delegate void dateChange();
 
         public DronesListWindow(BlApi.IBL bl)
