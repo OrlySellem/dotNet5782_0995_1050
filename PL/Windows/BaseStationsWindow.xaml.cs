@@ -32,6 +32,7 @@ namespace PL
             approachBL = bl;
             updataGrid.Visibility = Visibility.Hidden;
             addGrid.Visibility = Visibility.Visible;
+            
         }
 
         private void moveWindow(object sender, MouseButtonEventArgs e)
@@ -110,12 +111,14 @@ namespace PL
         public BaseStationsWindow(IBL bl, StationToList BaseStation)
         {
             InitializeComponent();
-            approachBL = bl;
+            DataContext = stationToList;
+            approachBL = bl;         
             TheChosenBaseStation = BaseStation;
             updataGrid.Visibility = Visibility.Visible;
             addGrid.Visibility = Visibility.Hidden;
+            updataGrid.DataContext = stationToList;
             UpdateData.IsEnabled = true;
-            updataGrid.DataContext = stationToList;         
+      
         }
 
             private void UpdateData_Click(object sender, RoutedEventArgs e)

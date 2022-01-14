@@ -32,7 +32,7 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Grid Name="addGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="-1,-2,1,2">
+        <Grid Name="addGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="-1,-2,1,2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -54,21 +54,21 @@
             </Grid.ColumnDefinitions >
             <Image Grid.ColumnSpan="4" Margin="-1077,-17,-18,-98" Grid.RowSpan="10" Stretch="Fill" Source="/PL;component/backGroundMain.jpg"/>
 
-            <Label Content="מספר מזהה" FontWeight="Bold" HorizontalAlignment="Left" Height="29" Margin="77,2,0,0" VerticalAlignment="Top" Width="82" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="TextBoxId"  Grid.Column="1" HorizontalAlignment="Left" Margin="19,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="2" Grid.Row="2"/>
+            <Label Content="מספר מזהה" FontWeight="Normal" HorizontalAlignment="Left" Height="29" Margin="45,0,0,0" VerticalAlignment="Center" Width="114" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" FontFamily="Heebo" FontSize="16"/>
+            <TextBox x:Name="TextBoxId"  Grid.Column="1" HorizontalAlignment="Left" Margin="19,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="120" Grid.ColumnSpan="2" Grid.Row="2" Height="25"/>
 
 
-            <Label Content="מודל" FontWeight="Bold" HorizontalAlignment="Left" Height="28" VerticalAlignment="Top" Width="82" Grid.Row="4" Margin="81,29,0,0" Grid.ColumnSpan="2" Grid.Column="2" Grid.RowSpan="2"/>
-            <TextBox x:Name="TextBoxModel" HorizontalAlignment="Left" Margin="19,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBoxModel_TextChanged" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="4" Grid.RowSpan="2"/>
+            <Label Content="מודל" FontWeight="Normal" HorizontalAlignment="Left" Height="28" VerticalAlignment="Top" Width="82" Grid.Row="4" Margin="63,25,0,0" Grid.ColumnSpan="2" Grid.Column="2" Grid.RowSpan="2" FontSize="16" FontFamily="Heebo"/>
+            <TextBox x:Name="TextBoxModel" HorizontalAlignment="Left" Margin="19,23,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBoxModel_TextChanged" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="4" Grid.RowSpan="2" Height="29"/>
 
-            <Label Content="משקל" FontWeight="Bold" HorizontalAlignment="Left" Height="30" Margin="81,16,0,0" VerticalAlignment="Top" Width="82" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="2"/>
+            <Label Content="משקל" FontWeight="Normal" HorizontalAlignment="Left" Margin="53,16,0,44" Width="82" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="2" FontFamily="Heebo" FontSize="16" Grid.RowSpan="2"/>
             <ComboBox x:Name="WeightSelector" HorizontalAlignment="Left" Margin="19,18,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ComboBox_SelectionChanged" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="3" Height="28"/>
 
 
 
-            <Label Content="טחנת הטענה התחלתית" FontWeight="Bold" HorizontalAlignment="Left" Height="30" Margin="71,31,0,0" VerticalAlignment="Top" Width="82" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="2" Grid.RowSpan="2"/>
+            <Label Content="תחנה ראשונית לטעינה" FontWeight="Normal" HorizontalAlignment="Left" Height="30" Margin="45,31,0,0" VerticalAlignment="Top" Width="205" Grid.Row="5" Grid.ColumnSpan="2" Grid.Column="2" Grid.RowSpan="2" FontFamily="Heebo" FontSize="16"/>
             <ComboBox x:Name="idStation" HorizontalAlignment="Left" 
-                      Margin="19,35,0,40"
+                      Margin="19,35,0,29"
                       Width="120"
                       SelectionChanged="idStation_SelectionChanged" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="5" Grid.RowSpan="2">
                 <ComboBox.ItemTemplate>
@@ -78,14 +78,14 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <Button Style="{DynamicResource roundButton}" x:Name="addDrone" Content="הוספה" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="41,0,0,0" VerticalAlignment="Center" Height="40" Width="90" 
-             IsEnabled="False" Grid.Row="8" Click="addDrone_Click" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <Button Style="{DynamicResource roundButton}" x:Name="addDrone" Content="הוספה" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Height="36" Width="90" 
+             IsEnabled="False" Grid.Row="8" Click="addDrone_Click" Grid.Column="1" Background="#FF185BA1" Foreground="#FF185BA1" Margin="13,0,0,0"/>
 
-            <Button Style="{DynamicResource roundButton}" x:Name="cancelAddDrone" Content="סגור חלון" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="25,5,0,6" Width="90" Grid.Row="8" Grid.ColumnSpan="2" Click="cancelAddDrone_Click"/>
+            <Button Style="{DynamicResource roundButton}" x:Name="cancelAddDrone" Content="סגור חלון" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="25,5,0,6" Width="90" Grid.Row="8" Grid.ColumnSpan="2" Click="cancelAddDrone_Click" Foreground="#FF185BA1"/>
 
         </Grid>
 
-        <Grid Name="updataGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="0,-1,0,1">
+        <Grid Name="updataGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="0,-1,0,1">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -109,12 +109,9 @@
 
             <Button Style="{DynamicResource roundButton}" x:Name="CloseWindow" Content="סגור חלון" HorizontalAlignment="Left" Margin="33,25,0,0" Grid.Row="8" VerticalAlignment="Top" Click="CloseWindow_Click" Width="81" Height="26" Grid.RowSpan="2" FontFamily="Heebo" FontSize="16"  Foreground="#FF185BA1" FontWeight="Bold"/>
             <Button  Style="{DynamicResource roundButton}" x:Name="UpdateData"  Content="עדכן"    Foreground="#FF185BA1" IsEnabled="True" Margin="134,25,32,0" Grid.Row="8" VerticalAlignment="Top" Click="UpdateData_Click" Grid.ColumnSpan="2" Grid.RowSpan="2" FontFamily="Heebo" FontSize="16" Background="{Binding Effect.HasAnimatedProperties, ElementName=UpdateData, Mode=OneWay}" FontWeight="Bold"/>
-            <Button  Style="{DynamicResource roundButtonUpdate}" x:Name="SendingDroneForCharging" Content="שלח לטעינה" HorizontalAlignment="Left" Margin="36,22,0,0"  Grid.Row="4" VerticalAlignment="Top" Click="SendingDroneForCharging_Click" Grid.ColumnSpan="2" Width="81" Height="26"/>
-            <Button Style="{DynamicResource roundButtonUpdate}" x:Name="ReleaseDroneFromCharging" Visibility="{Binding ElementName=SendingDroneForCharging, Path=Visibility,Mode=TwoWay}" Content="שחרר מטעינה" HorizontalAlignment="Center" Margin="0,22,0,0" Grid.Row="4" VerticalAlignment="Top" Width="81" Height="26" Click="ReleaseDroneFromCharging_Click" Foreground="White"/>
-            <Button  Style="{DynamicResource roundButtonUpdate}" x:Name="assignDroneToParcel" Width="81" Height="26" Margin="36,21,41,0" Grid.Row="5" VerticalAlignment="Top" Click="AssignDroneToParcel_Click">
-                <Button  Style="{DynamicResource roundButtonUpdate}" x:Name="pickUpParcel" Content="אסוף חבילה" HorizontalAlignment="Left" VerticalAlignment="Top" Click="PickUpParcel_Click" Width="78" Height="24"/>
-            </Button>
-            <Button  Style="{DynamicResource roundButtonUpdate}" x:Name="ParcelArriveToCustomer" Content="משלוח בוצע" HorizontalAlignment="Left" Margin="33,12,0,0"  Grid.Row="5" VerticalAlignment="Top" Click="ParcelArriveToCustomer_Click" Width="85" FontFamily="Heebo" FontSize="16" Height="33" Foreground="White"/>
+            <Button  Style="{DynamicResource roundButtonUpdate}" x:Name="SendingDroneForCharging" Content="שלח לטעינה" HorizontalAlignment="Center" Margin="0,32,0,0"  Grid.Row="4" VerticalAlignment="Top" Click="SendingDroneForCharging_Click" Width="89" Height="35" Grid.RowSpan="2" FontFamily="Heebo" FontSize="16" Background="White" Foreground="White"/>
+            <Button Style="{DynamicResource roundButtonUpdate}" x:Name="ReleaseDroneFromCharging" Visibility="{Binding ElementName=SendingDroneForCharging, Path=Visibility,Mode=TwoWay}" Content="שחרר מטעינה" HorizontalAlignment="Center" Margin="0,38,0,0" Grid.Row="3" VerticalAlignment="Top" Width="111" Height="36" Click="ReleaseDroneFromCharging_Click" Foreground="White" Grid.RowSpan="2" FontFamily="Heebo" FontSize="16"/>
+            <Button  Style="{DynamicResource roundButtonUpdate}" x:Name="ParcelArriveToCustomer" Content="משלוח בוצע" HorizontalAlignment="Left" Margin="37,0,0,12"  Grid.Row="2" Click="ParcelArriveToCustomer_Click" Width="85" FontFamily="Heebo" FontSize="16" Foreground="White"/>
             <Button  Style="{DynamicResource roundButtonUpdate}" x:Name="OpenParcelWindow" Content="פתח חבילה" HorizontalAlignment="Left" Margin="33,19,0,0"  Grid.Row="6" VerticalAlignment="Top" Width="81" Height="26" Click="OpenParcelWindow_Click" FontFamily="Heebo" FontSize="16" Foreground="White"/>
 
             <Label Content="מספר מזהה"  FontWeight="Normal" Grid.Column="2" Margin="87,14,6,0" Grid.Row="1" VerticalAlignment="Top" RenderTransformOrigin="0.712,0.517" Grid.ColumnSpan="2" FontFamily="Heebo" FontSize="16"/>
@@ -128,7 +125,7 @@
             </TextBox>
 
             <Label Content="מודל" FontWeight="Normal" Grid.Column="2" HorizontalAlignment="Left" Margin="87,0,0,0" Grid.Row="2" VerticalAlignment="Center" Grid.ColumnSpan="2" FontFamily="Heebo" FontSize="16" />
-            <TextBox x:Name="Model" Text="{Binding Model}" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Width="115" BorderBrush="#FF02040C" Grid.ColumnSpan="2" Margin="44,0,0,0" Height="20"/>
+            <TextBox x:Name="Model" Text="{Binding Model}" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Width="155" BorderBrush="#FF02040C" Grid.ColumnSpan="2" Margin="22,0,0,0" Height="24"/>
 
             <Label Content="משקל מירבי" FontWeight="Normal" HorizontalAlignment="Left" Margin="87,12,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="2" FontFamily="Heebo" FontSize="16"/>
             <TextBox x:Name="MaxWeight" Text="{Binding MaxWeight}" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="21,12,0,0" Grid.Row="3"  TextWrapping="Wrap" VerticalAlignment="Top" Width="157" Grid.ColumnSpan="2" Height="28"/>
@@ -151,7 +148,7 @@
                     </LinearGradientBrush>
                 </ProgressBar.Foreground>
             </ProgressBar>
-            <TextBlock x:Name="PrecentsBattery"  Grid.Column="1" HorizontalAlignment="Left" Margin="71,24,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="72"/>
+            <TextBlock x:Name="PrecentsBattery" Text="{Binding Path=Battery}" Grid.Column="1" HorizontalAlignment="Left" Margin="71,24,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="72"/>
 
             <Label Content="סטטוס" FontWeight="Normal" Grid.Column="2" HorizontalAlignment="Left" Margin="90,11,0,0" Grid.Row="5" VerticalAlignment="Top" RenderTransformOrigin="0.677,2.339" FontSize="16" FontFamily="Heebo" Height="29"/>
             <TextBox x:Name="Status" Text="{Binding Status}"  IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="21,12,0,0" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="157" Grid.ColumnSpan="2" Height="28"/>
@@ -162,7 +159,9 @@
             <Label Content="מיקום נוכחי" FontWeight="Normal" HorizontalAlignment="Left" Margin="90,0,0,0" Grid.Row="7" VerticalAlignment="Top" Width="123" Grid.ColumnSpan="2" Grid.Column="2" FontSize="16" FontFamily="Heebo"/>
             <TextBox x:Name="LocationTextBox" Text="{Binding CurrentLocation, Mode=OneWay}" IsEnabled="false" HorizontalAlignment="Right" Margin="0,0,71,11" Grid.Row="7" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="157" Height="28" Grid.ColumnSpan="2" Grid.Column="1"/>
             <Button  Style="{DynamicResource roundButtonUpdate}" x:Name="Automatic" Content="אוטומטי" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" Margin="33,22,0,0" Click="Automatic_Click" Width="78" Grid.Row="7" FontFamily="Heebo" FontSize="16" Foreground="White"/>
-            <Button x:Name="Regular" Visibility="Hidden" Content="עצור" Grid.Column="2" HorizontalAlignment="Left" Margin="45,48,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="55" Height="21" Grid.RowSpan="2" Click="Manual_Click"/>
+            <Button Style="{DynamicResource roundButtonUpdate}" x:Name="Regular" Visibility="Hidden" Content="עצור" Grid.Column="2" HorizontalAlignment="Left" Margin="45,48,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="55" Height="21" Grid.RowSpan="2" Click="Manual_Click"/>
+            <Button Style="{DynamicResource roundButtonUpdate}"  x:Name="assignDroneToParcel" Content="שיוך לחבילה" HorizontalAlignment="Left" Margin="34,0,0,0" VerticalAlignment="Top" Height="24" Width="92" Grid.Row="3" Foreground="White" FontWeight="Normal" FontFamily="Heebo" FontSize="16" Click="AssignDroneToParcel_Click"/>
+            <Button Style="{DynamicResource roundButtonUpdate}" x:Name="pickUpParcel" Content="איסוף חבילה" HorizontalAlignment="Left" Margin="33,0,0,0" VerticalAlignment="Center" Height="25" Width="93" Grid.Row="1" Foreground="White" FontFamily="Heebo" FontSize="16" FontWeight="Normal" Click="PickUpParcel_Click"/>
 
 
 

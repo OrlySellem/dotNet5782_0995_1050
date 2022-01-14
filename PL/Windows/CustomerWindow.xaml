@@ -22,7 +22,7 @@
 
     </Window.Resources>
     <Grid>
-        <Grid Name="addGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
+        <Grid Name="addGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -89,7 +89,7 @@
 
         </Grid>
 
-        <Grid Name="updataGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
+        <Grid Name="updataGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="0,-2,0,2">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -110,29 +110,29 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
 
-            <Button x:Name="CloseWindow" Content="Close Window" Grid.Column="2" HorizontalAlignment="Left" Margin="85,21,0,0" Grid.Row="1" VerticalAlignment="Top" Click="CloseWindow_Click" Width="95" Grid.ColumnSpan="2"/>
-            <Button x:Name="UpdateData"  Content="Update"   Grid.Column="2" HorizontalAlignment="Left" Margin="85,7,0,0" Grid.Row="2" VerticalAlignment="Top" Click="UpdateData_Click" Width="95" Grid.ColumnSpan="2"/>
+            <Button x:Name="CloseWindow" Style="{DynamicResource roundButton}" Content="סגור חלון" HorizontalAlignment="Left" Margin="35,15,0,0" Grid.Row="8" VerticalAlignment="Top" Click="CloseWindow_Click" Width="95" Grid.ColumnSpan="2" FontSize="16" FontWeight="Normal" FontFamily="Heebo"/>
+            <Button x:Name="UpdateData"  Style="{DynamicResource roundButton}" Content="עדכן"   Grid.Column="1" HorizontalAlignment="Left" Margin="30,15,0,0" Grid.Row="8" VerticalAlignment="Top" Click="UpdateData_Click" Width="95" FontFamily="Heebo" FontSize="16" FontWeight="Normal" Background="#FFD6D6D6"/>
 
-            <Label Content="id :" FontWeight="bold" Grid.Column="0"  HorizontalAlignment="Left" Margin="10,17,0,0" VerticalAlignment="Top" Grid.Row="1"/>
-            <TextBox x:Name="id" IsEnabled="False"  Grid.Column="1" HorizontalAlignment="Left" Margin="45,21,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" Grid.ColumnSpan="2" Grid.Row="1"/>
+            <Label Content="תז" FontWeight="Normal" Grid.Column="2"  HorizontalAlignment="Left" Margin="106,23,0,0" VerticalAlignment="Top" Grid.Row="1" FontFamily="Heebo" FontSize="16" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <TextBox x:Name="id" IsEnabled="False"  Grid.Column="1" HorizontalAlignment="Left" Margin="41,21,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" Grid.ColumnSpan="2" Grid.Row="1"/>
 
-            <Label Content="Name :" FontWeight="bold" Grid.Column="0" HorizontalAlignment="Left" Margin="10,5,0,0" Grid.Row="2" VerticalAlignment="Top"/>
-            <TextBox x:Name="CustomerName" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" BorderBrush="#FF02040C" Margin="45,9,0,0" Grid.ColumnSpan="2" />
+            <Label Content="שם מלא" FontWeight="Normal" Grid.Column="2" HorizontalAlignment="Left" Margin="105,11,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" FontFamily="Heebo" FontSize="16"/>
+            <TextBox x:Name="CustomerName" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" BorderBrush="#FF02040C" Margin="41,9,0,0" Grid.ColumnSpan="2" />
 
-            <Label Content="Phone :" FontWeight="bold" Grid.Column="0" HorizontalAlignment="Left" Margin="10,41,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="114" Grid.RowSpan="2"/>
-            <TextBox x:Name="Phone"  Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" Margin="45,45,0,0"  BorderBrush="#FF02040C" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <Label Content="פלאפון" FontWeight="Normal" Grid.Column="2" HorizontalAlignment="Left" Margin="105,43,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="114" FontFamily="Heebo" FontSize="16" Grid.RowSpan="2"/>
+            <TextBox x:Name="Phone"  Grid.Column="1" HorizontalAlignment="Left" Grid.Row="3" Margin="37,0,0,0"  BorderBrush="#FF02040C" TextWrapping="Wrap" VerticalAlignment="Top" Width="86"/>
 
-            <Label Content="Sented and provided parcels:" FontWeight="bold" Grid.Column="0" HorizontalAlignment="Left" Margin="10,31,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="180" Grid.RowSpan="2"/>
-            <TextBox x:Name="Sented_and_provided_parcels" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Margin="46,39,0,0" Grid.Row="3" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <Label Content="מס' חבילות ששלח וסופקו" FontWeight="Normal" Grid.Column="2" HorizontalAlignment="Left" Margin="30,33,0,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="180" Grid.RowSpan="2" FontFamily="Heebo" FontSize="16"/>
+            <TextBox x:Name="Sented_and_provided_parcels" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="35,39,0,0" Grid.Row="3" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="86" Grid.RowSpan="2"/>
 
-            <Label Content="Sented and unprovided parcels:" FontWeight="bold" Grid.Column="0" HorizontalAlignment="Left" Margin="10,20,0,0" Grid.Row="4" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="192"/>
-            <TextBox x:Name="Sented_and_unprovided_parcels" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Margin="46,26,0,0" Grid.Row="4" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
+            <Label Content="מס' חבילות ששלח אך עוד לא סופקו" FontWeight="Normal" Grid.Column="2" HorizontalAlignment="Right" Margin="0,21,4,0" Grid.Row="4" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="244" Grid.RowSpan="2" FontFamily="Heebo" FontSize="16"/>
+            <TextBox x:Name="Sented_and_unprovided_parcels" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="34,29,0,0" Grid.Row="4" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.RowSpan="2"/>
 
-            <Label Content="Received parcels :" Grid.Column="0" FontWeight="bold" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="5" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="114"/>
-            <TextBox x:Name="Received_parcels" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Margin="46,0,0,0" Grid.Row="5" Text="" TextWrapping="Wrap" VerticalAlignment="Center" Width="85" Grid.ColumnSpan="2"/>
+            <Label Content="מס' חבילות שקיבל" Grid.Column="2" FontWeight="Normal" HorizontalAlignment="Left" Margin="28,13,0,0" Grid.Row="5" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="142" FontFamily="Heebo" FontSize="16"/>
+            <TextBox x:Name="Received_parcels" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="34,17,0,0" Grid.Row="5" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85"/>
 
-            <Label Content="Parcels on the way to the customer:" FontWeight="bold" Grid.Column="0" HorizontalAlignment="Left" Margin="10,48,0,0" Grid.Row="5" VerticalAlignment="Top" Grid.ColumnSpan="3" Width="216" Grid.RowSpan="2"/>
-            <TextBox x:Name="Parcels_onTheWay_toCustomer" IsEnabled="False" Grid.Column="2" HorizontalAlignment="Left" Margin="46,3,0,0" Grid.Row="6" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85" Grid.ColumnSpan="2"/>
+            <Label Content="מס' חבילות שבדרך אל הלקוח" FontWeight="Normal" Grid.Column="2" HorizontalAlignment="Left" Margin="22,19,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="216" FontFamily="Heebo" FontSize="16" Height="48" Grid.RowSpan="2"/>
+            <TextBox x:Name="Parcels_onTheWay_toCustomer" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="35,22,0,0" Grid.Row="6" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="85"/>
 
 
 

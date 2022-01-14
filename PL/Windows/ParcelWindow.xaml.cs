@@ -130,12 +130,13 @@ namespace PL
         public ParcelWindow(IBL bl, ParcelToList parcel)
         {
             InitializeComponent();
+            DataContext = parcelToList;
             approachBL = bl;
             TheChosenParcel = parcel;
             updataGrid.Visibility = Visibility.Visible;
             addGrid.Visibility = Visibility.Hidden;
+            updataGrid.DataContext = parcelToList;
 
-          
             //parcelStatusComboBox.ItemsSource = Enum.GetValues(typeof(ParcelStatus));
 
             //if (parcel.ParcelStatus == ParcelStatus.scheduled || parcel.ParcelStatus == ParcelStatus.PickedUp)
