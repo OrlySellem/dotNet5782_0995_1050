@@ -391,7 +391,7 @@ namespace PL
         private void Manual_Click(object sender, RoutedEventArgs e)
         {
 
-            CloseDroneWindow.Visibility = Visibility.Visible;
+            CloseWindow.Visibility = Visibility.Visible;
             UpdateData.Visibility = Visibility.Visible;
             SendingDroneForCharging.Visibility = Visibility.Hidden;
             ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
