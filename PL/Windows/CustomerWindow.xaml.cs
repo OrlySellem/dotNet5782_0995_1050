@@ -22,6 +22,11 @@ namespace PL
     public partial class CustomerWindow : Window
     {
 
+        private void moveWindow(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
 
         #region ADD Customer Window
 
@@ -100,7 +105,12 @@ namespace PL
                 addCustomer.IsEnabled = false;
             }
         }
+       
 
+        private void cancelAddCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
 
 
         #endregion ADD Customer Window
@@ -159,16 +169,12 @@ namespace PL
             }
         }
 
+    
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void moveWindow(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
-        }
     }
 
 }

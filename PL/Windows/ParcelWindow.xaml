@@ -57,11 +57,11 @@
             <ComboBox x:Name="prioritySelector" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" Width="96" SelectionChanged="prioritySelector_SelectionChanged" Margin="32,38,0,24" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
 
 
+            <Button Style="{DynamicResource roundButton}" x:Name="addParcel" Content="הוספה" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="34,0,0,0" VerticalAlignment="Top" Height="40" Width="90" 
+             IsEnabled="False" Grid.Row="8" Click="addParcel_Click" Grid.Column="1" Grid.ColumnSpan="2"/>
 
-            <Button  Style="{DynamicResource roundButton}" x:Name="addParcel" Content="הוספה" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Height="40" Width="90" 
-             IsEnabled="False" Grid.Row="7" Click="addParcel_Click" Margin="35,0,0,0"/>
-
-            <Button  Style="{DynamicResource roundButton}" x:Name="cancelParcel" Content="ביטול" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="21,0,0,0" VerticalAlignment="Center" Height="40" Width="90" Grid.Column="1" Grid.Row="7" RenderTransformOrigin="0.26,0.378"/>
+            
+            <Button Style="{DynamicResource roundButton}" x:Name="cancelAddParce" Content="סגור חלון" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="24,0,0,0" VerticalAlignment="Top" Height="40" Width="90" Grid.Row="8" Grid.ColumnSpan="2" Click="cancelAddParce_Click"/>
 
 
         </Grid>

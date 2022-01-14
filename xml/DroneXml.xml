@@ -40,4 +40,14 @@
     <Model>7G</Model>
     <MaxWeight>light</MaxWeight>
   </Drone>
+  <Drone>
+    <Id>67890</Id>
+    <Model>7ujm</Model>
+    <MaxWeight>heavy</MaxWeight>
+  </Drone>
+  <Drone>
+    <Id>345678</Id>
+    <Model>4rfg</Model>
+    <MaxWeight>medium</MaxWeight>
+  </Drone>
 </ArrayOfDrone>

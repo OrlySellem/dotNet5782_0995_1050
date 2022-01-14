@@ -369,6 +369,7 @@ namespace Dal
             myParcel.PickedUp = DateTime.Now;
 
             listParcel.Add(myParcel);
+            XMLTools.SaveListToXMLSerializer(listParcel, parcelPath);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -385,6 +386,8 @@ namespace Dal
                 myParcel.Delivered = DateTime.Now;
 
                 listParcel.Add(myParcel);
+                XMLTools.SaveListToXMLSerializer(listParcel, parcelPath);
+
             }
             catch (DoesntExistentObjectException ex)
             {
@@ -411,9 +414,13 @@ namespace Dal
                     listStation.Remove(stationToUpdate);
                     reduceChargeSlots(ref myStation);
                     listStation.Add(myStation);
+                    XMLTools.SaveListToXMLSerializer(listStation, stationPath);
+
 
                     DroneCharge droneChargeToAdd = new DroneCharge() { Droneld = droneToUpdate.Id, Stationld = myStation.Id, StartedRecharged = DateTime.Now };
                     listChargeSlots.Add(droneChargeToAdd);
+                    XMLTools.SaveListToXMLSerializer(listChargeSlots, droneChargePath);
+
                     return;
                 }
             }

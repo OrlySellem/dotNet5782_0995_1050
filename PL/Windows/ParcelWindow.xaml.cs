@@ -48,9 +48,16 @@ namespace PL
         }
 
 
-        private void CancelAddBaseStation_Click(object sender, RoutedEventArgs e)
+        private void moveWindow(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
+        private void cancelAddParce_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+
         }
 
         private void WeightSelector_SelectionChanged_1(object sender, SelectionChangedEventArgs e)

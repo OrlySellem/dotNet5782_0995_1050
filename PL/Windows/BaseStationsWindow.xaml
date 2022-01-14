@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="BaseStationsWindow" Height="400" Width="500">
+        Title="BaseStationsWindow" Height="400" Width="500"
+         WindowStyle="None" MouseDown="moveWindow">
     <Window.Resources>
         <Style TargetType="Button" x:Key="roundButton">
             <Setter Property="Control.Template">

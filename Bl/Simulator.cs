@@ -15,14 +15,14 @@ namespace BL
     {
         const double speedToSecond = 1000;
         const int sleepTaimer = 500;
-        Stopwatch stopwatch;
 
         public Simulator(BL bl, int idDrone, Action updateProgress, Func<bool> checkStop)
         {
-            var drone = bl.getDrone(idDrone);
-
-            while (true) //until we didn't stop the thread
+            DroneToList drone;
+            bool stop = false;
+            while (!stop) //until we didn't stop the thread
             {
+                drone = bl.getDrone(idDrone);
 
                 switch (drone.Status)
                 {
@@ -31,12 +31,24 @@ namespace BL
                         {
                             bl.assignDroneToParcel(idDrone);
                             updateProgress();
+
                         }
                         else //if there isn't enough battary for delivery - send the parcel to charging
                         {
-                            bl.chargingDrone(idDrone);
-                            updateProgress();
+                            stop = true;
+                            break;
                         }
+
+                        if (drone.Battery == 100)
+                        {
+                            stop = true;
+                            break;
+                        }
+
+                        bl.chargingDrone(idDrone);
+                        updateProgress();
+
+
                         break;
                     case DroneStatuses.maintenance: //if the drone in charging - check if the battary is full and relase drone
                         if (drone.Battery >= 100)
@@ -74,8 +86,7 @@ namespace BL
                 {
                     // Perform a time consuming operation and report progress.
                     Thread.Sleep(sleepTaimer);
-                    if (checkStop() == true)
-                        updateProgress();
+                    updateProgress();
                 }
 
 
