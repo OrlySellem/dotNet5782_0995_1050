@@ -60,10 +60,10 @@ namespace PL
                 approachBL.addCustomer(newCustomer);
                 MessageBoxResult result = MessageBox.Show("!הלקוח נוסף בהצלחה");
             }
-            catch (AlreadyExistException ex)
+            catch (AlreadyExistException)
             {
 
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("לקוח כבר קיים במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             this.Close();
@@ -120,7 +120,7 @@ namespace PL
 
 
         static CustomerToList TheChosenCustomer;
-        private CustomerToList droneToList = new CustomerToList();
+        private CustomerToList customerToList = new CustomerToList();
         public CustomerWindow(IBL bl, CustomerToList customer)
         {
             InitializeComponent();
@@ -129,12 +129,12 @@ namespace PL
             {
                 return;
             }
-
+            DataContext = customerToList;
             approachBL = bl;
-            TheChosenCustomer = customer;
+            TheChosenCustomer = customerToList;
             updataGrid.Visibility = Visibility.Visible;
             addGrid.Visibility = Visibility.Hidden;
-            updataGrid.DataContext = customer;
+            updataGrid.DataContext = customerToList;
             
             //id.Text = TheChosenCustomer.Id.ToString();
             //CustomerName.Text = TheChosenCustomer.Name.ToString();
@@ -159,13 +159,13 @@ namespace PL
                 MessageBoxResult result = MessageBox.Show("!הלקוח עודכן בהצלחה");
 
             }
-            catch (DoesntExistentObjectException ex)
+            catch (DoesntExistentObjectException)
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("הלקוח לא קיים במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch (AlreadyExistException ex)
+            catch (AlreadyExistException)
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("הלקוח קיים במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

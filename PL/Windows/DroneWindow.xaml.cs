@@ -75,13 +75,13 @@ namespace PL
                 this.Close();
 
             }
-            catch (AlreadyExistException ex)
+            catch (AlreadyExistException)
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("הרחפן כבר קיים במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch (DoesntExistentObjectException ex)
+            catch (DoesntExistentObjectException)
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("הרחפן לא קיים במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -217,10 +217,10 @@ namespace PL
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch (DoesntExistentObjectException ex)
+            catch (DoesntExistentObjectException)
             {
 
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("הרחפן לא קיים במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -243,9 +243,9 @@ namespace PL
                 }
 
             }
-            catch (DoesntExistentObjectException ex)
+            catch (DoesntExistentObjectException)
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("הרחפן לא קיים במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (OnlyMaintenanceDroneWillBeAbleToBeReleasedFromCharging ex)
             {

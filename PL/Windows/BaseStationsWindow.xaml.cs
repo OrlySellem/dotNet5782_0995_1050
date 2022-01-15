@@ -67,9 +67,9 @@ namespace PL
                 MessageBoxResult result = MessageBox.Show("!תחנת הבסיס נוספה בהצלחה");
                 this.Close();
             }
-            catch (AlreadyExistException ex)
+            catch (AlreadyExistException)
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("התחנה קיימת במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -105,7 +105,7 @@ namespace PL
         #endregion ADD BaseStations
 
 
-        #region UPDATA BaseStations
+        #region UPDATE BaseStations
         static StationToList TheChosenBaseStation;
         private StationToList stationToList = new StationToList();
         public BaseStationsWindow(IBL bl, StationToList BaseStation)
@@ -142,13 +142,13 @@ namespace PL
                 MessageBoxResult result = MessageBox.Show("!תחנת הבסיס עודכנה בהצלחה");
             }
 
-            catch (DoesntExistentObjectException ex) 
+            catch (DoesntExistentObjectException) 
             { 
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error); 
+                MessageBox.Show("התחנה לא קיימת במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error); 
             }
-            catch(AlreadyExistException ex)
+            catch (AlreadyExistException)
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("התחנה קיימת במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             UpdateData.IsEnabled = false;
         }
@@ -166,13 +166,13 @@ namespace PL
                 approachBL.deleteFromStations(TheChosenBaseStation.Id);
                 MessageBoxResult result = MessageBox.Show("!תחנת הבסיס נמחקה בהצלחה");
             }
-            catch (DoesntExistentObjectException ex)
+            catch (DoesntExistentObjectException)
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("התחנה לא קיימת במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        #endregion UPDATA BaseStations
+        #endregion UPDATE BaseStations
 
        
     }

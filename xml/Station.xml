@@ -35,4 +35,11 @@
     <Lattitude>92.4770642201835</Lattitude>
     <ChargeSlots>15</ChargeSlots>
   </Station>
+  <Station>
+    <Id>789</Id>
+    <Name>123</Name>
+    <Longitude>-21.428571428571423</Longitude>
+    <Lattitude>99.86265869605364</Lattitude>
+    <ChargeSlots>5</ChargeSlots>
+  </Station>
 </ArrayOfStation>

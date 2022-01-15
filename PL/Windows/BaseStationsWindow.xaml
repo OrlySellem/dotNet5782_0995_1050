@@ -45,7 +45,7 @@
             <Image Grid.ColumnSpan="4" Margin="-1103,-40,-38,-112" Grid.RowSpan="10" Stretch="Fill" Source="/PL;component/backGroundMain.jpg"/>
 
             <Label Content="מספר מזהה"   FontWeight="Normal" HorizontalAlignment="Left" Height="32" Margin="61,0,0,0" VerticalAlignment="Center" Width="98" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2" FontFamily="Heebo" FontSize="16"/>
-            <TextBox x:Name="TextBoxId" Text="{Binding Path=Id}" HorizontalAlignment="Left" Margin="28,36,0,35" TextWrapping="Wrap" Width="131" Grid.Row="1" TextChanged="TextBoxId_TextChanged" Grid.ColumnSpan="2" Grid.RowSpan="2" Foreground="#FFC29797" Grid.Column="1">
+            <TextBox x:Name="TextBoxId" HorizontalAlignment="Left" Margin="28,36,0,35" TextWrapping="Wrap" Width="131" Grid.Row="1" TextChanged="TextBoxId_TextChanged" Grid.ColumnSpan="2" Grid.RowSpan="2" Foreground="#FFC29797" Grid.Column="1">
                 <TextBox.BorderBrush>
                     <SolidColorBrush Color="White" Opacity="0"/>
                 </TextBox.BorderBrush>
@@ -55,7 +55,7 @@
             </TextBox>
 
             <Label Content="שם התחנה" FontWeight="Normal" HorizontalAlignment="Left" Height="29" Margin="61,27,0,0" VerticalAlignment="Top" Width="82" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" FontSize="16" FontFamily="Heebo"/>
-            <TextBox Text="{Binding Path=Name}" x:Name="TextBoxName" TextWrapping="Wrap" Grid.Row="2" Margin="28,32,91,43" TextChanged="TextBoxName_TextChanged" Grid.ColumnSpan="2" Grid.Column="1" Grid.RowSpan="2">
+            <TextBox x:Name="TextBoxName" TextWrapping="Wrap" Grid.Row="2" Margin="28,32,91,43" TextChanged="TextBoxName_TextChanged" Grid.ColumnSpan="2" Grid.Column="1" Grid.RowSpan="2">
                 <TextBox.BorderBrush>
                     <SolidColorBrush Color="#FFABADB3" Opacity="0"/>
                 </TextBox.BorderBrush>
@@ -65,7 +65,7 @@
             </TextBox>
 
             <Label Content="עמדות טעינה פנויות" FontWeight="Normal" Height="29" VerticalAlignment="Top" Grid.Row="5" Grid.Column="2" Margin="61,20,-27,0" Grid.ColumnSpan="2" FontFamily="Heebo" FontSize="16"/>
-            <TextBox x:Name="TextBoxChargeSlots" Text="{Binding Path=ChargeSlotsFree}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="137" Height="25" Grid.ColumnSpan="2" Grid.Row="5" TextChanged="TextBoxChargeSlots_TextChanged" Margin="28,24,0,0" Grid.Column="1">
+            <TextBox x:Name="TextBoxChargeSlots"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="137" Height="25" Grid.ColumnSpan="2" Grid.Row="5" TextChanged="TextBoxChargeSlots_TextChanged" Margin="28,24,0,0" Grid.Column="1">
                 <TextBox.Background>
                     <SolidColorBrush Color="White" Opacity="0.95"/>
                 </TextBox.Background>

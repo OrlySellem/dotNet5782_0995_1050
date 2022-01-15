@@ -33,9 +33,9 @@ namespace BL
 
                     dal.addStaion(dalStation);
                 }
-                catch (DO.DoesntExistentObjectException ex)
+                catch (DO.AlreadyExistException ex)
                 {
-                    throw new DoesntExistentObjectException(ex.Message);
+                    throw new AlreadyExistException(ex.Message);
                 }
             }
 
