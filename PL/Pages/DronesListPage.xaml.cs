@@ -117,7 +117,9 @@ namespace PL
 
         private void refresh_Click(object sender, RoutedEventArgs e)
         {
-              DronesListView.ItemsSource = allDrones;
+            StattusSelector.SelectedItem = null;
+            WeightSelector.SelectedItem = null;
+            DronesListView.ItemsSource = allDrones;
         }
     }
 }

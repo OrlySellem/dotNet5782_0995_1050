@@ -52,27 +52,40 @@ namespace PL
 
         private void BaseStationsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-                new BaseStationsWindow(approachBL, (StationToList)BaseStationsListView.SelectedItem).ShowDialog();
+          
+            if (BaseStationsListView.SelectedItem != null)
+            {
+                new BaseStationsWindow(approachBL, (StationToList)BaseStationsListView.SelectedItem, allBaseStations).ShowDialog();
+                BaseStationsListView.ItemsSource = approachBL.getAllStations();
                 BaseStationsListView.Items.Refresh();
-            
+
+                BaseStationsListView.SelectedItem = null;
+            }
+                
+     
         }
 
         private void FreeChargeSlots_Click(object sender, RoutedEventArgs e)
         {
                 BaseStationsListView.ItemsSource = approachBL.display_station_with_freeChargingStations();
+                BaseStationsListView.SelectedItem = null;
                 BaseStationsListView.Items.Refresh();
         }
 
 
         private void addBaseStationsToList_Click(object sender, RoutedEventArgs e) //add base station
         {
-                new BaseStationsWindow(approachBL,allBaseStations).ShowDialog(); 
-             
+                new BaseStationsWindow(approachBL,allBaseStations).ShowDialog();
+                BaseStationsListView.ItemsSource = allBaseStations;
 
 
         }
 
+        private void refresh_Click(object sender, RoutedEventArgs e)
+        {
+            AmountOfFreeChargingStations.SelectedItem = null;
+            BaseStationsListView.ItemsSource = allBaseStations;
+        }
     }
 
 }
