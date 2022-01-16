@@ -16,7 +16,7 @@ namespace BO
 
         public ParcelStatus ParcelStatus { get; set; }
 
-        public Customer SenderOrTarget { get; set; }
+        public CustomerInParcel SenderOrTarget { get; set; }
 
         public override string ToString()
         {
