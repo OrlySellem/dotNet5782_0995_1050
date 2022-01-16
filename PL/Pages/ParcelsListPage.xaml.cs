@@ -37,11 +37,12 @@ namespace PL
         }
 
         private void ParcelListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {            
-            new ParcelWindow(approachBL, (ParcelToList)ParcelListView.SelectedItem).ShowDialog();
-            ParcelListView.ItemsSource = approachBL.getAllParcels();
-          
-
+        {   
+            if (ParcelListView.SelectedItem != null)
+            {
+                new ParcelWindow(approachBL, (ParcelToList)ParcelListView.SelectedItem, allParcels).ShowDialog();
+            }
+            ParcelListView.Items.Refresh();
         }
 
         private void senderCheckBox_check(object sender, RoutedEventArgs e)

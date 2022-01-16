@@ -25,14 +25,14 @@ namespace PL
         #region ADD Parcel
 
         BlApi.IBL approachBL;
-        ObservableCollection<BO.ParcelToList> parcelList;
+        ObservableCollection<BO.ParcelToList> parcelsList = new ObservableCollection<ParcelToList>();
         private Parcel selectedParcel = new Parcel();
 
           public ParcelWindow(BlApi.IBL bl, ObservableCollection<ParcelToList> parcels)
         {
             InitializeComponent();
             approachBL = bl;
-            parcelList = parcels;
+            parcelsList = parcels;
             updataGrid.Visibility = Visibility.Hidden;
             addGrid.Visibility = Visibility.Visible;
 
@@ -114,9 +114,9 @@ namespace PL
                 approachBL.addParcel(newParcel);
                 MessageBoxResult result = MessageBox.Show("!החבילה נוספה בהצלחה");
 
-                parcelList.Clear();
+                parcelsList.Clear();
                 foreach (BO.ParcelToList p in approachBL.getAllParcels())
-                    parcelList.Add(p);
+                    parcelsList.Add(p);
 
                 this.Close();
 
@@ -136,17 +136,12 @@ namespace PL
         #region UPDATA Parcel
 
 
-        public ParcelWindow(IBL bl, ParcelToList parcelToList)
+        public ParcelWindow(IBL bl, ParcelToList parcelToList, ObservableCollection<ParcelToList> parcels = null)
         {
             InitializeComponent();
-
-            if (parcelToList == null)
-            {
-                return;
-            }
-
             approachBL = bl;
             selectedParcel = approachBL.getParcel(parcelToList.Id);
+            parcelsList = parcels;
             DataContext = selectedParcel;
             updataGrid.DataContext = selectedParcel; 
             updataGrid.Visibility = Visibility.Visible;
@@ -279,6 +274,11 @@ namespace PL
             try
             {
                 approachBL.deleteFromParcels(selectedParcel.Id);
+
+                parcelsList.Clear();
+                foreach (BO.ParcelToList p in approachBL.getAllParcels())
+                    parcelsList.Add(p);
+
                 this.Close();
             }
             catch (DoesntExistentObjectException)
