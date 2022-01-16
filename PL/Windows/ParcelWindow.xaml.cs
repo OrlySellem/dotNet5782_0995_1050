@@ -26,8 +26,8 @@ namespace PL
 
         BlApi.IBL approachBL;
         private Parcel selectedParcel = new Parcel();
-        ObservableCollection<BO.ParcelToList> parcelToList = new ObservableCollection<ParcelToList>();
-        public ParcelWindow(BlApi.IBL bl, ObservableCollection<BO.ParcelToList> parcels)
+
+        public ParcelWindow(BlApi.IBL bl)
         {
             InitializeComponent();
             approachBL = bl;
@@ -47,7 +47,7 @@ namespace PL
 
             prioritySelector.ItemsSource = Enum.GetValues(typeof(Priorities));
 
-
+            
 
         }
 
@@ -142,7 +142,7 @@ namespace PL
             approachBL = bl;
             selectedParcel = approachBL.getParcel(parcelToList.Id);
             DataContext = selectedParcel;
-            updataGrid.DataContext = selectedParcel;
+            updataGrid.DataContext = selectedParcel; 
             updataGrid.Visibility = Visibility.Visible;
             addGrid.Visibility = Visibility.Hidden;
 

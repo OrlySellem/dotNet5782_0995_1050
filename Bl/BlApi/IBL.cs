@@ -61,7 +61,7 @@ namespace BlApi
 
         public void freeDroneFromCharging(int idDrone, DateTime newtime);
 
-        public void assignDroneToParcel(int idDrone);
+        public void assignDroneToParcel(int idDrone, DateTime newtime);
 
         public void dronePickParcel(int idDrone, DateTime newtime);
 

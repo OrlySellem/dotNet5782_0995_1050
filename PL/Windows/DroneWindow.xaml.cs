@@ -67,7 +67,7 @@ namespace PL
                 };
 
                 List<StationToList> stationFreeCharging = approachBL.display_station_with_freeChargingStations().ToList();
-                int idSt = stationFreeCharging[idStation.SelectedIndex].Id;
+                int idSt = stationFreeCharging [idStation.SelectedIndex].Id;
 
                 approachBL.addDrone(newDrone, idSt);
 
@@ -262,7 +262,7 @@ namespace PL
             {
                 if (TheChosenDrone.Status == DroneStatuses.available)
                 {
-                    approachBL.assignDroneToParcel(TheChosenDrone.Id);
+                    approachBL.assignDroneToParcel(TheChosenDrone.Id, DateTime.Now);
                     MessageBoxResult result = MessageBox.Show("!הרחפן שוייך לחבילה בהצלחה");
 
                     SendingDroneForCharging.Visibility = Visibility.Hidden;
@@ -379,7 +379,7 @@ namespace PL
                 ParcelToList p = (from parcel in approachBL.getAllParcels()
                                   where parcel.Id == TheChosenDrone.idParcel
                                   select parcel).FirstOrDefault();
-                new ParcelWindow(approachBL, p).ShowDialog();
+                new ParcelWindow(approachBL , p).ShowDialog();
             }
             catch (DoesntExistentObjectException)
             {
