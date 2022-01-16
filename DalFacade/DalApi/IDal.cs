@@ -57,7 +57,7 @@ namespace DalApi
 
         public IEnumerable<Customer> getCustomers(Predicate<Customer> prdicat = null);
 
-        public IEnumerable<Parcel> print_unconnected_parcels_to_Drone();
+        public IEnumerable<Parcel> unconnected_parcels_to_Drone();
 
         public IEnumerable<Station> stations_with_freeDroneCharge();
 

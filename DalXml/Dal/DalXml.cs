@@ -32,18 +32,25 @@ namespace Dal
         string dalConfigPath = @"..\..\xml\DalXmlConfig.xml";  //XElement
 
         #region ADD
+        /// <summary>
+        /// Add station to system (save in station's file)
+        /// </summary>
+        /// <param name="stationToAdd"></param>
         public void addStaion(Station stationToAdd)
         {
-            var listStation = XMLTools.LoadListFromXMLSerializer<Station>(stationPath);
-            if (listStation.Exists(x => x.Id == stationToAdd.Id))
+            var listStation = XMLTools.LoadListFromXMLSerializer<Station>(stationPath);//load the list from the station's file
+            if (listStation.Exists(x => x.Id == stationToAdd.Id)) //find if the station already axist
                 throw new AlreadyExistException("station");
 
             listStation.Add(stationToAdd);
-            XMLTools.SaveListToXMLSerializer(listStation, stationPath);
+            XMLTools.SaveListToXMLSerializer(listStation, stationPath);//save the list with new station in station's file
 
-            // throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Add drone to system (save in drone's file)
+        /// </summary>
+        /// <param name="DroneToAdd"></param>
         public void addDrone(Drone DroneToAdd)
         {
 
@@ -53,10 +60,12 @@ namespace Dal
 
             listDrone.Add(DroneToAdd);
             XMLTools.SaveListToXMLSerializer(listDrone, dronePath);
-
-            // throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Add customer to system (save in customer's file)
+        /// </summary>
+        /// <param name="CustomerToAdd"></param>
         public void addCustomer(Customer CustomerToAdd)
         {
             var listCustomer = XMLTools.LoadListFromXMLSerializer<Customer>(customerPath);
@@ -66,9 +75,12 @@ namespace Dal
             listCustomer.Add(CustomerToAdd);
             XMLTools.SaveListToXMLSerializer(listCustomer, customerPath);
 
-            // throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Add parcel to system (save in parcel's file)
+        /// </summary>
+        /// <param name="ParcelToAdd"></param>
         public void addParcel(Parcel ParcelToAdd)
         {     
             
@@ -76,10 +88,11 @@ namespace Dal
             if (listParcel.Exists(x => x.Id == ParcelToAdd.Id))
                 throw new AlreadyExistException("parcel");
 
-            if (ParcelToAdd.Id != 0)
+            if (ParcelToAdd.Id != 0) 
+            {
                 ParcelToAdd.Id = ParcelToAdd.Id;
-
-            else
+            }
+            else //if the parcel is new, the id is the runner number and we will update it
             {
                 var dalConfig = XMLTools.LoadListFromXMLSerializer<string>(dalConfigPath);
                 int num = int.Parse(dalConfig[5]);
@@ -95,6 +108,11 @@ namespace Dal
         #endregion ADD
 
         #region GET 
+        /// <summary>
+        /// Get parcel from the parcel's file
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel getParcel(int id)
         {
@@ -109,6 +127,11 @@ namespace Dal
             //  throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Get drone from the drone's file
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone getDrone(int id)
         {
@@ -116,65 +139,88 @@ namespace Dal
             Drone drone = (from findDrone in listDrone
                            where findDrone.Id == id
                            select findDrone).FirstOrDefault();
-            if (drone.Equals(default(Parcel)))
+
+            if (drone.Equals(default(Drone)))
                 throw new DoesntExistentObjectException("drone");
             return drone;
 
-            //  throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Get the station from the station's file
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Station getStation(int id)
         {
             var listStation = XMLTools.LoadListFromXMLSerializer<Station>(stationPath);
+
             Station station = (from findStation in listStation
                                where findStation.Id == id
                                select findStation).FirstOrDefault();
-            if (station.Equals(default(Parcel)))
+
+            if (station.Equals(default(Station)))
                 throw new DoesntExistentObjectException("station");
             return station;
 
-            //  throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Get customer from the customer's file
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public Customer getCustomer(int id)
         {
             var listCustomer = XMLTools.LoadListFromXMLSerializer<Customer>(customerPath);
+
             Customer customer = (from findCustomer in listCustomer
                                  where findCustomer.Id == id
                                  select findCustomer).FirstOrDefault();
-            if (customer.Equals(default(Parcel)))
+
+            if (customer.Equals(default(Customer)))//check if the custome is defult
                 throw new DoesntExistentObjectException("customer");
             return customer;
 
-            //  throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Get drone charge from the file
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public DroneCharge getDroneCharge(int id)
         {
-            var listDroneCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(parcelPath);
+            var listDroneCharge = XMLTools.LoadListFromXMLSerializer <DroneCharge> (droneChargePath);
             DroneCharge droneCharge = (from findDroneCharge in listDroneCharge
                                        where findDroneCharge.Droneld == id
                                        select findDroneCharge).FirstOrDefault();
+
             if (droneCharge.Equals(default(DroneCharge)))
                 throw new chargingException("the drone is not charging");
             return droneCharge;
 
-            //  throw new NotImplementedException();
         }
 
         #endregion GET 
 
         #region DELETE
+        /// <summary>
+        /// Delete drone from the system (from drone's file)
+        /// </summary>
+        /// <param name="droneToDel"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void delFromDrones(Drone droneToDel)
         {
+            //מחפשים האם יש חבילה שמשוייכת לרחפן לפני שמוחקים את הרחפן
             var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
             Parcel parcelToUpdate = listParcel.Find(x => x.Droneld == droneToDel.Id);
             if (parcelToUpdate.Id != 0)
             {
+                //מעדכנת שאין לה רחפן משוייך
                 if (parcelToUpdate.Delivered == null)
                 {
                     delFromParcels(parcelToUpdate);
@@ -184,18 +230,24 @@ namespace Dal
                     addParcel(parcelToUpdate);
                 }
             }
+            //מוחקת את הרחפן מהרשימה ומעדכנת בקובץ
             var listDrone = XMLTools.LoadListFromXMLSerializer<Drone>(dronePath);
             listDrone.Remove(droneToDel);
             XMLTools.SaveListToXMLSerializer(listDrone, dronePath);
 
-            //throw new NotImplementedException();
         }
 
+        /// <summary>
+        ///  Delete station from the system (from station's file)
+        /// </summary>
+        /// <param name="stationToDel"></param>
+        /// <param name="freeDrone"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void delFromStations(Station stationToDel, bool freeDrone)
         {
-            if (freeDrone)
+            if (freeDrone) //אם יש רחפנים בטעינה
             {
+                //נמצא את הרחפנים שבטעינה ונשחרר אותם
                 var listDronesCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(droneChargePath);
                 foreach (var dronesCharge in listDronesCharge)
                 {
@@ -210,16 +262,21 @@ namespace Dal
             listStation.Remove(stationToDel);
             XMLTools.SaveListToXMLSerializer(listStation, stationPath);
 
-            // throw new NotImplementedException();
         }
 
+        /// <summary>
+        ///  Delete parcel from the system (from parcel's file)
+        /// </summary>
+        /// <param name="parcelToDel"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void delFromParcels(Parcel parcelToDel)
         {
             XElement parcelList = XMLTools.LoadListFromXMLElement(parcelPath);
+
             var DelParcel = (from parcel in parcelList.Elements()
                              where (parcel.Element("Id").Value == parcelToDel.Id.ToString())
                              select parcel).FirstOrDefault();
+
             if (DelParcel == null)
                 throw new DoesntExistentObjectException("parcel");
 
@@ -227,20 +284,31 @@ namespace Dal
             XMLTools.SaveListToXMLElement(parcelList, parcelPath);
         }
 
+        /// <summary>
+        /// Delete customer from the system (from customer's file)
+        /// </summary>
+        /// <param name="customerToDel"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void delFromCustomers(Customer customerToDel)
         {
-            var listCustomer = XMLTools.LoadListFromXMLSerializer<Customer>(parcelPath);
+
+            var listCustomer = XMLTools.LoadListFromXMLSerializer<Customer>(customerPath);
 
             listCustomer.Remove(customerToDel);
 
-            XMLTools.SaveListToXMLSerializer(listCustomer, parcelPath);
+            XMLTools.SaveListToXMLSerializer(listCustomer, customerPath);
 
         }
 
+        /// <summary>
+        /// Delete droneCharge from the system (from droneCharge's file)
+        /// </summary>
+        /// <param name="droneCharge"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void delFromChargingDrone(DroneCharge droneCharge)
         {
+            // טוען את רשימת התחנות ומחפש את התחנה שבו הרחפן נטען, מגדיל את מספר עמדות הטעינה הפנויות בתחנה
+            //ומוחק את החיבור בין התחנה לרחפן - כלומר את droneCharge
             var listStation = XMLTools.LoadListFromXMLSerializer<Station>(stationPath);
             Station stationToUpdate = listStation.Find(x => x.Id == droneCharge.Stationld);
             listStation.Remove(stationToUpdate);
@@ -249,12 +317,17 @@ namespace Dal
 
             var listDroneCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(droneChargePath);
             listDroneCharge.Remove(droneCharge);
-            XMLTools.SaveListToXMLSerializer(listDroneCharge, parcelPath);
+            XMLTools.SaveListToXMLSerializer(listDroneCharge, droneChargePath);
         }
 
         #endregion DELETE
 
         #region GET_LIST
+        /// <summary>
+        /// Get parcels
+        /// </summary>
+        /// <param name="prdicat"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> getParcels(Predicate<Parcel> prdicat = null)
         {
@@ -262,6 +335,11 @@ namespace Dal
             return listParcel;
         }
 
+        /// <summary>
+        /// Get drone charge's list
+        /// </summary>
+        /// <param name="prdicat"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<DroneCharge> getDronesCharge(Predicate<DroneCharge> prdicat = null)
         {
@@ -269,6 +347,11 @@ namespace Dal
             return listDroneCharge;
         }
 
+        /// <summary>
+        /// Get drones 
+        /// </summary>
+        /// <param name="prdicat"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> getDrones(Predicate<Drone> prdicat = null)
         {
@@ -276,6 +359,11 @@ namespace Dal
             return listDrone;
         }
 
+        /// <summary>
+        /// Get stations
+        /// </summary>
+        /// <param name="prdicat"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> getStations(Predicate<Station> prdicat = null)
         {
@@ -283,6 +371,11 @@ namespace Dal
             return listStation;
         }
 
+        /// <summary>
+        /// get customers
+        /// </summary>
+        /// <param name="prdicat"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Customer> getCustomers(Predicate<Customer> prdicat = null)
         {
@@ -290,8 +383,12 @@ namespace Dal
             return listCustomer;
         }
 
+        /// <summary>
+        /// return the list of parcels that doesnt assign to drone
+        /// </summary>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public IEnumerable<Parcel> print_unconnected_parcels_to_Drone()
+        public IEnumerable<Parcel> unconnected_parcels_to_Drone()
         {
             List<Parcel> parcelsList = new List<Parcel>();
             var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
@@ -304,6 +401,10 @@ namespace Dal
             return parcelsList;
         }
 
+        /// <summary>
+        /// return the list of stations with free charge slots
+        /// </summary>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> stations_with_freeDroneCharge()
         {
@@ -323,6 +424,10 @@ namespace Dal
         #endregion GET_LIST
 
         #region updateChargeSlots
+        /// <summary>
+        /// reduce the charge slots in station
+        /// </summary>
+        /// <param name="s"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void reduceChargeSlots(ref Station s)
         {
@@ -332,6 +437,10 @@ namespace Dal
 
         }
 
+        /// <summary>
+        ///  plus the charge slots in station
+        /// </summary>
+        /// <param name="s"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void plusChargeSlots(ref Station s)
         {

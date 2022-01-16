@@ -135,7 +135,7 @@ namespace BL
         {
             lock (dal)
             {
-                var parcelList_dal = dal.print_unconnected_parcels_to_Drone();
+                var parcelList_dal = dal.unconnected_parcels_to_Drone();
                 List<ParcelToList> ParcelList_bl = new List<ParcelToList>();
 
                 foreach (var parcelItem in parcelList_dal)

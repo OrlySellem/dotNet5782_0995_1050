@@ -13,7 +13,10 @@ namespace BL
     {
 
         #region CRUD
-        //Create
+        /// <summary>
+        /// add customer to the system
+        /// </summary>
+        /// <param name="CustomerToAdd"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void addCustomer(Customer CustomerToAdd)
         {
@@ -21,6 +24,7 @@ namespace BL
             {
                 try
                 {
+
                     DO.Customer dalCustomer = new DO.Customer()
                     {
                         Id = CustomerToAdd.Id,
@@ -32,7 +36,7 @@ namespace BL
 
                     dal.addCustomer(dalCustomer);
                 }
-                catch (AlreadyExistException ex)
+                catch (DO.AlreadyExistException ex)
                 {
                     throw new AlreadyExistException(ex.Message);
                 }

@@ -201,7 +201,7 @@ namespace Dal
             return DataSource.dronesCharge.FindAll(x => prdicat == null ? true : prdicat(x));
         }
 
-        public IEnumerable<Parcel> print_unconnected_parcels_to_Drone()
+        public IEnumerable<Parcel> unconnected_parcels_to_Drone()
         {
             List<Parcel> parcelsList = (from parcel in DataSource.parcels
                                         where parcel.Droneld == 0 && parcel.Scheduled == null
