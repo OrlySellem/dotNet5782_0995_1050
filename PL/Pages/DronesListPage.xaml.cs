@@ -110,8 +110,10 @@ namespace PL
 
         private void grouping_Click(object sender, RoutedEventArgs e)
         {
+          
            
         }
+
 
         private void refresh_Click(object sender, RoutedEventArgs e)
         {

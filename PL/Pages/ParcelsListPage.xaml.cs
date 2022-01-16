@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using BlApi;
 using BO;
 namespace PL
@@ -103,6 +104,33 @@ namespace PL
         {
             new ParcelWindow(approachBL, allParcels).ShowDialog();
            
+        }
+
+        private void groupingSender_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveGroupings_Click(sender, e);
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ParcelListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Senderld");
+            SortDescription sortDescription = new SortDescription("Senderld", ListSortDirection.Ascending);
+            view.GroupDescriptions.Add(groupDescription);
+            view.SortDescriptions.Add(sortDescription);
+            groupingTarget.IsEnabled = false;
+        }
+        private void groupingTarget_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveGroupings_Click(sender, e);
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ParcelListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Targetld");
+            SortDescription sortDescription = new SortDescription("Targetld", ListSortDirection.Ascending);
+            view.GroupDescriptions.Add(groupDescription);
+            view.SortDescriptions.Add(sortDescription);
+            groupingTarget.IsEnabled = false;
+
+        }
+        private void RemoveGroupings_Click(object sender, RoutedEventArgs e)
+        {
+            CollectionView view= (CollectionView)CollectionViewSource.GetDefaultView(ParcelListView.ItemsSource);
+            view.GroupDescriptions.Clear();
         }
     }
 }

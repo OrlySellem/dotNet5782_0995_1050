@@ -59,6 +59,8 @@
         <CheckBox x:Name="senderCheckBox" Content="sender" Grid.Column="1" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Height="23" Checked="senderCheckBox_check"/>
         <CheckBox x:Name="targetCheckBox" Content="target" Grid.Column="2" HorizontalAlignment="Left" Margin="8,45,0,0" VerticalAlignment="Top" Height="23" Checked="TargetCheckBox_check"/>
         <ComboBox x:Name="senderOrTargetID" IsEnabled="False" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="38,11,0,0" Grid.Row="1" VerticalAlignment="Top" Width="161" SelectionChanged="SenderOrTargetID_SelectionChanged"/>
+        <Button Style="{DynamicResource roundButton}" x:Name="groupingSender"  Content="קבץ לפי שולח" HorizontalAlignment="Left" Margin="114,11,0,0" VerticalAlignment="Top" Height="26" Width="113" Click="groupingSender_Click" FontFamily="Heebo" FontSize="16" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"/>
+        <Button Style="{DynamicResource roundButton}" x:Name="groupingTarget"  Content="קבץ לפי מקבל" HorizontalAlignment="Left" Margin="111,11,0,0" VerticalAlignment="Top" Height="26" Width="134" Click="groupingTarget_Click" FontFamily="Heebo" FontSize="16" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2"/>
 
     </Grid>
 </Page>
