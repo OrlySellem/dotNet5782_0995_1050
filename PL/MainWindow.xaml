@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="MainWindow"  Height="697" Width="1333">
+        Title="MainWindow"  Height="697" Width="1333"
+          WindowStyle="None" MouseDown="moveWindow">
 
     <Window.Resources>
         <Style TargetType="Button" x:Key="roundButton">
@@ -21,49 +22,29 @@
         </Style>
     </Window.Resources>
 
-    <Grid  Margin="2,0,-2,0">
+    <Grid Name="MainGrid" Margin="0,-12,0,6" Visibility="Visible">
+        <Grid.Background>
+            <ImageBrush ImageSource="/backGroundMain.jpg"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="233*"/>
+            <ColumnDefinition Width="95*"/>
+            <ColumnDefinition Width="56*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Name="EntranceGrid" Margin="0,0,0,-6" Visibility="Hidden">
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="400*"/>
-            </Grid.RowDefinitions>
-            <PasswordBox x:Name="passwordUserName" HorizontalAlignment="Left" Margin="532,236,0,0" Grid.Row="1" VerticalAlignment="Top" Width="169" Height="20"/>
-            <Label x:Name="ID" Content="ID:" HorizontalAlignment="Left" Margin="475,191,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-            <Label x:Name="Password" Content="Password:" HorizontalAlignment="Left" Margin="467,234,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-            <TextBox x:Name="IDTextBox"  HorizontalAlignment="Left" Margin="531,193,0,0" Grid.Row="1" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Height="24"/>
-            <Button x:Name="signUp" Content="Sign up" HorizontalAlignment="Left" Margin="536,280,0,0" Grid.Row="1" VerticalAlignment="Top" Width="70" Height="20" Click="sign_Click"/>
-            <Button x:Name="LogIn" Content="Log in" HorizontalAlignment="Left" Margin="631,280,0,0" Grid.Row="1" VerticalAlignment="Top" Width="70" Height="20" Click="LogIn_Click"/>
-        </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="58"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        <Grid Name="MainGrid" Margin="0,-12,0,6" Visibility="Visible">
-            <Grid.Background>
-                <ImageBrush ImageSource="/backGroundMain.jpg"/>
-            </Grid.Background>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="233*"/>
-                <ColumnDefinition Width="95*"/>
-                <ColumnDefinition Width="56*"/>
-            </Grid.ColumnDefinitions>
-
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="58"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <Button Style="{DynamicResource roundButton}" Content="עמוד ראשי"  FontWeight="Bold"
+        <Button Style="{DynamicResource roundButton}" Content="עמוד ראשי"  FontWeight="Bold"
                 FontSize="22"
                 MinWidth="100"
                 MinHeight="50"
-                Grid.Column="1" HorizontalAlignment="Left" Margin="325,98,0,0" Grid.Row="1" VerticalAlignment="Top" Height="48" Width="187" Click="Button_Click" Grid.ColumnSpan="2" FontFamily="Heebo"/>
+                Grid.Column="1" HorizontalAlignment="Left" Margin="325,98,0,0" Grid.Row="1" VerticalAlignment="Top" Height="48" Width="187" Grid.ColumnSpan="2" FontFamily="Heebo"/>
 
-            <Button Style="{DynamicResource roundButton}" x:Name="ViewDroneList" 
+        <Button Style="{DynamicResource roundButton}" x:Name="ViewDroneList" 
                 Content="רחפנים"
                 FontWeight="Bold"
                 FontSize="22"
@@ -74,15 +55,15 @@
                 VerticalAlignment="Top"
                 Height="50" Width="189" 
                 Click="ViewDroneList_Click" FontFamily="heebo" Grid.Row="1" Foreground="Black" Grid.Column="1" Grid.ColumnSpan="2">
-                <Button.BorderBrush>
-                    <SolidColorBrush Color="White" Opacity="0"/>
-                </Button.BorderBrush>
-                <Button.Background>
-                    <SolidColorBrush Color="White" Opacity="0.9"/>
-                </Button.Background>
-            </Button>
+            <Button.BorderBrush>
+                <SolidColorBrush Color="White" Opacity="0"/>
+            </Button.BorderBrush>
+            <Button.Background>
+                <SolidColorBrush Color="White" Opacity="0.9"/>
+            </Button.Background>
+        </Button>
 
-            <Button Style="{DynamicResource roundButton}" x:Name="ViewBaseStationList" 
+        <Button Style="{DynamicResource roundButton}" x:Name="ViewBaseStationList" 
                 Content="תחנות בסיס"
                 FontWeight="Bold"
                 FontSize="22"
@@ -93,15 +74,15 @@
                 Grid.Row="1" 
                 VerticalAlignment="Top"
                 Height="50" Width="189" Click="ViewBaseStationList_Click" Grid.Column="1" Grid.ColumnSpan="2" FontFamily="Heebo">
-                <Button.BorderBrush>
-                    <SolidColorBrush Color="#FF22445D" Opacity="0"/>
-                </Button.BorderBrush>
-                <Button.Background>
-                    <SolidColorBrush Color="White" Opacity="0.9"/>
-                </Button.Background>
-            </Button>
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF22445D" Opacity="0"/>
+            </Button.BorderBrush>
+            <Button.Background>
+                <SolidColorBrush Color="White" Opacity="0.9"/>
+            </Button.Background>
+        </Button>
 
-            <Button Style="{DynamicResource roundButton}" x:Name="ViewCustomerList" 
+        <Button Style="{DynamicResource roundButton}" x:Name="ViewCustomerList" 
                 Content="לקוחות"
                 FontWeight="Bold"
                 FontSize="22"
@@ -111,15 +92,15 @@
                 Margin="324,280,0,0" 
                 VerticalAlignment="Top"
                 Height="50" Width="193" Click="ViewCustomerList_Click" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontFamily="Heebo">
-                <Button.BorderBrush>
-                    <SolidColorBrush Color="#FF22445D" Opacity="0"/>
-                </Button.BorderBrush>
-                <Button.Background>
-                    <SolidColorBrush Color="White" Opacity="0.9"/>
-                </Button.Background>
-            </Button>
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF22445D" Opacity="0"/>
+            </Button.BorderBrush>
+            <Button.Background>
+                <SolidColorBrush Color="White" Opacity="0.9"/>
+            </Button.Background>
+        </Button>
 
-            <Button Style="{DynamicResource roundButton}" x:Name="ViewParcelList" 
+        <Button Style="{DynamicResource roundButton}" x:Name="ViewParcelList" 
                 Content="חבילות"
                 FontWeight="Bold"
                 FontSize="22"
@@ -130,53 +111,46 @@
                 Grid.Row="1" 
                 VerticalAlignment="Top"
                 Height="50" Width="193" Click="ViewParcelList_Click" Grid.Column="1" Grid.ColumnSpan="2" FontFamily="Heebo">
-                <Button.BorderBrush>
-                    <SolidColorBrush Color="#FF22445D" Opacity="0"/>
-                </Button.BorderBrush>
-                <Button.Background>
-                    <SolidColorBrush Color="White" Opacity="0.9"/>
-                </Button.Background>
-            </Button>
+            <Button.BorderBrush>
+                <SolidColorBrush Color="#FF22445D" Opacity="0"/>
+            </Button.BorderBrush>
+            <Button.Background>
+                <SolidColorBrush Color="White" Opacity="0.9"/>
+            </Button.Background>
+        </Button>
 
 
-            <Grid x:Name="table" Margin="0,42,86,9" RenderTransformOrigin="0.5,0.5" Grid.Row="1" Grid.ColumnSpan="2">
-                <Frame x:Name="tableLists" NavigationUIVisibility="Hidden" Margin="10,0,10,70"/>
-
-            </Grid>
-            <Grid x:Name="dronePng" Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="2" Margin="295,450,0,18">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0*"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                
-                <Grid.Background>
-                    <ImageBrush ImageSource="/Drone.png"/>
-
-                </Grid.Background>
-
-            </Grid>
-            <Grid x:Name="logo"  RenderTransformOrigin="0.5,0.5" Grid.Column="2" Margin="0,32,17,553" Grid.RowSpan="2">
-                <Grid.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleX="1"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Grid.RenderTransform>
-                <Grid.Background>
-                    <ImageBrush ImageSource="/logo.png"/>
-                </Grid.Background>
-            </Grid>
-
+        <Grid x:Name="table" Margin="0,42,86,9" RenderTransformOrigin="0.5,0.5" Grid.Row="1" Grid.ColumnSpan="2">
+            <Frame x:Name="tableLists" NavigationUIVisibility="Hidden" Margin="10,0,10,70"/>
 
         </Grid>
+        <Grid x:Name="dronePng" Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="2" Margin="295,450,0,18">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid.Background>
+                <ImageBrush ImageSource="/Drone.png"/>
+
+            </Grid.Background>
+
+        </Grid>
+        <Grid x:Name="logo"  RenderTransformOrigin="0.5,0.5" Grid.Column="2" Margin="0,44,17,567" Grid.RowSpan="2">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Grid.Background>
+                <ImageBrush ImageSource="/logo.png"/>
+            </Grid.Background>
+        </Grid>
+        <Button Style="{DynamicResource roundButton}" Content="סגור מערכת" HorizontalAlignment="Left" Margin="22,16,0,0" Width="102" FontFamily="Heebo" FontSize="16" Height="32" VerticalAlignment="Top" Click="Button_Click"/>
+
 
     </Grid>
-
-
-
-
-
-
 </Window>
