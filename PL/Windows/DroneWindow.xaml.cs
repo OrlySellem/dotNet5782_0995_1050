@@ -26,16 +26,17 @@ namespace PL
     public partial class DroneWindow : Window
     {
         BlApi.IBL approachBL;
+        ObservableCollection<BO.DroneToList> droneList;
 
 
-        //private DronePO dronePO = new DronePO();
-        #region ADD drone
+         #region ADD drone
 
 
 
-        public DroneWindow(BlApi.IBL bl)
+        public DroneWindow(BlApi.IBL bl, ObservableCollection<BO.DroneToList> drones)
         {
             InitializeComponent();
+            droneList = drones;
             updataGrid.Visibility = Visibility.Hidden;
             addGrid.Visibility = Visibility.Visible;
 
@@ -72,6 +73,11 @@ namespace PL
                 approachBL.addDrone(newDrone, idSt);
 
                 MessageBoxResult result = MessageBox.Show("!הרחפן נוסף בהצלחה");
+
+                DroneToList d = (from addD in approachBL.GetDrones()
+                                    where addD.Id == int.Parse(TextBoxId.Text)
+                                    select addD).FirstOrDefault();
+                droneList.Add(d);
 
                 this.Close();
 

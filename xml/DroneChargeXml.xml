@@ -105,4 +105,9 @@
     <Stationld>1234</Stationld>
     <StartedRecharged>2022-01-14T00:56:21.6410814+02:00</StartedRecharged>
   </DroneCharge>
+  <DroneCharge>
+    <Droneld>8765432</Droneld>
+    <Stationld>1234</Stationld>
+    <StartedRecharged>2022-01-16T15:27:16.2565568+02:00</StartedRecharged>
+  </DroneCharge>
 </ArrayOfDroneCharge>

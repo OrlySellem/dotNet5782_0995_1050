@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 using BO;
 using BlApi;
 namespace PL
@@ -22,12 +23,16 @@ namespace PL
     public partial class BaseStationsListPage : Page
     {
         BlApi.IBL approachBL;
+        private ObservableCollection<BO.StationToList> allBaseStations = new ObservableCollection<BO.StationToList>();
+
         public BaseStationsListPage(BlApi.IBL bl)
         {
             InitializeComponent();
             approachBL = bl;
-            BaseStationsListView.ItemsSource = approachBL.getAllStations();
+            BaseStationsListView.ItemsSource = allBaseStations;
 
+            foreach (BO.StationToList s in approachBL.getAllStations())
+                allBaseStations.Add(s);
             //יוצר רשימה של כל מספרי תחנות הטענה הפנויות
             AmountOfFreeChargingStations.ItemsSource = (from findStations in approachBL.display_station_with_freeChargingStations()
                                                         select findStations.ChargeSlotsFree).ToList().Distinct();
@@ -62,8 +67,8 @@ namespace PL
 
         private void addBaseStationsToList_Click(object sender, RoutedEventArgs e) //add base station
         {
-                new BaseStationsWindow(approachBL).ShowDialog(); 
-                BaseStationsListView.ItemsSource = approachBL.getAllStations(); 
+                new BaseStationsWindow(approachBL,allBaseStations).ShowDialog(); 
+             
 
 
         }

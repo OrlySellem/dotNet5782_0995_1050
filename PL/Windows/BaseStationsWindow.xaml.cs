@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace PL
 {
@@ -24,22 +25,26 @@ namespace PL
 
     public partial class BaseStationsWindow : Window
     {
+        private void moveWindow(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
         #region ADD BaseStations
         BlApi.IBL approachBL;
-        public BaseStationsWindow(BlApi.IBL bl)
+        private ObservableCollection<BO.StationToList> BaseStationsList;
+
+        public BaseStationsWindow(BlApi.IBL bl, ObservableCollection<BO.StationToList> BaseStations)
         {
             InitializeComponent();
+            BaseStationsList = BaseStations;
             approachBL = bl;
             updataGrid.Visibility = Visibility.Hidden;
             addGrid.Visibility = Visibility.Visible;
 
         }
 
-        private void moveWindow(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
-        }
         private void cancelAddBaseStation_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -65,6 +70,12 @@ namespace PL
                 };
                 approachBL.addStation(newStation);
                 MessageBoxResult result = MessageBox.Show("!תחנת הבסיס נוספה בהצלחה");
+             
+                StationToList s = (from addS in approachBL.getAllStations()
+                                    where addS.Id == int.Parse(TextBoxId.Text)
+                                    select addS).FirstOrDefault();
+                BaseStationsList.Add(s);
+
                 this.Close();
             }
             catch (AlreadyExistException)

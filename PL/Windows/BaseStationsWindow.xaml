@@ -44,7 +44,7 @@
             </Grid.ColumnDefinitions >
             <Image Grid.ColumnSpan="4" Margin="-1356,-230,-64,-230" Grid.RowSpan="10" Stretch="Fill" Source="/PL;component/backGroundMain.jpg"/>
 
-            <Label Content="מספר מזהה"   FontWeight="Normal" HorizontalAlignment="Left" Height="32" Margin="61,0,0,0" VerticalAlignment="Center" Width="98" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2" FontFamily="Heebo" FontSize="18"/>
+            <Label Content="מספר מזהה"   FontWeight="Normal" HorizontalAlignment="Left" Height="32" Margin="61,0,0,0" VerticalAlignment="Center" Width="127" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2" FontFamily="Heebo" FontSize="18"/>
             <TextBox x:Name="TextBoxId" HorizontalAlignment="Left" Margin="32,0,0,0" TextWrapping="Wrap" Width="128" Height="28" Grid.Row="1" TextChanged="TextBoxId_TextChanged" Grid.ColumnSpan="2" Grid.RowSpan="2" Foreground="#FFC29797" Grid.Column="1" BorderBrush="#00ABADB3" VerticalAlignment="Center">
             </TextBox>
 
