@@ -126,4 +126,11 @@
     <Longitude>33.01910828025479</Longitude>
     <Lattitude>134.28220858895702</Lattitude>
   </Customer>
+  <Customer>
+    <Id>23456789</Id>
+    <Name>rtyuj</Name>
+    <Phone>987654</Phone>
+    <Longitude>51.36305732484077</Longitude>
+    <Lattitude>53.00613496932528</Lattitude>
+  </Customer>
 </ArrayOfCustomer>

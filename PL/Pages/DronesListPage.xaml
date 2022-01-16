@@ -38,7 +38,7 @@
 
                 </GridView>
             </ListView.View>
-
+          
         </ListView>
         <Grid/>
         <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
@@ -62,7 +62,7 @@
             </Grid>
             <Button Style="{DynamicResource roundButton}" x:Name="addDroneToList" Content="הוסף רחפן" Grid.Column="6" HorizontalAlignment="Left" Margin="33,25,0,0" VerticalAlignment="Top" Height="33" Width="102" Click="addDroneToList_Click" FontFamily="Heebo" FontSize="16"/>
             <ComboBox x:Name="StattusSelector" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" SelectionChanged="StattusSelector_SelectionChanged" Grid.Column="1" Margin="72,31,0,0" Grid.ColumnSpan="2"/>
-            <Button x:Name="refresh" Style="{DynamicResource roundButton}" Content="רענן" HorizontalAlignment="Left" Margin="41,27,0,0" VerticalAlignment="Top" Width="40" Height="26" FontFamily="Heebo" FontSize="16"/>
+            <Button x:Name="refresh" Style="{DynamicResource roundButton}" Content="רענן" HorizontalAlignment="Left" Margin="41,27,0,0" VerticalAlignment="Top" Width="40" Height="26" FontFamily="Heebo" FontSize="16" Click="refresh_Click"/>
         </Grid>
         <Button Style="{DynamicResource roundButton}" x:Name="groupingClick"  Content="קבץ לפי סטטוס" HorizontalAlignment="Left" Margin="96,27,0,0" VerticalAlignment="Top" Height="26" Width="112" Click="grouping_Click" FontFamily="Heebo" FontSize="16"/>
     </Grid >

@@ -112,6 +112,11 @@ namespace PL
         {
            
         }
+
+        private void refresh_Click(object sender, RoutedEventArgs e)
+        {
+              DronesListView.ItemsSource = allDrones;
+        }
     }
 }
 
