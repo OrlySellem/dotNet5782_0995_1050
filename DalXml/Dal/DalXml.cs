@@ -114,7 +114,7 @@ namespace Dal
         /// <param name="id"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public Parcel getParcel(int id)
+        public Parcel getParcel (int id)
         {
             var listParcel = XMLTools.LoadListFromXMLSerializer<Parcel>(parcelPath);
             Parcel parcel = (from findparcel in listParcel
