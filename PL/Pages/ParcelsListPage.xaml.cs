@@ -28,16 +28,17 @@ namespace PL
         {
             InitializeComponent();
             approachBL = bl;
-           
+
+            ParcelListView.ItemsSource = allParcels;
             foreach (BO.ParcelToList p in approachBL.getAllParcels())
                 allParcels.Add(p);
 
-            ParcelListView.ItemsSource = allParcels;
+           
         }
         private void ParcelListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {            
-            new ParcelWindow(approachBL, (ParcelToList)ParcelListView.SelectedItem).ShowDialog();
-            //ParcelListView.ItemsSource = approachBL.getAllParcels();
+            new ParcelWindow(approachBL, allParcels).ShowDialog();
+          
         }
 
         private void senderCheckBox_check(object sender, RoutedEventArgs e)
@@ -97,6 +98,7 @@ namespace PL
         private void AddParcelToList_Click(object sender, RoutedEventArgs e)
         {
             new ParcelWindow(approachBL, allParcels).ShowDialog();
+           
         }
     }
 }

@@ -25,13 +25,14 @@ namespace PL
         #region ADD Parcel
 
         BlApi.IBL approachBL;
+        ObservableCollection<BO.ParcelToList> parcelList;
         private Parcel selectedParcel = new Parcel();
-        ObservableCollection<ParcelToList> parcelToList = new ObservableCollection<ParcelToList>();
-        public ParcelWindow(BlApi.IBL bl, ObservableCollection<ParcelToList> parcels)
+
+          public ParcelWindow(BlApi.IBL bl, ObservableCollection<ParcelToList> parcels)
         {
             InitializeComponent();
             approachBL = bl;
-            parcelToList = parcels;
+            parcelList = parcels;
             updataGrid.Visibility = Visibility.Hidden;
             addGrid.Visibility = Visibility.Visible;
 
@@ -113,10 +114,9 @@ namespace PL
                 approachBL.addParcel(newParcel);
                 MessageBoxResult result = MessageBox.Show("!החבילה נוספה בהצלחה");
 
-                ParcelToList p = (from addP in approachBL.getAllParcels()
-                                    where addP.Id == int.Parse(selectedParcel.Id.ToString())
-                                    select addP).FirstOrDefault();
-                parcelToList.Add(p);
+                parcelList.Clear();
+                foreach (BO.ParcelToList p in approachBL.getAllParcels())
+                    parcelList.Add(p);
 
                 this.Close();
 
