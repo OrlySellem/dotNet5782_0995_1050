@@ -56,8 +56,7 @@
 
         </ListView>
         <Button Style="{DynamicResource roundButton}" x:Name="addParcelToList" Content="הוסף חבילה" Grid.Column="5" HorizontalAlignment="Left" Margin="20,1,0,0" VerticalAlignment="Top" Height="33" Width="102" Click="AddParcelToList_Click" FontSize="16" FontFamily="Heebo" Grid.Row="1"/>
-        <CheckBox x:Name="senderCheckBox" Content="sender" Grid.Column="1" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Height="23" Checked="senderCheckBox_check"
-                  />
+        <CheckBox x:Name="senderCheckBox" Content="sender" Grid.Column="1" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Height="23" Checked="senderCheckBox_check"/>
         <CheckBox x:Name="targetCheckBox" Content="target" Grid.Column="2" HorizontalAlignment="Left" Margin="8,45,0,0" VerticalAlignment="Top" Height="23" Checked="TargetCheckBox_check"/>
         <ComboBox x:Name="senderOrTargetID" IsEnabled="False" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="38,11,0,0" Grid.Row="1" VerticalAlignment="Top" Width="161" SelectionChanged="SenderOrTargetID_SelectionChanged"/>
 
