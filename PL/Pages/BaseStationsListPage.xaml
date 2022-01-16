@@ -55,6 +55,7 @@
                     <GridViewColumn DisplayMemberBinding="{Binding ChargeSlotsFull}" Header="עמדות טעינה תפוסות" Width="auto"/>
 
                 </GridView>
+             
             </ListView.View>
 
         </ListView>
