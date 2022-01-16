@@ -22,13 +22,6 @@
     <Lattitude>78</Lattitude>
   </Customer>
   <Customer>
-    <Id>929795100</Id>
-    <Name>Ariel</Name>
-    <Phone>051-9425499</Phone>
-    <Longitude>178</Longitude>
-    <Lattitude>-68</Lattitude>
-  </Customer>
-  <Customer>
     <Id>626334797</Id>
     <Name>Itay</Name>
     <Phone>052-4507830</Phone>
@@ -139,5 +132,12 @@
     <Phone>054-681-7353</Phone>
     <Longitude>29.43312101910826</Longitude>
     <Lattitude>-68.90797546012267</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>929795100</Id>
+    <Name>ifat</Name>
+    <Phone>051-9425499</Phone>
+    <Longitude>178</Longitude>
+    <Lattitude>-68</Lattitude>
   </Customer>
 </ArrayOfCustomer>
