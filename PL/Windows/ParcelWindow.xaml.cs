@@ -150,43 +150,34 @@ namespace PL
             Requested.SelectedDate = selectedParcel.Requested;
             Requested.IsEnabled = false;
             Scheduled.IsEnabled = false;
-            PickedUp.IsEnabled = false;
-            Delivered.IsEnabled = false;
+       
 
             if (selectedParcel.Scheduled == null)
             {
                 delParcel.Visibility = Visibility.Visible;
+                PickedUp.IsEnabled = false;
+                Delivered.IsEnabled = false;
             }
             else
             {
                 delParcel.Visibility = Visibility.Hidden;
+                PickedUp.IsEnabled = true;              
+            }
+            if (selectedParcel.PickedUp != null) 
+            {
+                if(selectedParcel.Delivered == null)
+                {
+                    PickedUp.IsEnabled = false;
+                    Delivered.IsEnabled = true;
+                }
+                else
+                {
+                    PickedUp.IsEnabled = false;
+                    Delivered.IsEnabled = false;
+                }
+                  
             }
         }
-           
-
-        //private void PickedUp_OR_Delivered_Checked(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        if (PickedUp_OR_Delivered.IsChecked != null)
-        //        {
-        //            if (TheChosenParcel.ParcelStatus == ParcelStatus.scheduled)
-        //                approachBL.dronePickParcel(TheChosenParcel.Id);
-
-        //            if (TheChosenParcel.ParcelStatus == ParcelStatus.PickedUp)
-        //                approachBL.deliveryArivveToCustomer(TheChosenParcel.Id);
-        //        }
-        //    }
-        //    catch (DoesntExistentObjectException ex)
-        //    {
-        //        MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-        //    }
-        //    catch (AlreadyExistException ex)
-        //    {
-        //        MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-        //    }
-
-        //}
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
