@@ -287,7 +287,7 @@ namespace Dal
 
         }
 
-        public void delivery_arrive_toCustomer(Parcel parcelToUpdate)//The delivery arrived to the customer
+        public void delivery_arrive_toCustomer(Parcel parcelToUpdate, DateTime Delivered)//The delivery arrived to the customer
         {
             try
             {
@@ -295,7 +295,7 @@ namespace Dal
 
                 DataSource.parcels.Remove(parcelToUpdate);
 
-                myParcel.Delivered = DateTime.Now;
+                myParcel.Delivered = Delivered;
 
                 DataSource.parcels.Add(myParcel);
 
