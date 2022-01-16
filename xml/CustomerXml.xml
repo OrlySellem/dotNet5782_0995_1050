@@ -112,7 +112,6 @@
     <Longitude>51.36305732484076</Longitude>
     <Lattitude>75.97546012269932</Lattitude>
   </Customer>
-
   <Customer>
     <Id>318647564</Id>
     <Name>nishel</Name>
@@ -126,5 +125,19 @@
     <Phone>987654</Phone>
     <Longitude>51.36305732484077</Longitude>
     <Lattitude>53.00613496932528</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>45678923</Id>
+    <Name>Eva</Name>
+    <Phone>054-681-7353</Phone>
+    <Longitude>9.254777070063682</Longitude>
+    <Lattitude>-40.638036809815965</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>123789451</Id>
+    <Name>Orly</Name>
+    <Phone>054-681-7353</Phone>
+    <Longitude>29.43312101910826</Longitude>
+    <Lattitude>-68.90797546012267</Lattitude>
   </Customer>
 </ArrayOfCustomer>

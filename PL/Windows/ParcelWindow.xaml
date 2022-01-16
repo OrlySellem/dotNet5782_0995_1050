@@ -126,7 +126,7 @@
             <TextBox x:Name="priorityTextBox" Text="{Binding Path=Priority}" IsEnabled="False" Grid.Column="1" Margin="116,66,80,0" Grid.Row="3"  TextWrapping="Wrap" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="28" Grid.RowSpan="2" BorderBrush="Transparent"/>
 
             <Label x:Name="droneID" Content="מספר מזהה רחפן" Grid.Column="2" HorizontalAlignment="Left" Margin="86,38,0,0" Grid.Row="4" VerticalAlignment="Top" Height="31" Grid.RowSpan="2" Width="142" FontSize="18" FontFamily="Heebo" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="droneIDTextBox" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="115,41,0,0" Grid.Row="4" Text="{Binding Path=Droneld}" TextWrapping="Wrap" VerticalAlignment="Top" Width="128" Height="28" Grid.RowSpan="2" />
+            <TextBox x:Name="droneIDTextBox" IsEnabled="false" Grid.ColumnSpan="2" Grid.Column="1" HorizontalAlignment="Left" Margin="115,41,0,0" Grid.Row="4" Text="{Binding Path=Droneld}" TextWrapping="Wrap" VerticalAlignment="Top" Width="128" Height="28" Grid.RowSpan="2" />
 
             <Button Style="{DynamicResource roundButtonUpdate}" x:Name="ViewSender" Content="פרטי שולח חבילה" HorizontalAlignment="Left" Margin="39,38,0,0" Grid.Row="2" VerticalAlignment="Top" Click="ViewSender_Click" Grid.ColumnSpan="2" FontFamily="Heebo" FontSize="16" FontWeight="Normal" Foreground="White" Width="147"  />
             <Button Style="{DynamicResource roundButtonUpdate}" x:Name="ViewTargetr" Content="פרטי מקבל חבילה" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Top" Click="ViewTargetr_Click" Margin="41,16,0,0" Grid.ColumnSpan="2" Background="White" FontFamily="Heebo" FontWeight="Normal" FontSize="16" Foreground="White" Height="26" Width="145" />
@@ -135,13 +135,13 @@
 
             <Label Content="תאריך יצירה" Grid.Column="2" HorizontalAlignment="Left" Margin="88,17,0,0" Grid.Row="5" VerticalAlignment="Top" Width="108" FontSize="18" FontFamily="Heebo" Grid.ColumnSpan="2"/>
             <Label Content="תאריך שיוך" Grid.Column="2" HorizontalAlignment="Left" Margin="98,64,0,0" Grid.Row="5" VerticalAlignment="Top" RenderTransformOrigin="0.4,0.467" Height="33" Width="98" Grid.RowSpan="2" Grid.ColumnSpan="2" FontFamily="Heebo" FontSize="18"/>
-            <Label Content="תאריך הגעה איסוף" Grid.Column="2" HorizontalAlignment="Left" Margin="98,34,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="153" FontSize="18" FontFamily="Heebo" Grid.RowSpan="2"/>
+            <Label Content="תאריך איסוף" Grid.Column="2" HorizontalAlignment="Left" Margin="98,34,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="153" FontSize="18" FontFamily="Heebo" Grid.RowSpan="2"/>
             <Label Content="תאריך אספקה" Grid.Column="2" HorizontalAlignment="Left" Margin="96,4,0,0" Grid.Row="7" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="143" FontSize="18" FontFamily="Heebo"/>
 
-            <DatePicker x:Name="Requested" Text="{Binding Path=Requested}" Grid.Column="1" HorizontalAlignment="Left" Margin="115,0,0,0" Grid.Row="5" VerticalAlignment="Center" Grid.ColumnSpan="2" Width="128" Height="28"/>
-            <DatePicker x:Name="Scheduled" Text="{Binding Path=Scheduled}" Grid.Column="1" HorizontalAlignment="Left" Margin="115,36,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="128" Height="28"/>
-            <DatePicker x:Name="PickedUp"  Text="{Binding Path=PickedUp}" Grid.Column="1" HorizontalAlignment="Left" Margin="115,64,0,0" Grid.Row="5" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="128" Height="28" Grid.RowSpan="2"/>
-            <DatePicker x:Name="Delivered" Text="{Binding Path=Delivered}" Grid.Column="1" HorizontalAlignment="Left" Margin="113,8,0,0" Grid.Row="7" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="128" Height="28"/>
+            <DatePicker x:Name="Requested" SelectedDate="{Binding Path=Requested}" Grid.Column="1" HorizontalAlignment="Left" Margin="115,0,0,0" Grid.Row="5" VerticalAlignment="Center" Grid.ColumnSpan="2" Width="128" Height="28" FontFamily="Heebo" FontWeight="Bold"/>
+            <DatePicker x:Name="Scheduled" SelectedDate="{Binding Path=Scheduled}" Grid.Column="1" HorizontalAlignment="Left" Margin="115,64,0,0" Grid.Row="5" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="128" Height="28" Grid.RowSpan="2" FontFamily="Heebo" FontWeight="Bold"/>
+            <DatePicker x:Name="PickedUp" SelectedDate="{Binding Path=PickedUp}" Grid.Column="1" HorizontalAlignment="Left" Margin="115,36,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="128" Height="28" FontFamily="Heebo" FontWeight="Bold"/>
+            <DatePicker x:Name="Delivered" SelectedDate="{Binding Path=Delivered}" Grid.Column="1" HorizontalAlignment="Left" Margin="113,8,0,0" Grid.Row="7" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="128" Height="28" FontFamily="Heebo" FontWeight="Bold"/>
 
         </Grid>
     </Grid>

@@ -40,20 +40,22 @@ namespace PL
         private void addCustomerToList_Click(object sender, RoutedEventArgs e)
         {
             new CustomerWindow(approachBL, allCustomers).ShowDialog();
-     
+            CustomerListView.ItemsSource = allCustomers;
+
         }
 
 
         private void CustomerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Action updateCustomer = (() =>
-            { new CustomerWindow(approachBL, (CustomerToList)CustomerListView.SelectedItem).ShowDialog(); });
-
             if (CustomerListView.SelectedItem != null)
             {
-                updateCustomer();
+                new CustomerWindow(approachBL, (CustomerToList)CustomerListView.SelectedItem).ShowDialog();
+                CustomerListView.ItemsSource = approachBL.getAllCustomers();
+                CustomerListView.Items.Refresh();
+
+                CustomerListView.SelectedItem = null;
             }
-            CustomerListView.ItemsSource = approachBL.getAllCustomers();
+            
         }
 
     }

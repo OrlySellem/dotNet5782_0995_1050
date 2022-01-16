@@ -46,59 +46,6 @@ namespace PL
             ParcelListView.Items.Refresh();
         }
 
-        private void senderCheckBox_check(object sender, RoutedEventArgs e)
-        {
-
-            senderOrTargetID.SelectedItem = null;
-            if (senderCheckBox.IsChecked != false)
-            {
-                senderOrTargetID.ItemsSource = (from parcel in approachBL.getAllParcels()
-                                                where parcel.Senderld != 0
-                                                select parcel.Senderld).ToList().Distinct();
-                targetCheckBox.IsChecked = false;
-                senderOrTargetID.IsEnabled = true;
-            }
-
-
-
-        }
-
-        private void TargetCheckBox_check(object sender, RoutedEventArgs e)
-        {
-            senderOrTargetID.SelectedItem = null;
-            if (targetCheckBox.IsChecked != false)
-            {
-                senderOrTargetID.ItemsSource = (from parcel in approachBL.getAllParcels()
-                                                where parcel.Targetld != 0
-                                                select parcel.Targetld).ToList().Distinct();
-                senderCheckBox.IsChecked = false;
-                senderOrTargetID.IsEnabled = true;
-            }
-
-        }
-
-
-        private void SenderOrTargetID_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (targetCheckBox.IsChecked != false)
-            {
-                ParcelListView.ItemsSource = (from parcel in approachBL.getAllParcels()
-                                              where parcel.Targetld == int.Parse(senderOrTargetID.SelectedItem.ToString())
-                                              select parcel).ToList();
-
-            }
-            if (senderCheckBox.IsChecked != false)
-            {
-                ParcelListView.ItemsSource = (from parcel in approachBL.getAllParcels()
-                                              where parcel.Senderld == int.Parse(senderOrTargetID.SelectedItem.ToString())
-                                              select parcel).ToList();
-
-            }
-
-
-
-
-        }
 
         private void AddParcelToList_Click(object sender, RoutedEventArgs e)
         {

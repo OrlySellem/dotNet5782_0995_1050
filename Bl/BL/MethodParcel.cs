@@ -27,7 +27,7 @@ namespace BL
                         Targetld = ParcelToAdd.Targetld,
                         Weight = (DO.WeightCategories)ParcelToAdd.Weight,
                         Priority = (DO.Priorities)ParcelToAdd.Priority,
-                        Requested = ParcelToAdd.Requested,
+                        Requested = DateTime.Now,
                         Droneld = 0,
                         Scheduled = null,
                         PickedUp = null,

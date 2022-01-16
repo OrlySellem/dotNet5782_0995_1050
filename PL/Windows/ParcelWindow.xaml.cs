@@ -28,7 +28,7 @@ namespace PL
         ObservableCollection<BO.ParcelToList> parcelsList = new ObservableCollection<ParcelToList>();
         private Parcel selectedParcel = new Parcel();
 
-          public ParcelWindow(BlApi.IBL bl, ObservableCollection<ParcelToList> parcels)
+        public ParcelWindow(BlApi.IBL bl, ObservableCollection<ParcelToList> parcels)
         {
             InitializeComponent();
             approachBL = bl;
@@ -48,7 +48,7 @@ namespace PL
 
             prioritySelector.ItemsSource = Enum.GetValues(typeof(Priorities));
 
-            
+
 
         }
 
@@ -108,7 +108,7 @@ namespace PL
                     Targetld = int.Parse(senderSelector.SelectedItem.ToString()),
                     Weight = (WeightCategories)weightSelector.SelectedItem,
                     Priority = (Priorities)prioritySelector.SelectedItem,
-                    Requested= DateTime.Now
+                    Requested = DateTime.Now
                 };
 
                 approachBL.addParcel(newParcel);
@@ -143,9 +143,15 @@ namespace PL
             selectedParcel = approachBL.getParcel(parcelToList.Id);
             parcelsList = parcels;
             DataContext = selectedParcel;
-            updataGrid.DataContext = selectedParcel; 
+            updataGrid.DataContext = selectedParcel;
             updataGrid.Visibility = Visibility.Visible;
             addGrid.Visibility = Visibility.Hidden;
+
+            Requested.SelectedDate = selectedParcel.Requested;
+            Requested.IsEnabled = false;
+            Scheduled.IsEnabled = false;
+            PickedUp.IsEnabled = false;
+            Delivered.IsEnabled = false;
 
             if (selectedParcel.Scheduled == null)
             {
@@ -155,8 +161,8 @@ namespace PL
             {
                 delParcel.Visibility = Visibility.Hidden;
             }
-
         }
+           
 
         //private void PickedUp_OR_Delivered_Checked(object sender, RoutedEventArgs e)
         //{

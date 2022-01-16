@@ -130,12 +130,14 @@ namespace PL
 
 
         private Customer selectedCustomer;
+        private CustomerToList customerOriginal = new CustomerToList();
         public CustomerWindow(IBL bl, CustomerToList customer)
         {
             InitializeComponent();
             approachBL = bl;
             selectedCustomer = approachBL.getCustomer(customer.Id);
             DataContext = selectedCustomer;
+            customerOriginal = customer;
             updataGrid.DataContext = selectedCustomer;
             updataGrid.Visibility = Visibility.Visible;
             addGrid.Visibility = Visibility.Hidden;
@@ -147,12 +149,12 @@ namespace PL
         {
             try
             {
-                if ((CustomerName.Text != "" && CustomerName.Text != selectedCustomer.Name) || (Phone.Text != "" && Phone.Text != selectedCustomer.Phone))
+                if ((CustomerName.Text != "" && CustomerName.Text.ToString() != customerOriginal.Name) || (Phone.Text != "" && Phone.Text != customerOriginal.Phone))
                 {
                     approachBL.updateCustomer(selectedCustomer.Id, CustomerName.Text, Phone.Text);
                     UpdateData.IsEnabled = false;
+                    MessageBoxResult result = MessageBox.Show("!הלקוח עודכן בהצלחה");
                 }
-                MessageBoxResult result = MessageBox.Show("!הלקוח עודכן בהצלחה");
 
             }
             catch (DoesntExistentObjectException)

@@ -12,21 +12,24 @@ using DO;
 
 namespace Dal
 {
+    //מחלקת עזר של הורדת תוכן ועדכון תוכן בקבצים
     static internal class XMLTools
     {
-         static string dir = @"xml\";
-        static XMLTools()
+        static string dir = @"xml\";
+
+        static XMLTools()//בנאי
         {
+
              if (!Directory.Exists(dir))
                  Directory.CreateDirectory(dir);
         }
 
 
         #region SaveLoadWithXMLSerializer
-
+        //Serialize -מתוך הקובץ קורא לכל הרשימה
         //save a complete listin a specific file- throw exception in case of problems..
         //for the using with XMLSerializer..
-        public static void SaveListToXMLSerializer<T>(List<T> list, string filePath)
+        public static void SaveListToXMLSerializer<T>(List<T> list, string filePath)//לטעון תוכן לרשימה בתוך הקובץ
         {
             try
             {

@@ -32,7 +32,7 @@ namespace BL
 
                     dal.addCustomer(dalCustomer);
                 }
-                catch (AlreadyExistException ex)
+                catch (DO.AlreadyExistException ex)
                 {
                     throw new AlreadyExistException(ex.Message);
                 }

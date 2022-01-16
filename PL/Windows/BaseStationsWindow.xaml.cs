@@ -143,7 +143,7 @@ namespace PL
             try
             {
                 MessageBoxResult result;
-                StationToList s;
+                
                 //in case the user change the name of base station
                 if (StationName.Text != "" && original.Name != StationName.Text)
                 {
