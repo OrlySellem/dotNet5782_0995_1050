@@ -42,7 +42,6 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
-            <Image Grid.ColumnSpan="4" Margin="-1103,-40,-38,-112" Grid.RowSpan="10" Stretch="Fill" Source="/PL;component/backGroundMain.jpg"/>
 
             <Label Content="מספר מזהה"   FontWeight="Normal" HorizontalAlignment="Left" Height="32" Margin="61,0,0,0" VerticalAlignment="Center" Width="98" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2" FontFamily="Heebo" FontSize="16"/>
             <TextBox x:Name="TextBoxId" HorizontalAlignment="Left" Margin="28,36,0,35" TextWrapping="Wrap" Width="131" Grid.Row="1" TextChanged="TextBoxId_TextChanged" Grid.ColumnSpan="2" Grid.RowSpan="2" Foreground="#FFC29797" Grid.Column="1">
@@ -132,7 +131,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
 
-            <Image Grid.ColumnSpan="4" Margin="-1077,-32,-18,-82" Grid.RowSpan="10" Stretch="Fill" Source="/PL;component/backGroundMain.jpg"/>
+            <Image Grid.ColumnSpan="4" Margin="-1077,-32,-14,-82" Grid.RowSpan="10" Stretch="Fill" Source="/PL;component/backGroundMain.jpg"/>
 
             <Button Style="{DynamicResource roundButton}" x:Name="UpdateData"  Content="עדכון"   Grid.Column="1" HorizontalAlignment="Left" Margin="5,22,0,0" Grid.Row="7" VerticalAlignment="Top" Click="UpdateData_Click" Height="26" Width="86" FontSize="16" FontFamily="Heebo" Foreground="#FF185BA1"/>
             <Button Style="{DynamicResource roundButton}" x:Name="CloseWindow" Content="סגור חלון" HorizontalAlignment="Center" Grid.Row="7" VerticalAlignment="Top" Click="CloseWindow_Click" Width="96" Margin="0,22,0,0" FontFamily="Heebo" FontSize="16" Foreground="#FF185BA1"/>

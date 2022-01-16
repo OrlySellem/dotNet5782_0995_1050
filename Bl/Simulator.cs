@@ -64,12 +64,12 @@ namespace BL
                                       select p).FirstOrDefault();
                         if (parcel.ParcelStatus == ParcelStatus.scheduled)
                         {
-                            bl.dronePickParcel(idDrone);
+                            bl.dronePickParcel(idDrone, DateTime.Now);
                         }
 
                         if (parcel.ParcelStatus == ParcelStatus.PickedUp)
                         {
-                            bl.deliveryArivveToCustomer(idDrone);
+                            bl.deliveryArivveToCustomer(idDrone, DateTime.Now);
                         }
                         break;
 

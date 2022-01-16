@@ -32,7 +32,7 @@ namespace PL
             approachBL = bl;
             updataGrid.Visibility = Visibility.Hidden;
             addGrid.Visibility = Visibility.Visible;
-            
+
         }
 
         private void moveWindow(object sender, MouseButtonEventArgs e)
@@ -75,8 +75,6 @@ namespace PL
         }
 
 
-
-
         private void TextBoxId_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (TextBoxId.Text != "" && TextBoxName.Text != "" && TextBoxChargeSlots.Text != "")
@@ -107,21 +105,21 @@ namespace PL
 
         #region UPDATE BaseStations
         static StationToList TheChosenBaseStation;
-        private StationToList stationToList = new StationToList();
+
         public BaseStationsWindow(IBL bl, StationToList BaseStation)
         {
             InitializeComponent();
-            DataContext = stationToList;
-            approachBL = bl;         
+            DataContext = BaseStation;
+            approachBL = bl;
             TheChosenBaseStation = BaseStation;
             updataGrid.Visibility = Visibility.Visible;
             addGrid.Visibility = Visibility.Hidden;
-            updataGrid.DataContext = stationToList;
+            updataGrid.DataContext = BaseStation;
             UpdateData.IsEnabled = true;
-      
+
         }
 
-            private void UpdateData_Click(object sender, RoutedEventArgs e)
+        private void UpdateData_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -129,7 +127,7 @@ namespace PL
                 if (StationName.Text != "" && TheChosenBaseStation.Name != StationName.Text)
                 {
                     if (AddChargeSlots.Text == "")
-                        approachBL.updateStation(TheChosenBaseStation.Id,StationName.Text.ToString(),0);
+                        approachBL.updateStation(TheChosenBaseStation.Id, StationName.Text.ToString(), 0);
                     else
                         approachBL.updateStation(TheChosenBaseStation.Id, StationName.Text.ToString(), int.Parse(AddChargeSlots.Text));
 
@@ -142,9 +140,9 @@ namespace PL
                 MessageBoxResult result = MessageBox.Show("!תחנת הבסיס עודכנה בהצלחה");
             }
 
-            catch (DoesntExistentObjectException) 
-            { 
-                MessageBox.Show("התחנה לא קיימת במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error); 
+            catch (DoesntExistentObjectException)
+            {
+                MessageBox.Show("התחנה לא קיימת במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (AlreadyExistException)
             {
@@ -174,6 +172,6 @@ namespace PL
 
         #endregion UPDATE BaseStations
 
-       
+
     }
 }

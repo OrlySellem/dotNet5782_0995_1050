@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 using BlApi;
 using BO;
 namespace PL
@@ -22,16 +23,21 @@ namespace PL
     public partial class ParcelsListPage : Page
     {
         BlApi.IBL approachBL;
-
+        private ObservableCollection<BO.ParcelToList> allParcels = new ObservableCollection<BO.ParcelToList>();
         public ParcelsListPage(BlApi.IBL bl)
         {
             InitializeComponent();
             approachBL = bl;
-            ParcelListView.ItemsSource = approachBL.getAllParcels();
+           
+            foreach (BO.ParcelToList p in approachBL.getAllParcels())
+                allParcels.Add(p);
+
+            ParcelListView.ItemsSource = allParcels;
         }
         private void ParcelListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        {            
             new ParcelWindow(approachBL, (ParcelToList)ParcelListView.SelectedItem).ShowDialog();
+            //ParcelListView.ItemsSource = approachBL.getAllParcels();
         }
 
         private void senderCheckBox_check(object sender, RoutedEventArgs e)
@@ -90,8 +96,7 @@ namespace PL
 
         private void AddParcelToList_Click(object sender, RoutedEventArgs e)
         {
-            new ParcelWindow(approachBL).ShowDialog();
-            ParcelListView.ItemsSource = approachBL.getAllParcels();
+            new ParcelWindow(approachBL, allParcels).ShowDialog();
         }
     }
 }

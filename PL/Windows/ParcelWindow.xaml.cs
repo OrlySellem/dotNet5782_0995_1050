@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 using BlApi;
 using BO;
 
@@ -24,10 +25,13 @@ namespace PL
         #region ADD Parcel
 
         BlApi.IBL approachBL;
-        public ParcelWindow(BlApi.IBL bl)
+        private Parcel selectedParcel = new Parcel();
+        ObservableCollection<BO.ParcelToList> parcelToList = new ObservableCollection<ParcelToList>();
+        public ParcelWindow(BlApi.IBL bl, ObservableCollection<BO.ParcelToList> parcels)
         {
             InitializeComponent();
             approachBL = bl;
+            parcelToList = parcels;
             updataGrid.Visibility = Visibility.Hidden;
             addGrid.Visibility = Visibility.Visible;
 
@@ -102,11 +106,17 @@ namespace PL
                     Senderld = int.Parse(senderSelector.SelectedItem.ToString()),
                     Targetld = int.Parse(senderSelector.SelectedItem.ToString()),
                     Weight = (WeightCategories)weightSelector.SelectedItem,
-                    Priority = (Priorities)prioritySelector.SelectedItem
+                    Priority = (Priorities)prioritySelector.SelectedItem,
+                    Requested= DateTime.Now
                 };
-               
+
                 approachBL.addParcel(newParcel);
                 MessageBoxResult result = MessageBox.Show("!החבילה נוספה בהצלחה");
+
+                ParcelToList p = (from addP in approachBL.getAllParcels()
+                                    where addP.Id == int.Parse(selectedParcel.Id.ToString())
+                                    select addP).FirstOrDefault();
+                parcelToList.Add(p);
 
                 this.Close();
 
@@ -125,26 +135,18 @@ namespace PL
 
         #region UPDATA Parcel
 
-        static ParcelToList TheChosenParcel;
-        private ParcelToList parcelToList = new ParcelToList();
-        public ParcelWindow(IBL bl, ParcelToList parcel)
+
+        public ParcelWindow(IBL bl, ParcelToList parcelToList)
         {
             InitializeComponent();
-            DataContext = parcelToList;
             approachBL = bl;
-            TheChosenParcel = parcel;
+            selectedParcel = approachBL.getParcel(parcelToList.Id);
+            DataContext = selectedParcel;
+            updataGrid.DataContext = selectedParcel;
             updataGrid.Visibility = Visibility.Visible;
             addGrid.Visibility = Visibility.Hidden;
-            updataGrid.DataContext = parcelToList;
 
-            //parcelStatusComboBox.ItemsSource = Enum.GetValues(typeof(ParcelStatus));
-
-            //if (parcel.ParcelStatus == ParcelStatus.scheduled || parcel.ParcelStatus == ParcelStatus.PickedUp)
-            //    PickedUp_OR_Delivered.Visibility = Visibility.Visible;
-            //else
-            //    PickedUp_OR_Delivered.Visibility = Visibility.Hidden;
-
-            if (parcel.ParcelStatus ==ParcelStatus.requested)
+            if (selectedParcel.Scheduled == null)
             {
                 delParcel.Visibility = Visibility.Visible;
             }
@@ -152,7 +154,7 @@ namespace PL
             {
                 delParcel.Visibility = Visibility.Hidden;
             }
-            
+
         }
 
         //private void PickedUp_OR_Delivered_Checked(object sender, RoutedEventArgs e)
@@ -188,15 +190,17 @@ namespace PL
         {
             try
             {
-                if (TheChosenParcel.ParcelStatus == ParcelStatus.scheduled)
-                    approachBL.dronePickParcel(TheChosenParcel.Id);
+                if (PickedUp != null)
+                    approachBL.dronePickParcel(selectedParcel.Id, PickedUp.DisplayDate);
 
-                if (TheChosenParcel.ParcelStatus == ParcelStatus.PickedUp)
-                    approachBL.deliveryArivveToCustomer(TheChosenParcel.Id);
+                if (Delivered != null)
+                    approachBL.deliveryArivveToCustomer(selectedParcel.Id, Delivered.DisplayDate);
+
+                UpdateData.IsEnabled = false;
             }
-            catch (DelivereyAlreadyArrive ex)
+            catch (DelivereyAlreadyArrive)
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("החבילה כבר אוספקה", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (DeliveryCannotBeMade ex)
             {
@@ -206,13 +210,13 @@ namespace PL
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            catch(AlreadyExistException ex)
+            catch (AlreadyExistException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         #endregion UPDATA Parcel
-        
+
 
 
         private void ViewSender_Click(object sender, RoutedEventArgs e)
@@ -220,13 +224,13 @@ namespace PL
             try
             {
                 CustomerToList c = (from customer in approachBL.getAllCustomers()
-                                    where customer.Id == TheChosenParcel.Senderld
+                                    where customer.Id == selectedParcel.Senderld
                                     select customer).FirstOrDefault();
                 new CustomerWindow(approachBL, c).ShowDialog();
             }
-            catch (Exception ex)
+            catch (DoesntExistentObjectException)
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("הלקוח אינו קיים במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
 
@@ -237,13 +241,13 @@ namespace PL
             try
             {
                 CustomerToList c = (from customer in approachBL.getAllCustomers()
-                                    where customer.Id == TheChosenParcel.Targetld
+                                    where customer.Id == selectedParcel.Targetld
                                     select customer).FirstOrDefault();
                 new CustomerWindow(approachBL, c).ShowDialog();
             }
-            catch (Exception ex)
+            catch (DoesntExistentObjectException)
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("הלקוח אינו קיים במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
@@ -252,13 +256,14 @@ namespace PL
         {
             try
             {
-                Parcel p = approachBL.getParcel(TheChosenParcel.Id);
+                Parcel p = approachBL.getParcel(selectedParcel.Id);
 
                 new DroneWindow(approachBL, approachBL.getDrone(p.Droneld)).ShowDialog();
             }
-            catch (DoesntExistentObjectException ex)
+            catch (DoesntExistentObjectException)
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("הרחפן לא קיים במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+
             }
 
         }
@@ -267,12 +272,12 @@ namespace PL
         {
             try
             {
-                approachBL.deleteFromParcels(TheChosenParcel.Id);
+                approachBL.deleteFromParcels(selectedParcel.Id);
                 this.Close();
             }
-            catch (DoesntExistentObjectException ex)
+            catch (DoesntExistentObjectException)
             {
-                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("החבילה לא קיימת במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }

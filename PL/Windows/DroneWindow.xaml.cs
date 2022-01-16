@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using BlApi;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
 using BO;
 
 namespace PL
@@ -25,7 +26,7 @@ namespace PL
     public partial class DroneWindow : Window
     {
         BlApi.IBL approachBL;
-       
+
 
         //private DronePO dronePO = new DronePO();
         #region ADD drone
@@ -128,19 +129,19 @@ namespace PL
 
         static DroneToList TheChosenDrone;
         static ParcelToList parcel;
-        private DroneToList droneToList = new DroneToList();
+
         public DroneWindow(BlApi.IBL bl, BO.DroneToList drone)
         {
             InitializeComponent();
-            DataContext = droneToList;
+            DataContext = drone;
             approachBL = bl;
             addGrid.Visibility = Visibility.Hidden;
             updataGrid.Visibility = Visibility.Visible;
-            TheChosenDrone = drone;          
+            TheChosenDrone = drone;
             updataGrid.DataContext = drone;
 
-            
-                 
+
+
             Regular.Visibility = Visibility.Hidden;
 
             if (drone.Status == DroneStatuses.available)
@@ -177,9 +178,10 @@ namespace PL
                     pickUpParcel.Visibility = Visibility.Visible;
 
                 if (parcel.ParcelStatus == ParcelStatus.PickedUp)
-                    ParcelArriveToCustomer.Visibility = Visibility.Visible;}
+                    ParcelArriveToCustomer.Visibility = Visibility.Visible;
+            }
 
-              }
+        }
 
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
@@ -282,7 +284,7 @@ namespace PL
         {
             try
             {
-                approachBL.dronePickParcel(TheChosenDrone.Id);
+                approachBL.dronePickParcel(TheChosenDrone.Id, DateTime.Now);
                 MessageBoxResult result = MessageBox.Show("!הרחפן אסף חבילה בהצלחה");
 
                 SendingDroneForCharging.Visibility = Visibility.Hidden;
@@ -315,7 +317,7 @@ namespace PL
         {
             try
             {
-                approachBL.deliveryArivveToCustomer(TheChosenDrone.Id);
+                approachBL.deliveryArivveToCustomer(TheChosenDrone.Id, DateTime.Now);
                 MessageBoxResult result = MessageBox.Show("!הרחפן ביצע את המשלוח בהצלחה");
 
                 SendingDroneForCharging.Visibility = Visibility.Visible;
@@ -373,13 +375,13 @@ namespace PL
 
             try
             {
-               
+
                 ParcelToList p = (from parcel in approachBL.getAllParcels()
                                   where parcel.Id == TheChosenDrone.idParcel
                                   select parcel).FirstOrDefault();
                 new ParcelWindow(approachBL, p).ShowDialog();
             }
-            catch (DoesntExistentObjectException )
+            catch (DoesntExistentObjectException)
             {
                 MessageBox.Show("החבילה לא קיימת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -405,7 +407,7 @@ namespace PL
 
         BackgroundWorker Worker;
 
-       
+
         private void updateDrone() => Worker.ReportProgress(2);
         private bool checkStop() => Worker.CancellationPending;
 
@@ -414,7 +416,7 @@ namespace PL
         {
             Regular.IsEnabled = true;
             Worker = new BackgroundWorker();
-            Worker.DoWork +=(sender,args)=> approachBL.openSimulator((int)args.Argument, updateDrone, checkStop); 
+            Worker.DoWork += (sender, args) => approachBL.openSimulator((int)args.Argument, updateDrone, checkStop);
             Worker.ProgressChanged += Worker_ProgressChanged;
             Worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
             Worker.RunWorkerAsync(int.Parse(id.Text));
@@ -424,7 +426,7 @@ namespace PL
 
         }
 
-       
+
         private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e) //פונקיה שמעדכנת את השינוים
         {
             //view the data of the chosen drone
@@ -436,7 +438,7 @@ namespace PL
 
             DataContext = drone;
             int progress = e.ProgressPercentage;
-             BatteryProgressBar.Value = progress;
+            BatteryProgressBar.Value = progress;
 
         }
         private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) //cancel panding
@@ -456,6 +458,6 @@ namespace PL
                 Worker.CancelAsync(); // Cancel the asynchronous operation.
         }
 
-      
+
     }
 }

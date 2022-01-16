@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfParcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Parcel>
     <Id>3</Id>
@@ -83,18 +83,6 @@
     <Scheduled>2022-01-13T20:44:35.6164241+02:00</Scheduled>
     <PickedUp>2022-01-13T20:44:36.1249239+02:00</PickedUp>
     <Delivered>2022-01-13T20:44:36.6396807+02:00</Delivered>
-  </Parcel>
-  <Parcel>
-    <Id>4</Id>
-    <Senderld>455989285</Senderld>
-    <Targetld>226881140</Targetld>
-    <Weight>medium</Weight>
-    <Priority>normal</Priority>
-    <Requested>2022-01-04T22:17:26.0751241+02:00</Requested>
-    <Droneld>78945</Droneld>
-    <Scheduled>2022-01-13T20:44:37.172998+02:00</Scheduled>
-    <PickedUp>2022-01-13T20:44:37.6892964+02:00</PickedUp>
-    <Delivered>2022-01-13T20:44:38.2132197+02:00</Delivered>
   </Parcel>
   <Parcel>
     <Id>7</Id>
@@ -193,24 +181,24 @@
     <Delivered>2022-01-14T16:10:21.3055735+02:00</Delivered>
   </Parcel>
   <Parcel>
-    <Id>15</Id>
-    <Senderld>119875546</Senderld>
-    <Targetld>119875546</Targetld>
-    <Weight>medium</Weight>
-    <Priority>normal</Priority>
-    <Requested>2022-01-14T12:56:46.6177097+02:00</Requested>
-    <Droneld>123785</Droneld>
-    <Scheduled>2022-01-14T16:12:03.097559+02:00</Scheduled>
-    <PickedUp>2022-01-14T16:12:10.8061069+02:00</PickedUp>
-    <Delivered>2022-01-14T16:12:16.5809518+02:00</Delivered>
-  </Parcel>
-  <Parcel>
-    <Id>16</Id>
-    <Senderld>119875546</Senderld>
-    <Targetld>119875546</Targetld>
+    <Id>21</Id>
+    <Senderld>860761028</Senderld>
+    <Targetld>860761028</Targetld>
     <Weight>heavy</Weight>
     <Priority>fast</Priority>
-    <Requested>2022-01-14T16:15:40.0222638+02:00</Requested>
+    <Requested>2022-01-16T04:12:00.0983744+02:00</Requested>
+    <Droneld>0</Droneld>
+    <Scheduled xsi:nil="true" />
+    <PickedUp xsi:nil="true" />
+    <Delivered xsi:nil="true" />
+  </Parcel>
+  <Parcel>
+    <Id>22</Id>
+    <Senderld>226881140</Senderld>
+    <Targetld>226881140</Targetld>
+    <Weight>medium</Weight>
+    <Priority>normal</Priority>
+    <Requested>2022-01-16T04:40:15.6952566+02:00</Requested>
     <Droneld>0</Droneld>
     <Scheduled xsi:nil="true" />
     <PickedUp xsi:nil="true" />

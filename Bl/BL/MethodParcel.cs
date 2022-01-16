@@ -22,12 +22,12 @@ namespace BL
                 {
                     DO.Parcel dalParcel = new DO.Parcel()
                     {
-                        Id = 0,
+                        Id = ParcelToAdd.Id,
                         Senderld = ParcelToAdd.Senderld,
                         Targetld = ParcelToAdd.Targetld,
                         Weight = (DO.WeightCategories)ParcelToAdd.Weight,
                         Priority = (DO.Priorities)ParcelToAdd.Priority,
-                        Requested = DateTime.Now,
+                        Requested = ParcelToAdd.Requested,
                         Droneld = 0,
                         Scheduled = null,
                         PickedUp = null,
