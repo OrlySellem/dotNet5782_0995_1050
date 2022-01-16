@@ -139,6 +139,12 @@ namespace PL
         public ParcelWindow(IBL bl, ParcelToList parcelToList)
         {
             InitializeComponent();
+
+            if (parcelToList == null)
+            {
+                return;
+            }
+
             approachBL = bl;
             selectedParcel = approachBL.getParcel(parcelToList.Id);
             DataContext = selectedParcel;

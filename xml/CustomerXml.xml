@@ -112,13 +112,7 @@
     <Longitude>51.36305732484076</Longitude>
     <Lattitude>75.97546012269932</Lattitude>
   </Customer>
-  <Customer>
-    <Id>86754</Id>
-    <Name>aliftr</Name>
-    <Phone>9643864477</Phone>
-    <Longitude>-22.012738853503176</Longitude>
-    <Lattitude>-83.04294478527608</Lattitude>
-  </Customer>
+
   <Customer>
     <Id>318647564</Id>
     <Name>nishel</Name>
