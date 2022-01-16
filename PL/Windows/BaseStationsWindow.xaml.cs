@@ -33,7 +33,7 @@ namespace PL
 
         #region ADD BaseStations
         BlApi.IBL approachBL;
-        private ObservableCollection<BO.StationToList> BaseStationsList;
+        ObservableCollection<BO.StationToList> BaseStationsList;
 
         public BaseStationsWindow(BlApi.IBL bl, ObservableCollection<BO.StationToList> BaseStations)
         {
@@ -116,8 +116,8 @@ namespace PL
 
         #region UPDATE BaseStations
         private Station selectedBaseStation = new Station();
-
-        public BaseStationsWindow(IBL bl, StationToList BaseStation)
+        private StationToList original = new StationToList();
+        public BaseStationsWindow(IBL bl, StationToList BaseStation, ObservableCollection<BO.StationToList> stations)
         {
             try
             {
@@ -128,35 +128,49 @@ namespace PL
                 updataGrid.Visibility = Visibility.Visible;
                 addGrid.Visibility = Visibility.Hidden;
                 updataGrid.DataContext = selectedBaseStation;
+                original = BaseStation;
+                BaseStationsList = stations;
                 UpdateData.IsEnabled = true;
             }
             catch (DoesntExistentObjectException)
             {
                 MessageBox.Show("התחנה לא קיימת במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-
         }
 
         private void UpdateData_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                MessageBoxResult result;
+                StationToList s;
                 //in case the user change the name of base station
-                if (StationName.Text != "" && selectedBaseStation.Name != StationName.Text)
+                if (StationName.Text != "" && original.Name != StationName.Text)
                 {
                     if (AddChargeSlots.Text == "")
+                    {
                         approachBL.updateStation(selectedBaseStation.Id, StationName.Text.ToString(), 0);
+                        result = MessageBox.Show("!תחנת הבסיס עודכנה בהצלחה");
+                    }
+                       
                     else
+                    {
                         approachBL.updateStation(selectedBaseStation.Id, StationName.Text.ToString(), int.Parse(AddChargeSlots.Text));
+                        result = MessageBox.Show("!תחנת הבסיס עודכנה בהצלחה");
+                    }
+                        
 
                 }
                 else if (AddChargeSlots.Text != "")
                 {
                     approachBL.updateStation(selectedBaseStation.Id, "", int.Parse(AddChargeSlots.Text));
+                     result = MessageBox.Show("!תחנת הבסיס עודכנה בהצלחה");
+                }
+                else
+                {
+                    result = MessageBox.Show("לא התבצע כלל שינוי");
                 }
 
-                MessageBoxResult result = MessageBox.Show("!תחנת הבסיס עודכנה בהצלחה");
             }
 
             catch (DoesntExistentObjectException)
@@ -168,6 +182,7 @@ namespace PL
                 MessageBox.Show("התחנה קיימת במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             UpdateData.IsEnabled = false;
+            
         }
 
 
