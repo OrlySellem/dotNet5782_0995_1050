@@ -441,7 +441,7 @@ namespace BL
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void dronePickParcel(int droneId)
+        public void dronePickParcel(int droneId, DateTime pickedUp)
         {
             lock (dal)
             {
@@ -476,7 +476,7 @@ namespace BL
                         var parcelToUpdate = dal.getParcel(parcelItem.Id);
                         dal.delFromParcels(parcelToUpdate);
 
-                        parcelToUpdate.PickedUp = DateTime.Now;
+                        parcelToUpdate.PickedUp = pickedUp;
                         dal.addParcel(parcelToUpdate);
                     }
                     else
@@ -499,7 +499,7 @@ namespace BL
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void deliveryArivveToCustomer(int droneId)
+        public void deliveryArivveToCustomer(int droneId, DateTime Delivered)
         {
             lock (dal)
             {
@@ -534,7 +534,7 @@ namespace BL
 
 
                         //	עדכון זמן אספקה
-                        dal.delivery_arrive_toCustomer(parcel_Ascribed_drone);
+                        dal.delivery_arrive_toCustomer(parcel_Ascribed_drone, Delivered);
                     }
                     else
                         throw new DroneCantBeAssigend("The drone can't be assign");

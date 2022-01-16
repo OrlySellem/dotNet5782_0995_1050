@@ -373,7 +373,7 @@ namespace Dal
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void delivery_arrive_toCustomer(Parcel parcelToUpdate)
+        public void delivery_arrive_toCustomer(Parcel parcelToUpdate, DateTime Delivered)
         {
             try
             {
@@ -383,7 +383,7 @@ namespace Dal
 
                 listParcel.Remove(parcelToUpdate);
 
-                myParcel.Delivered = DateTime.Now;
+                myParcel.Delivered = Delivered;
 
                 listParcel.Add(myParcel);
                 XMLTools.SaveListToXMLSerializer(listParcel, parcelPath);

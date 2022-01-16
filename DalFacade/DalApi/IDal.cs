@@ -74,7 +74,7 @@ namespace DalApi
 
         public void drone_pick_parcel(Drone droneToUpdate, Parcel parcelToUpdate);//pick up parcel by drone
 
-        public void delivery_arrive_toCustomer(Parcel parcelToUpdate);//The delivery arrived to the customer
+        public void delivery_arrive_toCustomer(Parcel parcelToUpdate, DateTime Delivered);//The delivery arrived to the customer
 
         public void chargingDrone(Drone droneToUpdate, Station stationToUpdate);//Inserts a drone to charg
 

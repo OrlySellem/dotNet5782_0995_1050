@@ -33,7 +33,8 @@ namespace PL
 
         private void ParcelListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            new ParcelWindow(approachBL, (ParcelToList)ParcelListView.SelectedItem).ShowDialog();
+            ParcelToList p =(ParcelToList)ParcelListView.SelectedItem;
+            new ParcelWindow(approachBL, p).ShowDialog();
         }
 
         private void senderCheckBox_check(object sender, RoutedEventArgs e)

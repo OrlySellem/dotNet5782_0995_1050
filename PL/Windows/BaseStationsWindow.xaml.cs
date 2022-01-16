@@ -75,8 +75,6 @@ namespace PL
         }
 
 
-
-
         private void TextBoxId_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (TextBoxId.Text != "" && TextBoxName.Text != "" && TextBoxChargeSlots.Text != "")
@@ -107,16 +105,16 @@ namespace PL
 
         #region UPDATE BaseStations
         static StationToList TheChosenBaseStation;
-        private StationToList stationToList = new StationToList();
+
         public BaseStationsWindow(IBL bl, StationToList BaseStation)
         {
             InitializeComponent();
-            DataContext = stationToList;
+            DataContext = BaseStation;
             approachBL = bl;         
             TheChosenBaseStation = BaseStation;
             updataGrid.Visibility = Visibility.Visible;
             addGrid.Visibility = Visibility.Hidden;
-            updataGrid.DataContext = stationToList;
+            updataGrid.DataContext = BaseStation;
             UpdateData.IsEnabled = true;
       
         }

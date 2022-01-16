@@ -66,7 +66,7 @@ namespace PL
                 };
 
                 List<StationToList> stationFreeCharging = approachBL.display_station_with_freeChargingStations().ToList();
-                int idSt = stationFreeCharging[idStation.SelectedIndex].Id;
+                int idSt = stationFreeCharging [idStation.SelectedIndex].Id;
 
                 approachBL.addDrone(newDrone, idSt);
 
@@ -128,11 +128,11 @@ namespace PL
 
         static DroneToList TheChosenDrone;
         static ParcelToList parcel;
-        private DroneToList droneToList = new DroneToList();
+
         public DroneWindow(BlApi.IBL bl, BO.DroneToList drone)
         {
             InitializeComponent();
-            DataContext = droneToList;
+            DataContext = drone;
             approachBL = bl;
             addGrid.Visibility = Visibility.Hidden;
             updataGrid.Visibility = Visibility.Visible;
@@ -260,7 +260,7 @@ namespace PL
             {
                 if (TheChosenDrone.Status == DroneStatuses.available)
                 {
-                    approachBL.assignDroneToParcel(TheChosenDrone.Id);
+                    approachBL.assignDroneToParcel(TheChosenDrone.Id, DateTime.Now);
                     MessageBoxResult result = MessageBox.Show("!הרחפן שוייך לחבילה בהצלחה");
 
                     SendingDroneForCharging.Visibility = Visibility.Hidden;
@@ -282,7 +282,7 @@ namespace PL
         {
             try
             {
-                approachBL.dronePickParcel(TheChosenDrone.Id);
+                approachBL.dronePickParcel(TheChosenDrone.Id, DateTime.Now);
                 MessageBoxResult result = MessageBox.Show("!הרחפן אסף חבילה בהצלחה");
 
                 SendingDroneForCharging.Visibility = Visibility.Hidden;
@@ -315,7 +315,7 @@ namespace PL
         {
             try
             {
-                approachBL.deliveryArivveToCustomer(TheChosenDrone.Id);
+                approachBL.deliveryArivveToCustomer(TheChosenDrone.Id, DateTime.Now);
                 MessageBoxResult result = MessageBox.Show("!הרחפן ביצע את המשלוח בהצלחה");
 
                 SendingDroneForCharging.Visibility = Visibility.Visible;
@@ -377,7 +377,7 @@ namespace PL
                 ParcelToList p = (from parcel in approachBL.getAllParcels()
                                   where parcel.Id == TheChosenDrone.idParcel
                                   select parcel).FirstOrDefault();
-                new ParcelWindow(approachBL, p).ShowDialog();
+                new ParcelWindow(approachBL , p).ShowDialog();
             }
             catch (DoesntExistentObjectException )
             {
