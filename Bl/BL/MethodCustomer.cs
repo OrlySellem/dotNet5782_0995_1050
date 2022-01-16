@@ -49,12 +49,12 @@ namespace BL
             {
                 try
                 {
-                    DO.Customer c = dal.getCustomer(id);
+                    DO.Customer customerDal = dal.getCustomer(id);
 
                     Location address = new Location()
                     {
-                        Longitude = c.Longitude,
-                        Lattitude = c.Lattitude
+                        Longitude = customerDal.Longitude,
+                        Lattitude = customerDal.Lattitude
                     };
 
                     List <ParcelToList> fromCustomer = (from parcel in getAllParcels()
@@ -65,31 +65,62 @@ namespace BL
                                                        where parcel.Targetld == id
                                                        select parcel).ToList();
 
-                    foreach (var parcel in fromCustomer)
-                    {
+                    List<ParcelAtCustomer> fromCustomerPAC = new List<ParcelAtCustomer>();
 
-                        ParcelAtCustomer parcelFromCustomer = new ParcelAtCustomer()
+                    List<ParcelAtCustomer> ToCustomerPAC = new List<ParcelAtCustomer>();
+
+                    ParcelAtCustomer parcelFromCustomer, parcelToCustomer;
+
+                    foreach (var parcel in fromCustomer)//מעבר על רשימת החבילות שהלקוח שלח
+                    {
+                        //מציאת לקוח שקיבל את החבילה
+                        CustomerToList customer = (from findCustomer in getAllCustomers()
+                                             where findCustomer.Id == parcel.Targetld
+                                             select findCustomer).FirstOrDefault();
+
+                        CustomerInParcel target = new CustomerInParcel()
+                        {
+                            Id = customer.Id,
+                            Name= customer.Name
+                        };
+
+                        parcelFromCustomer = new ParcelAtCustomer()
                         {
                                    Id = parcel.Id,
                                     Weight = parcel.Weight,
                                     Priority = parcel.Priority,
                                     ParcelStatus = parcel.ParcelStatus,
-          
-                                     SenderOrTarget 
+                                   SenderOrTarget= target //מקבל החבילה מהלקוח
+                        };
 
-
-
-
-    };
-
-
-
+                        fromCustomerPAC.Add(parcelFromCustomer);
 
                     }
 
 
                     foreach (var parcel in ToCustomer)
                     {
+                        //מציאת לקוח שקיבל את החבילה
+                        CustomerToList customer = (from findCustomer in getAllCustomers()
+                                                   where findCustomer.Id == parcel.Senderld
+                                                   select findCustomer).FirstOrDefault();
+
+                        CustomerInParcel sender = new CustomerInParcel()
+                        {
+                            Id = customer.Id,
+                            Name = customer.Name
+                        };
+
+                         parcelToCustomer = new ParcelAtCustomer()
+                        {
+                            Id = parcel.Id,
+                            Weight = parcel.Weight,
+                            Priority = parcel.Priority,
+                            ParcelStatus = parcel.ParcelStatus,                          
+                            SenderOrTarget = sender   //שולח החבילה ללקוח
+                        };
+
+                        ToCustomerPAC.Add(parcelToCustomer);
 
                     }
 
@@ -97,13 +128,17 @@ namespace BL
 
                     return new BO.Customer//have to add fromToCustomer list and ToCustomer!! - לעשות
                     {
-                        Id = c.Id,
+                        Id = customerDal.Id,
 
-                        Name = c.Name,
+                        Name = customerDal.Name,
 
-                        Phone = c.Phone,
+                        Phone = customerDal.Phone,
 
                         Address = address,
+
+                        FromCustomer = fromCustomerPAC,
+
+                        ToCustomer = ToCustomerPAC
                     };
 
                 }

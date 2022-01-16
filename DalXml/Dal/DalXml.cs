@@ -305,7 +305,7 @@ namespace Dal
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public IEnumerable<Station> print_stations_with_freeDroneCharge()
+        public IEnumerable<Station> stations_with_freeDroneCharge()
         {
             List<Station> stationList = new List<Station>();
 

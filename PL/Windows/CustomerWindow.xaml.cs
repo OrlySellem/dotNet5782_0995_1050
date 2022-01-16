@@ -129,7 +129,7 @@ namespace PL
 
 
 
-        static Customer selectedCustomer;
+        private Customer selectedCustomer;
         public CustomerWindow(IBL bl, CustomerToList customer)
         {
             InitializeComponent();

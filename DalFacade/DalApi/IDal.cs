@@ -59,7 +59,7 @@ namespace DalApi
 
         public IEnumerable<Parcel> print_unconnected_parcels_to_Drone();
 
-        public IEnumerable<Station> print_stations_with_freeDroneCharge();
+        public IEnumerable<Station> stations_with_freeDroneCharge();
 
         #endregion
 

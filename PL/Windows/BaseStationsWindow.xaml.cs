@@ -104,18 +104,26 @@ namespace PL
 
 
         #region UPDATE BaseStations
-        static StationToList TheChosenBaseStation;
+        private Station selectedBaseStation = new Station();
 
         public BaseStationsWindow(IBL bl, StationToList BaseStation)
         {
-            InitializeComponent();
-            DataContext = BaseStation;
-            approachBL = bl;
-            TheChosenBaseStation = BaseStation;
-            updataGrid.Visibility = Visibility.Visible;
-            addGrid.Visibility = Visibility.Hidden;
-            updataGrid.DataContext = BaseStation;
-            UpdateData.IsEnabled = true;
+            try
+            {
+                InitializeComponent();
+                approachBL = bl;
+                selectedBaseStation = approachBL.getStation(BaseStation.Id);
+                DataContext = selectedBaseStation;               
+                updataGrid.Visibility = Visibility.Visible;
+                addGrid.Visibility = Visibility.Hidden;
+                updataGrid.DataContext = selectedBaseStation;
+                UpdateData.IsEnabled = true;
+            }
+            catch (DoesntExistentObjectException)
+            {
+                MessageBox.Show("התחנה לא קיימת במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
 
         }
 
@@ -124,17 +132,17 @@ namespace PL
             try
             {
                 //in case the user change the name of base station
-                if (StationName.Text != "" && TheChosenBaseStation.Name != StationName.Text)
+                if (StationName.Text != "" && selectedBaseStation.Name != StationName.Text)
                 {
                     if (AddChargeSlots.Text == "")
-                        approachBL.updateStation(TheChosenBaseStation.Id, StationName.Text.ToString(), 0);
+                        approachBL.updateStation(selectedBaseStation.Id, StationName.Text.ToString(), 0);
                     else
-                        approachBL.updateStation(TheChosenBaseStation.Id, StationName.Text.ToString(), int.Parse(AddChargeSlots.Text));
+                        approachBL.updateStation(selectedBaseStation.Id, StationName.Text.ToString(), int.Parse(AddChargeSlots.Text));
 
                 }
                 else if (AddChargeSlots.Text != "")
                 {
-                    approachBL.updateStation(TheChosenBaseStation.Id, "", int.Parse(AddChargeSlots.Text));
+                    approachBL.updateStation(selectedBaseStation.Id, "", int.Parse(AddChargeSlots.Text));
                 }
 
                 MessageBoxResult result = MessageBox.Show("!תחנת הבסיס עודכנה בהצלחה");
@@ -161,7 +169,7 @@ namespace PL
         {
             try
             {
-                approachBL.deleteFromStations(TheChosenBaseStation.Id);
+                approachBL.deleteFromStations(selectedBaseStation.Id);
                 MessageBoxResult result = MessageBox.Show("!תחנת הבסיס נמחקה בהצלחה");
             }
             catch (DoesntExistentObjectException)

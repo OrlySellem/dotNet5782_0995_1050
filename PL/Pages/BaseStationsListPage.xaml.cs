@@ -55,8 +55,8 @@ namespace PL
 
         private void FreeChargeSlots_Click(object sender, RoutedEventArgs e)
         {
-
                 BaseStationsListView.ItemsSource = approachBL.display_station_with_freeChargingStations();
+                BaseStationsListView.Items.Refresh();
         }
 
 

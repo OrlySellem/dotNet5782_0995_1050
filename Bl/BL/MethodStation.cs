@@ -78,7 +78,7 @@ namespace BL
 
                     }
 
-                    return new BO.Station//have to add chargingDrone list!! - לעשות
+                    return new BO.Station
                     {
                         Id = s.Id,
 
@@ -195,10 +195,10 @@ namespace BL
         {
             lock (dal)
             {
-                var stationList_dal = dal.print_stations_with_freeDroneCharge();
+                var stationList_dal = dal.stations_with_freeDroneCharge();
                 List<StationToList> StationList_bl = new List<StationToList>();
                 IEnumerable<DO.DroneCharge> droneChargeList = dal.getDronesCharge().ToList();
-
+                
                 foreach (var stationItem in stationList_dal)
                 {
                     int ChargeSlotsFull_conster = 0;
