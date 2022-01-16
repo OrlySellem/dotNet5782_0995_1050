@@ -40,7 +40,7 @@ namespace PL
         {
             try
             {
-                new CustomerWindow(approachBL).ShowDialog();
+                new CustomerWindow(approachBL, allCustomers).ShowDialog();
 
 
                 allCustomers.Clear();

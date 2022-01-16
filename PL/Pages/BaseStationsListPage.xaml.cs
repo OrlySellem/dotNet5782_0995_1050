@@ -65,6 +65,7 @@ namespace PL
                 new BaseStationsWindow(approachBL).ShowDialog(); 
                 BaseStationsListView.ItemsSource = approachBL.getAllStations(); 
 
+
         }
 
     }

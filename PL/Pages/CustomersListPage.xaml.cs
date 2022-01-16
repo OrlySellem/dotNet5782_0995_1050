@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using BlApi;
 using BO;
+using System.Collections.Specialized;
+
 namespace PL
 {
     /// <summary>
@@ -23,41 +25,37 @@ namespace PL
     public partial class CustomersListPage : Page
     {
         IBL approachBL;
-        private ObservableCollection <BO.CustomerToList> allCustomers = new ObservableCollection<BO.CustomerToList>();
+        private ObservableCollection<BO.CustomerToList> allCustomers = new ObservableCollection<BO.CustomerToList>();
 
         public CustomersListPage(IBL bl)
         {
             InitializeComponent();
             approachBL = bl;
+            CustomerListView.ItemsSource = allCustomers;
 
             foreach (BO.CustomerToList c in approachBL.getAllCustomers())
                 allCustomers.Add(c);
 
-            CustomerListView.ItemsSource = allCustomers;
         }
         private void addCustomerToList_Click(object sender, RoutedEventArgs e)
         {
-                new CustomerWindow(approachBL).ShowDialog();
-
-                //allCustomers.Clear();
-
-                //foreach (BO.CustomerToList c in approachBL.getAllCustomers())
-                //    allCustomers.Add(c);
-
-                CustomerListView.ItemsSource = allCustomers;
+            new CustomerWindow(approachBL, allCustomers).ShowDialog();
+     
         }
+
 
         private void CustomerListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-                Action updateCustomer = (() =>
-                { new CustomerWindow(approachBL, (CustomerToList)CustomerListView.SelectedItem).ShowDialog(); });
+            Action updateCustomer = (() =>
+            { new CustomerWindow(approachBL, (CustomerToList)CustomerListView.SelectedItem).ShowDialog(); });
 
-                if (CustomerListView.SelectedItem != null)
-                {
-                    updateCustomer();
-                }
-                CustomerListView.ItemsSource = approachBL.getAllCustomers();
+            if (CustomerListView.SelectedItem != null)
+            {
+                updateCustomer();
+            }
+            CustomerListView.ItemsSource = approachBL.getAllCustomers();
         }
+
     }
 }
 

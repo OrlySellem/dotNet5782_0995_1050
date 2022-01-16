@@ -84,4 +84,46 @@
     <Longitude>38.31192660550457</Longitude>
     <Lattitude>-53.84403669724772</Lattitude>
   </Customer>
+  <Customer>
+    <Id>22847364</Id>
+    <Name>rina</Name>
+    <Phone>0527466354</Phone>
+    <Longitude>44.025477707006395</Longitude>
+    <Lattitude>51.239263803680956</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>317453625</Id>
+    <Name>shilat</Name>
+    <Phone>052-6826384</Phone>
+    <Longitude>58.70063694267515</Longitude>
+    <Lattitude>30.036809815950974</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>318968467</Id>
+    <Name>eliyad</Name>
+    <Phone>052-6745399</Phone>
+    <Longitude>63.28662420382169</Longitude>
+    <Lattitude>113.07975460122695</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>876543546</Id>
+    <Name>aminadav</Name>
+    <Phone>1234567890</Phone>
+    <Longitude>51.36305732484076</Longitude>
+    <Lattitude>75.97546012269932</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>86754</Id>
+    <Name>aliftr</Name>
+    <Phone>9643864477</Phone>
+    <Longitude>-22.012738853503176</Longitude>
+    <Lattitude>-83.04294478527608</Lattitude>
+  </Customer>
+  <Customer>
+    <Id>318647564</Id>
+    <Name>nishel</Name>
+    <Phone>052-6473645</Phone>
+    <Longitude>33.01910828025479</Longitude>
+    <Lattitude>134.28220858895702</Lattitude>
+  </Customer>
 </ArrayOfCustomer>

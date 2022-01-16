@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using BlApi;
 using BO;
 using BL;
+using System.Collections.ObjectModel;
+
 namespace PL
 {
 
@@ -22,6 +24,7 @@ namespace PL
     {
         
         public BlApi.IBL mainBl =  BlApi.BlFactory.GetBl();
+      
 
         //Button insertToDroneList;
         public MainWindow()
@@ -54,7 +57,7 @@ namespace PL
 
         private void sign_Click(object sender, RoutedEventArgs e)
         {
-            tableLists.Content = new CustomerWindow(mainBl).ShowDialog();
+           // tableLists.Content = new CustomerWindow(mainBl).ShowDialog();
         }
 
         private void LogIn_Click(object sender, RoutedEventArgs e)

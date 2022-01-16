@@ -7,6 +7,19 @@
       mc:Ignorable="d" 
       d:Height="640" Width="800"
       Title="CustomersListPage">
+    <Page.Resources>
+        <Style TargetType="Button" x:Key="roundButton">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Background="White" BorderThickness="0,1,1,0" >
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -29,21 +42,21 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions >
 
-        <ListView x:Name="CustomerListView" Grid.Row="1" Grid.ColumnSpan="6" SelectionChanged="CustomerListView_SelectionChanged" Margin="0,46,0,0" Grid.RowSpan="9">
+        <ListView x:Name="CustomerListView" Grid.Row="1" Background="#FFE4E4E4" Grid.ColumnSpan="6" SelectionChanged="CustomerListView_SelectionChanged" Margin="0,46,0,0" Grid.RowSpan="9">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="תז" Width="auto"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="שם מלא" Width="auto"/>
                     <GridViewColumn DisplayMemberBinding="{Binding Phone}" Header="פלאפון" Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Num_of_sented_and_provided_parcels}" Header="Sented and provided parcels" Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Num_of_sented_and_unprovided_parcels}" Header="Sented and unprovided parcels" Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Num_of_received_parcels}" Header="Received parcels" Width="auto"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Num_of_parcels_onTheWay_toCustomer}" Header="Parcels onTheWay toCustomer" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Num_of_sented_and_provided_parcels}" Header="מס' חבילות ששלח וסופקו" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Num_of_sented_and_unprovided_parcels}" Header="מס' חבילות ששלח אך עוד לא סופקו" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Num_of_received_parcels}" Header="מס' חבילות שקיבל" Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Num_of_parcels_onTheWay_toCustomer}" Header="מס' חבילות שבדרך אל הלקוח" Width="auto"/>
                 </GridView>
             </ListView.View>
 
         </ListView>
-        <Button x:Name="addCustomerToList" Content="הוסף לקוח" Grid.Column="4" HorizontalAlignment="Left" Margin="114,25,0,0" VerticalAlignment="Top" Height="49" Width="85" Click="addCustomerToList_Click" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+        <Button x:Name="addCustomerToList"  Style="{DynamicResource roundButton}" Content="הוסף לקוח" Grid.Column="5" HorizontalAlignment="Left" Margin="0,54,0,0" VerticalAlignment="Top" Height="33" Width="102" FontSize="16" FontFamily="Heebo" Click="addCustomerToList_Click" Grid.RowSpan="2"/>
 
     </Grid>
 </Page>

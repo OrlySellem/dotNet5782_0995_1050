@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 using BlApi;
 using BO;
 
@@ -31,9 +32,11 @@ namespace PL
         #region ADD Customer Window
 
         BlApi.IBL approachBL;
-        public CustomerWindow(BlApi.IBL bl)
+        ObservableCollection<BO.CustomerToList> customerList;
+        public CustomerWindow(BlApi.IBL bl, ObservableCollection<BO.CustomerToList> customers)
         {
             InitializeComponent();
+            customerList = customers;
             approachBL = bl;
             updataGrid.Visibility = Visibility.Hidden;
             addGrid.Visibility = Visibility.Visible;
@@ -59,6 +62,13 @@ namespace PL
                 };
                 approachBL.addCustomer(newCustomer);
                 MessageBoxResult result = MessageBox.Show("!הלקוח נוסף בהצלחה");
+
+                CustomerToList c = (from addC in approachBL.getAllCustomers()
+                                    where addC.Id == int.Parse(TextBoxId.Text)
+                                    select addC).FirstOrDefault();
+                customerList.Add(c);
+
+                this.Close();
             }
             catch (AlreadyExistException)
             {
@@ -66,7 +76,7 @@ namespace PL
                 MessageBox.Show("לקוח כבר קיים במערכת", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            this.Close();
+
         }
 
         private void TextBoxId_TextChanged(object sender, TextChangedEventArgs e)
@@ -105,7 +115,7 @@ namespace PL
                 addCustomer.IsEnabled = false;
             }
         }
-       
+
 
         private void cancelAddCustomer_Click(object sender, RoutedEventArgs e)
         {
@@ -119,30 +129,16 @@ namespace PL
 
 
 
-        static CustomerToList TheChosenCustomer;
-        private CustomerToList customerToList = new CustomerToList();
+        static Customer selectedCustomer;
         public CustomerWindow(IBL bl, CustomerToList customer)
         {
             InitializeComponent();
-
-            if (customer == null)
-            {
-                return;
-            }
-            DataContext = customerToList;
             approachBL = bl;
-            TheChosenCustomer = customerToList;
+            selectedCustomer = approachBL.getCustomer(customer.Id);
+            DataContext = selectedCustomer;
+            updataGrid.DataContext = selectedCustomer;
             updataGrid.Visibility = Visibility.Visible;
             addGrid.Visibility = Visibility.Hidden;
-            updataGrid.DataContext = customerToList;
-            
-            //id.Text = TheChosenCustomer.Id.ToString();
-            //CustomerName.Text = TheChosenCustomer.Name.ToString();
-            //Phone.Text = TheChosenCustomer.Phone.ToString();
-            //Sented_and_provided_parcels.Text = TheChosenCustomer.Num_of_sented_and_provided_parcels.ToString();
-            //Sented_and_unprovided_parcels.Text = TheChosenCustomer.Num_of_sented_and_unprovided_parcels.ToString();
-            //Received_parcels.Text = TheChosenCustomer.Num_of_received_parcels.ToString();
-            //Parcels_onTheWay_toCustomer.Text = TheChosenCustomer.Num_of_parcels_onTheWay_toCustomer.ToString();
             UpdateData.IsEnabled = true;
 
 
@@ -151,9 +147,9 @@ namespace PL
         {
             try
             {
-                if ((CustomerName.Text != "" && CustomerName.Text != TheChosenCustomer.Name) || (Phone.Text != "" && Phone.Text != TheChosenCustomer.Phone))
+                if ((CustomerName.Text != "" && CustomerName.Text != selectedCustomer.Name) || (Phone.Text != "" && Phone.Text != selectedCustomer.Phone))
                 {
-                    approachBL.updateCustomer(TheChosenCustomer.Id, CustomerName.Text, Phone.Text);
+                    approachBL.updateCustomer(selectedCustomer.Id, CustomerName.Text, Phone.Text);
                     UpdateData.IsEnabled = false;
                 }
                 MessageBoxResult result = MessageBox.Show("!הלקוח עודכן בהצלחה");
@@ -169,11 +165,12 @@ namespace PL
             }
         }
 
-    
+
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
+
 
     }
 
