@@ -214,7 +214,7 @@ namespace Dal
             }
             return parcelsList;
         }
-        public IEnumerable<Station> print_stations_with_freeDroneCharge()
+        public IEnumerable<Station> stations_with_freeDroneCharge()
         {
             List<Station> stationList = new List<Station>();
 
