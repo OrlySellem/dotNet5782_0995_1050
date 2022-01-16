@@ -262,7 +262,7 @@ namespace PL
             {
                 if (TheChosenDrone.Status == DroneStatuses.available)
                 {
-                    approachBL.assignDroneToParcel(TheChosenDrone.Id, DateTime.Now);
+                    approachBL.assignDroneToParcel(TheChosenDrone.Id);
                     MessageBoxResult result = MessageBox.Show("!הרחפן שוייך לחבילה בהצלחה");
 
                     SendingDroneForCharging.Visibility = Visibility.Hidden;

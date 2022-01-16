@@ -26,8 +26,8 @@ namespace PL
 
         BlApi.IBL approachBL;
         private Parcel selectedParcel = new Parcel();
-
-        public ParcelWindow(BlApi.IBL bl)
+        ObservableCollection<ParcelToList> parcelToList = new ObservableCollection<ParcelToList>();
+        public ParcelWindow(BlApi.IBL bl, ObservableCollection<ParcelToList> parcels)
         {
             InitializeComponent();
             approachBL = bl;

@@ -16,9 +16,9 @@ namespace BO
 
         public Location Address { get; set; }
 
-        public List<ParcelAtCustomer> FromCustomer { get; set; }
+        public List <ParcelAtCustomer> FromCustomer { get; set; }
 
-        public List<ParcelAtCustomer> ToCustomer { get; set; }
+        public List <ParcelAtCustomer> ToCustomer { get; set; }
 
         public override string ToString()
         {

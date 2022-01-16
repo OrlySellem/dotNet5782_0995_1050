@@ -57,6 +57,44 @@ namespace BL
                         Lattitude = c.Lattitude
                     };
 
+                    List <ParcelToList> fromCustomer = (from parcel in getAllParcels()
+                                                           where parcel.Senderld == id
+                                                           select parcel).ToList();
+
+                    List <ParcelToList> ToCustomer = (from parcel in getAllParcels()
+                                                       where parcel.Targetld == id
+                                                       select parcel).ToList();
+
+                    foreach (var parcel in fromCustomer)
+                    {
+
+                        ParcelAtCustomer parcelFromCustomer = new ParcelAtCustomer()
+                        {
+                                   Id = parcel.Id,
+                                    Weight = parcel.Weight,
+                                    Priority = parcel.Priority,
+                                    ParcelStatus = parcel.ParcelStatus,
+          
+                                     SenderOrTarget 
+
+
+
+
+    };
+
+
+
+
+                    }
+
+
+                    foreach (var parcel in ToCustomer)
+                    {
+
+                    }
+
+
+
                     return new BO.Customer//have to add fromToCustomer list and ToCustomer!! - לעשות
                     {
                         Id = c.Id,
