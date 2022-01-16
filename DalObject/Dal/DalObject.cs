@@ -175,10 +175,7 @@ namespace Dal
 
 
         public IEnumerable<Parcel> getParcels(Predicate<Parcel> prdicat = null)
-        {
-            //return (from parcel in DataSource.parcels
-            //        where prdicat(parcel)
-            //        select parcel).ToList();
+        { 
             return DataSource.parcels.FindAll(x => prdicat == null ? true : prdicat(x));
 
 
@@ -206,23 +203,29 @@ namespace Dal
 
         public IEnumerable<Parcel> print_unconnected_parcels_to_Drone()
         {
-            List<Parcel> parcelsList = new List<Parcel>();
-            foreach (Parcel item in DataSource.parcels)
-            {
-                if (item.Droneld == 0 && item.Scheduled == null)
-                    parcelsList.Add(item);
-            }
+            List<Parcel> parcelsList = (from parcel in DataSource.parcels
+                                        where parcel.Droneld == 0 && parcel.Scheduled == null
+                                        select parcel).ToList();
+
+            //foreach (Parcel item in DataSource.parcels)
+            //{
+            //    if (item.Droneld == 0 && item.Scheduled == null)
+            //        parcelsList.Add(item);
+            //}
+
             return parcelsList;
         }
         public IEnumerable<Station> stations_with_freeDroneCharge()
         {
-            List<Station> stationList = new List<Station>();
+            List<Station> stationList = (from station in DataSource.stations
+                                         where station.ChargeSlots > 0
+                                         select station).ToList();
 
-            foreach (Station item in DataSource.stations)
-            {
-                if (item.ChargeSlots > 0)
-                    stationList.Add(item);
-            }
+            //foreach (Station item in DataSource.stations)
+            //{
+            //    if (item.ChargeSlots > 0)
+            //        stationList.Add(item);
+            //}
 
             return stationList;
         }

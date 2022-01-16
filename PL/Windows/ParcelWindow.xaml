@@ -31,7 +31,7 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Grid Name="addGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="10,-1,-10,1">
+        <Grid Name="addGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="10,-1,0,1">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>
@@ -46,38 +46,40 @@
                 <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="80*"/>
+                <ColumnDefinition Width="80*"/>
+                <ColumnDefinition Width="80*"/>
+                <ColumnDefinition Width="80*"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions >
 
+            <Image Grid.ColumnSpan="5" Margin="-1246,-75,-18,-242" Grid.RowSpan="10" Stretch="Fill" Source="/PL;component/backGroundMain.jpg"/>
 
-            <Label Content="תז שולח החבילה" FontWeight="Normal" HorizontalAlignment="Left" Height="29" Margin="30,2,0,0" VerticalAlignment="Top" Width="133" Grid.Row="2" Grid.Column="2" RenderTransformOrigin="-0.058,1.33" Grid.ColumnSpan="2" FontFamily="Heebo" FontSize="16"/>
+            <Label Content="תז שולח החבילה" FontWeight="Normal" HorizontalAlignment="Left" Height="38" Margin="30,2,0,0" VerticalAlignment="Top" Width="157" Grid.Row="2" Grid.Column="2" RenderTransformOrigin="-0.058,1.33" Grid.ColumnSpan="2" FontFamily="Heebo" FontSize="20"/>
 
-            <ComboBox x:Name="senderSelector" Grid.Column="1" HorizontalAlignment="Left" Margin="31,6,0,0" Grid.Row="2" VerticalAlignment="Top" Width="95" Height="20" SelectionChanged="SenderSelector_SelectionChanged" Grid.ColumnSpan="2"/>
+            <ComboBox x:Name="senderSelector" Grid.Column="1" HorizontalAlignment="Left" Margin="18,2,0,0" Grid.Row="2" VerticalAlignment="Top" Width="162" Height="38" SelectionChanged="SenderSelector_SelectionChanged" Grid.ColumnSpan="2"/>
 
-            <Label Content="תז מקבל החבילה" FontWeight="Normal" HorizontalAlignment="Left"  Margin="30,43,0,0" VerticalAlignment="Top" Width="133" Height="33" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="2" Grid.RowSpan="2" FontSize="16" FontFamily="Heebo"/>
-            <ComboBox x:Name="targetSelector" Grid.Column="1" HorizontalAlignment="Left" Margin="31,43,0,21" Grid.Row="2" Width="95" SelectionChanged="TargetSelector_SelectionChanged" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <Label Content="תז מקבל החבילה" FontWeight="Normal" HorizontalAlignment="Left"  Margin="45,12,0,0" VerticalAlignment="Top" Width="168" Height="38" Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="2" FontSize="20" FontFamily="Heebo"/>
+            <ComboBox x:Name="targetSelector" Grid.Column="1" HorizontalAlignment="Left" Margin="18,12,0,18" Grid.Row="3" Width="164" SelectionChanged="TargetSelector_SelectionChanged" Grid.ColumnSpan="2"/>
 
-            <Label Content="משקל" FontWeight="Normal" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="82" Grid.Row="3" Margin="30,38,0,0" Grid.Column="2" Grid.RowSpan="2" FontFamily="Heebo" FontSize="16"/>
-            <ComboBox x:Name="weightSelector" Grid.Column="1" HorizontalAlignment="Left" Margin="32,39,0,0" Grid.Row="3" VerticalAlignment="Top" Width="95" SelectionChanged="WeightSelector_SelectionChanged_1" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-
-
-            <Label Content="עדיפות" FontWeight="Normal" HorizontalAlignment="Left" Height="29" VerticalAlignment="Top" Width="82" Grid.Row="4" Margin="30,33,0,0" Grid.Column="2" Grid.RowSpan="2" FontSize="16" FontFamily="Heebo"/>
-            <ComboBox x:Name="prioritySelector" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="4" Width="96" SelectionChanged="prioritySelector_SelectionChanged" Margin="32,38,0,24" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <Label Content="משקל" FontWeight="Normal" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="82" Grid.Row="4" Margin="45,30,0,0" Grid.Column="2" Grid.RowSpan="2" FontFamily="Heebo" FontSize="20"/>
+            <ComboBox x:Name="weightSelector" HorizontalAlignment="Left" Margin="18,34,0,0" Grid.Row="4" VerticalAlignment="Top" Width="164" Height="38" SelectionChanged="WeightSelector_SelectionChanged_1"  Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
 
 
-            <Button Style="{DynamicResource roundButton}" x:Name="addParcel" Content="הוספה" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="34,0,0,0" VerticalAlignment="Top" Height="40" Width="90" 
-             IsEnabled="False" Grid.Row="8" Click="addParcel_Click" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <Label Content="עדיפות" FontWeight="Normal" HorizontalAlignment="Left" Height="53" VerticalAlignment="Top" Width="108" Grid.Row="5" Margin="51,49,0,0" Grid.Column="2" FontSize="20" FontFamily="Heebo" Grid.RowSpan="2" RenderTransformOrigin="0.453,0.08" Grid.ColumnSpan="2"/>
+            <ComboBox x:Name="prioritySelector" HorizontalAlignment="Left" Grid.Row="5" Width="164" SelectionChanged="prioritySelector_SelectionChanged" Margin="18,50,0,50" Grid.ColumnSpan="2" Grid.Column="1" Grid.RowSpan="2"/>
 
 
-            <Button Style="{DynamicResource roundButton}" x:Name="cancelAddParce" Content="סגור חלון" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="24,0,0,0" VerticalAlignment="Top" Height="40" Width="90" Grid.Row="8" Grid.ColumnSpan="2" Click="cancelAddParce_Click"/>
+            <Button Style="{DynamicResource roundButton}" x:Name="addParcel" Content="הוספה" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="10,62,0,0" VerticalAlignment="Top" Height="40" Width="90" 
+             IsEnabled="False" Grid.Row="7" Click="addParcel_Click" Grid.Column="1" Grid.RowSpan="2" Foreground="#FF185BA1"/>
+
+
+            <Button Style="{DynamicResource roundButton}" x:Name="cancelAddParce" Content="סגור חלון" FontWeight="Bold" FontSize="18" HorizontalAlignment="Left" Margin="59,62,0,0" VerticalAlignment="Top" Height="40" Width="90" Grid.Row="7" Click="cancelAddParce_Click" Grid.RowSpan="2" Foreground="#FF185BA1"/>
 
 
         </Grid>
 
-        <Grid Name="updataGrid" Visibility="Visible" Height="auto" Grid.Row="0" Width="auto" Margin="-3,-1,3,0">
+        <Grid Name="updataGrid" Visibility="Hidden" Height="auto" Grid.Row="0" Width="auto" Margin="-3,-1,3,0">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"/>

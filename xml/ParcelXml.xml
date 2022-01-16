@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <ArrayOfParcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Parcel>
     <Id>3</Id>
@@ -179,5 +179,17 @@
     <Scheduled>2022-01-14T16:09:34.9760929+02:00</Scheduled>
     <PickedUp>2022-01-14T16:10:15.5117587+02:00</PickedUp>
     <Delivered>2022-01-14T16:10:21.3055735+02:00</Delivered>
+  </Parcel>
+  <Parcel>
+    <Id>24</Id>
+    <Senderld>860761028</Senderld>
+    <Targetld>860761028</Targetld>
+    <Weight>medium</Weight>
+    <Priority>normal</Priority>
+    <Requested>2022-01-16T15:17:17.5281472+02:00</Requested>
+    <Droneld>0</Droneld>
+    <Scheduled xsi:nil="true" />
+    <PickedUp xsi:nil="true" />
+    <Delivered xsi:nil="true" />
   </Parcel>
 </ArrayOfParcel>
