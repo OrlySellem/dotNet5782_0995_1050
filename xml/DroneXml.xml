@@ -50,4 +50,9 @@
     <Model>4rfg</Model>
     <MaxWeight>medium</MaxWeight>
   </Drone>
+  <Drone>
+    <Id>8765432</Id>
+    <Model>5tgh</Model>
+    <MaxWeight>medium</MaxWeight>
+  </Drone>
 </ArrayOfDrone>

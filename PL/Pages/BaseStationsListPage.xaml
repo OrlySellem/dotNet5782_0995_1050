@@ -46,6 +46,7 @@
         </Grid.ColumnDefinitions >
 
         <ListView x:Name="BaseStationsListView"  Background="#FFE4E4E4" Grid.Row="1" Grid.ColumnSpan="6" SelectionChanged="BaseStationsListView_SelectionChanged" Margin="0,46,0,0" Grid.RowSpan="9">
+           
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Id}" Header="תז " Width="auto"/>

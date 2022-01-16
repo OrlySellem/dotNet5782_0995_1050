@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 using BlApi;
 using BO;
 namespace PL
@@ -22,23 +23,29 @@ namespace PL
     public partial class DronesListPage : Page
     {
         BlApi.IBL approachBL;
+        private ObservableCollection<BO.DroneToList> allDrones = new ObservableCollection<BO.DroneToList>();
 
         public DronesListPage(BlApi.IBL bl)
         {
             InitializeComponent();
             approachBL = bl;
-            DronesListView.ItemsSource = approachBL.GetDrones();
+            DronesListView.ItemsSource = allDrones;
+
+            foreach (BO.DroneToList d in approachBL.GetDrones())
+                allDrones.Add(d);
+
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             StattusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
             
+
         }
 
         private void addDroneToList_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                new DroneWindow(approachBL).ShowDialog();
-                DronesListView.ItemsSource = approachBL.GetDrones();
+                new DroneWindow(approachBL,allDrones).ShowDialog();
+              ;
             }
             catch (AlreadyExistException ex)
             {
