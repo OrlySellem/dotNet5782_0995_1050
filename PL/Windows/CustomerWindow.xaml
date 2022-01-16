@@ -127,15 +127,15 @@
             <Label Content="כתובת" FontWeight="Normal" Grid.Column="2" HorizontalAlignment="Right" Margin="0,14,70,0" Grid.Row="4" VerticalAlignment="Top" Width="118" FontFamily="Heebo" FontSize="18" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
             <TextBox x:Name="Address" Text="{Binding Address, Mode=OneWay}" IsEnabled="False" HorizontalAlignment="Left" Margin="16,17,0,0" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" Height="28" Grid.ColumnSpan="2" Grid.Column="1" BorderBrush="#00ABADB3"/>
 
-            <Label Content="חבילות ששלח" FontWeight="Normal" Grid.Column="2" HorizontalAlignment="Left" Margin="60,12,0,0" Grid.Row="5" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="180" Grid.RowSpan="2" FontFamily="Heebo" FontSize="18"/>
+            <Label Content="חבילות ששלח" FontWeight="Normal" Grid.Column="3" HorizontalAlignment="Left" Margin="0,11,0,0" Grid.Row="5" VerticalAlignment="Top" Width="180" Grid.RowSpan="2" FontFamily="Heebo" FontSize="18"/>
             <TextBox x:Name="Sented_parcels" Text="{Binding Path=FromCustomer}"  IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="41,15,0,0" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Top" Width="128" Height="28" Grid.ColumnSpan="2" BorderBrush="#00ABADB3"/>
 
-            <Label Content="חבילות שקיבל" Grid.Column="2" FontWeight="Normal" HorizontalAlignment="Left" Margin="60,13,0,0" Grid.Row="6" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="155" FontFamily="Heebo" FontSize="18" Grid.RowSpan="2"/>
+            <Label Content="חבילות שקיבל" Grid.Column="3" FontWeight="Normal" HorizontalAlignment="Left" Margin="0,7,0,0" Grid.Row="6" VerticalAlignment="Top" Width="155" FontFamily="Heebo" FontSize="18"/>
+
             <TextBox x:Name="Received_parcels" IsEnabled="False" Grid.Column="1" HorizontalAlignment="Left" Margin="41,16,0,0" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Width="128" Height="28" Grid.ColumnSpan="2" BorderBrush="#00ABADB3"/>
-            <ListBox Grid.Row="6" Height="28"  VerticalAlignment="Top" Margin="35,15,90,0" Grid.ColumnSpan="2" BorderBrush="#00ABADB3">
-                <ListBoxItem DataContext="{Binding Path=ToCustomer}">
-            </ListBoxItem>
-            </ListBox>
+
+
+
 
 
 
