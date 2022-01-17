@@ -147,7 +147,7 @@ namespace PL
             updataGrid.DataContext = drone;
 
 
-
+            SendingDroneForCharging.Visibility = Visibility.Visible;
             Regular.Visibility = Visibility.Hidden;
 
             if (drone.Status == DroneStatuses.available)
@@ -213,6 +213,7 @@ namespace PL
                     assignDroneToParcel.Visibility = Visibility.Hidden;
                     pickUpParcel.Visibility = Visibility.Hidden;
                     ParcelArriveToCustomer.Visibility = Visibility.Hidden;
+                    Status.Text = DroneStatuses.maintenance.ToString();
 
                     MessageBoxResult result = MessageBox.Show("!הרחפן נשלח לטעינה בהצלחה");
                 }
@@ -241,12 +242,12 @@ namespace PL
                 {
                     approachBL.freeDroneFromCharging(TheChosenDrone.Id, DateTime.Now);
 
-                    //SendingDroneForCharging.Visibility = Visibility.Visible;
+                    SendingDroneForCharging.Visibility = Visibility.Visible;
                     ReleaseDroneFromCharging.Visibility = Visibility.Hidden;
                     assignDroneToParcel.Visibility = Visibility.Visible;
                     pickUpParcel.Visibility = Visibility.Hidden;
                     ParcelArriveToCustomer.Visibility = Visibility.Hidden;
-
+                    Status.Text = DroneStatuses.available.ToString();
                     MessageBoxResult result = MessageBox.Show("!הרחפן שוחרר מטעינה בהצלחה");
                 }
 
@@ -276,14 +277,22 @@ namespace PL
                     assignDroneToParcel.Visibility = Visibility.Hidden;
                     pickUpParcel.Visibility = Visibility.Visible;
                     ParcelArriveToCustomer.Visibility = Visibility.Hidden;
-
+                    Status.Text = DroneStatuses.delivery.ToString();
+                    idParcel.Text = TheChosenDrone.idParcel.ToString();
                 }
             }
-            catch (Exception ex)
+            catch (BO.DoesntExistentObjectException ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
+            catch (BO.AlreadyExistException ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (BO.NoSuitablePsrcelWasFoundToBelongToTheDrone ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            };
         }
 
         private void PickUpParcel_Click(object sender, RoutedEventArgs e)
@@ -299,6 +308,7 @@ namespace PL
                 pickUpParcel.Visibility = Visibility.Hidden;
                 ParcelArriveToCustomer.Visibility = Visibility.Visible;
 
+                
             }
             catch (DelivereyAlreadyArrive ex)
             {
@@ -331,7 +341,8 @@ namespace PL
                 assignDroneToParcel.Visibility = Visibility.Visible;
                 pickUpParcel.Visibility = Visibility.Hidden;
                 ParcelArriveToCustomer.Visibility = Visibility.Hidden;
-
+                Status.Text = DroneStatuses.available.ToString();
+                idParcel.Text = "0";
             }
             catch (DroneCantBeAssigend ex)
             {
@@ -350,6 +361,7 @@ namespace PL
                 if (Model.Text != "" && TheChosenDrone.Model != Model.Text)
                 {
                     approachBL.updateModelDrone(TheChosenDrone.Id, Model.Text.ToString());
+                    MessageBoxResult result = MessageBox.Show("!הרחפן עודכן בהצלחה");
                     UpdateData.IsEnabled = false;
                 }
 
@@ -373,19 +385,19 @@ namespace PL
 
         private void OpenParcelWindow_Click(object sender, RoutedEventArgs e)
         {
-            if (TheChosenDrone.idParcel == 0)
-            {
-                MessageBox.Show("הרחפן לא משוייך לחבילה", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                this.Close();
-            }
-
             try
             {
-
-                ParcelToList p = (from parcel in approachBL.getAllParcels()
-                                  where parcel.Id == TheChosenDrone.idParcel
-                                  select parcel).FirstOrDefault();
-                new ParcelWindow(approachBL , p).ShowDialog();
+                if (TheChosenDrone.idParcel == 0)
+                {
+                    MessageBox.Show("הרחפן לא משוייך לחבילה", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    ParcelToList p = (from parcel in approachBL.getAllParcels()
+                                      where parcel.Id == TheChosenDrone.idParcel
+                                      select parcel).FirstOrDefault();
+                    new ParcelWindow(approachBL, p).ShowDialog();
+                }               
             }
             catch (DoesntExistentObjectException)
             {
@@ -420,7 +432,9 @@ namespace PL
         #region Simulator
         private void Automatic_Click(object sender, RoutedEventArgs e)
         {
+            Regular.Visibility = Visibility.Visible;
             Regular.IsEnabled = true;
+            Automatic.IsEnabled = false;
             Worker = new BackgroundWorker();
             Worker.DoWork += (sender, args) => approachBL.openSimulator((int)args.Argument, updateDrone, checkStop);
             Worker.ProgressChanged += Worker_ProgressChanged;
@@ -437,11 +451,6 @@ namespace PL
         {
             //view the data of the chosen drone
             DroneToList drone = approachBL.getDrone(TheChosenDrone.Id);
-            //PrecentsBattery.Text = drone.Battery.ToString() + " %";
-            //Status.Text = drone.Status.ToString();
-            //idParcel.Text = drone.idParcel.ToString();
-            //LocationTextBox.Text = drone.CurrentLocation.ToString();
-
             DataContext = drone;
             int progress = e.ProgressPercentage;
             BatteryProgressBar.Value = progress;
@@ -464,6 +473,6 @@ namespace PL
                 Worker.CancelAsync(); // Cancel the asynchronous operation.
         }
 
-
+     
     }
 }

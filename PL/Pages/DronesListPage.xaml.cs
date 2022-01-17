@@ -104,14 +104,14 @@ namespace PL
 
         private void DronesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            new DroneWindow(approachBL, (DroneToList)DronesListView.SelectedItem).ShowDialog();
-            DronesListView.Items.Refresh();
-        }
+            if (DronesListView.SelectedItem != null)
+            {
+                new DroneWindow(approachBL, (DroneToList)DronesListView.SelectedItem).ShowDialog();
+                DronesListView.SelectedItem = null;
+            }
 
-        private void grouping_Click(object sender, RoutedEventArgs e)
-        {
-          
-           
+            DronesListView.ItemsSource = approachBL.GetDrones();
+            DronesListView.Items.Refresh();
         }
 
 

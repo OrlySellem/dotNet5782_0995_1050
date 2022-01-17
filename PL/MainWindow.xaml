@@ -42,7 +42,7 @@
                 FontSize="22"
                 MinWidth="100"
                 MinHeight="50"
-                Grid.Column="1" HorizontalAlignment="Left" Margin="325,98,0,0" Grid.Row="1" VerticalAlignment="Top" Height="48" Width="187" Grid.ColumnSpan="2" FontFamily="Heebo"/>
+                Grid.Column="1" HorizontalAlignment="Left" Margin="325,98,0,0" Grid.Row="1" VerticalAlignment="Top" Height="48" Width="187" Grid.ColumnSpan="2" FontFamily="Heebo" Click="viewMainVideo_Click"/>
 
         <Button Style="{DynamicResource roundButton}" x:Name="ViewDroneList" 
                 Content="רחפנים"
@@ -123,6 +123,7 @@
         <Grid x:Name="table" Margin="0,42,86,9" RenderTransformOrigin="0.5,0.5" Grid.Row="1" Grid.ColumnSpan="2">
             <Frame x:Name="tableLists" NavigationUIVisibility="Hidden" Margin="10,0,10,70"/>
 
+
         </Grid>
         <Grid x:Name="dronePng" Grid.Column="1" Grid.Row="1"  Grid.ColumnSpan="2" Margin="295,450,0,18">
             <Grid.RowDefinitions>
@@ -150,7 +151,6 @@
             </Grid.Background>
         </Grid>
         <Button Style="{DynamicResource roundButton}" Content="סגור מערכת" HorizontalAlignment="Left" Margin="22,16,0,0" Width="102" FontFamily="Heebo" FontSize="16" Height="32" VerticalAlignment="Top" Click="Button_Click"/>
-
 
     </Grid>
 </Window>

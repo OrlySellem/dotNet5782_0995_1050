@@ -79,6 +79,14 @@ namespace PL
             CollectionView view= (CollectionView)CollectionViewSource.GetDefaultView(ParcelListView.ItemsSource);
             view.GroupDescriptions.Clear();
         }
+
+        private void refresh_Click(object sender, RoutedEventArgs e)
+        {
+            allParcels.Clear();
+
+            foreach (BO.ParcelToList p in approachBL.getAllParcels())
+                allParcels.Add(p);
+        }
     }
 }
 

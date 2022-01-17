@@ -202,6 +202,11 @@ namespace BL
           
         }
 
+        /// <summary>
+        /// Release drone from charging
+        /// </summary>
+        /// <param name="idDrone"></param>
+        /// <param name="newtime"></param>
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void freeDroneFromCharging(int idDrone, DateTime newtime)
         {

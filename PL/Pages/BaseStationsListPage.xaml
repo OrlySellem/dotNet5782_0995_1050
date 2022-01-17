@@ -59,12 +59,12 @@
             </ListView.View>
 
         </ListView>
-        <Button x:Name="FreeChargeSlots"  Style="{DynamicResource roundButton}" Content="תחנות עם עמדות טעינה פנויות" FontWeight="Normal" HorizontalAlignment="Left" Margin="46,54,0,0" VerticalAlignment="Top" Width="213" Click="FreeChargeSlots_Click" Height="37" RenderTransformOrigin="0.357,-0.035" Grid.ColumnSpan="2" FontFamily="Heebo" FontSize="16" Grid.Column="3" Grid.RowSpan="2"/>
-        <Button x:Name="refresh" Style="{DynamicResource roundButton}" Content="רענן" HorizontalAlignment="Left" Margin="29,60,0,0" VerticalAlignment="Top" Width="40" Height="29" FontFamily="Heebo" FontSize="16" Click="refresh_Click" Grid.RowSpan="2"/>
+        <Button x:Name="FreeChargeSlots"  Style="{DynamicResource roundButton}" Content="תחנות עם עמדות טעינה פנויות" FontWeight="Normal" HorizontalAlignment="Left" Margin="46,57,0,0" VerticalAlignment="Top" Width="213" Click="FreeChargeSlots_Click" Height="33" RenderTransformOrigin="0.357,-0.035" Grid.ColumnSpan="2" FontFamily="Heebo" FontSize="16" Grid.Column="3" Grid.RowSpan="2"/>
+        <Button x:Name="refresh" Style="{DynamicResource roundButton}" Content="רענן" HorizontalAlignment="Left" Margin="29,60,0,0" VerticalAlignment="Top" Width="40" Height="33" FontFamily="Heebo" FontSize="16" Click="refresh_Click" Grid.RowSpan="2"/>
 
         <Label Content="סינון תחנות לפי עמדות טעינה" FontFamily="hebbo" FontWeight="Bold" HorizontalAlignment="Left" Margin="82,63,0,0" VerticalAlignment="Top" Width="252" Height="26" Grid.Column="1" FontSize="16" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
         <ComboBox x:Name="AmountOfFreeChargingStations" HorizontalAlignment="Left" VerticalAlignment="Top" Width="113" SelectionChanged="AmountOfFreeChargingStations_SelectionChanged" Margin="91,66,0,0" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-        <Button x:Name="addBaseStationsToList"  Style="{DynamicResource roundButton}" Content="הוסף תחנת בסיס" FontWeight="Normal" HorizontalAlignment="Right" VerticalAlignment="Top" Height="37" Width="132" Click="addBaseStationsToList_Click" RenderTransformOrigin="0.5,0.5" Grid.Column="4" Margin="0,54,3,0" FontSize="16" FontFamily="Heebo" Grid.RowSpan="2" Grid.ColumnSpan="2">
+        <Button x:Name="addBaseStationsToList"  Style="{DynamicResource roundButton}" Content="הוסף תחנת בסיס" FontWeight="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="33" Width="132"  Click="addBaseStationsToList_Click" RenderTransformOrigin="0.5,0.5" Grid.Column="4" Margin="132,57,0,0" FontSize="16" FontFamily="Heebo" Grid.RowSpan="2" Grid.ColumnSpan="2">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

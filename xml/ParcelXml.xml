@@ -193,36 +193,12 @@
     <Delivered>2022-01-16T21:04:53.0361606+02:00</Delivered>
   </Parcel>
   <Parcel>
-    <Id>35</Id>
-    <Senderld>226881140</Senderld>
-    <Targetld>226881140</Targetld>
-    <Weight>light</Weight>
-    <Priority>normal</Priority>
-    <Requested>2022-01-16T21:06:10.3190853+02:00</Requested>
-    <Droneld>0</Droneld>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-  </Parcel>
-  <Parcel>
     <Id>36</Id>
     <Senderld>860761028</Senderld>
     <Targetld>860761028</Targetld>
     <Weight>medium</Weight>
     <Priority>normal</Priority>
     <Requested>2022-01-16T21:08:43.4798298+02:00</Requested>
-    <Droneld>0</Droneld>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-  </Parcel>
-  <Parcel>
-    <Id>38</Id>
-    <Senderld>226881140</Senderld>
-    <Targetld>226881140</Targetld>
-    <Weight>medium</Weight>
-    <Priority>fast</Priority>
-    <Requested>2022-01-16T21:13:02.6508332+02:00</Requested>
     <Droneld>0</Droneld>
     <Scheduled xsi:nil="true" />
     <PickedUp xsi:nil="true" />
@@ -247,9 +223,45 @@
     <Weight>medium</Weight>
     <Priority>emergency</Priority>
     <Requested>2022-01-16T21:11:48.9107764+02:00</Requested>
-    <Droneld>78945</Droneld>
-    <Scheduled>2022-01-16T21:33:14.7361867+02:00</Scheduled>
+    <Droneld>456789</Droneld>
+    <Scheduled>2022-01-17T00:13:36.5836334+02:00</Scheduled>
+    <PickedUp>2022-01-17T00:13:38.9072306+02:00</PickedUp>
+    <Delivered>2022-01-17T00:13:40.9450606+02:00</Delivered>
+  </Parcel>
+  <Parcel>
+    <Id>35</Id>
+    <Senderld>226881140</Senderld>
+    <Targetld>226881140</Targetld>
+    <Weight>light</Weight>
+    <Priority>normal</Priority>
+    <Requested>2022-01-16T21:06:10.3190853+02:00</Requested>
+    <Droneld>1234</Droneld>
+    <Scheduled>2022-01-17T00:54:29.1495385+02:00</Scheduled>
+    <PickedUp>2022-01-17T00:54:29.6723572+02:00</PickedUp>
+    <Delivered>2022-01-17T00:54:30.2241167+02:00</Delivered>
+  </Parcel>
+  <Parcel>
+    <Id>38</Id>
+    <Senderld>226881140</Senderld>
+    <Targetld>226881140</Targetld>
+    <Weight>medium</Weight>
+    <Priority>fast</Priority>
+    <Requested>2022-01-16T21:13:02.6508332+02:00</Requested>
+    <Droneld>456789</Droneld>
+    <Scheduled>2022-01-17T01:06:27.6465302+02:00</Scheduled>
     <PickedUp xsi:nil="true" />
     <Delivered xsi:nil="true" />
+  </Parcel>
+  <Parcel>
+    <Id>40</Id>
+    <Senderld>860761028</Senderld>
+    <Targetld>860761028</Targetld>
+    <Weight>medium</Weight>
+    <Priority>emergency</Priority>
+    <Requested>2022-01-17T01:09:30.957256+02:00</Requested>
+    <Droneld>78945</Droneld>
+    <Scheduled>2022-01-17T01:11:01.9566242+02:00</Scheduled>
+    <PickedUp>2022-01-17T02:09:12.2468358+02:00</PickedUp>
+    <Delivered>2022-01-17T02:09:14.6073457+02:00</Delivered>
   </Parcel>
 </ArrayOfParcel>

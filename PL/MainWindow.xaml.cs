@@ -16,7 +16,7 @@ using BlApi;
 using BO;
 using BL;
 using System.Collections.ObjectModel;
-
+using PL.Pages;
 namespace PL
 {
 
@@ -36,6 +36,7 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
+            tableLists.Content = new mainVideo();
         }
 
         private void ViewDroneList_Click(object sender, RoutedEventArgs e)
@@ -57,13 +58,17 @@ namespace PL
 
         private void ViewParcelList_Click(object sender, RoutedEventArgs e)
         {
-            tableLists.Content = new ParcelsListPage(mainBl);
-            
+            tableLists.Content = new ParcelsListPage(mainBl);           
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void viewMainVideo_Click(object sender, RoutedEventArgs e)
+        {
+            tableLists.Content = new mainVideo();
         }
     }
 }

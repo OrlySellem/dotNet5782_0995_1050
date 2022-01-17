@@ -22,6 +22,7 @@ namespace PL
     /// </summary>
     public partial class ParcelWindow : Window
     {
+        
         #region ADD Parcel
 
         BlApi.IBL approachBL;
@@ -150,33 +151,18 @@ namespace PL
             Requested.SelectedDate = selectedParcel.Requested;
             Requested.IsEnabled = false;
             Scheduled.IsEnabled = false;
-       
+            PickedUp.IsEnabled = false;
+            Delivered.IsEnabled = false;
 
             if (selectedParcel.Scheduled == null)
             {
-                delParcel.Visibility = Visibility.Visible;
-                PickedUp.IsEnabled = false;
-                Delivered.IsEnabled = false;
+                delParcel.Visibility = Visibility.Visible;              
             }
             else
             {
-                delParcel.Visibility = Visibility.Hidden;
-                PickedUp.IsEnabled = true;              
+                delParcel.Visibility = Visibility.Hidden;                      
             }
-            if (selectedParcel.PickedUp != null) 
-            {
-                if(selectedParcel.Delivered == null)
-                {
-                    PickedUp.IsEnabled = false;
-                    Delivered.IsEnabled = true;
-                }
-                else
-                {
-                    PickedUp.IsEnabled = false;
-                    Delivered.IsEnabled = false;
-                }
-                  
-            }
+           
         }
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
@@ -194,7 +180,7 @@ namespace PL
                 if (Delivered != null)
                     approachBL.deliveryArivveToCustomer(selectedParcel.Id, Delivered.DisplayDate);
 
-                UpdateData.IsEnabled = false;
+                
             }
             catch (DelivereyAlreadyArrive)
             {

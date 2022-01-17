@@ -55,9 +55,10 @@
             </ListView.View>
 
         </ListView>
-        <Button Style="{DynamicResource roundButton}" x:Name="addParcelToList" Content="הוסף חבילה" Grid.Column="5" HorizontalAlignment="Left" Margin="18,5,0,0" VerticalAlignment="Top" Height="33" Width="102" Click="AddParcelToList_Click" FontSize="16" FontFamily="Heebo" Grid.Row="1"/>
-        <Button Style="{DynamicResource roundButton}" x:Name="groupingSender"  Content="קבץ לפי שולח" HorizontalAlignment="Left" Margin="6,11,0,0" VerticalAlignment="Top" Height="26" Width="116" Click="groupingSender_Click" FontFamily="Heebo" FontSize="16" Grid.Row="1" Grid.Column="3"/>
-        <Button Style="{DynamicResource roundButton}" x:Name="groupingTarget"  Content="קבץ לפי מקבל" HorizontalAlignment="Left" Margin="8,11,0,0" VerticalAlignment="Top" Height="26" Width="112" Click="groupingTarget_Click" FontFamily="Heebo" FontSize="16" Grid.Row="1" Grid.Column="4"/>
+        <Button Style="{DynamicResource roundButton}" x:Name="addParcelToList" Content="הוסף חבילה" Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36" Width="112" Click="AddParcelToList_Click" FontSize="16" FontFamily="Heebo" Grid.Row="1" Margin="6,2,0,0"/>
+        <Button Style="{DynamicResource roundButton}" x:Name="groupingSender"  Content="קבץ לפי שולח" HorizontalAlignment="Left" Margin="133,4,0,0" VerticalAlignment="Top" Height="32" Width="122" Click="groupingSender_Click" FontFamily="Heebo" FontSize="16" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Button Style="{DynamicResource roundButton}" x:Name="groupingTarget"  Content="קבץ לפי מקבל" HorizontalAlignment="Left" Margin="3,4,0,0" VerticalAlignment="Top" Height="32" Width="120" Click="groupingTarget_Click" FontFamily="Heebo" FontSize="16" Grid.Row="1" Grid.Column="2"/>
+        <Button x:Name="refresh" Style="{DynamicResource roundButton}" Content="רענן" HorizontalAlignment="Left" Margin="67,4,0,0" VerticalAlignment="Top" Width="40" Height="33" FontFamily="Heebo" FontSize="16" Click="refresh_Click" Grid.Row="1"/>
 
     </Grid>
 </Page>

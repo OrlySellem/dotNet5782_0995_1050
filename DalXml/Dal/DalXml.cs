@@ -312,8 +312,10 @@ namespace Dal
             var listStation = XMLTools.LoadListFromXMLSerializer<Station>(stationPath);
             Station stationToUpdate = listStation.Find(x => x.Id == droneCharge.Stationld);
             listStation.Remove(stationToUpdate);
-            plusChargeSlots(ref stationToUpdate);
+            XMLTools.SaveListToXMLSerializer(listStation, stationPath);
+            plusChargeSlots(ref stationToUpdate);         
             addStaion(stationToUpdate);
+
 
             var listDroneCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(droneChargePath);
             listDroneCharge.Remove(droneCharge);

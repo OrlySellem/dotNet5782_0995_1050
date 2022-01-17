@@ -1,31 +1,10 @@
 <?xml version="1.0"?>
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Station>
-    <Id>1234</Id>
-    <Name>11</Name>
-    <Longitude>-43.59633027522933</Longitude>
-    <Lattitude>92.4770642201835</Lattitude>
-    <ChargeSlots>14</ChargeSlots>
-  </Station>
-  <Station>
-    <Id>4567</Id>
-    <Name>8</Name>
-    <Longitude>-38.99082568807341</Longitude>
-    <Lattitude>55.48623853211014</Lattitude>
-    <ChargeSlots>5</ChargeSlots>
-  </Station>
-  <Station>
     <Id>123</Id>
     <Name>56</Name>
     <Longitude>-27.615384615384613</Longitude>
     <Lattitude>32.00436944144704</Lattitude>
-    <ChargeSlots>5</ChargeSlots>
-  </Station>
-  <Station>
-    <Id>789</Id>
-    <Name>812</Name>
-    <Longitude>-21.428571428571423</Longitude>
-    <Lattitude>99.86265869605364</Lattitude>
     <ChargeSlots>5</ChargeSlots>
   </Station>
   <Station>
@@ -62,5 +41,40 @@
     <Longitude>27.076923076923066</Longitude>
     <Lattitude>-78.76919956441192</Lattitude>
     <ChargeSlots>8</ChargeSlots>
+  </Station>
+  <Station>
+    <Id>789</Id>
+    <Name>81</Name>
+    <Longitude>-21.428571428571423</Longitude>
+    <Lattitude>99.86265869605364</Lattitude>
+    <ChargeSlots>5</ChargeSlots>
+  </Station>
+  <Station>
+    <Id>123</Id>
+    <Name>56</Name>
+    <Longitude>-27.615384615384613</Longitude>
+    <Lattitude>32.00436944144704</Lattitude>
+    <ChargeSlots>4</ChargeSlots>
+  </Station>
+  <Station>
+    <Id>4567</Id>
+    <Name>8</Name>
+    <Longitude>-38.99082568807341</Longitude>
+    <Lattitude>55.48623853211014</Lattitude>
+    <ChargeSlots>4</ChargeSlots>
+  </Station>
+  <Station>
+    <Id>5678</Id>
+    <Name>789</Name>
+    <Longitude>27.076923076923066</Longitude>
+    <Lattitude>-78.76919956441192</Lattitude>
+    <ChargeSlots>7</ChargeSlots>
+  </Station>
+  <Station>
+    <Id>1234</Id>
+    <Name>11</Name>
+    <Longitude>-43.59633027522933</Longitude>
+    <Lattitude>92.4770642201835</Lattitude>
+    <ChargeSlots>16</ChargeSlots>
   </Station>
 </ArrayOfStation>
